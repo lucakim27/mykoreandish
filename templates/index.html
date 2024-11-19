@@ -1,10 +1,10 @@
 <!doctype html>
 <head>
-  <title>Best meal plan</title>
+  <title>Korean meal recommendation</title>
   <link rel="stylesheet" href="../static/css/index.css">
 </head>
 <body>
-    <h1>Your best meal plan ever</h1>
+    <h1>Korean meal recommendation</h1>
 
     <form action="/recommendation" method="post">
       <div id="selectBox">
@@ -19,17 +19,6 @@
             <option value="nut_free">Nut-free</option>
             <option value="halal">Halal</option>
             <option value="kosher">Kosher</option>
-          </select>
-        </p>
-
-        <p>Cuisine Preferences:
-          <select name="cuisine_preference" id="cuisine_preference">
-            <option value="any">Any</option>
-            <option value="asian">Asian</option>
-            <option value="european">European</option>
-            <option value="american">American</option>
-            <option value="middle_eastern">Middle Eastern</option>
-            <option value="african">African</option>
           </select>
         </p>
 
@@ -125,15 +114,6 @@
           </select>
         </p>
         
-        <p>User Location:
-          <select name="user_location" id="user_location">
-            <option value="any">Any</option>
-            <option value="regional">Regional cuisine</option>
-            <option value="local">Local seasonal ingredients</option>
-            <option value="nearby">Nearby delivery options</option>
-          </select>
-        </p>
-        
         <p>Sustainability:
           <select name="sustainability" id="sustainability">
             <option value="any">Any</option>
@@ -147,7 +127,6 @@
         <p>User Preferences:
           <select name="user_preferences" id="user_preferences">
             <option value="any">Any</option>
-            <option value="favorite_dishes">Favorite dishes</option>
             <option value="frequent_recipes">Frequently chosen recipes</option>
             <option value="rating_based">Suggestions based on ratings</option>
           </select>

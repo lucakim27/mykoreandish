@@ -1,12 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Meal Recommendation</title>
-  <link rel="stylesheet" href="../static/css/recommendation.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Recommendation</title>
+    <link rel="stylesheet" href="../static/css/recommendation.css">
 </head>
 <body>
-  <h1>Your Recommendation</h1>
-  <p>{{ recommendation }}</p>
-  <a href="/">Go Back</a>
+    <h1>Korean Meal Recommendation</h1>
+
+    <div id="recommendation-results">
+        {% if recommendation and recommendation[0]["dish_name"] != "No match found" %}
+            <!-- <h2>Recommended Dishes</h2> -->
+            <ul>
+                {% for dish in recommendation %}
+                    <li>
+                        <h2>{{ dish["dish_name"] }}</h2>
+                        <p><strong>Dietary Restrictions:</strong> {{ dish.get("dietary_restrictions", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Health Goals:</strong> {{ dish.get("health_goals", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Meal Type:</strong> {{ dish.get("meal_type", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Time to Prepare:</strong> {{ dish.get("time_to_prepare", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Ingredient Availability:</strong> {{ dish.get("ingredient_availability", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Cooking Equipment:</strong> {{ dish.get("cooking_equipment", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Budget:</strong> {{ dish.get("budget", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Occasion:</strong> {{ dish.get("occasion", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Taste Preferences:</strong> {{ dish.get("taste_preferences", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <p><strong>Sustainability:</strong> {{ dish.get("sustainability", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2>No Matches Found</h2>
+            <p>Try relaxing the filters or selecting different criteria.</p>
+        {% endif %}
+    </div>
+
+    <div id="buttonBox">
+        <a href="/" class="button">Back to Home</a>
+    </div>
 </body>
 </html>

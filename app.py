@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from utils.filter import make_recommendation
 
 app = Flask(__name__)
 
@@ -12,27 +13,9 @@ def page_not_found(error):
 
 @app.route('/recommendation', methods=['POST'])
 def recommendation():
-    # Get form values
-    dietary_restrictions = request.form.get('dietary_restrictions', '')
-    cuisine_preferences = request.form.get('cuisine_preference', '')
-    # Add other form fields here...
-
-    # Process the values to make a recommendation
-    recommendation = make_recommendation(
-        dietary_restrictions=dietary_restrictions,
-        cuisine_preferences=cuisine_preferences,
-        # Pass other form values...
-    )
-
-    # Render the recommendation to the user
+    criteria = {key: value.lower() for key, value in request.form.items()}
+    recommendation = make_recommendation(**criteria)
     return render_template('recommendation.html', recommendation=recommendation)
 
-def make_recommendation(dietary_restrictions, cuisine_preferences):
-    print(dietary_restrictions, cuisine_preferences)
-    # Replace this with your recommendation logic
-    if dietary_restrictions == "vegetarian" and cuisine_preferences == "asian":
-        return "Try a delicious vegetarian stir-fry!"
-    elif cuisine_preferences == "european":
-        return "How about some pasta with fresh vegetables?"
-    else:
-        return "Explore a variety of recipes that match your preferences!"
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80)

@@ -19,7 +19,6 @@ Sundaeguk,any,high_protein;low_carb,dinner,moderate,specific,stove,moderate,casu
 Ganjang Gejang,any,low_calorie;heart_healthy,lunch,quick,specific,no_cook,premium,romantic,savory,organic
 Dakjuk,vegetarian,high_fiber;liver_health,dinner,moderate,common,stove,moderate,casual,umami,plant_based
 Sikhye,any,low_calorie;heart_healthy,desserts,quick,specific,no_cook,low_cost,casual,sweet;savory,sustainable_ingredients
-Kimchi Fried Rice,vegetarian;gluten_free,low_fat;high_fiber,light_meals;dinner,quick,common,stove,low_cost,casual;family,spicy;salty,plant_based
 Kimchi Jeongol,any,low_calorie;heart_healthy,dinner,moderate,common,stove,moderate,casual,savory,plant_based
 Kongguksu,any,low_calorie;heart_healthy,lunch,quick,specific,stove,moderate,casual,savory,organic
 Bulgogi Hotpot,any,high_protein;heart_healthy,dinner,moderate,common,stove,moderate,romantic,savory,organic
@@ -45,4 +44,3 @@ Galbi Jjim,any,high_protein;liver_health,dinner,moderate,common,stove,moderate,r
 Jjamppong,any,high_protein;low_carb,dinner,moderate,common,stove,moderate,casual,spicy;savory,eco_friendly
 Odeng,any,low_fat,side,quick,common,stove,low_cost,casual,savory,plant_based
 Gyeranjjim,vegetarian,high_fiber,side,quick,common,stove,low_cost,casual,sweet,eco_friendly
-Baechu Kimchi,any,high_fiber,side,quick,common,stove,low_cost,casual,savory,eco_friendly

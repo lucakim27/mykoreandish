@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
-from utils.filter import make_recommendation
+from utils.filter import DishManager
+
+manager = DishManager('csv/dishes.csv')
 
 app = Flask(__name__)
 
@@ -14,7 +16,7 @@ def page_not_found(error):
 @app.route('/recommendation', methods=['POST'])
 def recommendation():
     criteria = {key: value.lower() for key, value in request.form.items()}
-    recommendation = make_recommendation(**criteria)
+    recommendation = manager.make_recommendation(**criteria)
     return render_template('recommendation.html', recommendation=recommendation)
 
 if __name__ == '__main__':

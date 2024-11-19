@@ -10,22 +10,21 @@
     <h1>Korean Meal Recommendation</h1>
 
     <div id="recommendation-results">
-        {% if recommendation and recommendation[0]["dish_name"] != "No match found" %}
-            <!-- <h2>Recommended Dishes</h2> -->
+        {% if recommendation and recommendation[0].dish_name != "No match found" %}
             <ul>
                 {% for dish in recommendation %}
                     <li>
-                        <h2>{{ dish["dish_name"] }}</h2>
-                        <p><strong>Dietary Restrictions:</strong> {{ dish.get("dietary_restrictions", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Health Goals:</strong> {{ dish.get("health_goals", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Meal Type:</strong> {{ dish.get("meal_type", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Time to Prepare:</strong> {{ dish.get("time_to_prepare", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Ingredient Availability:</strong> {{ dish.get("ingredient_availability", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Cooking Equipment:</strong> {{ dish.get("cooking_equipment", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Budget:</strong> {{ dish.get("budget", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Occasion:</strong> {{ dish.get("occasion", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Taste Preferences:</strong> {{ dish.get("taste_preferences", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
-                        <p><strong>Sustainability:</strong> {{ dish.get("sustainability", "N/A").replace('_', ' ').replace(';', ', ') }}</p>
+                        <h2>{{ dish.dish_name }}</h2>
+                        <p><strong>Dietary Restrictions:</strong> {{ dish.dietary_restrictions | join(', ') | replace('_', ' ') }}</p>
+                        <p><strong>Health Goals:</strong> {{ dish.health_goals | join(', ') | replace('_', ' ') }}</p>
+                        <p><strong>Meal Type:</strong> {{ dish.meal_type | join(', ') | replace('_', ' ') }}</p>
+                        <p><strong>Time to Prepare:</strong> {{ dish.time_to_prepare | replace('_', ' ') }}</p>
+                        <p><strong>Ingredient Availability:</strong> {{ dish.ingredient_availability | replace('_', ' ') }}</p>
+                        <p><strong>Cooking Equipment:</strong> {{ dish.cooking_equipment | join(', ') | replace('_', ' ') }}</p>
+                        <p><strong>Budget:</strong> {{ dish.budget | replace('_', ' ') }}</p>
+                        <p><strong>Occasion:</strong> {{ dish.occasion | join(', ') | replace('_', ' ') }}</p>
+                        <p><strong>Taste Preferences:</strong> {{ dish.taste_preferences | join(', ') | replace('_', ' ') }}</p>
+                        <p><strong>Sustainability:</strong> {{ dish.sustainability | replace('_', ' ') }}</p>
                     </li>
                 {% endfor %}
             </ul>

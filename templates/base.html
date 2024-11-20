@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <link rel="stylesheet" href="../static/css/flash.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div id="topBar">
+        <h1>Korean Meal Recommendation</h1>
+        <div class="auth-links">
+          {% if session.get('username') %}
+              <span>Welcome, {{ session['username'] }}!</span>
+              <a href="/logout">Logout</a>
+          {% else %}
+              <a href="/login">Login</a>
+              <a href="/register">Register</a>
+          {% endif %}
+        </div>
+      </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flashes">
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

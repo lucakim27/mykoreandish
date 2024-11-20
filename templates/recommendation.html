@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Recommendation</title>
-    <link rel="stylesheet" href="../static/css/recommendation.css">
-</head>
-<body>
-    <h1>Korean Meal Recommendation</h1>
-
+{% extends "base.html" %}
+{% block title %}Recommendation{% endblock %}
+{% block page_specific_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/css/index.css') }}">
+{% endblock %}
+{% block content %}
     <div id="recommendation-results">
         {% if recommendation and recommendation[0].dish_name != "No match found" %}
-            <ul>
+            <ul class="food-container">
                 {% for dish in recommendation %}
-                    <li>
+                    <li class="food-box">
                         <h2>{{ dish.dish_name }}</h2>
                         <p><strong>Dietary Restrictions:</strong> {{ dish.dietary_restrictions | join(', ') | replace('_', ' ') }}</p>
                         <p><strong>Health Goals:</strong> {{ dish.health_goals | join(', ') | replace('_', ' ') }}</p>
@@ -33,9 +28,7 @@
             <p>Try relaxing the filters or selecting different criteria.</p>
         {% endif %}
     </div>
-
     <div id="buttonBox">
         <a href="/" class="button">Back to Home</a>
     </div>
-</body>
-</html>
+{% endblock %}

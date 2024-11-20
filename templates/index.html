@@ -1,139 +1,134 @@
-<!doctype html>
-<head>
-  <title>Korean meal recommendation</title>
-  <link rel="stylesheet" href="../static/css/index.css">
-</head>
-<body>
-    <h1>Korean meal recommendation</h1>
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+  <form action="/recommendation" method="post">
+    <div id="selectBox">
+      <p>Dietary Restrictions and Allergies:
+        <select name="dietary_restrictions" id="dietary_restrictions">
+          <option value="any">Any</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="pescatarian">Pescatarian</option>
+          <option value="gluten_free">Gluten-free</option>
+          <option value="lactose_free">Lactose-free</option>
+          <option value="nut_free">Nut-free</option>
+          <option value="halal">Halal</option>
+          <option value="kosher">Kosher</option>
+        </select>
+      </p>
 
-    <form action="/recommendation" method="post">
-      <div id="selectBox">
-        <p>Dietary Restrictions and Allergies:
-          <select name="dietary_restrictions" id="dietary_restrictions">
-            <option value="any">Any</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="vegan">Vegan</option>
-            <option value="pescatarian">Pescatarian</option>
-            <option value="gluten_free">Gluten-free</option>
-            <option value="lactose_free">Lactose-free</option>
-            <option value="nut_free">Nut-free</option>
-            <option value="halal">Halal</option>
-            <option value="kosher">Kosher</option>
-          </select>
-        </p>
-
-        <p>Health Goals:
-          <select name="health_goals" id="health_goals">
-            <option value="any">Any</option>
-            <option value="high_protein">High-protein</option>
-            <option value="low_carb">Low-carb</option>
-            <option value="keto_friendly">Keto-friendly</option>
-            <option value="low_calorie">Low-calorie</option>
-            <option value="low_fat">Low-fat</option>
-            <option value="high_fiber">High-fiber</option>
-            <option value="heart_healthy">Heart-healthy</option>
-          </select>
-        </p>
-        
-        <p>Meal Type:
-          <select name="meal_type" id="meal_type">
-            <option value="any">Any</option>
-            <option value="breakfast">Breakfast</option>
-            <option value="lunch">Lunch</option>
-            <option value="dinner">Dinner</option>
-            <option value="snacks">Snacks</option>
-            <option value="desserts">Desserts</option>
-            <option value="beverages">Beverages</option>
-            <option value="light_meals">Light meals</option>
-            <option value="heavy_meals">Heavy meals</option>
-          </select>
-        </p>
-        
-        <p>Time to Prepare:
-          <select name="time_to_prepare" id="time_to_prepare">
-            <option value="any">Any</option>
-            <option value="quick">Quick meals (&lt; 30 minutes)</option>
-            <option value="moderate">Moderate (30-60 minutes)</option>
-            <option value="long">Long meals (&gt; 1 hour)</option>
-          </select>
-        </p>
-        
-        <p>Ingredient Availability:
-          <select name="ingredient_availability" id="ingredient_availability">
-            <option value="any">Any</option>
-            <option value="common">Common pantry ingredients</option>
-            <option value="seasonal">Seasonal produce</option>
-            <option value="specific">Specific ingredients</option>
-          </select>
-        </p>
-        
-        <p>Cooking Equipment:
-          <select name="cooking_equipment" id="cooking_equipment">
-            <option value="any">Any</option>
-            <option value="stove">Stove</option>
-            <option value="oven">Oven</option>
-            <option value="air_fryer">Air fryer</option>
-            <option value="microwave">Microwave</option>
-            <option value="no_cook">No-cook</option>
-            <option value="specialized_tools">Specialized tools</option>
-          </select>
-        </p>
-        
-        <p>Budget:
-          <select name="budget" id="budget">
-            <option value="any">Any</option>
-            <option value="low_cost">Low-cost</option>
-            <option value="moderate">Moderate pricing</option>
-            <option value="premium">Premium</option>
-          </select>
-        </p>
-        
-        <p>Occasion:
-          <select name="occasion" id="occasion">
-            <option value="any">Any</option>
-            <option value="casual">Casual everyday meals</option>
-            <option value="party">Party</option>
-            <option value="romantic">Romantic dinner</option>
-            <option value="family">Family-style</option>
-            <option value="kid_friendly">Kid-friendly</option>
-          </select>
-        </p>
-        
-        <p>Taste Preferences:
-          <select name="taste_preference" id="taste_preference">
-            <option value="any">Any</option>
-            <option value="spicy">Spicy</option>
-            <option value="sweet">Sweet</option>
-            <option value="sour">Sour</option>
-            <option value="salty">Salty</option>
-            <option value="umami">Umami</option>
-            <option value="comfort_food">Comfort food</option>
-            <option value="exotic">Exotic</option>
-            <option value="crunchy">Crunchy</option>
-            <option value="creamy">Creamy</option>
-          </select>
-        </p>
-        
-        <p>Sustainability:
-          <select name="sustainability" id="sustainability">
-            <option value="any">Any</option>
-            <option value="plant_based">Plant-based</option>
-            <option value="eco_friendly">Eco-friendly</option>
-            <option value="sustainable_ingredients">Sustainable ingredients</option>
-            <option value="organic">Organic</option>
-          </select>
-        </p>
-        
-        <p>User Preferences:
-          <select name="user_preferences" id="user_preferences">
-            <option value="any">Any</option>
-            <option value="frequent_recipes">Frequently chosen recipes</option>
-            <option value="rating_based">Suggestions based on ratings</option>
-          </select>
-        </p>
-      </div>
-      <div id="buttonBox">
-        <button type="submit">Search</button>
-      </div>
-    </form>
-</body>
+      <p>Health Goals:
+        <select name="health_goals" id="health_goals">
+          <option value="any">Any</option>
+          <option value="high_protein">High-protein</option>
+          <option value="low_carb">Low-carb</option>
+          <option value="keto_friendly">Keto-friendly</option>
+          <option value="low_calorie">Low-calorie</option>
+          <option value="low_fat">Low-fat</option>
+          <option value="high_fiber">High-fiber</option>
+          <option value="heart_healthy">Heart-healthy</option>
+        </select>
+      </p>
+      
+      <p>Meal Type:
+        <select name="meal_type" id="meal_type">
+          <option value="any">Any</option>
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+          <option value="snacks">Snacks</option>
+          <option value="desserts">Desserts</option>
+          <option value="beverages">Beverages</option>
+          <option value="light_meals">Light meals</option>
+          <option value="heavy_meals">Heavy meals</option>
+        </select>
+      </p>
+      
+      <p>Time to Prepare:
+        <select name="time_to_prepare" id="time_to_prepare">
+          <option value="any">Any</option>
+          <option value="quick">Quick meals (&lt; 30 minutes)</option>
+          <option value="moderate">Moderate (30-60 minutes)</option>
+          <option value="long">Long meals (&gt; 1 hour)</option>
+        </select>
+      </p>
+      
+      <p>Ingredient Availability:
+        <select name="ingredient_availability" id="ingredient_availability">
+          <option value="any">Any</option>
+          <option value="common">Common pantry ingredients</option>
+          <option value="seasonal">Seasonal produce</option>
+          <option value="specific">Specific ingredients</option>
+        </select>
+      </p>
+      
+      <p>Cooking Equipment:
+        <select name="cooking_equipment" id="cooking_equipment">
+          <option value="any">Any</option>
+          <option value="stove">Stove</option>
+          <option value="oven">Oven</option>
+          <option value="air_fryer">Air fryer</option>
+          <option value="microwave">Microwave</option>
+          <option value="no_cook">No-cook</option>
+          <option value="specialized_tools">Specialized tools</option>
+        </select>
+      </p>
+      
+      <p>Budget:
+        <select name="budget" id="budget">
+          <option value="any">Any</option>
+          <option value="low_cost">Low-cost</option>
+          <option value="moderate">Moderate pricing</option>
+          <option value="premium">Premium</option>
+        </select>
+      </p>
+      
+      <p>Occasion:
+        <select name="occasion" id="occasion">
+          <option value="any">Any</option>
+          <option value="casual">Casual everyday meals</option>
+          <option value="party">Party</option>
+          <option value="romantic">Romantic dinner</option>
+          <option value="family">Family-style</option>
+          <option value="kid_friendly">Kid-friendly</option>
+        </select>
+      </p>
+      
+      <p>Taste Preferences:
+        <select name="taste_preference" id="taste_preference">
+          <option value="any">Any</option>
+          <option value="spicy">Spicy</option>
+          <option value="sweet">Sweet</option>
+          <option value="sour">Sour</option>
+          <option value="salty">Salty</option>
+          <option value="umami">Umami</option>
+          <option value="comfort_food">Comfort food</option>
+          <option value="exotic">Exotic</option>
+          <option value="crunchy">Crunchy</option>
+          <option value="creamy">Creamy</option>
+        </select>
+      </p>
+      
+      <p>Sustainability:
+        <select name="sustainability" id="sustainability">
+          <option value="any">Any</option>
+          <option value="plant_based">Plant-based</option>
+          <option value="eco_friendly">Eco-friendly</option>
+          <option value="sustainable_ingredients">Sustainable ingredients</option>
+          <option value="organic">Organic</option>
+        </select>
+      </p>
+      
+      <p>User Preferences:
+        <select name="user_preferences" id="user_preferences">
+          <option value="any">Any</option>
+          <option value="frequent_recipes">Frequently chosen recipes</option>
+          <option value="rating_based">Suggestions based on ratings</option>
+        </select>
+      </p>
+    </div>
+    <div id="buttonBox">
+      <button type="submit">Search</button>
+    </div>
+  </form>
+{% endblock %}

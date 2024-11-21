@@ -13,13 +13,14 @@
         <div class="auth-links">
           {% if session.get('username') %}
               <span>Welcome, {{ session['username'] }}!</span>
+              <a href="/history">History</a>
               <a href="/logout">Logout</a>
           {% else %}
               <a href="/login">Login</a>
               <a href="/register">Register</a>
           {% endif %}
         </div>
-      </div>
+    </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

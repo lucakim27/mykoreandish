@@ -1,35 +1,24 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
-from utils.filter import DishManager
-
-manager = DishManager('csv/dishes.csv')
+from flask import Flask, render_template, request, redirect, url_for, session
+from utils.dish import DishManager
+from utils.auth import login_user, register_user, logout_user, get_logged_in_user, fetch_user_history
 
 app = Flask(__name__)
-
-app.secret_key = "your_secret_key"  # Replace with a strong random key
+app.secret_key = "secret_key_123"
+manager = DishManager('csv/dishes.csv')
 
 @app.route('/')
 def index():
-    if 'username' in session:
-        return render_template('index.html', username=session['username'])
-    return render_template('index.html')
-
-users = {"testuser": "password123"}  # Example user credentials (username: password)
+    username = get_logged_in_user()
+    return render_template('index.html', username=username)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        
-        # Check if the username and password are correct
-        if username in users and users[username] == password:
-            session['username'] = username  # Store the username in the session
-            flash('Login successful!', 'success')
+        if login_user(username, password):
             return redirect(url_for('index'))
-        else:
-            flash('Invalid username or password.', 'error')
-            return redirect(url_for('login'))
-    
+        return redirect(url_for('login'))
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -37,31 +26,50 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
-        if username in users:
-            flash('Username already exists. Please choose another one.', 'error')
-            return redirect(url_for('register'))
-        
-        users[username] = password  # Add new user to the "database"
-        flash('Registration successful! You can now log in.', 'success')
-        return redirect(url_for('login'))
-    
+        if register_user(username, password):
+            return redirect(url_for('login'))
+        return redirect(url_for('register'))
     return render_template('register.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)  # Remove username from the session
-    flash('You have been logged out.', 'info')
+    logout_user()
     return redirect(url_for('index'))
 
-# Recommendation route
 @app.route('/recommendation', methods=['POST'])
 def recommendation():
     criteria = {key: value.lower() for key, value in request.form.items()}
     recommendation = manager.make_recommendation(**criteria)
     return render_template('recommendation.html', recommendation=recommendation)
 
-# 404 error handler
+@app.route('/food/<name>', methods=['POST'])
+def food(name=None):
+    dish = manager.get_food_by_name(name)
+    return render_template('food.html', dish=dish)
+
+@app.route('/history')
+def history():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    username = session['username']
+    user_history = fetch_user_history(username)
+
+    return render_template('history.html', item=user_history)
+
+@app.route('/rate', methods=['POST'])
+def rate():
+    dish_id = request.form.get('dish_id')
+    rating = request.form.get('rating')
+
+    # Add logic to store the rating in the database
+    # Example:
+    # db.execute("INSERT INTO ratings (dish_id, rating) VALUES (?, ?)", (dish_id, rating))
+    
+    # flash(f'Thank you for rating dish {dish_id} with {rating} star(s)!', 'success')
+    return redirect(url_for('history'))  # Redirect back to the history page
+
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('page_not_found.html'), 404

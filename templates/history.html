@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+{% block content %}
+<div class="history-container">
+    <h2>Your Meal History</h2>
+    {% if history %}
+        <ul>
+            {% for item in history %}
+                <li>
+                    <div class="dish-details">
+                        <strong>{{ item.dish_name }}</strong>
+                        <img src="{{ item.image_url or 'path/to/default-image.jpg' }}" alt="{{ item.dish_name }}" class="dish-image" />
+                        <form action="/rate" method="POST" class="rating-form">
+                            <input type="hidden" name="dish_id" value="{{ item.dish_id }}">
+                            <div class="rating-container">
+                                <input type="radio" id="star-1-{{ item.dish_id }}" name="rating" value="1">
+                                <label for="star-1-{{ item.dish_id }}">&#9733;</label>
+                                <input type="radio" id="star-2-{{ item.dish_id }}" name="rating" value="2">
+                                <label for="star-2-{{ item.dish_id }}">&#9733;</label>
+                                <input type="radio" id="star-3-{{ item.dish_id }}" name="rating" value="3">
+                                <label for="star-3-{{ item.dish_id }}">&#9733;</label>
+                                <input type="radio" id="star-4-{{ item.dish_id }}" name="rating" value="4">
+                                <label for="star-4-{{ item.dish_id }}">&#9733;</label>
+                                <input type="radio" id="star-5-{{ item.dish_id }}" name="rating" value="5">
+                                <label for="star-5-{{ item.dish_id }}">&#9733;</label>
+                            </div>
+                            <button type="submit" class="rate-button">Submit Rating</button>
+                        </form>
+                    </div>
+                    <p class="date-text">Selected on: {{ item.date_selected }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not selected any meals yet.</p>
+    {% endif %}
+    <button onclick="window.location.href='/'" class="button">Back to Home</button>
+</div>
+{% endblock %}

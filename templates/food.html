@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Food Selection Confirmation{% endblock %}
+{% block content %}
+<div class="confirmation-container">
+    <h2>You have selected <strong>{{ dish.dish_name }}</strong>!</h2>
+    <p>This dish is a great choice based on your preferences!</p>
+
+    <div class="dish-image">
+        <img src="{{ dish.image_url or 'path/to/default-image.jpg' }}" alt="{{ dish.dish_name }}" />
+    </div>
+
+    <div class="nutrition-info">
+        <h3>Nutritional Information</h3>
+        <ul>
+            <li><strong>Calories:</strong> {{ dish.calories }} kcal</li>
+            <li><strong>Protein:</strong> {{ dish.protein }} g</li>
+            <li><strong>Carbs:</strong> {{ dish.carbs }} g</li>
+            <li><strong>Fats:</strong> {{ dish.fats }} g</li>
+        </ul>
+    </div>
+
+    <div class="button-box">
+        <a href="https://mykoreankitchen.com/?s={{ dish.dish_name | urlize }}" class="button recipe-button">Recipe</a>
+        <button onclick="window.location.href='/'" class="button home-button">Home</button>
+    </div>
+</div>
+{% endblock %}

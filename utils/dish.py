@@ -30,7 +30,6 @@ class Dish:
                         return False
         return True
 
-
 class DishManager:
     def __init__(self, file_path):
         self.file_path = file_path
@@ -62,4 +61,10 @@ class DishManager:
         if filtered_dishes:
             return filtered_dishes
         else:
-            return [{"Dish Name": "No match found", "Reason": "Try relaxing the filters."}]
+            return [{"dish_name": "No match found", "reason": "Try relaxing the filters."}]
+    
+    def get_food_by_name(self, name):
+        for dish in self.dishes:
+            if dish.dish_name.lower() == name.lower():
+                return dish
+        return None

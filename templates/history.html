@@ -6,7 +6,28 @@
     {% if items %}
         <ul>
         {% for item in items %}
-            <li>{{ item.dish_name }} - {{ item.timestamp }}</li>
+            <li>
+                <span>{{ item.dish_name }} - {{ item.timestamp.split('.')[0] }}</span>
+                <div class="rate-delete-container">
+                    <!-- Rating Form -->
+                    <form method="POST" action="{{ url_for('rate_dish') }}" style="display:inline;">
+                        <input type="hidden" name="history_id" value="{{ item.id }}">
+                        <div class="rating-container">
+                            {% for i in range(1, 6) %}
+                                <input type="radio" id="star-{{ item.id }}-{{ i }}" name="rating" value="{{ i }}"
+                                    {% if item.rating and item.rating == i %}checked{% endif %}>
+                                <label for="star-{{ item.id }}-{{ i }}">&#9733;</label>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="rate-button">Rate</button>
+                    </form>
+                    <!-- Delete Button -->
+                    <form method="POST" action="{{ url_for('delete_history') }}" style="display:inline;">
+                        <input type="hidden" name="history_id" value="{{ item.id }}">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </div>
+            </li>
         {% endfor %}
         </ul>
     {% else %}

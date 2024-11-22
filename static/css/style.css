@@ -413,8 +413,8 @@ h1 {
     color: #ff9800;
 }
 
-/* Submit Button Styling */
-.rate-button {
+.rate-button, .delete-button {
+    width: 80px;
     margin-top: 10px;
     padding: 8px 16px;
     font-size: 14px;
@@ -428,4 +428,110 @@ h1 {
 
 .rate-button:hover {
     background-color: #2980b9;
+}
+
+.history-container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.history-container h2 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.history-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.history-container ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    color: #555;
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Right side (star rating, rate button, and delete button) */
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Star rating styling */
+.star-rating {
+    direction: rtl;
+    display: inline-flex;
+    font-size: 1.5em;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f5c518;
+}
+
+/* Delete button styling */
+.delete-button {
+    background-color: #ff4d4d;
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+}
+
+/* Styling for "Back to Home" button */
+.history-container .button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.history-container .button:hover {
+    background-color: #0056b3;
+}
+
+/* Message for no history available */
+.history-container p {
+    font-size: 16px;
+    color: #888;
+    text-align: center;
+    margin: 20px 0;
 }

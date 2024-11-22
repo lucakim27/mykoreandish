@@ -1,4 +1,4 @@
-data/users.db
+data/app.db
 .venv
 __pycache__
 utils/__pycache__

@@ -109,9 +109,9 @@ class DishManager:
                 return []  # No history if user doesn't exist
             user_id = user_id[0]
 
-            # Get history of dishes selected by the user
+            # Get history of dishes selected by the user along with ratings
             cursor.execute('''
-                SELECT Dishes.dish_name, UserSelections.timestamp
+                SELECT UserSelections.id, Dishes.dish_name, UserSelections.timestamp, UserSelections.rating
                 FROM UserSelections
                 JOIN Dishes ON UserSelections.dish_id = Dishes.id
                 WHERE UserSelections.user_id = ?

@@ -6,7 +6,7 @@
         <ul class="food-container">
             {% for dish in recommendation %}
                 <li>
-                    <form action="/food/{{ dish.dish_name.lower() }}" method="POST" class="food-box">
+                    <form action="/food/{{ dish.dish_name }}" method="POST" class="food-box">
                         <button type="submit" class="food-box-button">
                             <h2>{{ dish.dish_name }}</h2>
                             <p><strong>Dietary Restrictions:</strong> {{ dish.dietary_restrictions | join(', ') | replace('_', ' ') }}</p>

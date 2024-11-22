@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from utils.dish import DishManager
-from utils.auth import login_user, register_user, logout_user, get_logged_in_user, fetch_user_history
+from utils.auth import login_user, register_user, logout_user, get_logged_in_user
+from utils.db import create_tables
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 app = Flask(__name__)
-app.secret_key = "secret_key_123"
-manager = DishManager('csv/dishes.csv')
+app.secret_key = os.getenv("SECRET_KEY")
+manager = DishManager()
 
 @app.route('/')
 def index():
@@ -44,7 +48,8 @@ def recommendation():
 
 @app.route('/food/<name>', methods=['POST'])
 def food(name=None):
-    dish = manager.get_food_by_name(name)
+    dish = manager.get_food_by_name(name)  # Fetch dish by name from database
+    manager.add_selection(get_logged_in_user(), name)
     return render_template('food.html', dish=dish)
 
 @app.route('/history')
@@ -53,26 +58,15 @@ def history():
         return redirect(url_for('login'))
 
     username = session['username']
-    user_history = fetch_user_history(username)
+    user_history = manager.get_user_history(username)
 
-    return render_template('history.html', item=user_history)
-
-@app.route('/rate', methods=['POST'])
-def rate():
-    dish_id = request.form.get('dish_id')
-    rating = request.form.get('rating')
-
-    # Add logic to store the rating in the database
-    # Example:
-    # db.execute("INSERT INTO ratings (dish_id, rating) VALUES (?, ?)", (dish_id, rating))
-    
-    # flash(f'Thank you for rating dish {dish_id} with {rating} star(s)!', 'success')
-    return redirect(url_for('history'))  # Redirect back to the history page
-
+    history_data = [{'dish_name': record[0], 'timestamp': record[1]} for record in user_history]
+    return render_template('history.html', items=history_data)
 
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
-if __name__ == '__main__':
+if __name__ == '_main_':
+    create_tables()
     app.run(host='0.0.0.0', port=80)

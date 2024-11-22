@@ -1,4 +1,6 @@
-import csv
+import sqlite3
+from contextlib import closing
+from datetime import datetime
 
 class Dish:
     def __init__(self, dish_name, dietary_restrictions, health_goals, meal_type, time_to_prepare,
@@ -21,7 +23,7 @@ class Dish:
                 attribute = getattr(self, key, None)
                 if not attribute:
                     return False
-                
+
                 if isinstance(attribute, list):
                     if value.lower() not in map(str.lower, map(str.strip, attribute)):
                         return False
@@ -30,41 +32,89 @@ class Dish:
                         return False
         return True
 
-class DishManager:
-    def __init__(self, file_path):
-        self.file_path = file_path
-        self.dishes = self.load_data()
 
-    def load_data(self):
-        dishes = []
-        with open(self.file_path, mode='r', encoding='utf-8') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                dish = Dish(
-                    dish_name=row['dish_name'],
-                    dietary_restrictions=row['dietary_restrictions'],
-                    health_goals=row['health_goals'],
-                    meal_type=row['meal_type'],
-                    time_to_prepare=row['time_to_prepare'],
-                    ingredient_availability=row['ingredient_availability'],
-                    cooking_equipment=row['cooking_equipment'],
-                    budget=row['budget'],
-                    occasion=row['occasion'],
-                    taste_preferences=row['taste_preferences'],
-                    sustainability=row['sustainability']
-                )
-                dishes.append(dish)
-        return dishes
+class DishManager:
+    def get_all_dishes(self):
+        with closing(sqlite3.connect('data/app.db')) as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM dishes')
+            rows = cursor.fetchall()
+        return [self.row_to_dish(row) for row in rows]
+
+    def row_to_dish(self, row):
+        return Dish(
+            dish_name=row[1],
+            dietary_restrictions=row[2],
+            health_goals=row[3],
+            meal_type=row[4],
+            time_to_prepare=row[5],
+            ingredient_availability=row[6],
+            cooking_equipment=row[7],
+            budget=row[8],
+            occasion=row[9],
+            taste_preferences=row[10],
+            sustainability=row[11]
+        )
 
     def make_recommendation(self, **criteria):
-        filtered_dishes = [dish for dish in self.dishes if dish.matches_criteria(criteria)]
+        dishes = self.get_all_dishes()
+        filtered_dishes = [dish for dish in dishes if dish.matches_criteria(criteria)]
         if filtered_dishes:
             return filtered_dishes
         else:
             return [{"dish_name": "No match found", "reason": "Try relaxing the filters."}]
-    
+
     def get_food_by_name(self, name):
-        for dish in self.dishes:
-            if dish.dish_name.lower() == name.lower():
-                return dish
+        with closing(sqlite3.connect('data/app.db')) as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM dishes WHERE LOWER(dish_name) = ?', (name.lower(),))
+            row = cursor.fetchone()
+        if row:
+            return self.row_to_dish(row)
         return None
+
+    def add_selection(self, username, dish_name):
+        with sqlite3.connect('data/app.db') as conn:
+            cursor = conn.cursor()
+
+            # Get user ID
+            cursor.execute('SELECT id FROM Users WHERE username = ?', (username,))
+            user_id = cursor.fetchone()
+            if not user_id:
+                raise ValueError("User does not exist.")
+            user_id = user_id[0]
+
+            # Get dish ID
+            cursor.execute('SELECT id FROM Dishes WHERE dish_name = ?', (dish_name,))
+            dish_id = cursor.fetchone()
+            if not dish_id:
+                raise ValueError("Dish does not exist.")
+            dish_id = dish_id[0]
+
+            # Insert into UserSelections
+            cursor.execute(
+                'INSERT INTO UserSelections (user_id, dish_id, timestamp) VALUES (?, ?, ?)',
+                (user_id, dish_id, datetime.now())
+            )
+            conn.commit()
+
+    def get_user_history(self, username):
+        with sqlite3.connect('data/app.db') as conn:
+            cursor = conn.cursor()
+
+            # Get user ID
+            cursor.execute('SELECT id FROM Users WHERE username = ?', (username,))
+            user_id = cursor.fetchone()
+            if not user_id:
+                return []  # No history if user doesn't exist
+            user_id = user_id[0]
+
+            # Get history of dishes selected by the user
+            cursor.execute('''
+                SELECT Dishes.dish_name, UserSelections.timestamp
+                FROM UserSelections
+                JOIN Dishes ON UserSelections.dish_id = Dishes.id
+                WHERE UserSelections.user_id = ?
+                ORDER BY UserSelections.timestamp DESC
+            ''', (user_id,))
+            return cursor.fetchall()

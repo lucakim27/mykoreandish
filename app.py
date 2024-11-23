@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from utils.dish import DishManager
 from utils.auth import login_user, register_user, logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function
-from utils.db import create_tables
+from utils.db import create_tables, insert_dishes_from_csv
 import os
 from dotenv import load_dotenv
 
@@ -83,7 +83,8 @@ def rate_dish():
 def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     create_tables()
+    insert_dishes_from_csv()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)

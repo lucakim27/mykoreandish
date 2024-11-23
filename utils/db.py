@@ -1,6 +1,49 @@
+import csv
 import sqlite3
 
 DB_PATH = 'data/app.db'
+CSV_PATH = 'data/dishes.csv'
+
+def insert_dishes_from_csv():
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        # Open the CSV file
+        with open(CSV_PATH, 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.DictReader(csvfile)  # Use DictReader to map column names
+            for row in csv_reader:
+                try:
+                    # Insert into the Dishes table
+                    cursor.execute('''
+                        INSERT INTO Dishes (
+                            dish_name,
+                            dietary_restrictions,
+                            health_goals,
+                            meal_type,
+                            time_to_prepare,
+                            ingredient_availability,
+                            cooking_equipment,
+                            budget,
+                            occasion,
+                            taste_preferences,
+                            sustainability
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ''', (
+                        row['dish_name'],
+                        row['dietary_restrictions'],
+                        row['health_goals'],
+                        row['meal_type'],
+                        row['time_to_prepare'],
+                        row['ingredient_availability'],
+                        row['cooking_equipment'],
+                        row['budget'],
+                        row['occasion'],
+                        row['taste_preferences'],
+                        row['sustainability']
+                    ))
+                except sqlite3.IntegrityError as e:
+                    print(f"Skipping duplicate entry for {row['dish_name']}: {e}")
+            conn.commit()
+    print("Data insertion completed.")
 
 def create_tables():
     with sqlite3.connect(DB_PATH) as conn:
@@ -36,7 +79,7 @@ def create_tables():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
                 dish_id INTEGER NOT NULL,
-                rating INTEGER NOT NULL,
+                rating INTEGER,  -- Allow NULL for rating
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES Users(id),
                 FOREIGN KEY (dish_id) REFERENCES Dishes(id)

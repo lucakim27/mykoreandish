@@ -36,6 +36,7 @@ def create_tables():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
                 dish_id INTEGER NOT NULL,
+                rating INTEGER NOT NULL,
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES Users(id),
                 FOREIGN KEY (dish_id) REFERENCES Dishes(id)

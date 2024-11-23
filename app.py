@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 from flask_dance.contrib.google import make_google_blueprint, google
 
-# os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -18,25 +18,50 @@ google_blueprint = make_google_blueprint(
 )
 app.register_blueprint(google_blueprint, url_prefix='/login')
 
+
 @app.route('/')
 def index():
     username = get_logged_in_user()
     return render_template('index.html', username=username)
 
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         password = request.form['password']
+#         if login_user(username, password):
+#             return redirect(url_for('index'))
+#         return redirect(url_for('login'))
+#     return render_template('login.html')
+
 @app.route('/google_login')
 def google_login():
+    # If the user is not authorized by Google
     if not google.authorized:
         return redirect(url_for('google.login'))
     
+    # Get user info from Google
     resp = google.get('/oauth2/v1/userinfo')
-    assert resp.ok, resp.text
+    assert resp.ok, resp.text  # Ensure the request was successful
     user_info = resp.json()
 
     store_google_user(user_info)
 
-    session['username'] = user_info.get('name')
+    # Log the user in (using their Google username as a session identifier)
+    session['username'] = user_info.get('name')  # Use Google name as username
 
     return redirect(url_for('index'))
+
+
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         password = request.form['password']
+#         if register_user(username, password):
+#             return redirect(url_for('login'))
+#         return redirect(url_for('register'))
+#     return render_template('register.html')
 
 @app.route('/logout')
 def logout():

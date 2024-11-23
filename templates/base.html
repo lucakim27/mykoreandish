@@ -16,8 +16,9 @@
               <a href="/history">History</a>
               <a href="/logout">Logout</a>
           {% else %}
-              <a href="/login">Login</a>
-              <a href="/register">Register</a>
+                <a href="{{ url_for('google.login') }}" class="button">
+                    Login with Google
+                </a>
           {% endif %}
         </div>
     </div>

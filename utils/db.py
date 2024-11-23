@@ -50,10 +50,12 @@ def create_tables():
         cursor = conn.cursor()
         # Users table
         cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Users (
+            CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT UNIQUE NOT NULL,
-                password TEXT NOT NULL
+                username TEXT NOT NULL UNIQUE,
+                google_id TEXT UNIQUE NOT NULL,
+                email TEXT,
+                name TEXT
             )
         ''')
         # Dishes table

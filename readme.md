@@ -3,10 +3,6 @@
 ## Frameworks  
 - **Python Flask**: A lightweight web framework for building the backend and handling API requests.
 
-## Deployment  
-The application will be hosted on:  
-- **Amazon AWS EC2** (Deployment in progress)  
-
 ## Live Link  
 - You can visit the live website at: [https://food-suggestion.onrender.com/](https://food-suggestion.onrender.com/)
 

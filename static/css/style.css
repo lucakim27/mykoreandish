@@ -147,66 +147,11 @@ h1 {
     margin: 5px 0;
 }
 
-#formContainer {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.auth-form label {
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.auth-form input {
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.auth-form button {
-    padding: 10px;
-    font-size: 1.2rem;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.auth-form button:hover {
-    background-color: #2980b9;
-}
-
 .error-message {
     color: red;
     font-size: 1rem;
     text-align: center;
     margin-bottom: 15px;
-}
-
-.auth-form p {
-    text-align: center;
-}
-
-.auth-form p a {
-    color: #3498db;
-    text-decoration: none;
-}
-
-.auth-form p a:hover {
-    text-decoration: underline;
 }
 
 @media (max-width: 600px) {
@@ -224,16 +169,6 @@ h1 {
         padding: 12px;
     }
 
-
-    #formContainer {
-        width: 90%;
-        padding: 15px;
-    }
-
-    .auth-form button {
-        font-size: 1rem;
-        padding: 12px;
-    }
 }
 
 .no-matches {

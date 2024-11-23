@@ -2,3 +2,4 @@
 __pycache__
 utils/__pycache__
 .env
+data/app.db

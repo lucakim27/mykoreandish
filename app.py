@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 from flask_dance.contrib.google import make_google_blueprint, google
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0'
+create_tables()
+insert_dishes_from_csv()
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -91,7 +93,5 @@ def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
 if __name__ == '__main__':
-    create_tables()
-    insert_dishes_from_csv()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)

@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from utils.dish import DishManager
-from utils.auth import logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function, store_google_user
+from utils.auth import get_dish_average_ratings, get_dish_counts, logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function, store_google_user
 from utils.db import create_tables, insert_dishes_from_csv
 import os
 from dotenv import load_dotenv
 from flask_dance.contrib.google import make_google_blueprint, google
 
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0'
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0' # production
+# os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # local environment
 create_tables()
 insert_dishes_from_csv()
 load_dotenv()
@@ -20,11 +21,12 @@ google_blueprint = make_google_blueprint(
 )
 app.register_blueprint(google_blueprint, url_prefix='/login')
 
-
 @app.route('/')
 def index():
-    username = get_logged_in_user()
-    return render_template('index.html', username=username)
+    average_ratings = get_dish_average_ratings()  # Get average ratings
+    dish_counts = get_dish_counts()  # Get counts
+    username = get_logged_in_user()  # Get logged-in user
+    return render_template('index.html', username=username, average_ratings=average_ratings, dish_counts=dish_counts)
 
 @app.route('/google_login')
 def google_login():

@@ -44,15 +44,18 @@ h1 {
 }
 
 .criteria-form {
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 100%; /* Match the width of top-foods */
+    margin: 20px;
     padding: 20px;
     background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto; /* Adjust height to match the content dynamically */
 }
-
 #selectBox p {
     margin-bottom: 15px;
 }
@@ -469,4 +472,74 @@ h1 {
     color: #888;
     text-align: center;
     margin: 20px 0;
+}
+
+/* Container to house both top-foods and criteria-form */
+.food-and-form-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow stacking on smaller screens */
+    gap: 20px; /* Space between elements */
+    justify-content: space-between;
+    align-items: stretch; /* Ensure all children stretch equally */
+}
+
+/* Style adjustments for alignment */
+.top-foods, .criteria-form {
+    flex: 1; /* Make both sections take equal space */
+    min-width: 300px; /* Ensure responsiveness */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .food-and-form-container {
+        flex-direction: column; /* Stack sections vertically */
+    }
+}
+
+.top-foods {
+    /* display: flex; */
+    justify-content: space-between; /* Space out the sections */
+    align-items: stretch; /* Ensure both sections have the same height */
+    background-color: #f7f9fc; /* Light background */
+    margin: 20px;
+}
+
+.top-foods section {
+    flex: 1; /* Make each section take equal space */
+    margin-top: 20px; /* Add some space between the sections */
+    border: 1px solid #ccc; /* Optional: border around each section */
+    border-radius: 8px;
+    background-color: #fff; /* White background for sections */
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.top-foods section h2 {
+    text-align: center; /* Center-align section headers */
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.top-foods ul {
+    list-style: none; /* Remove bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.top-foods ul li {
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #555;
+}
+
+.top-foods ul li strong {
+    color: #222; /* Highlighted food name */
+}
+
+/* Optional: Hover effects for items */
+.top-foods ul li:hover {
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    padding: 5px;
 }

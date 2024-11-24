@@ -1,6 +1,5 @@
 import sqlite3
 from flask import redirect, session, flash, url_for
-from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from functools import wraps
 
@@ -15,19 +14,16 @@ def store_google_user(google_user_data):
         with sqlite3.connect(DATABASE) as conn:
             cursor = conn.cursor()
 
-            # Check if the user already exists
             cursor.execute("SELECT * FROM users WHERE google_id = ?", (google_id,))
             existing_user = cursor.fetchone()
 
             if existing_user:
-                # If user exists, update their info (if necessary)
                 cursor.execute('''
                     UPDATE users
                     SET name = ?, email = ?
                     WHERE google_id = ?
                 ''', (name, email, google_id))
             else:
-                # If user doesn't exist, insert new user
                 cursor.execute('''
                     INSERT INTO users (username, google_id, email, name)
                     VALUES (?, ?, ?, ?)
@@ -87,3 +83,46 @@ def rate_dish_function(history_id, rating):
     except sqlite3.Error as e:
         flash(f'Error saving rating: {e}', 'error')
         return False
+
+def get_dish_average_ratings():
+    query = '''
+    SELECT Dishes.dish_name, AVG(UserSelections.rating) as average_rating
+    FROM UserSelections
+    JOIN Dishes ON UserSelections.dish_id = Dishes.id
+    GROUP BY UserSelections.dish_id
+    ORDER BY average_rating DESC
+    '''
+
+    try:
+        with sqlite3.connect(DATABASE) as conn:
+            conn.row_factory = sqlite3.Row  # Use Row factory for dict-like access
+            cursor = conn.cursor()
+            cursor.execute(query)
+            results = cursor.fetchall()
+            average_ratings = {row["dish_name"]: row["average_rating"] for row in results}
+            return average_ratings
+    except sqlite3.Error as e:
+        print(f"Error fetching average ratings: {e}")
+        return {}
+
+def get_dish_counts():
+    query = '''
+    SELECT Dishes.dish_name, COUNT(UserSelections.dish_id) as selection_count
+    FROM UserSelections
+    JOIN Dishes ON UserSelections.dish_id = Dishes.id
+    GROUP BY UserSelections.dish_id
+    ORDER BY selection_count DESC
+    '''
+
+    try:
+        with sqlite3.connect(DATABASE) as conn:
+            conn.row_factory = sqlite3.Row  # Use Row factory for dict-like access
+            cursor = conn.cursor()
+            cursor.execute(query)
+            results = cursor.fetchall()
+            dish_counts = {row["dish_name"]: row["selection_count"] for row in results}
+            return dish_counts
+    except sqlite3.Error as e:
+        print(f"Error fetching dish counts: {e}")
+        return {}
+

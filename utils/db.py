@@ -7,12 +7,10 @@ CSV_PATH = 'data/dishes.csv'
 def insert_dishes_from_csv():
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
-        # Open the CSV file
         with open(CSV_PATH, 'r', encoding='utf-8') as csvfile:
-            csv_reader = csv.DictReader(csvfile)  # Use DictReader to map column names
+            csv_reader = csv.DictReader(csvfile)
             for row in csv_reader:
                 try:
-                    # Insert into the Dishes table
                     cursor.execute('''
                         INSERT INTO Dishes (
                             dish_name,
@@ -48,7 +46,6 @@ def insert_dishes_from_csv():
 def create_tables():
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
-        # Users table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,7 +55,6 @@ def create_tables():
                 name TEXT
             )
         ''')
-        # Dishes table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS Dishes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,7 +71,6 @@ def create_tables():
                 sustainability TEXT
             )
         ''')
-        # UserSelections table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS UserSelections (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

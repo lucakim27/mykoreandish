@@ -6,20 +6,6 @@ from functools import wraps
 
 DATABASE = os.path.join(os.path.abspath(os.path.dirname(__file__)), '../data', 'app.db')
 
-# def login_user(username, password):
-#     conn = sqlite3.connect(DATABASE)
-#     c = conn.cursor()
-#     c.execute("SELECT password FROM users WHERE username = ?", (username,))
-#     result = c.fetchone()
-#     conn.close()
-
-#     if result and check_password_hash(result[0], password):
-#         session['username'] = username
-#         flash('Login successful!', 'success')
-#         return True
-#     flash('Invalid username or password.', 'error')
-#     return False
-
 def store_google_user(google_user_data):
     google_id = google_user_data.get('id')
     name = google_user_data.get('name')

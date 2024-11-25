@@ -1,19 +1,31 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from utils.dish import DishManager
-from utils.auth import get_dish_average_ratings, get_dish_counts, logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function, store_google_user
-from utils.db import create_tables, insert_dishes_from_csv
+from utils.user import get_dish_statistics, get_username, logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function, store_google_user
 import os
 from dotenv import load_dotenv
 from flask_dance.contrib.google import make_google_blueprint, google
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.Certificate("/etc/secrets/credentials.json") # production
+# cred = credentials.Certificate('credentials.json') # local environment
+
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+dishes_ref = db.collection('Dishes')
+users_ref = db.collection('Users')
+user_selections_ref = db.collection('UserSelections')
+
+manager = DishManager(dishes_ref, users_ref, user_selections_ref)
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0' # production
 # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # local environment
-create_tables()
-insert_dishes_from_csv()
+
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
-manager = DishManager()
 google_blueprint = make_google_blueprint(
     client_id=os.getenv("GOOGLE_CLIENT_ID"),
     client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
@@ -23,26 +35,21 @@ app.register_blueprint(google_blueprint, url_prefix='/login')
 
 @app.route('/')
 def index():
-    average_ratings = get_dish_average_ratings()  # Get average ratings
-    dish_counts = get_dish_counts()  # Get counts
-    username = get_logged_in_user()  # Get logged-in user
-    return render_template('index.html', username=username, average_ratings=average_ratings, dish_counts=dish_counts)
+    average_ratings, selection_counts = get_dish_statistics(db)
+    username = get_username(db)
+    return render_template('index.html', username=username, average_ratings=average_ratings, selection_counts=selection_counts)
 
 @app.route('/google_login')
 def google_login():
-    # If the user is not authorized by Google
     if not google.authorized:
         return redirect(url_for('google.login'))
     
-    # Get user info from Google
     resp = google.get('/oauth2/v1/userinfo')
-    assert resp.ok, resp.text  # Ensure the request was successful
+    assert resp.ok, resp.text
     user_info = resp.json()
 
-    store_google_user(user_info)
-
-    # Log the user in (using their Google username as a session identifier)
-    session['username'] = user_info.get('name')  # Use Google name as username
+    store_google_user(db, user_info)
+    session['google_id'] = user_info.get('id')
 
     return redirect(url_for('index'))
 
@@ -66,18 +73,23 @@ def food(name=None):
 
 @app.route('/history')
 def history():
-    if 'username' not in session:
+    if 'google_id' not in session:
         return redirect(url_for('login'))
-    username = session['username']
-    user_history = manager.get_user_history(username)
-    history_data = [{'id': record[0],'dish_name': record[1], 'timestamp': record[2], 'rating': record[3]} for record in user_history]
+    google_id = session['google_id']
+    user_history = manager.get_user_history(google_id)
+    history_data = [{
+        'id': selection.get('id'), 
+        'dish_name': selection.get('dish_name'), 
+        'timestamp': selection.get('timestamp'), 
+        'rating': selection.get('rating')
+    } for selection in user_history]
     return render_template('history.html', items=history_data)
 
 @app.route('/delete_history', methods=['POST'])
 def delete_history():
     history_id = request.form.get('history_id')
     if history_id:
-        if delete_history_function(history_id):
+        if delete_history_function(db, history_id):
             return redirect(url_for('history'))
     return redirect(url_for('history'))
 
@@ -86,7 +98,7 @@ def rate_dish():
     history_id = request.form.get('history_id')
     rating = request.form.get('rating')
 
-    if rate_dish_function(history_id, rating):
+    if rate_dish_function(db, history_id, rating):
         return redirect(url_for('history'))
     return redirect(url_for('history'))
 

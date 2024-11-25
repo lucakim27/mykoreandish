@@ -1,20 +1,18 @@
-import sqlite3
-from contextlib import closing
-from datetime import datetime
+from firebase_admin import firestore
 
 class Dish:
     def __init__(self, dish_name, dietary_restrictions, health_goals, meal_type, time_to_prepare,
                  ingredient_availability, cooking_equipment, budget, occasion, taste_preferences, sustainability):
         self.dish_name = dish_name
-        self.dietary_restrictions = dietary_restrictions.split(';')
-        self.health_goals = health_goals.split(';')
-        self.meal_type = meal_type.split(';')
+        self.dietary_restrictions = dietary_restrictions.split(';') if isinstance(dietary_restrictions, str) else dietary_restrictions
+        self.health_goals = health_goals.split(';') if isinstance(health_goals, str) else health_goals
+        self.meal_type = meal_type.split(';') if isinstance(meal_type, str) else meal_type
         self.time_to_prepare = time_to_prepare
         self.ingredient_availability = ingredient_availability
-        self.cooking_equipment = cooking_equipment.split(';')
+        self.cooking_equipment = cooking_equipment.split(';') if isinstance(cooking_equipment, str) else cooking_equipment
         self.budget = budget
-        self.occasion = occasion.split(';')
-        self.taste_preferences = taste_preferences.split(';')
+        self.occasion = occasion.split(';') if isinstance(occasion, str) else occasion
+        self.taste_preferences = taste_preferences.split(';') if isinstance(taste_preferences, str) else taste_preferences
         self.sustainability = sustainability
 
     def matches_criteria(self, criteria):
@@ -32,28 +30,30 @@ class Dish:
                         return False
         return True
 
-
 class DishManager:
-    def get_all_dishes(self):
-        with closing(sqlite3.connect('data/app.db')) as conn:
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM dishes')
-            rows = cursor.fetchall()
-        return [self.row_to_dish(row) for row in rows]
+    def __init__(self, dishes_ref, users_ref, user_selections_ref):
+        self.dishes_ref = dishes_ref
+        self.users_ref = users_ref
+        self.user_selections_ref = user_selections_ref
 
-    def row_to_dish(self, row):
+    def get_all_dishes(self):
+        dishes = self.dishes_ref.stream()  # Firestore stream of dishes
+        return [self.row_to_dish(dish) for dish in dishes]
+
+    def row_to_dish(self, dish_doc):
+        data = dish_doc.to_dict()  # Get document data as a dictionary
         return Dish(
-            dish_name=row[1],
-            dietary_restrictions=row[2],
-            health_goals=row[3],
-            meal_type=row[4],
-            time_to_prepare=row[5],
-            ingredient_availability=row[6],
-            cooking_equipment=row[7],
-            budget=row[8],
-            occasion=row[9],
-            taste_preferences=row[10],
-            sustainability=row[11]
+            dish_name=data.get('dish_name', ''),  # Correctly get dish_name from the document field
+            dietary_restrictions=data.get('dietary_restrictions', ''),
+            health_goals=data.get('health_goals', ''),
+            meal_type=data.get('meal_type', ''),
+            time_to_prepare=data.get('time_to_prepare', ''),
+            ingredient_availability=data.get('ingredient_availability', ''),
+            cooking_equipment=data.get('cooking_equipment', ''),
+            budget=data.get('budget', ''),
+            occasion=data.get('occasion', ''),
+            taste_preferences=data.get('taste_preferences', ''),
+            sustainability=data.get('sustainability', '')
         )
 
     def make_recommendation(self, **criteria):
@@ -64,57 +64,73 @@ class DishManager:
         else:
             return [{"dish_name": "No match found", "reason": "Try relaxing the filters."}]
 
+    def add_selection(self, google_id, dish_name, rating=None):
+        """Add a food selection without a rating initially."""
+        user_ref = self.users_ref.where('google_id', '==', google_id)
+        user = user_ref.get()
+
+        if not user:
+            raise ValueError("User does not exist.")
+        
+        dish_ref = self.dishes_ref.document(dish_name)  # Ensure dish_name is used correctly
+        dish = dish_ref.get()
+        
+        if not dish:
+            raise ValueError("User does not exist.")
+        
+        # Add selection to the UserSelections collection with rating as None
+        self.user_selections_ref.add({
+            'google_id': google_id,
+            'dish_name': dish_name,
+            'rating': rating,  # This will be None if no rating is provided
+            'timestamp': firestore.SERVER_TIMESTAMP
+        })
+
+
+    def get_user_history(self, google_id):
+        try:
+            # Query to get the user document by google_id
+            user_ref = self.users_ref.where('google_id', '==', google_id)
+            user_docs = user_ref.get()
+
+            if not user_docs:
+                return []  # Return empty list if user doesn't exist
+
+            # Assuming only one user document will match, get the first document
+            user = user_docs[0]  # user_docs is a list of documents
+
+            # Query to get all selections by the user using the google_id
+            user_selections_ref = self.user_selections_ref.where('google_id', '==', user.to_dict().get('google_id'))
+            selections = user_selections_ref.stream()  # Stream selections
+
+            # Return user selections as a list of dictionaries
+            return [{
+                'id': selection.id,  # Firestore document ID as 'id'
+                'dish_name': selection.to_dict().get('dish_name'),
+                'timestamp': selection.to_dict().get('timestamp'),
+                'rating': selection.to_dict().get('rating')
+            } for selection in selections]
+
+        except Exception as e:
+            print(f"Error retrieving user history: {e}")
+            return []  # Return an empty list if an error occurs
+
+
+
+    
     def get_food_by_name(self, name):
-        with closing(sqlite3.connect('data/app.db')) as conn:
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM dishes WHERE LOWER(dish_name) = ?', (name.lower(),))
-            row = cursor.fetchone()
-        if row:
-            return self.row_to_dish(row)
-        return None
+        """Fetch a dish by its name from Firestore."""
+        try:
+            # Query the 'Dishes' collection for a document with the given dish_name
+            dish_ref = self.dishes_ref.where('dish_name', '==', name).limit(1)
+            dishes = dish_ref.stream()
 
-    def add_selection(self, username, dish_name):
-        with sqlite3.connect('data/app.db') as conn:
-            cursor = conn.cursor()
-
-            # Get user ID
-            cursor.execute('SELECT id FROM Users WHERE username = ?', (username,))
-            user_id = cursor.fetchone()
-            if not user_id:
-                raise ValueError("User does not exist.")
-            user_id = user_id[0]
-
-            # Get dish ID
-            cursor.execute('SELECT id FROM Dishes WHERE dish_name = ?', (dish_name,))
-            dish_id = cursor.fetchone()
-            if not dish_id:
-                raise ValueError("Dish does not exist.")
-            dish_id = dish_id[0]
-
-            # Insert into UserSelections
-            cursor.execute(
-                'INSERT INTO UserSelections (user_id, dish_id, timestamp) VALUES (?, ?, ?)',
-                (user_id, dish_id, datetime.now())
-            )
-            conn.commit()
-
-    def get_user_history(self, username):
-        with sqlite3.connect('data/app.db') as conn:
-            cursor = conn.cursor()
-
-            # Get user ID
-            cursor.execute('SELECT id FROM Users WHERE username = ?', (username,))
-            user_id = cursor.fetchone()
-            if not user_id:
-                return []  # No history if user doesn't exist
-            user_id = user_id[0]
-
-            # Get history of dishes selected by the user along with ratings
-            cursor.execute('''
-                SELECT UserSelections.id, Dishes.dish_name, UserSelections.timestamp, UserSelections.rating
-                FROM UserSelections
-                JOIN Dishes ON UserSelections.dish_id = Dishes.id
-                WHERE UserSelections.user_id = ?
-                ORDER BY UserSelections.timestamp DESC
-            ''', (user_id,))
-            return cursor.fetchall()
+            # If a dish is found, return it
+            for dish_doc in dishes:
+                return self.row_to_dish(dish_doc)
+            
+            # If no dish is found, return None
+            return None
+        except Exception as e:
+            print(f"Error fetching dish by name: {e}")
+            return None

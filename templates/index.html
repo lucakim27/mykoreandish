@@ -6,24 +6,31 @@
     <h2>Top-Rated Food</h2>
     <ul>
       {% for dish, rating in average_ratings.items() %}
-        <li>
-          <strong>{{ dish }}</strong> - Average Rating: {{ rating }}/5
-        </li>
+        {% if rating > 0 %}
+          <li>
+            <strong>{{ dish }}</strong> - Average Rating: {{ rating }}/5
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
   </section>
-
+  
   <section id="most-selected-food">
     <h2>Most Selected Food</h2>
     <ul>
-      {% for dish, count in dish_counts.items() %}
-        <li>
-          <strong>{{ dish }}</strong> - Selected {{ count }} times
-        </li>
+      {% for dish, count in selection_counts.items() %}
+        {% if count > 0 %}
+          <li>
+            <strong>{{ dish }}</strong> - Selected {{ count }} times
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
   </section>
+  
 </div>
+
+
   <form action="/recommendation" method="post" class="criteria-form">
     <div id="selectBox">
       <p>Dietary Restrictions and Allergies:

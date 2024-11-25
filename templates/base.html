@@ -11,8 +11,8 @@
     <div id="topBar">
         <h1>Korean Meal Recommendation</h1>
         <div class="auth-links">
-          {% if session.get('username') %}
-              <span>Welcome, {{ session['username'] }}!</span>
+          {% if session.get('google_id') %}
+              <span>Welcome, {{ username }}!</span>
               <a href="/history">History</a>
               <a href="/logout">Logout</a>
           {% else %}

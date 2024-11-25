@@ -60,19 +60,22 @@ def logout():
 
 @app.route('/recommendation', methods=['POST'])
 def recommendation():
+    username = get_username(db)
     criteria = {key: value.lower() for key, value in request.form.items()}
     recommendation = manager.make_recommendation(**criteria)
-    return render_template('recommendation.html', recommendation=recommendation)
+    return render_template('recommendation.html', username=username, recommendation=recommendation)
 
 @app.route('/food/<name>', methods=['GET', 'POST'])
 @login_required
 def food(name=None):
+    username = get_username(db)
     dish = manager.get_food_by_name(name)
     manager.add_selection(get_logged_in_user(), name)
-    return render_template('food.html', dish=dish)
+    return render_template('food.html', username=username, dish=dish)
 
 @app.route('/history')
 def history():
+    username = get_username(db)
     if 'google_id' not in session:
         return redirect(url_for('login'))
     google_id = session['google_id']
@@ -83,7 +86,7 @@ def history():
         'timestamp': selection.get('timestamp'), 
         'rating': selection.get('rating')
     } for selection in user_history]
-    return render_template('history.html', items=history_data)
+    return render_template('history.html', username=username, items=history_data)
 
 @app.route('/delete_history', methods=['POST'])
 def delete_history():

@@ -2,24 +2,24 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f9fc;
-    color: #333;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 h1 {
     margin: 0;
     font-size: 24px;
-    color: #2c3e50;
+    color: #3498db;
 }
 
 #topBar {
-    background-color: #4CAF50;
+    background-color: #000000;
     color: white;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.2);
 }
 
 .auth-links {
@@ -47,10 +47,9 @@ h1 {
     max-width: 100%; /* Match the width of top-foods */
     margin: 20px;
     padding: 20px;
-    background-color: white;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgb(0, 0, 0);
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -66,6 +65,8 @@ h1 {
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: black;
+    color: white;
 }
 
 #buttonBox {
@@ -74,12 +75,11 @@ h1 {
 }
 
 #buttonBox button, #buttonBox .button {
-    background-color: #3498db;
+    background-color: #000000;
     color: white;
-    border: none;
+    border: 1px solid white;
     padding: 10px 20px;
     font-size: 16px;
-    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -90,11 +90,15 @@ h1 {
 
 @keyframes blink {
     0% {
-        border-color: #4CAF50;
+        border-color: #8300ff;
     }
     100% {
         border-color: #333;
     }
+}
+
+strong {
+    color: #3498db;
 }
 
 .food-container {
@@ -113,9 +117,8 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: white;
-    border: 2px solid #ddd;
-    border-radius: 10px;
+    background: rgb(0, 0, 0);
+    border: 1px solid #ffffff;
     width: 300px;
     height: 400px;
     padding: 20px;
@@ -125,7 +128,7 @@ h1 {
 }
 
 .food-box:hover {
-    border-color: #4CAF50;
+    border-color: #2980b9;
     transform: scale(1.05);
 }
 
@@ -140,7 +143,6 @@ h1 {
 .food-box-button h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
-    color: #4CAF50;
 }
 
 
@@ -194,10 +196,7 @@ h1 {
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
-    border: 2px solid #f0f0f0;
-    border-radius: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #000000;
     text-align: center;
     font-family: 'Arial', sans-serif;
 }
@@ -205,13 +204,11 @@ h1 {
 /* Heading Styles */
 .confirmation-container h2 {
     font-size: 24px;
-    color: #333;
     margin-bottom: 15px;
 }
 
 .confirmation-container p {
     font-size: 18px;
-    color: #555;
     margin-bottom: 20px;
 }
 
@@ -247,7 +244,6 @@ h1 {
 
 .nutrition-info h3 {
     font-size: 20px;
-    color: #333;
     margin-bottom: 10px;
 }
 
@@ -258,7 +254,6 @@ h1 {
 
 .nutrition-info li {
     font-size: 16px;
-    color: #666;
     padding: 5px 0;
     border-bottom: 1px dashed #ccc;
 }
@@ -266,25 +261,6 @@ h1 {
 .nutrition-info li:last-child {
     border-bottom: none;
 }
-
-/* Cooking Details Styles */
-.cooking-details {
-    margin: 20px 0;
-    text-align: left;
-}
-
-.cooking-details h3 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.cooking-details p {
-    font-size: 16px;
-    color: #555;
-    margin: 5px 0;
-}
-/* Add these styles to your CSS */
 
 /* Container for buttons (flexbox for alignment) */
 .button-box {
@@ -297,27 +273,20 @@ h1 {
 
 /* General button styles */
 .button-box button, .button-box a {
+    background: black;
     padding: 10px 20px;
     font-size: 16px;
     color: white;
     text-decoration: none;
-    border: none;
-    border-radius: 5px;
+    border: 1px solid white;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-.recipe-button {
-    background-color: #ff6b6b; /* Pink */
-}
-
-.home-button {
-    background-color: #3498db; /* Blue */
 }
 
 /* Hover effects */
 .button-box button:hover, .button-box a:hover {
     opacity: 0.8;
+    background: #2980b9;
 }
 
 /* Rating Form Styling */
@@ -357,9 +326,8 @@ h1 {
     padding: 8px 16px;
     font-size: 14px;
     color: white;
-    background-color: #3498db;
-    border: none;
-    border-radius: 5px;
+    background-color: black;
+    border: 1px solid white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -372,16 +340,11 @@ h1 {
     max-width: 700px;
     margin: 50px auto;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
 }
 
 .history-container h2 {
     font-size: 24px;
-    color: #333;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -397,9 +360,8 @@ h1 {
     justify-content: space-between;
     align-items: center;
     font-size: 18px;
-    color: #555;
     padding: 10px 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ffffff;
 }
 
 .item-info {
@@ -437,11 +399,6 @@ h1 {
     color: #f5c518;
 }
 
-/* Delete button styling */
-.delete-button {
-    background-color: #ff4d4d;
-}
-
 .delete-button:hover {
     background-color: #cc0000;
 }
@@ -453,9 +410,8 @@ h1 {
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 4px;
+    background-color: black;
+    border: 1px solid white;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -500,16 +456,16 @@ h1 {
     /* display: flex; */
     justify-content: space-between; /* Space out the sections */
     align-items: stretch; /* Ensure both sections have the same height */
-    background-color: #f7f9fc; /* Light background */
+    background-color: #000000; /* Light background */
     margin: 20px;
+    border-radius: 8px;
 }
 
 .top-foods section {
     flex: 1; /* Make each section take equal space */
     margin-top: 20px; /* Add some space between the sections */
     border: 1px solid #ccc; /* Optional: border around each section */
-    border-radius: 8px;
-    background-color: #fff; /* White background for sections */
+    background-color: #000000; /* White background for sections */
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
@@ -517,7 +473,6 @@ h1 {
 .top-foods section h2 {
     text-align: center; /* Center-align section headers */
     font-size: 1.5em;
-    color: #333;
     margin-bottom: 10px;
 }
 
@@ -530,16 +485,5 @@ h1 {
 .top-foods ul li {
     margin-bottom: 10px;
     font-size: 1em;
-    color: #555;
 }
 
-.top-foods ul li strong {
-    color: #222; /* Highlighted food name */
-}
-
-/* Optional: Hover effects for items */
-.top-foods ul li:hover {
-    background-color: #f1f1f1;
-    border-radius: 4px;
-    padding: 5px;
-}

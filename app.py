@@ -67,12 +67,16 @@ def recommendation():
     return render_template('recommendation.html', username=username, recommendation=recommendation)
 
 @app.route('/food/<name>', methods=['GET', 'POST'])
-@login_required
 def food(name=None):
     username = get_username(db)
     dish = manager.get_food_by_name(name)
-    manager.add_selection(get_logged_in_user(), name)
     return render_template('food.html', username=username, dish=dish)
+
+@app.route('/select/<name>', methods=['POST'])
+@login_required
+def select_food(name=None):
+    manager.add_selection(get_logged_in_user(), name)
+    return redirect(url_for('index'))
 
 @app.route('/history')
 def history():
@@ -113,7 +117,7 @@ def request_page():
 
 @app.route('/submit-request', methods=['POST'])
 def submit_request():
-    # Get form data
+    
     name = request.form.get('name')
     description = request.form.get('description')
     dietary_restrictions = request.form.get('dietary_restrictions')
@@ -121,7 +125,7 @@ def submit_request():
     meal_type = request.form.get('meal_type')
     time_to_prepare = request.form.get('time_to_prepare')
     taste_preference = request.form.get('taste_preference')
-    image_url = request.form.get('image_url', None)  # Optional
+    image_url = request.form.get('image_url', None)
     criteria = {
         "dietary_restrictions": dietary_restrictions,
         "health_goals": health_goals,
@@ -129,7 +133,6 @@ def submit_request():
         "time_to_prepare": time_to_prepare,
         "taste_preference": taste_preference
     }
-
 
     manager.add_food_request(name, description, criteria, image_url)
 

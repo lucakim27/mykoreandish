@@ -234,41 +234,6 @@ strong {
     background-color: #ff4d4d;
 }
 
-/* Dish Image Styles */
-.dish-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Nutritional Info Styles */
-.nutrition-info {
-    margin: 20px 0;
-    text-align: left;
-}
-
-.nutrition-info h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.nutrition-info ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.nutrition-info li {
-    font-size: 16px;
-    padding: 5px 0;
-    border-bottom: 1px dashed #ccc;
-}
-
-.nutrition-info li:last-child {
-    border-bottom: none;
-}
-
 /* Container for buttons (flexbox for alignment) */
 .button-box {
     display: flex;

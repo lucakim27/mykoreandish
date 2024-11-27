@@ -59,12 +59,19 @@ h1 {
     margin-bottom: 15px;
 }
 
-#selectBox select {
+.criteria-form input, .criteria-form textarea {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background-color: black;
+    color: white;
+}
+
+#selectBox select, .criteria-form select {
     width: 100%;
     padding: 8px;
     font-size: 14px;
     border: 1px solid #ccc;
-    border-radius: 4px;
     background-color: black;
     color: white;
 }
@@ -74,7 +81,7 @@ h1 {
     margin: 20px;
 }
 
-#buttonBox button, #buttonBox .button {
+#buttonBox button, #buttonBox .button, .criteria-form button {
     background-color: #000000;
     color: white;
     border: 1px solid white;
@@ -84,7 +91,7 @@ h1 {
     transition: background-color 0.3s;
 }
 
-#buttonBox button:hover, #buttonBox .button:hover {
+#buttonBox button:hover, #buttonBox .button:hover, .criteria-form button:hover {
     background-color: #2980b9;
 }
 

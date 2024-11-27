@@ -17,8 +17,9 @@ db = firestore.client()
 dishes_ref = db.collection('Dishes')
 users_ref = db.collection('Users')
 user_selections_ref = db.collection('UserSelections')
+requests_ref = db.collection('Requests')
 
-manager = DishManager(dishes_ref, users_ref, user_selections_ref)
+manager = DishManager(dishes_ref, users_ref, user_selections_ref, requests_ref)
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0' # production
 # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # local environment
@@ -104,6 +105,35 @@ def rate_dish():
     if rate_dish_function(db, history_id, rating):
         return redirect(url_for('history'))
     return redirect(url_for('history'))
+
+@app.route('/request')
+def request_page():
+    username = get_username(db)
+    return render_template('request.html', username=username)
+
+@app.route('/submit-request', methods=['POST'])
+def submit_request():
+    # Get form data
+    name = request.form.get('name')
+    description = request.form.get('description')
+    dietary_restrictions = request.form.get('dietary_restrictions')
+    health_goals = request.form.get('health_goals')
+    meal_type = request.form.get('meal_type')
+    time_to_prepare = request.form.get('time_to_prepare')
+    taste_preference = request.form.get('taste_preference')
+    image_url = request.form.get('image_url', None)  # Optional
+    criteria = {
+        "dietary_restrictions": dietary_restrictions,
+        "health_goals": health_goals,
+        "meal_type": meal_type,
+        "time_to_prepare": time_to_prepare,
+        "taste_preference": taste_preference
+    }
+
+
+    manager.add_food_request(name, description, criteria, image_url)
+
+    return redirect(url_for('index'))
 
 @app.errorhandler(404)
 def page_not_found(error):

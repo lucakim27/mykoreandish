@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Request New Food{% endblock %}
+
+{% block content %}
+<form action="/submit-request" method="POST" class="criteria-form">
+    <label for="name">Food Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" required></textarea><br><br>
+
+    <label for="dietary_restrictions">Dietary Restrictions and Allergies:</label><br>
+    <select name="dietary_restrictions" id="dietary_restrictions">
+        <option value="any">Any</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="vegan">Vegan</option>
+        <option value="pescatarian">Pescatarian</option>
+        <option value="gluten_free">Gluten-free</option>
+        <option value="lactose_free">Lactose-free</option>
+        <option value="nut_free">Nut-free</option>
+        <option value="halal">Halal</option>
+        <option value="kosher">Kosher</option>
+    </select><br><br>
+
+    <label for="health_goals">Health Goals:</label><br>
+    <select name="health_goals" id="health_goals">
+        <option value="any">Any</option>
+        <option value="high_protein">High-protein</option>
+        <option value="low_carb">Low-carb</option>
+        <option value="keto_friendly">Keto-friendly</option>
+        <option value="low_calorie">Low-calorie</option>
+        <option value="low_fat">Low-fat</option>
+        <option value="high_fiber">High-fiber</option>
+        <option value="heart_healthy">Heart-healthy</option>
+    </select><br><br>
+
+    <label for="meal_type">Meal Type:</label><br>
+    <select name="meal_type" id="meal_type">
+        <option value="any">Any</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+        <option value="snacks">Snacks</option>
+        <option value="desserts">Desserts</option>
+        <option value="beverages">Beverages</option>
+        <option value="light_meals">Light meals</option>
+        <option value="heavy_meals">Heavy meals</option>
+    </select><br><br>
+
+    <label for="time_to_prepare">Time to Prepare:</label><br>
+    <select name="time_to_prepare" id="time_to_prepare">
+        <option value="any">Any</option>
+        <option value="quick">Quick meals (&lt; 30 minutes)</option>
+        <option value="moderate">Moderate (30-60 minutes)</option>
+        <option value="long">Long meals (&gt; 1 hour)</option>
+    </select><br><br>
+
+    <label for="taste_preference">Taste Preferences:</label><br>
+    <select name="taste_preference" id="taste_preference">
+        <option value="any">Any</option>
+        <option value="spicy">Spicy</option>
+        <option value="sweet">Sweet</option>
+        <option value="sour">Sour</option>
+        <option value="salty">Salty</option>
+        <option value="umami">Umami</option>
+        <option value="comfort_food">Comfort food</option>
+        <option value="exotic">Exotic</option>
+    </select><br><br>
+
+    <label for="image_url">Image URL (Optional):</label><br>
+    <input type="url" id="image_url" name="image_url"><br><br>
+
+    <button type="submit">Submit Request</button>
+</form>
+<div id="buttonBox">
+    <button onclick="window.location.href='/'" class="button">Back to Home</button>
+</div>
+{% endblock %}

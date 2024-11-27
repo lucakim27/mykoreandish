@@ -9,16 +9,18 @@
 </head>
 <body>
     <div id="topBar">
-        <h1>Korean Meal Recommendation</h1>
+        <h1>Food Suggestion</h1>
         <div class="auth-links">
           {% if session.get('google_id') %}
-              <span>Welcome, {{ username }}!</span>
-              <a href="/history">History</a>
-              <a href="/logout">Logout</a>
+            <span>Welcome, {{ username }}!</span>
+            <a href="/request">Request</a>
+            <a href="/history">History</a>
+            <a href="/logout">Logout</a>
           {% else %}
-                <a href="{{ url_for('google.login') }}" class="button">
-                    Login with Google
-                </a>
+            <a href="/request">Request</a>
+            <a href="{{ url_for('google.login') }}" class="button">
+                Login with Google
+            </a>
           {% endif %}
         </div>
     </div>

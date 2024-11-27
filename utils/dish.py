@@ -31,10 +31,11 @@ class Dish:
         return True
 
 class DishManager:
-    def __init__(self, dishes_ref, users_ref, user_selections_ref):
+    def __init__(self, dishes_ref, users_ref, user_selections_ref, requests_ref):
         self.dishes_ref = dishes_ref
         self.users_ref = users_ref
         self.user_selections_ref = user_selections_ref
+        self.requests_ref = requests_ref
 
     def get_all_dishes(self):
         dishes = self.dishes_ref.stream()  # Firestore stream of dishes
@@ -86,7 +87,6 @@ class DishManager:
             'timestamp': firestore.SERVER_TIMESTAMP
         })
 
-
     def get_user_history(self, google_id):
         try:
             # Query to get the user document by google_id
@@ -115,9 +115,6 @@ class DishManager:
             print(f"Error retrieving user history: {e}")
             return []  # Return an empty list if an error occurs
 
-
-
-    
     def get_food_by_name(self, name):
         """Fetch a dish by its name from Firestore."""
         try:
@@ -134,3 +131,31 @@ class DishManager:
         except Exception as e:
             print(f"Error fetching dish by name: {e}")
             return None
+    
+    def add_food_request(self, food_name, description, criteria, image_url=None):
+        """
+        Store a user food request in the Firestore 'Requests' collection.
+        
+        :param food_name: Name of the requested food.
+        :param description: Description of the requested food.
+        :param criteria: A dictionary containing the criteria (e.g., dietary restrictions, meal type).
+        :param image_url: Optional image URL for the requested food.
+        """
+        try:
+            # Create a dictionary for the request data
+            request_data = {
+                'food_name': food_name,
+                'description': description,
+                'criteria': criteria,  # Store all criteria as a dictionary
+                'image_url': image_url,
+                'timestamp': firestore.SERVER_TIMESTAMP  # Add a timestamp
+            }
+            
+            # Add the request to the 'Requests' collection
+            self.requests_ref.add(request_data)
+            
+            print(f"Request for '{food_name}' added successfully!")
+            return {"success": True, "message": f"Request for '{food_name}' added successfully!"}
+        except Exception as e:
+            print(f"Error adding request: {e}")
+            return {"success": False, "error": str(e)}

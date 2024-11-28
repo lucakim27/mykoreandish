@@ -5,23 +5,14 @@
     {% if recommendation and recommendation[0].dish_name != "No match found" %}
         <ul class="food-container">
             {% for dish in recommendation %}
-                <li>
-                    <form action="/food/{{ dish.dish_name }}" method="POST" class="food-box">
-                        <button type="submit" class="food-box-button">
-                            <h2>{{ dish.dish_name }}</h2>
-                            <p><strong>Dietary Restrictions:</strong> {{ dish.dietary_restrictions | join(', ') | replace('_', ' ') }}</p>
-                            <p><strong>Health Goals:</strong> {{ dish.health_goals | join(', ') | replace('_', ' ') }}</p>
-                            <p><strong>Meal Type:</strong> {{ dish.meal_type | join(', ') | replace('_', ' ') }}</p>
-                            <p><strong>Time to Prepare:</strong> {{ dish.time_to_prepare | replace('_', ' ') }}</p>
-                            <p><strong>Ingredient Availability:</strong> {{ dish.ingredient_availability | replace('_', ' ') }}</p>
-                            <p><strong>Cooking Equipment:</strong> {{ dish.cooking_equipment | join(', ') | replace('_', ' ') }}</p>
-                            <p><strong>Budget:</strong> {{ dish.budget | replace('_', ' ') }}</p>
-                            <p><strong>Occasion:</strong> {{ dish.occasion | join(', ') | replace('_', ' ') }}</p>
-                            <p><strong>Taste Preferences:</strong> {{ dish.taste_preferences | join(', ') | replace('_', ' ') }}</p>
-                            <p><strong>Sustainability:</strong> {{ dish.sustainability | replace('_', ' ') }}</p>
-                        </button>
-                    </form>
-                </li>
+            <li>
+                <form action="/food/{{ dish.dish_name }}" method="POST" class="food-box">
+                    <h2>{{ dish.dish_name }}</h2>
+                    <p><strong>Description:</strong> {{ dish.description }}</p>
+                    <p><strong>Adjectives:</strong> {{ dish.adjectives | join(', ') | replace('_', ' ') }}</p>
+                    <button type="submit" class="food-box-button">Details</button>
+                </form>
+            </li>
             {% endfor %}
         </ul>
     {% else %}

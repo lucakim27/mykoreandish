@@ -59,6 +59,11 @@ h1 {
     margin-bottom: 15px;
 }
 
+#description  {
+    width: 100%;
+    padding: 0;
+}
+
 .criteria-form input, .criteria-form textarea {
     padding: 8px;
     font-size: 14px;
@@ -119,83 +124,82 @@ strong {
     align-items: stretch;
 }
 
+.food-container li {
+    flex: 1 1 calc(300px); /* Responsive: Each item takes up at least 300px */
+    max-width: 300px; /* Prevents food boxes from stretching too wide */
+    margin: 0;
+    padding: 0;
+}
 
 .food-box {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: rgb(0, 0, 0);
     border: 1px solid #ffffff;
-    width: 300px;
-    height: 400px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); /* Soft glowing shadow */
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
+    overflow: hidden; /* Prevent overflow of content */
+    height: 350px;
 }
 
 .food-box:hover {
-    border-color: #2980b9;
-    transform: scale(1.05);
+    transform: translateY(-5px) scale(1.03); /* Slight lift on hover */
 }
 
+.food-box h2 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-transform: capitalize; /* Capitalize dish names */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Text depth effect */
+}
+
+.food-box p {
+    font-size: 1rem;
+    color: #dddddd;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
+}
 
 .food-box-button {
-    all: unset;
-    cursor: pointer;
-    width: 100%;
-}
-
-
-.food-box-button h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-
-.food-box-button p {
-    font-size: 1em;
-    line-height: 1.6;
-    margin: 5px 0;
-}
-
-.error-message {
-    color: red;
-    font-size: 1rem;
+    all: unset; /* Remove default button styles */
+    padding: 10px 15px;
+    margin-top: auto; /* Push button to bottom of the box */
     text-align: center;
-    margin-bottom: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border: 1px solid white; /* Button corner rounding */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-@media (max-width: 600px) {
-    #topBar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    #selectBox select {
-        font-size: 12px;
-    }
-
-    #buttonBox button, #buttonBox .button {
-        width: 100%;
-        padding: 12px;
-    }
-
+.food-box-button:hover {
+    background-color: #3498db;
+    transform: scale(1.05); /* Slight grow on hover */
 }
 
 .no-matches {
     text-align: center;
     padding: 50px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2c3e50, #000000);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     margin: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .no-matches h2 {
     font-size: 2rem;
-    color: #333;
+    color: #ffffff;
     margin-bottom: 10px;
+}
+
+.no-matches p {
+    font-size: 1rem;
+    color: #cccccc;
 }
 
 /* General Styles for the Confirmation Page */

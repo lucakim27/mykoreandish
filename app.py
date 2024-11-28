@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from utils.dish import DishManager
-from utils.user import get_dish_statistics, get_username, logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function, store_google_user
+from utils.dishes import DishManager
+from utils.users import get_dish_statistics, get_username, logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function, store_google_user
 import os
 from dotenv import load_dotenv
 from flask_dance.contrib.google import make_google_blueprint, google
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from utils.requests import Requests
 
 cred = credentials.Certificate("/etc/secrets/credentials.json") # production
 # cred = credentials.Certificate('credentials.json') # local environment
@@ -19,7 +20,7 @@ users_ref = db.collection('Users')
 user_selections_ref = db.collection('UserSelections')
 requests_ref = db.collection('Requests')
 
-manager = DishManager(dishes_ref, users_ref, user_selections_ref, requests_ref)
+manager = DishManager(dishes_ref, users_ref, user_selections_ref)
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0' # production
 # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # local environment
@@ -62,8 +63,8 @@ def logout():
 @app.route('/recommendation', methods=['POST'])
 def recommendation():
     username = get_username(db)
-    criteria = {key: value.lower() for key, value in request.form.items()}
-    recommendation = manager.make_recommendation(**criteria)
+    description = request.form.get('description')
+    recommendation = manager.make_recommendation(description)
     return render_template('recommendation.html', username=username, recommendation=recommendation)
 
 @app.route('/food/<name>', methods=['GET', 'POST'])
@@ -117,25 +118,10 @@ def request_page():
 
 @app.route('/submit-request', methods=['POST'])
 def submit_request():
-    
     name = request.form.get('name')
     description = request.form.get('description')
-    dietary_restrictions = request.form.get('dietary_restrictions')
-    health_goals = request.form.get('health_goals')
-    meal_type = request.form.get('meal_type')
-    time_to_prepare = request.form.get('time_to_prepare')
-    taste_preference = request.form.get('taste_preference')
-    image_url = request.form.get('image_url', None)
-    criteria = {
-        "dietary_restrictions": dietary_restrictions,
-        "health_goals": health_goals,
-        "meal_type": meal_type,
-        "time_to_prepare": time_to_prepare,
-        "taste_preference": taste_preference
-    }
-
-    manager.add_food_request(name, description, criteria, image_url)
-
+    adjectives = request.form.get('adjective')
+    Requests(name, description, adjectives, requests_ref, firestore).add_food_request()
     return redirect(url_for('index'))
 
 @app.errorhandler(404)

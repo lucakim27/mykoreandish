@@ -8,9 +8,14 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from utils.requests import Requests
+import nltk
+nltk.download('stopwords')
 
 cred = credentials.Certificate("/etc/secrets/credentials.json") # production
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0' # production
+
 # cred = credentials.Certificate('credentials.json') # local environment
+# os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # local environment
 
 firebase_admin.initialize_app(cred)
 db = firestore.client()
@@ -21,9 +26,6 @@ user_selections_ref = db.collection('UserSelections')
 requests_ref = db.collection('Requests')
 
 manager = DishManager(dishes_ref, users_ref, user_selections_ref)
-
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0' # production
-# os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # local environment
 
 load_dotenv()
 app = Flask(__name__)

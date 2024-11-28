@@ -1,7 +1,5 @@
 from firebase_admin import firestore
 import re
-import nltk
-nltk.download('stopwords')
 from nltk.corpus import stopwords
 
 class Dish:
@@ -104,18 +102,14 @@ class DishManager:
             return []  # Return an empty list if an error occurs
 
     def get_food_by_name(self, name):
-        """Fetch a dish by its name from Firestore."""
         try:
-            # Query the 'Dishes' collection for a document with the given dish_name
-            dish_ref = self.dishes_ref.where('dish_name', '==', name).limit(1)
-            dishes = dish_ref.stream()
-
-            # If a dish is found, return it
-            for dish_doc in dishes:
-                return self.row_to_dish(dish_doc)
-            
-            # If no dish is found, return None
-            return None
+            dish_query = self.dishes_ref.where('dish_name', '==', name).limit(1)
+            dishes = list(dish_query.stream())
+            if dishes:
+                return self.row_to_dish(dishes[0])
+            else:
+                print(f"No dish found with name: '{name}'")
+                return None
         except Exception as e:
             print(f"Error fetching dish by name: {e}")
             return None

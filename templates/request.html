@@ -5,13 +5,13 @@
 {% block content %}
 <form action="/submit-request" method="POST" class="criteria-form">
     <label for="name">Food Name:</label><br>
-    <input type="text" id="name" name="name" required><br><br>
+    <input type="text" id="name" name="name" placeholder="Kimchi Soup" required><br><br>
 
     <label for="description">Description:</label><br>
-    <textarea id="description" name="description" rows="4" required></textarea><br><br>
+    <textarea id="description" name="description" rows="4" placeholder="Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea><br><br>
 
-    <label for="adjective">Adjective:</label><br>
-    <input type="text" id="adjective" name="adjective" required><br><br>
+    <label for="adjective">Adjectives:</label><br>
+    <input type="text" id="adjective" name="adjective" placeholder="Sweet, Crunchy and caramelized" required><br><br>
     <button type="submit">Submit Request</button>
 </form>
 <div id="buttonBox">

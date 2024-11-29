@@ -12,13 +12,17 @@
         <h1>Food Suggestion</h1>
         <div class="auth-links">
           {% if session.get('google_id') %}
-            <span>Welcome, {{ user.get('name') }}!</span>
-            {% if user.get('admin') %}
-                <a href="/admin">Admin</a>
+            {% if user %}
+              <span>Welcome, {{ user.get('name', 'Guest') }}!</span>
+              {% if user.get('admin') %}
+                  <a href="/admin">Admin</a>
+              {% endif %}
+            {% else %}
+              <span>Welcome, Guest!</span>
             {% endif %}
             <a href="/request">Request</a>
-            <a href="/history">History</a>
-            <a href="/logout">Logout</a>
+            <a href="/users">History</a>
+            <a href="/users/logout">Logout</a>
           {% else %}
             <a href="/request">Request</a>
             <a href="{{ url_for('google.login') }}" class="button">
@@ -27,6 +31,7 @@
           {% endif %}
         </div>
     </div>
+   
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

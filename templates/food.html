@@ -7,7 +7,7 @@
 
     <div class="button-box">
         <a href="https://mykoreankitchen.com/?s={{ dish.dish_name | urlize }}" class="button recipe-button">Recipe</a>
-        <form action="/select/{{ dish.dish_name }}" method="post" style="display:inline;">
+        <form action="/dishes/select/{{ dish.dish_name }}" method="post" style="display:inline;">
             <button type="submit" class="button select-button">Select</button>
         </form>
         <button onclick="window.location.href='/'" class="button home-button">Home</button>

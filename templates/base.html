@@ -12,7 +12,10 @@
         <h1>Food Suggestion</h1>
         <div class="auth-links">
           {% if session.get('google_id') %}
-            <span>Welcome, {{ username }}!</span>
+            <span>Welcome, {{ user.get('name') }}!</span>
+            {% if user.get('admin') %}
+                <a href="/admin">Admin</a>
+            {% endif %}
             <a href="/request">Request</a>
             <a href="/history">History</a>
             <a href="/logout">Logout</a>

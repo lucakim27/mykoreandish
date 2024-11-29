@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from utils.dishes import DishManager
-from utils.users import get_dish_statistics, get_username, logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function, store_google_user
+from utils.users import get_dish_statistics, getUserById, logout_user, get_logged_in_user, delete_history_function, login_required, rate_dish_function, store_google_user
 import os
 from dotenv import load_dotenv
 from flask_dance.contrib.google import make_google_blueprint, google
@@ -40,8 +40,11 @@ app.register_blueprint(google_blueprint, url_prefix='/login')
 @app.route('/')
 def index():
     average_ratings, selection_counts = get_dish_statistics(db)
-    username = get_username(db)
-    return render_template('index.html', username=username, average_ratings=average_ratings, selection_counts=selection_counts)
+    user = getUserById(db)
+    if user:
+        return render_template('index.html', user=user, average_ratings=average_ratings, selection_counts=selection_counts)
+    else:
+        return render_template('index.html', average_ratings=average_ratings, selection_counts=selection_counts)
 
 @app.route('/google_login')
 def google_login():
@@ -64,16 +67,22 @@ def logout():
 
 @app.route('/recommendation', methods=['POST'])
 def recommendation():
-    username = get_username(db)
+    user = getUserById(db)
     description = request.form.get('description')
     recommendation = manager.make_recommendation(description)
-    return render_template('recommendation.html', username=username, recommendation=recommendation)
+    if user:
+        return render_template('recommendation.html', user=user, recommendation=recommendation)
+    else:
+        return render_template('recommendation.html', recommendation=recommendation)
 
 @app.route('/food/<name>', methods=['GET', 'POST'])
 def food(name=None):
-    username = get_username(db)
+    user = getUserById(db)
     dish = manager.get_food_by_name(name)
-    return render_template('food.html', username=username, dish=dish)
+    if user:
+        return render_template('food.html', user=user, dish=dish)
+    else:
+        return render_template('food.html', dish=dish)
 
 @app.route('/select/<name>', methods=['POST'])
 @login_required
@@ -83,7 +92,7 @@ def select_food(name=None):
 
 @app.route('/history')
 def history():
-    username = get_username(db)
+    user = getUserById(db)
     if 'google_id' not in session:
         return redirect(url_for('login'))
     google_id = session['google_id']
@@ -94,8 +103,11 @@ def history():
         'timestamp': selection.get('timestamp'), 
         'rating': selection.get('rating')
     } for selection in user_history]
-    return render_template('history.html', username=username, items=history_data)
-
+    if user:
+        return render_template('history.html', user=user, items=history_data)
+    else:
+        return render_template('history.html', items=history_data)
+    
 @app.route('/delete_history', methods=['POST'])
 def delete_history():
     history_id = request.form.get('history_id')
@@ -115,9 +127,12 @@ def rate_dish():
 
 @app.route('/request')
 def request_page():
-    username = get_username(db)
-    return render_template('request.html', username=username)
-
+    user = getUserById(db)
+    if user:
+        return render_template('request.html', user=user)
+    else:
+        return render_template('request.html')
+    
 @app.route('/submit-request', methods=['POST'])
 def submit_request():
     name = request.form.get('name')
@@ -125,6 +140,58 @@ def submit_request():
     adjectives = request.form.get('adjective')
     Requests(name, description, adjectives, requests_ref, firestore).add_food_request()
     return redirect(url_for('index'))
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin_panel():
+    user = getUserById(db)
+    if not user.get('admin', False):  # Ensure the user is an admin
+        return "Access Denied", 403
+
+    # Fetch user requests from Firestore
+    requests = []
+    requests_ref = db.collection('Requests').stream()
+    for req in requests_ref:
+        req_data = req.to_dict()
+        req_data['id'] = req.id  # Add Firestore document ID for deletion
+        requests.append(req_data)
+
+    return render_template('admin.html', user=user, requests=requests)
+
+@app.route('/admin/add-food', methods=['POST'])
+def add_food():
+    # Retrieve data from the form
+    dish_name = request.form.get('dish_name')
+    description = request.form.get('description')
+    adjectives = request.form.getlist('adjectives[]')  # This retrieves all adjectives as a list
+
+    # Validate the inputs
+    if not dish_name or not description or not adjectives:
+        # flash('All fields are required!', 'error')
+        return redirect('/admin')
+
+    # Add the food item to the Firestore 'foods' collection
+    db.collection('Dishes').add({
+        'dish_name': dish_name,
+        'description': description,
+        'adjectives': adjectives  # Store adjectives as a list
+    })
+
+    # flash('Food added successfully!', 'success')
+    return redirect('/admin')
+
+
+@app.route('/admin/delete-request', methods=['POST'])
+def delete_request():
+    request_id = request.form.get('id')  # Get the Firestore document ID
+
+    if not request_id:
+        # flash('Invalid request ID.', 'error')
+        return redirect('/admin')
+
+    # Delete the request from Firestore
+    db.collection('Requests').document(request_id).delete()
+    # flash('Request deleted successfully!', 'success')
+    return redirect('/admin')
 
 @app.errorhandler(404)
 def page_not_found(error):

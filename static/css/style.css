@@ -463,3 +463,33 @@ strong {
     font-size: 1em;
 }
 
+.requests-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.request-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.request-box h3 {
+    margin-top: 0;
+}
+
+.delete-button {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #ff4d4d;
+}

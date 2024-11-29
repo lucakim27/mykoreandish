@@ -12,7 +12,6 @@ A web app built with Python Flask that recommends Korean meals based on user int
 
 ### Frameworks 
 - **Python Flask**: A lightweight web framework for building the backend and handling API requests.
-- **Firebase**: A NoSQL cloud database for storing user data, dish ratings, and selections.
   
 ### Deployment
 - **Render**: Cloud platform used for hosting the web app.

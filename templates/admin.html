@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+
+<!-- Add Food Form -->
+<h2>Add New Food</h2>
+<form action="/admin/add-food" method="POST" class="criteria-form">
+    <label for="dish_name">Dish Name:</label><br>
+    <input type="text" id="dish_name" name="dish_name" placeholder="Kimchi Soup" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" placeholder="A delicious Korean soup made with kimchi." required></textarea><br><br>
+
+    <label for="adjectives">Adjectives:</label><br>
+    <div id="adjectives-container">
+        <input type="text" name="adjectives[]" placeholder="Spicy" required>
+    </div>
+    <button type="button" onclick="addAdjectiveInput()">+ Add Adjective</button><br><br>
+
+    <button type="submit">Add Food</button>
+</form>
+
+<script>
+    function addAdjectiveInput() {
+        const container = document.getElementById('adjectives-container');
+        const newInput = document.createElement('input');
+        newInput.type = 'text';
+        newInput.name = 'adjectives[]';
+        newInput.placeholder = 'Another adjective';
+        newInput.required = true;
+        container.appendChild(newInput);
+    }
+</script>
+
+
+<hr>
+
+<!-- Display User Requests -->
+<h2>User Requests</h2>
+<div class="requests-container">
+    {% for request in requests %}
+    <div class="request-box">
+        <h3>{{ request.food_name }}</h3>
+        <p><strong>Description:</strong> {{ request.description }}</p>
+        <p><strong>Adjectives:</strong> {{ request.adjectives }}</p>
+        <form action="/admin/delete-request" method="POST" class="delete-form">
+            <input type="hidden" name="id" value="{{ request.id }}">
+            <button type="submit" class="delete-button">Delete</button>
+        </form>
+    </div>
+    {% else %}
+    <p>No user requests found.</p>
+    {% endfor %}
+</div>
+
+<div id="buttonBox">
+    <button onclick="window.location.href='/'" class="button">Back to Home</button>
+</div>
+{% endblock %}

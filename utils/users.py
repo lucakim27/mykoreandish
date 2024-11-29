@@ -34,7 +34,7 @@ def logout_user():
     session.pop('google_id', None)
     flash('You have been logged out.', 'info')
 
-def get_username(db):
+def getUserById(db):
     if session.get('google_id'):
         # Reference to the 'Users' collection
         users_ref = db.collection('Users')
@@ -47,7 +47,7 @@ def get_username(db):
         user = user_docs[0]  # Fetch the first matching document
         
         # Return the 'username' field from the document
-        return user.to_dict().get('name')
+        return user.to_dict()
 
 
 # Get logged in user

@@ -1,5 +1,5 @@
-from firebase_admin import firestore
 import re
+from flask import flash, redirect
 from nltk.corpus import stopwords
 
 class Dish:
@@ -26,10 +26,8 @@ class Dish:
         return False
 
 class DishManager:
-    def __init__(self, dishes_ref, users_ref, user_selections_ref):
-        self.dishes_ref = dishes_ref
-        self.users_ref = users_ref
-        self.user_selections_ref = user_selections_ref
+    def __init__(self, db):
+        self.dishes_ref = db.collection('Dishes')
 
     def get_all_dishes(self):
         dishes = self.dishes_ref.stream()
@@ -51,57 +49,7 @@ class DishManager:
         else:
             return [{"dish_name": "No match found", "reason": "Try relaxing the filters."}]
 
-    def add_selection(self, google_id, dish_name, rating=None):
-        """Add a food selection without a rating initially."""
-        user_ref = self.users_ref.where('google_id', '==', google_id)
-        user = user_ref.get()
-
-        if not user:
-            raise ValueError("User does not exist.")
-        
-        dish_ref = self.dishes_ref.document(dish_name)  # Ensure dish_name is used correctly
-        dish = dish_ref.get()
-        
-        if not dish:
-            raise ValueError("User does not exist.")
-        
-        # Add selection to the UserSelections collection with rating as None
-        self.user_selections_ref.add({
-            'google_id': google_id,
-            'dish_name': dish_name,
-            'rating': rating,  # This will be None if no rating is provided
-            'timestamp': firestore.SERVER_TIMESTAMP
-        })
-
-    def get_user_history(self, google_id):
-        try:
-            # Query to get the user document by google_id
-            user_ref = self.users_ref.where('google_id', '==', google_id)
-            user_docs = user_ref.get()
-
-            if not user_docs:
-                return []  # Return empty list if user doesn't exist
-
-            # Assuming only one user document will match, get the first document
-            user = user_docs[0]  # user_docs is a list of documents
-
-            # Query to get all selections by the user using the google_id
-            user_selections_ref = self.user_selections_ref.where('google_id', '==', user.to_dict().get('google_id'))
-            selections = user_selections_ref.stream()  # Stream selections
-
-            # Return user selections as a list of dictionaries
-            return [{
-                'id': selection.id,  # Firestore document ID as 'id'
-                'dish_name': selection.to_dict().get('dish_name'),
-                'timestamp': selection.to_dict().get('timestamp'),
-                'rating': selection.to_dict().get('rating')
-            } for selection in selections]
-
-        except Exception as e:
-            print(f"Error retrieving user history: {e}")
-            return []  # Return an empty list if an error occurs
-
-    def get_food_by_name(self, name):
+    def get_dish_instance(self, name):
         try:
             dish_query = self.dishes_ref.where('dish_name', '==', name).limit(1)
             dishes = list(dish_query.stream())
@@ -113,3 +61,17 @@ class DishManager:
         except Exception as e:
             print(f"Error fetching dish by name: {e}")
             return None
+    
+    def add_dish(self, dish_name, description, adjectives):
+        if not dish_name or not description or not adjectives:
+            flash('All fields are required!', 'error')
+            return redirect('/admin')
+
+        # Add the food item to the Firestore 'foods' collection
+        self.dishes_ref.add({
+            'dish_name': dish_name,
+            'description': description,
+            'adjectives': adjectives  # Store adjectives as a list
+        })
+        
+        flash('Food added successfully!', 'success')

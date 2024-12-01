@@ -1,48 +1,34 @@
-from flask import Flask, render_template
-from models.users import get_dish_statistics, getUserById
+from flask import Flask
 import os
-from dotenv import load_dotenv
 from flask_dance.contrib.google import make_google_blueprint
 from controllers.auth import auth_bp
 from controllers.dishes import dishes_bp
 from controllers.users import users_bp
 from controllers.admin import admin_bp
 from controllers.request import request_bp
-from config.db import db
-import nltk
-nltk.download('stopwords')
+from controllers.home import home_bp
+from controllers.error_handlers import error_bp
+from config.nltk_config import initialize_nltk
+from config.config import Config
 
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0' # production
-# os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # local environment
-
-load_dotenv()
+initialize_nltk()
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY")
+app.secret_key = Config.SECRET_KEY
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = Config.OAUTHLIB_INSECURE_TRANSPORT
 google_blueprint = make_google_blueprint(
-    client_id=os.getenv("GOOGLE_CLIENT_ID"),
-    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+    client_id=Config.GOOGLE_CLIENT_ID,
+    client_secret=Config.GOOGLE_CLIENT_SECRET,
     redirect_to='auth_bp.google_login'
 )
+
 app.register_blueprint(google_blueprint, url_prefix='/login')
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(dishes_bp, url_prefix='/dishes')
 app.register_blueprint(users_bp, url_prefix='/users')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(request_bp, url_prefix='/request')
-
-@app.route('/')
-def index():
-    user = getUserById(db)
-    print(user)
-    average_ratings, selection_counts = get_dish_statistics(db)
-    if user:
-        return render_template('index.html', user=user, average_ratings=average_ratings, selection_counts=selection_counts)
-    else:
-        return render_template('index.html', average_ratings=average_ratings, selection_counts=selection_counts)
-
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('page_not_found.html'), 404
+app.register_blueprint(home_bp)
+app.register_blueprint(error_bp)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

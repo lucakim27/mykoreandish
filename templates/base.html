@@ -22,7 +22,7 @@
             {% endif %}
             <a href="/request">Request</a>
             <a href="/users">History</a>
-            <a href="/users/logout">Logout</a>
+            <a href="/auth/logout">Logout</a>
           {% else %}
             <a href="/request">Request</a>
             <a href="{{ url_for('google.login') }}" class="button">
@@ -31,8 +31,6 @@
           {% endif %}
         </div>
     </div>
-   
-
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         <div class="flashes">
@@ -42,7 +40,6 @@
         </div>
     {% endif %}
     {% endwith %}
-
     <main>
         {% block content %}
         {% endblock %}

@@ -1,25 +1,22 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, session, url_for
 from config.db import db
-from models.requests import Requests
-from models.users import getUserById
+from models.requests import RequestsManager
+from models.users import UserManager
 from firebase_admin import firestore
 
 request_bp = Blueprint('request', __name__)
-
-requests_ref = db.collection('Requests')
+manager = RequestsManager(db, firestore)
+user_manager = UserManager(db)
 
 @request_bp.route('/')
 def request_page():
-    user = getUserById(db)
-    if user:
-        return render_template('request.html', user=user)
-    else:
-        return render_template('request.html')
+    user = user_manager.getUserBySession(session)
+    return render_template('request.html', user=user)
 
 @request_bp.route('/submit-request', methods=['POST'])
 def submit_request():
     name = request.form.get('name')
     description = request.form.get('description')
     adjectives = request.form.get('adjective')
-    Requests(name, description, adjectives, requests_ref, firestore).add_food_request()
-    return redirect(url_for('index'))
+    manager.add_food_request(name, description, adjectives)
+    return redirect(url_for('home.home'))

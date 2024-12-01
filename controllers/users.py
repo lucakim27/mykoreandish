@@ -1,44 +1,26 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
+from controllers.auth import login_required
 from models.dishes import DishManager
-from models.users import delete_history_function, getUserById
+from models.users import UserManager
+from models.userSelections import UserSelectionManager
 from config.db import db
 
 users_bp = Blueprint('users', __name__)
-
-dishes_ref = db.collection('Dishes')
-users_ref = db.collection('Users')
-user_selections_ref = db.collection('UserSelections')
-
-manager = DishManager(dishes_ref, users_ref, user_selections_ref)
+manager = DishManager(db)
+user_manager = UserManager(db)
+selection_manager = UserSelectionManager(db)
 
 @users_bp.route('/')
+@login_required
 def history():
-    user = getUserById(db)
-    if 'google_id' not in session:
-        return redirect(url_for('login'))
-    google_id = session['google_id']
-    user_history = manager.get_user_history(google_id)
-    history_data = [{
-        'id': selection.get('id'), 
-        'dish_name': selection.get('dish_name'), 
-        'timestamp': selection.get('timestamp'), 
-        'rating': selection.get('rating')
-    } for selection in user_history]
-    print(user)
-    if user:
-        return render_template('history.html', user=user, items=history_data)
-    else:
-        return render_template('history.html', items=history_data)
+    user = user_manager.getUserBySession(session)
+    user_history = selection_manager.get_user_history(session['google_id'])
+    return render_template('history.html', user=user, items=user_history)
 
 @users_bp.route('/delete-history', methods=['POST'])
-def delete_history():
+def deleteHistoryRoute():
     history_id = request.form.get('history_id')
     if history_id:
-        if delete_history_function(db, history_id):
+        if selection_manager.delete_history(history_id):
             return redirect(url_for('users.history'))
     return redirect(url_for('users.history'))
-
-@users_bp.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('index'))

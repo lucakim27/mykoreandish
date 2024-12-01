@@ -22,7 +22,7 @@
                         <button type="submit" class="rate-button">Rate</button>
                     </form>
                     <!-- Delete Button -->
-                    <form method="POST" action="{{ url_for('users.delete_history') }}" style="display:inline;">
+                    <form method="POST" action="{{ url_for('users.deleteHistoryRoute') }}" style="display:inline;">
                         <input type="hidden" name="history_id" value="{{ item.id }}">
                         <button type="submit" class="delete-button">Delete</button>
                     </form>

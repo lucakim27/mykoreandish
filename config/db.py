@@ -1,5 +1,4 @@
 # db.py
-import os
 from firebase_admin import credentials, firestore, initialize_app
 
 # Load credentials and initialize Firestore

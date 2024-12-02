@@ -8,29 +8,40 @@
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
-    <div id="topBar">
-        <h1>Food Suggestion</h1>
-        <div class="auth-links">
-          {% if session.get('google_id') %}
-            {% if user %}
-              <span>Welcome, {{ user.get('name', 'Guest') }}!</span>
-              {% if user.get('admin') %}
-                  <a href="/admin">Admin</a>
-              {% endif %}
-            {% else %}
-              <span>Welcome, Guest!</span>
-            {% endif %}
-            <a href="/request">Request</a>
-            <a href="/users">History</a>
-            <a href="/auth/logout">Logout</a>
-          {% else %}
-            <a href="/request">Request</a>
-            <a href="{{ url_for('google.login') }}" class="button">
-                Login with Google
-            </a>
-          {% endif %}
-        </div>
+<div id="topBar">
+    <h1>
+        <a href="/" style="text-decoration: none; color: inherit;">Food Suggestion</a>
+    </h1>
+    <div class="auth-links">
+        {% if session.get('google_id') %}
+          <div class="user-dropdown">
+              <span class="username" onclick="toggleDropdown()">{{ user.get('name', 'Guest') }}</span>
+              <div class="dropdown-menu">
+                  {% if user.get('admin') %}
+                      <a href="/admin">Admin</a>
+                  {% endif %}
+                  <a href="/request">Request</a>
+                  <a href="/users">History</a>
+                  <a href="/auth/logout">Logout</a>
+              </div>
+          </div>
+        {% else %}
+          <div class="user-dropdown">
+            <span class="guest" onclick="toggleDropdown()">Guest</span>
+            <div class="dropdown-menu">
+                <a href="/request">Request</a>
+                <a href="{{ url_for('google.login') }}" class="button">Login with Google</a>
+            </div>
+          </div>
+        {% endif %}
     </div>
+</div>
+<script>
+  function toggleDropdown() {
+      var dropdown = event.target.closest('.user-dropdown');
+      dropdown.classList.toggle('show-dropdown');
+  }
+</script>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         <div class="flashes">

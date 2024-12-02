@@ -13,11 +13,16 @@ dish_manager = DishManager(db)
 @admin_bp.route('/')
 def admin_panel():
     user = user_manager.getUserBySession(session)
-    requests = request_manager.get_food_request(user)
+    if not user or not user.get('admin', False):
+            return "Access Denied", 403
+    requests = request_manager.get_food_request()
     return render_template('admin.html', user=user, requests=requests)
 
 @admin_bp.route('/add-food', methods=['POST'])
 def add_food():
+    user = user_manager.getUserBySession(session)
+    if not user or not user.get('admin', False):
+            return "Access Denied", 403
     dish_name = request.form.get('dish_name')
     description = request.form.get('description')
     adjectives = request.form.getlist('adjectives[]')
@@ -26,6 +31,9 @@ def add_food():
 
 @admin_bp.route('/delete-request', methods=['POST'])
 def delete_request():
+    user = user_manager.getUserBySession(session)
+    if not user or not user.get('admin', False):
+            return "Access Denied", 403
     request_id = request.form.get('id')  # Get the Firestore document ID
     request_manager.delete_request(request_id)
     return redirect('/admin')

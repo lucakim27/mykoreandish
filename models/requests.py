@@ -33,11 +33,7 @@ class RequestsManager:
             print(f"Error adding request: {e}")
             return {"success": False, "error": str(e)}
     
-    def get_food_request(self, user):
-
-        if not user.get('admin', False):
-            return "Access Denied", 403
-
+    def get_food_request(self):
         requests = []
         for req in self.requests_ref.stream():
             req_data = req.to_dict()

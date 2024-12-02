@@ -24,6 +24,10 @@ class Dish:
                 return True
 
         return False
+    
+    def filter_criteria(self, spiciness, dietary):
+        if spiciness:
+            return True
 
 class DishManager:
     def __init__(self, db):
@@ -48,6 +52,19 @@ class DishManager:
             return filtered_dishes
         else:
             return [{"dish_name": "No match found", "reason": "Try relaxing the filters."}]
+    
+    def filter_criteria(self):
+        dishes = self.get_all_dishes()
+        adjectives = set()
+        for dish in dishes:
+            # Ensure the adjectives attribute is a string or empty
+            if dish.adjectives:
+                # If adjectives is a string, split by commas, else assume it's a list
+                if isinstance(dish.adjectives, str):
+                    adjectives.update(dish.adjectives.split(','))
+                elif isinstance(dish.adjectives, list):
+                    adjectives.update(dish.adjectives)
+        return adjectives
 
     def get_dish_instance(self, name):
         try:

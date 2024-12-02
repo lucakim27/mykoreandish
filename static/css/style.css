@@ -19,7 +19,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid white;
 }
 
 .auth-links {
@@ -35,12 +35,54 @@ h1 {
     transition: opacity 0.3s;
 }
 
-.auth-links a:first-child {
-    margin-left: 0;
-}
-
 .auth-links a:hover {
     opacity: 0.8;
+}
+
+
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.username, .guest {
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #000000;
+    font-weight: bold;
+    color: white;
+    border: 1px solid white;
+}
+
+.username:hover, .guest:hover {
+    background-color: #3498db;
+    transition: background-color 0.3s;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #000000;
+    color: white;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
+    border: 1px solid white;
+}
+
+.dropdown-menu a {
+    margin-left: 0;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #2980b9;
+}
+
+.show-dropdown .dropdown-menu {
+    display: block;
 }
 
 .criteria-form {
@@ -55,19 +97,20 @@ h1 {
     justify-content: space-between;
     height: auto; /* Adjust height to match the content dynamically */
 }
-#selectBox p {
-    margin-bottom: 15px;
+.criteria-form select {
+    margin-bottom: 20px;
 }
 
 #description  {
     width: 100%;
     padding: 0;
+    height: 100px;
 }
 
 .criteria-form input, .criteria-form textarea {
     padding: 8px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid #ffffff;
     background-color: black;
     color: white;
 }
@@ -379,7 +422,6 @@ strong {
     background-color: #cc0000;
 }
 
-/* Styling for "Back to Home" button */
 .history-container .button {
     display: block;
     margin: 20px auto;

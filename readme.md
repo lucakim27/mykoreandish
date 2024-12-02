@@ -13,7 +13,6 @@ A web application built with Python Flask that recommends Korean meals based on 
 
 ### Frameworks 
 - **Python Flask**: A lightweight web framework for building the backend and handling API requests.
-- **Bootstrap**: Enhances the front-end for a responsive and clean user interface.
 
 ### Architecture & Technical Features
 - **Object-Oriented Programming (OOP)**: The project is designed with Object-Oriented Programming principles, using classes and objects to manage the data and interactions.

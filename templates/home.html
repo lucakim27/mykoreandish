@@ -14,7 +14,6 @@
       {% endfor %}
     </ul>
   </section>
-  
   <section id="most-selected-food">
     <h2>Most Selected Food</h2>
     <ul>
@@ -27,18 +26,23 @@
       {% endfor %}
     </ul>
   </section>
-  
 </div>
-
-
-  <form action="/dishes" method="post" class="criteria-form">
-    <div id="selectBox">
-      <label for="description">Describe a korean food:</label><br>
-      <textarea id="description" name="description" rows="4" placeholder="Sweet pancakes filled with cinnamon, brown sugar, and nuts."
-      required></textarea><br><br>
-    </div>
-    <div id="buttonBox">
-      <button type="submit">Search</button>
-    </div>
-  </form>
+<form action="/dishes" method="post" class="criteria-form">
+  <div id="selectBox">
+    <label for="description">Describe a korean food:</label><br>
+    <textarea id="description" name="description" rows="4" placeholder="Sweet pancakes filled with cinnamon, brown sugar, and nuts."
+    required></textarea><br><br>
+  </div>
+    <button type="submit">Search</button>
+</form>
+<form action="/dishes" method="post" class="criteria-form">
+  <label for="description">Select Criteria:</label>
+  <select id="adjective" name="description">
+    <option value="">Select Criteria</option>
+    {% for adjective in adjectives %}
+        <option value="{{ adjective }}">{{ adjective.capitalize() }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filter</button>
+</form>
 {% endblock %}

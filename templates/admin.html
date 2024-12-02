@@ -1,9 +1,6 @@
 {% extends "base.html" %}
-
 {% block title %}Admin Panel{% endblock %}
-
 {% block content %}
-
 <!-- Add Food Form -->
 <h2>Add New Food</h2>
 <form action="/admin/add-food" method="POST" class="criteria-form">
@@ -21,7 +18,6 @@
 
     <button type="submit">Add Food</button>
 </form>
-
 <script>
     function addAdjectiveInput() {
         const container = document.getElementById('adjectives-container');
@@ -33,9 +29,7 @@
         container.appendChild(newInput);
     }
 </script>
-
 <hr>
-
 <!-- Display User Requests -->
 <h2>User Requests</h2>
 <div class="requests-container">
@@ -53,8 +47,5 @@
     <p>No user requests found.</p>
     {% endfor %}
 </div>
-
-<div id="buttonBox">
-    <button onclick="window.location.href='/'" class="button">Back to Home</button>
-</div>
+<hr>
 {% endblock %}

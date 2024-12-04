@@ -14,7 +14,11 @@ selection_manager = UserSelectionManager(db)
 def recommendation():
     user = user_manager.getUserBySession(session)
     description = request.form.get('description')
-    recommendation = manager.make_recommendation(description)
+    adjectives = request.form.get('adjectives')
+    spiciness = request.form.get('spiciness')
+    dietary = request.form.get('dietary')
+    ingredients = request.form.get('ingredients')
+    recommendation = manager.make_recommendation(description, adjectives, spiciness, dietary, ingredients)
     return render_template('recommendation.html', user=user, recommendation=recommendation)
 
 @dishes_bp.route('/<name>', methods=['POST'])

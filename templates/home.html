@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Your Kfood-Home{% endblock %}
 {% block content %}
 <div class="top-foods">
   <section id="top-rated-food">
@@ -27,6 +27,38 @@
     </ul>
   </section>
 </div>
+</form>
+<form action="/dishes" method="post" class="criteria-form">
+  <label for="adjectives">Select characteristics:</label>
+  <select id="adjectives" name="adjectives">
+    <option value="Any">Any</option>
+    {% for adjective in adjectives %}
+        <option value="{{ adjective }}">{{ adjective.capitalize() }}</option>
+    {% endfor %}
+  </select>
+  <label for="spiciness">Select spiciness:</label>
+  <select id="spiciness" name="spiciness">
+    <option value="Any">Any</option>
+    {% for spicy in spiciness %}
+        <option value="{{ spicy }}">{{ spicy.capitalize() }}</option>
+    {% endfor %}
+  </select>
+  <label for="dietary">Select dietary:</label>
+  <select id="dietary" name="dietary">
+    <option value="Any">Any</option>
+    {% for diet in dietary %}
+        <option value="{{ diet }}">{{ diet.capitalize() }}</option>
+    {% endfor %}
+  </select>
+  <label for="ingredients">Select ingredients:</label>
+  <select id="ingredient" name="ingredients">
+    <option value="Any">Any</option>
+    {% for ingredient in ingredients %}
+        <option value="{{ ingredient }}">{{ ingredient.capitalize() }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filter</button>
+</form>
 <form action="/dishes" method="post" class="criteria-form">
   <div id="selectBox">
     <label for="description">Describe a korean food:</label><br>
@@ -34,15 +66,4 @@
     required></textarea><br><br>
   </div>
     <button type="submit">Search</button>
-</form>
-<form action="/dishes" method="post" class="criteria-form">
-  <label for="description">Select Criteria:</label>
-  <select id="adjective" name="description">
-    <option value="">Select Criteria</option>
-    {% for adjective in adjectives %}
-        <option value="{{ adjective }}">{{ adjective.capitalize() }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit">Filter</button>
-</form>
 {% endblock %}

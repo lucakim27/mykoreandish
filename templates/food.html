@@ -1,14 +1,32 @@
 {% extends "base.html" %}
-{% block title %}Food Selection Confirmation{% endblock %}
+{% block title %}Your Kfood-{{ dish.dish_name | capitalize }}{% endblock %}
 {% block content %}
 <div class="confirmation-container">
-    <h2>This is a <strong>{{ dish.dish_name }}</strong> page!</h2>
-    <p>This dish is a great choice based on your preferences!</p>
-
+    <h2><strong>{{ dish.dish_name }}</strong></h2>
+    <hr>{{ dish.description }}
+    {% if dish.adjectives %}
+    <hr>Adjectives:
+        {% for adjective in dish.adjectives %}
+            <strong>{{ adjective }}</strong>
+        {% endfor %}
+    {% endif %}
+    {% if dish.dietary %}
+    <hr>Dietary:
+        {% for diet in dish.dietary %}
+            <strong>{{ diet }}</strong>
+        {% endfor %}
+    {% endif %}
+    {% if dish.ingredients %}
+    <hr>Ingredients:
+        {% for ingredient in dish.ingredients %}
+            <strong>{{ ingredient }}</strong>
+        {% endfor %}
+    {% endif %}
+    <hr>Spiciness: <strong>{{ dish.spiciness }}</strong>
     <div class="button-box">
         <a href="https://mykoreankitchen.com/?s={{ dish.dish_name | urlize }}" class="button recipe-button">Recipe</a>
         <form action="/dishes/select/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Select</button>
+            <button type="submit" class="button select-button">Rate</button>
         </form>
     </div>
     

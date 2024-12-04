@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Recommendation{% endblock %}
+{% block title %}Your Kfood-Dishes{% endblock %}
 {% block content %}
 <div id="recommendation-results">
     {% if recommendation and recommendation[0].dish_name != "No match found" %}
@@ -8,8 +8,11 @@
             <li>
                 <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
                     <h2>{{ dish.dish_name }}</h2>
-                    <p><strong>Description:</strong> {{ dish.description }}</p>
-                    <p><strong>Adjectives:</strong> {{ dish.adjectives | join(', ') | replace('_', ' ') }}</p>
+                    <p>{{ dish.description }}</p>
+                    <!-- <p><strong>Adjectives:</strong> {{ dish.adjectives | join(', ') | replace('_', ' ') }}</p>
+                    <p><strong>Spiciness:</strong> {{ dish.spiciness }}</p>
+                    <p><strong>Dietary:</strong> {{ dish.dietary | join(', ') | replace('_', ' ') }}</p>
+                    <p><strong>Ingredients:</strong> {{ dish.ingredients | join(', ') | replace('_', ' ') }}</p> -->
                     <button type="submit" class="food-box-button">Details</button>
                 </form>
             </li>

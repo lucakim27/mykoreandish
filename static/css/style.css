@@ -184,7 +184,6 @@ strong {
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
     overflow: hidden; /* Prevent overflow of content */
-    height: 350px;
 }
 
 .food-box:hover {
@@ -521,15 +520,6 @@ strong {
 
 .request-box h3 {
     margin-top: 0;
-}
-
-.delete-button {
-    background-color: #ff6666;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 .delete-button:hover {

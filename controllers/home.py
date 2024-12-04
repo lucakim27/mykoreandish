@@ -12,12 +12,15 @@ dish_manager = DishManager(db)
 @home_bp.route('/')
 def home():
     user = user_manager.getUserBySession(session)
-    adjectives = dish_manager.filter_criteria()
+    adjectives, spiciness, dietary, ingredients = dish_manager.filter_criteria()
     average_ratings, selection_counts = selection_manager.get_dish_statistics()
     return render_template(
         'home.html',
         user=user,
         adjectives=adjectives,
+        spiciness=spiciness,
+        dietary=dietary,
+        ingredients=ingredients,
         average_ratings=average_ratings,
         selection_counts=selection_counts
     )

@@ -13,7 +13,7 @@ dish_manager = DishManager(db)
 def home():
     user = user_manager.getUserBySession(session)
     adjectives, spiciness, dietary, ingredients = dish_manager.filter_criteria()
-    average_ratings, selection_counts = selection_manager.get_dish_statistics()
+    average_ratings, average_prices, selection_counts = selection_manager.get_dish_statistics()
     return render_template(
         'home.html',
         user=user,
@@ -22,5 +22,6 @@ def home():
         dietary=dietary,
         ingredients=ingredients,
         average_ratings=average_ratings,
-        selection_counts=selection_counts
+        selection_counts=selection_counts,
+        average_prices=average_prices
     )

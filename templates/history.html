@@ -2,31 +2,39 @@
 {% block title %}Your Kfood-History{% endblock %}
 {% block content %}
 <div class="history-container">
-    <h2>Your Meal History</h2>
+    <h2>Your Review History</h2>
     {% if items %}
         <ul>
-        {% for item in items %}
+        {% for item in items|sort(attribute='timestamp', reverse=true) %}
             <li>
-                <span><strong>{{ item.dish_name }}</strong> - {{ item.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
-                <div class="rate-delete-container">
+                <span><strong>{{ item.dish_name }}</strong> - {{ item.timestamp|time_ago }}</span><br>
+                <!-- Wrap Price and Restaurant inputs in a form -->
+                <form method="POST" action="{{ url_for('dishes.rate_dish') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    
+                    <label for="price-{{ item.timestamp }}">Price: </label>
+                    <input id="price-{{ item.timestamp }}" name="price" type="number" step="0.01" value="{{ item.price }}"><br>
+                    
+                    <label for="restaurant-{{ item.timestamp }}">Restaurant: </label>
+                    <input id="restaurant-{{ item.timestamp }}" name="restaurant" type="text" value="{{ item.restaurant }}">
+                    
                     <!-- Rating Form -->
-                    <form method="POST" action="{{ url_for('dishes.rate_dish') }}" style="display:inline;">
-                        <input type="hidden" name="history_id" value="{{ item.id }}">
-                        <div class="rating-container">
-                            {% for i in range(1, 6) %}
-                                <input type="radio" id="star-{{ item.id }}-{{ i }}" name="rating" value="{{ 6 - i }}"
-                                    {% if item.rating == (6 - i) %}checked{% endif %}>
-                                <label for="star-{{ item.id }}-{{ i }}">&#9733;</label>
-                            {% endfor %}
-                        </div>                        
-                        <button type="submit" class="rate-button">Rate</button>
-                    </form>
-                    <!-- Delete Button -->
-                    <form method="POST" action="{{ url_for('users.deleteHistoryRoute') }}" style="display:inline;">
-                        <input type="hidden" name="history_id" value="{{ item.id }}">
-                        <button type="submit" class="delete-button">Delete</button>
-                    </form>
-                </div>
+                    Rating:
+                    <div class="rating-container">
+                        {% for i in range(1, 6) %}
+                            <input type="radio" id="star-{{ item.id }}-{{ i }}" name="rating" value="{{ 6 - i }}"
+                                {% if item.rating == (6 - i) %}checked{% endif %}>
+                            <label for="star-{{ item.id }}-{{ i }}">&#9733;</label>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="rate-button">Update</button>
+                </form>
+                
+                <!-- Delete Button -->
+                <form method="POST" action="{{ url_for('users.deleteHistoryRoute') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
             </li>
         {% endfor %}
         </ul>

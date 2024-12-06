@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Your Kfood-{{ dish.dish_name | capitalize }}{% endblock %}
+{% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
 {% block content %}
 <div class="confirmation-container">
     <h2><strong>{{ dish.dish_name }}</strong></h2>
     <hr>{{ dish.description }}
     {% if dish.adjectives %}
-    <hr>Adjectives:
+    <hr>Characteristics:
         {% for adjective in dish.adjectives %}
             <strong>{{ adjective }}</strong>
         {% endfor %}
@@ -20,15 +20,32 @@
     <hr>Ingredients:
         {% for ingredient in dish.ingredients %}
             <strong>{{ ingredient }}</strong>
-        {% endfor %}
+        {% endfor %}                                  
     {% endif %}
     <hr>Spiciness: <strong>{{ dish.spiciness }}</strong>
-    <div class="button-box">
+    <hr>Average Rating:
+        {% if average_ratings[dish.dish_name] %}
+            <strong>{{ average_ratings[dish.dish_name] }} out of 5</strong>
+        {% else %}
+            <strong>No rating available</strong>
+        {% endif %}
+    <hr>Average Price:
+        {% if average_prices[dish.dish_name] %}
+            <strong>{{ average_prices[dish.dish_name] }} dollars</strong>
+        {% else %}
+            <strong>No prices available</strong>
+        {% endif %}
+    <hr>Number of Reviews:
+        {% if selection_counts[dish.dish_name] %}
+            <strong>{{ selection_counts[dish.dish_name] }} times</strong>
+        {% else %}
+            <strong>No reviews available</strong>
+        {% endif %}
+    <hr><div class="button-box">
         <a href="https://mykoreankitchen.com/?s={{ dish.dish_name | urlize }}" class="button recipe-button">Recipe</a>
-        <form action="/dishes/select/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Rate</button>
+        <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">
+            <button type="submit" class="button select-button">Review</button>
         </form>
     </div>
-    
 </div>
 {% endblock %}

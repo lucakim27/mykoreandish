@@ -244,13 +244,21 @@ strong {
     color: #cccccc;
 }
 
+.confirmation-container input {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+}
+
 /* General Styles for the Confirmation Page */
 .confirmation-container {
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
     background-color: #000000;
-    text-align: center;
     font-family: 'Arial', sans-serif;
 }
 
@@ -314,8 +322,8 @@ strong {
 
 .rating-container {
     display: flex;
-    justify-content: center;
     gap: 5px;
+    font-size: 24px;
 }
 
 .rating-container input[type="radio"] {
@@ -323,7 +331,7 @@ strong {
 }
 
 .rating-container label {
-    font-size: 24px;
+    margin-left: 10px;
     color: #ddd;
     cursor: pointer;
     transition: color 0.3s ease;
@@ -355,14 +363,17 @@ strong {
 }
 
 .history-container {
-    max-width: 700px;
-    margin: 50px auto;
+    background-color: #000000;  /* Light gray background */
     padding: 20px;
-    font-family: Arial, sans-serif;
+    margin: 20px auto;
+    max-width: 800px;  /* Limit the width for better readability */
+    border-radius: 10px;
 }
 
+
 .history-container h2 {
-    font-size: 24px;
+    font-size: 2rem;
+    color: #3498db;  /* Blue color for the header */
     text-align: center;
     margin-bottom: 20px;
 }
@@ -370,16 +381,20 @@ strong {
 .history-container ul {
     list-style-type: none;
     padding: 0;
-    margin: 0;
 }
 
-.history-container ul li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    padding: 10px 15px;
-    border-bottom: 1px solid #ffffff;
+.history-container li {
+    border: 1px solid white;
+    padding: 15px;
+    margin-bottom: 10px;
+    /* border-radius: 8px; */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-container li span {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .item-info {
@@ -421,6 +436,15 @@ strong {
     background-color: #cc0000;
 }
 
+.history-container input {
+    background-color: black;
+    width: 100%;
+    color: white;
+    border: 1px solid white;
+    font-size: 14px;
+    padding: 8px;
+}
+
 .history-container .button {
     display: block;
     margin: 20px auto;
@@ -437,14 +461,6 @@ strong {
 
 .history-container .button:hover {
     background-color: #0056b3;
-}
-
-/* Message for no history available */
-.history-container p {
-    font-size: 16px;
-    color: #888;
-    text-align: center;
-    margin: 20px 0;
 }
 
 /* Container to house both top-foods and criteria-form */

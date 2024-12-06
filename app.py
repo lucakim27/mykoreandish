@@ -7,6 +7,7 @@ from controllers.users import users_bp
 from controllers.admin import admin_bp
 from controllers.request import request_bp
 from controllers.home import home_bp
+from controllers.reviews import reviews_bp
 from controllers.error_handlers import error_bp
 from config.nltk_config import initialize_nltk
 from config.config import Config
@@ -27,6 +28,7 @@ app.register_blueprint(dishes_bp, url_prefix='/dishes')
 app.register_blueprint(users_bp, url_prefix='/users')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(request_bp, url_prefix='/request')
+app.register_blueprint(reviews_bp, url_prefix='/reviews')
 app.register_blueprint(home_bp)
 app.register_blueprint(error_bp)
 

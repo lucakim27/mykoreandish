@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% block title %}Your Kfood-Review{% endblock %}
+{% block content %}
+<div class="confirmation-container">
+    <h2><strong>{{ dish.dish_name }}</strong></h2>
+    <hr><form method="POST" action="/dishes/select/{{ dish.dish_name }}" style="display:inline;">
+        <label for="price">Price: </label><input name="price" type="number" step="0.01" id="price"><hr>
+        <label for="restaurant">Restaurant: </label><input name="restaurant" id="restaurant"><hr>
+        <input type="hidden" name="history_id" value="{{ dish.id }}">
+        Rating:<div class="rating-container">
+            {% for i in range(1, 6) %}
+                <input type="radio" id="star-{{ dish.id }}-{{ i }}" name="rating" value="{{ 6 - i }}"
+                    {% if dish.rating == (6 - i) %}checked{% endif %}>
+                <label for="star-{{ dish.id }}-{{ i }}">&#9733;</label>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="button-box">
+            <button type="submit" class="button select-button">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -2,44 +2,47 @@
 {% block title %}Your Kfood-Home{% endblock %}
 {% block content %}
 <div class="top-foods">
-  <section id="top-rated-food">
-    <h2>Ratings</h2>
-    <ul>
-      {% for dish, rating in average_ratings.items() %}
-        {% if rating > 0 %}
-          <li>
-            <strong>{{ dish }}</strong>: Average {{ rating }} out of 5
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </section>
-  <section id="most-selected-food">
-    <h2>Reviews</h2>
-    <ul>
-      {% for dish, count in selection_counts.items() %}
-        {% if count > 0 %}
-          <li>
-            <strong>{{ dish }}</strong>: {{ count }} times in total
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </section>
-  <section id="average-price">
-    <h2>Prices</h2>
-    <ul>
-      {% for dish, price in average_prices.items() %}
-        {% if price > 0 %}
-          <li>
-            <strong>{{ dish }}</strong>: Average {{ price }} dollars
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </section>
+  <h2>Food Statistics <span>&#10145;</span></h2>
+  <table>
+      <thead>
+          <tr>
+              <th>Dish</th>
+              <th>Average Rating</th>
+              <th>Number of Reviews</th>
+              <th>Average Price</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for dish in average_ratings.keys() %}
+          <tr>
+              <td><strong>{{ dish }}</strong></td>
+              <td>
+                  {% if average_ratings[dish] > 0 %}
+                      {{ average_ratings[dish] }} / 5
+                  {% else %}
+                      No ratings yet
+                  {% endif %}
+              </td>
+              <td>
+                  {% if selection_counts[dish] > 0 %}
+                      {{ selection_counts[dish] }} times
+                  {% else %}
+                      No reviews yet
+                  {% endif %}
+              </td>
+              <td>
+                  {% if average_prices[dish] > 0 %}
+                      ${{ average_prices[dish] }}
+                  {% else %}
+                      No prices yet
+                  {% endif %}
+              </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
 </div>
-</form>
+
 <form action="/dishes" method="post" class="criteria-form">
   <label for="adjectives">Select characteristics:</label>
   <select id="adjectives" name="adjectives">
@@ -78,4 +81,5 @@
     required></textarea><br><br>
   </div>
     <button type="submit">Search</button>
+</form>
 {% endblock %}

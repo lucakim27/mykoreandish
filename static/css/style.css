@@ -10,6 +10,11 @@ h1 {
     margin: 0;
     font-size: 24px;
     color: #3498db;
+    font-family: 'Indie Flower', cursive;
+    background: linear-gradient(to right, blue 50%, red 50%);
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline;
 }
 
 #topBar {
@@ -49,7 +54,6 @@ h1 {
     cursor: pointer;
     padding: 8px 12px;
     background-color: #000000;
-    font-weight: bold;
     color: white;
     border: 1px solid white;
 }
@@ -61,6 +65,7 @@ h1 {
 
 .dropdown-menu {
     display: none;
+    width: 100%;
     position: absolute;
     background-color: #000000;
     color: white;
@@ -244,15 +249,6 @@ strong {
     color: #cccccc;
 }
 
-.confirmation-container input {
-    background-color: black;
-    color: white;
-    border: 1px solid white;
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-}
-
 /* General Styles for the Confirmation Page */
 .confirmation-container {
     max-width: 800px;
@@ -323,7 +319,7 @@ strong {
 .rating-container {
     display: flex;
     gap: 5px;
-    font-size: 24px;
+    font-size: 40px;
 }
 
 .rating-container input[type="radio"] {
@@ -348,7 +344,6 @@ strong {
 
 .rate-button, .delete-button {
     width: 80px;
-    margin-top: 10px;
     padding: 8px 16px;
     font-size: 14px;
     color: white;
@@ -441,8 +436,8 @@ strong {
     width: 100%;
     color: white;
     border: 1px solid white;
-    font-size: 14px;
-    padding: 8px;
+    font-size: 16px;
+    padding: 8px 0px 8px 4px;
 }
 
 .history-container .button {
@@ -485,41 +480,6 @@ strong {
     }
 }
 
-.top-foods {
-    /* display: flex; */
-    justify-content: space-between; /* Space out the sections */
-    align-items: stretch; /* Ensure both sections have the same height */
-    background-color: #000000; /* Light background */
-    margin: 20px;
-    border-radius: 8px;
-}
-
-.top-foods section {
-    flex: 1; /* Make each section take equal space */
-    margin-top: 20px; /* Add some space between the sections */
-    border: 1px solid #ccc; /* Optional: border around each section */
-    background-color: #000000; /* White background for sections */
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-.top-foods section h2 {
-    text-align: center; /* Center-align section headers */
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-.top-foods ul {
-    list-style: none; /* Remove bullets */
-    padding: 0;
-    margin: 0;
-}
-
-.top-foods ul li {
-    margin-bottom: 10px;
-    font-size: 1em;
-}
-
 .requests-container {
     display: flex;
     flex-wrap: wrap;
@@ -540,4 +500,158 @@ strong {
 
 .delete-button:hover {
     background-color: #ff4d4d;
+}
+
+
+.dish-details {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.dish-details th, .dish-details td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+}
+
+.dish-details th {
+    background-color: #000000;
+    text-align: left;
+}
+
+.dish-details td {
+    text-align: left;
+}
+/* Review container styling */
+.review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #000000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styling */
+.review-container h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.review-container form {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Centering inputs and star rating */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Spacing between input fields */
+    width: 100%; /* Ensures responsiveness */
+}
+
+/* Input fields */
+.review-container input[type="number"],
+.review-container input[type="text"] {
+    width: 80%; /* Adjusts the width of inputs */
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    background-color: black;
+    font-size: 16px;
+    text-align: center; /* Centers text within the input */
+    color: white;
+}
+
+/* Rating container */
+.rating-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.rating-container input[type="radio"] {
+    display: none;
+}
+
+.rating-container label {
+    font-size: 32px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.rating-container input[type="radio"]:checked ~ label {
+    color: #f5c518;
+}
+
+.rating-container label:hover,
+.rating-container label:hover ~ label {
+    color: #f5c518;
+}
+
+/* Container for the table */
+.top-foods {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ffffff;
+    background-color: #000000;
+    overflow-x: auto; /* Enable horizontal scroll on small screens */
+}
+
+/* Heading styling */
+.top-foods h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Table styling */
+.top-foods table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    min-width: 600px; /* Ensures the table doesn’t shrink too much */
+}
+
+/* Header row styling */
+.top-foods table thead tr {
+    background-color: #000000;
+    color: #fff;
+    font-size: 18px;
+}
+
+.top-foods table th, .top-foods table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+/* Alternating row colors */
+.top-foods table tbody tr:nth-child(even) {
+    background-color: #000000;
+}
+
+/* Strong text styling */
+.top-foods table td strong {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Mobile-specific adjustments */
+@media screen and (max-width: 768px) {
+    .top-foods h2 {
+        font-size: 20px;
+    }
+
+    .top-foods table {
+        font-size: 14px; /* Reduce font size */
+    }
 }

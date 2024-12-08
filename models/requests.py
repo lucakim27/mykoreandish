@@ -11,7 +11,7 @@ class RequestsManager:
         self.requests_ref = db.collection('Requests')
         self.firestore = firestore
 
-    def add_food_request(self, food_name, description, adjectives):
+    def add_food_request(self, food_name, description, adjectives, Spiciness, Dietary, Ingredients):
         """
         Store a user food request in the Firestore 'Requests' collection.
         
@@ -22,6 +22,9 @@ class RequestsManager:
                 'food_name': food_name,
                 'description': description,
                 'adjectives': adjectives,
+                'spiciness': Spiciness,
+                'dietary': Dietary,
+                'ingredients': Ingredients,
                 'timestamp': self.firestore.SERVER_TIMESTAMP
             }
             

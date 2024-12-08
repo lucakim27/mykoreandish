@@ -17,6 +17,9 @@ def request_page():
 def submit_request():
     name = request.form.get('name')
     description = request.form.get('description')
-    adjectives = request.form.get('adjective')
-    manager.add_food_request(name, description, adjectives)
+    adjectives = request.form.get('characteristics')
+    Spiciness = request.form.get('Spiciness')
+    Dietary = request.form.get('Dietary')
+    Ingredients = request.form.get('Ingredients')
+    manager.add_food_request(name, description, adjectives, Spiciness, Dietary, Ingredients)
     return redirect(url_for('home.home'))

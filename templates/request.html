@@ -5,13 +5,24 @@
 {% block content %}
 <form action="/request/submit-request" method="POST" class="criteria-form">
     <label for="name">Food Name:</label><br>
-    <input type="text" id="name" name="name" placeholder="Kimchi Soup" required><br><br>
+    <input autocomplete="text" id="name" name="name" placeholder="Sundae" required><br><br>
 
     <label for="description">Description:</label><br>
-    <textarea id="description" name="description" rows="4" placeholder="Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea><br><br>
+    <textarea id="description" name="description" rows="4" placeholder="Korean blood sausage stuffed with glass noodles"
+    required></textarea><br><br>
 
-    <label for="adjective">Adjectives:</label><br>
-    <input type="text" id="adjective" name="adjective" placeholder="Sweet, Crunchy and caramelized" required><br><br>
-    <button type="submit">Submit Request</button>
+    <label for="characteristics">Characteristics:</label><br>
+    <input type="text" id="characteristics" name="characteristics" placeholder="Hearty" required><br><br>
+    
+    <label for="Spiciness">Spiciness:</label><br>
+    <input type="text" id="Spiciness" name="Spiciness" placeholder="Medium" required><br><br>
+    
+    <label for="Dietary">Dietary:</label><br>
+    <input type="text" id="Dietary" name="Dietary" placeholder="Non-Vegetarian" required><br><br>
+    
+    <label for="Ingredients">Ingredients:</label><br>
+    <input type="text" id="Ingredients" name="Ingredients" placeholder="Intestines, Glass Noodles, Blood" required><br><br>
+    
+    <button type="submit">Submit</button>
 </form>
 {% endblock %}

@@ -6,6 +6,8 @@
     <title>{% block title %}Your K-food{% endblock %}</title>
     <link rel="stylesheet" href="../static/css/flash.css">
     <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <div id="topBar">
@@ -27,11 +29,13 @@
           </div>
         {% else %}
           <div class="user-dropdown">
-            <span class="guest" onclick="toggleDropdown()">Guest</span>
+            <!-- <span class="guest" onclick="toggleDropdown()">Guest</span>
             <div class="dropdown-menu">
-                <a href="/request">Request</a>
-                <a href="{{ url_for('google.login') }}" class="button">Login with Google</a>
-            </div>
+                <a href="/request">Request</a> -->
+            <a class="google-login-btn" href="{{ url_for('google.login') }}">
+                <i class="fab fa-google"></i> Sign in
+            </a>
+            <!-- </div> -->
           </div>
         {% endif %}
     </div>

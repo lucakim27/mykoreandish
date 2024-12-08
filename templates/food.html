@@ -2,46 +2,78 @@
 {% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
 {% block content %}
 <div class="confirmation-container">
-    <h2><strong>{{ dish.dish_name }}</strong></h2>
-    <hr>{{ dish.description }}
-    {% if dish.adjectives %}
-    <hr>Characteristics:
-        {% for adjective in dish.adjectives %}
-            <strong>{{ adjective }}</strong>
-        {% endfor %}
-    {% endif %}
-    {% if dish.dietary %}
-    <hr>Dietary:
-        {% for diet in dish.dietary %}
-            <strong>{{ diet }}</strong>
-        {% endfor %}
-    {% endif %}
-    {% if dish.ingredients %}
-    <hr>Ingredients:
-        {% for ingredient in dish.ingredients %}
-            <strong>{{ ingredient }}</strong>
-        {% endfor %}                                  
-    {% endif %}
-    <hr>Spiciness: <strong>{{ dish.spiciness }}</strong>
-    <hr>Average Rating:
-        {% if average_ratings[dish.dish_name] %}
-            <strong>{{ average_ratings[dish.dish_name] }} out of 5</strong>
-        {% else %}
-            <strong>No rating available</strong>
+    <h2>{{ dish.dish_name }}</h2>
+    <table class="dish-details">
+        <tr>
+            <th>Description</th>
+            <td>{{ dish.description }}</td>
+        </tr>
+        {% if dish.adjectives %}
+        <tr>
+            <th>Characteristics</th>
+            <td>
+                {% for adjective in dish.adjectives %}
+                    {{ adjective }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
         {% endif %}
-    <hr>Average Price:
-        {% if average_prices[dish.dish_name] %}
-            <strong>{{ average_prices[dish.dish_name] }} dollars</strong>
-        {% else %}
-            <strong>No prices available</strong>
+        {% if dish.dietary %}
+        <tr>
+            <th>Dietary</th>
+            <td>
+                {% for diet in dish.dietary %}
+                    {{ diet }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
         {% endif %}
-    <hr>Number of Reviews:
-        {% if selection_counts[dish.dish_name] %}
-            <strong>{{ selection_counts[dish.dish_name] }} times</strong>
-        {% else %}
-            <strong>No reviews available</strong>
+        {% if dish.ingredients %}
+        <tr>
+            <th>Ingredients</th>
+            <td>
+                {% for ingredient in dish.ingredients %}
+                    {{ ingredient }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
         {% endif %}
-    <hr><div class="button-box">
+        <tr>
+            <th>Spiciness</th>
+            <td>{{ dish.spiciness }}</td>
+        </tr>
+        <tr>
+            <th>Average Rating</th>
+            <td>
+                {% if average_ratings[dish.dish_name] %}
+                    {{ average_ratings[dish.dish_name] }} out of 5
+                {% else %}
+                    No rating available
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Average Price</th>
+            <td>
+                {% if average_prices[dish.dish_name] %}
+                    {{ average_prices[dish.dish_name] }} dollars
+                {% else %}
+                    No prices available
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Number of Reviews</th>
+            <td>
+                {% if selection_counts[dish.dish_name] %}
+                    {{ selection_counts[dish.dish_name] }} times
+                {% else %}
+                    No reviews available
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <div class="button-box">
         <a href="https://mykoreankitchen.com/?s={{ dish.dish_name | urlize }}" class="button recipe-button">Recipe</a>
         <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">
             <button type="submit" class="button select-button">Review</button>

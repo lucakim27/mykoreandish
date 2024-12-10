@@ -189,6 +189,7 @@ strong {
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
     overflow: hidden; /* Prevent overflow of content */
+    height: 250px;
 }
 
 .food-box:hover {
@@ -431,17 +432,17 @@ strong {
     background-color: #cc0000;
 }
 
-.history-container input {
+.history-container select {
     background-color: black;
     width: 100%;
     color: white;
     border: 1px solid white;
     font-size: 16px;
     padding: 8px 0px 8px 4px;
+    margin-top: 10px;
 }
 
 .history-container .button {
-    display: block;
     margin: 20px auto;
     padding: 10px 20px;
     font-size: 16px;
@@ -452,6 +453,7 @@ strong {
     text-align: center;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    width: auto;
 }
 
 .history-container .button:hover {
@@ -560,14 +562,14 @@ strong {
 
 /* Input fields */
 .review-container input[type="number"],
-.review-container input[type="text"] {
+.review-container input[type="text"],
+.input-group select {
     width: 80%; /* Adjusts the width of inputs */
     max-width: 300px;
     padding: 10px;
     border: 1px solid #ffffff;
     background-color: black;
     font-size: 16px;
-    text-align: center; /* Centers text within the input */
     color: white;
 }
 
@@ -632,6 +634,7 @@ strong {
 .top-foods table th, .top-foods table td {
     padding: 12px;
     border: 1px solid #ddd;
+    text-align: center;
 }
 
 /* Alternating row colors */

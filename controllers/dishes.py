@@ -26,25 +26,33 @@ def recommendation():
 def food(name=None):
     user = user_manager.getUserBySession(session)
     dish = manager.get_dish_instance(name)
-    average_ratings, average_prices, selection_counts = selection_manager.get_dish_statistics()
-    return render_template('food.html', user=user, dish=dish, average_ratings=average_ratings, average_prices=average_prices, selection_counts=selection_counts)
+    average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness = selection_manager.get_dish_statistics()
+    return render_template('food.html', user=user, dish=dish, average_ratings=average_ratings, selection_counts=selection_counts, average_spiciness=average_spiciness, average_sweetness=average_sweetness, average_texture=average_texture, average_healthiness=average_healthiness, average_sourness=average_sourness)
 
 @dishes_bp.route('/select/<name>', methods=['POST'])
 @login_required
 def select_food(name=None):
-    price = request.form.get('price')
+    spiciness = request.form.get('spiciness')
+    sweetness = request.form.get('sweetness')
+    sourness = request.form.get('sourness')
+    texture = request.form.get('texture')
+    temperature = request.form.get('temperature')
+    healthiness = request.form.get('healthiness')
     rating = request.form.get('rating')
-    restaurant = request.form.get('restaurant')
-    selection_manager.add_selection(session.get('google_id'), name, price, rating, restaurant)
+    selection_manager.add_selection(session.get('google_id'), name, spiciness, sweetness, sourness, texture, temperature, healthiness, rating)
     return redirect(url_for('home.home'))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])
 def rate_dish():
     history_id = request.form.get('history_id')
+    spiciness = request.form.get('spiciness')
+    sweetness = request.form.get('sweetness')
+    sourness = request.form.get('sourness')
+    texture = request.form.get('texture')
+    temperature = request.form.get('temperature')
+    healthiness = request.form.get('healthiness')
     rating = request.form.get('rating')
-    price = request.form.get('price')
-    restaurant = request.form.get('restaurant')
-    selection_manager.update_review(history_id, rating, price, restaurant)
+    selection_manager.update_review(history_id, spiciness, sweetness, sourness, texture, temperature, healthiness, rating)
     return redirect(url_for('users.history'))
 
 @dishes_bp.app_template_filter('time_ago')

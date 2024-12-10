@@ -2,52 +2,82 @@
 {% block title %}Your Kfood-Home{% endblock %}
 {% block content %}
 <div class="top-foods">
-  <h2>Food Statistics <span>&#10145;</span></h2>
-  <table>
-      <thead>
-          <tr>
-              <th>Dish</th>
-              <th>Average Rating</th>
-              <th>Number of Reviews</th>
-              <th>Average Price</th>
-          </tr>
-      </thead>
-      <tbody>
-          {% for dish in average_ratings.keys() %}
-          <tr>
-              <td><strong>{{ dish }}</strong></td>
-              <td>
-                  {% if average_ratings[dish] > 0 %}
-                      {{ average_ratings[dish] }} / 5
-                  {% else %}
-                      No ratings yet
-                  {% endif %}
-              </td>
-              <td>
-                  {% if selection_counts[dish] > 0 %}
-                      {{ selection_counts[dish] }} times
-                  {% else %}
-                      No reviews yet
-                  {% endif %}
-              </td>
-              <td>
-                  {% if average_prices[dish] > 0 %}
-                      ${{ average_prices[dish] }}
-                  {% else %}
-                      No prices yet
-                  {% endif %}
-              </td>
-          </tr>
-          {% endfor %}
-      </tbody>
-  </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Dish</th>
+                <th>Rating</th>
+                <th>Spiciness</th>
+                <th>Sweetness</th>
+                <th>Texture</th>
+                <th>Healthiness</th>
+                <th>Sourness</th>
+                <th>Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dish in average_ratings.keys() %}
+            <tr>
+                <td><strong>{{ dish }}</strong></td>
+                <td>
+                    {% if average_ratings[dish] is not none %}
+                        {{ average_ratings[dish] }} / 5
+                    {% else %}
+                        No ratings yet
+                    {% endif %}
+                </td>
+                <td>
+                    {% if average_spiciness[dish] is not none %}
+                    {{ average_spiciness[dish] }} / 5
+                    {% else %}
+                    No spiciness data
+                    {% endif %}
+                </td>
+                <td>
+                    {% if average_sweetness[dish] is not none %}
+                    {{ average_sweetness[dish] }} / 5
+                    {% else %}
+                    No sweetness data
+                    {% endif %}
+                </td>
+                <td>
+                {% if average_texture[dish] is not none %}
+                    {{ average_texture[dish] }} / 5
+                    {% else %}
+                    No texture data
+                    {% endif %}
+                </td>
+                <td>
+                    {% if average_healthiness[dish] is not none %}
+                    {{ average_healthiness[dish] }} / 5
+                    {% else %}
+                    No healthiness data
+                    {% endif %}
+                </td>
+                <td>
+                    {% if average_sourness[dish] is not none %}
+                    {{ average_sourness[dish] }} / 5
+                    {% else %}
+                    No sourness data
+                    {% endif %}
+                </td>
+                <td>
+                    {% if selection_counts[dish] > 0 %}
+                        {{ selection_counts[dish] }} times
+                    {% else %}
+                        No reviews yet
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
-
 <form action="/dishes" method="post" class="criteria-form">
-  <label for="adjectives">Select characteristics:</label>
-  <select id="adjectives" name="adjectives">
-    <option value="Any">Any</option>
-    {% for adjective in adjectives %}
+    <label for="adjectives">Select characteristics:</label>
+    <select id="adjectives" name="adjectives">
+        <option value="Any">Any</option>
+        {% for adjective in adjectives %}
         <option value="{{ adjective }}">{{ adjective.capitalize() }}</option>
     {% endfor %}
   </select>

@@ -22,20 +22,15 @@
                   {% if user.get('admin') %}
                       <a href="/admin">Admin</a>
                   {% endif %}
-                  <a href="/request">Request</a>
                   <a href="/users">History</a>
                   <a href="/auth/logout">Logout</a>
               </div>
           </div>
         {% else %}
           <div class="user-dropdown">
-            <!-- <span class="guest" onclick="toggleDropdown()">Guest</span>
-            <div class="dropdown-menu">
-                <a href="/request">Request</a> -->
             <a class="google-login-btn" href="{{ url_for('google.login') }}">
                 <i class="fab fa-google"></i> Sign in
             </a>
-            <!-- </div> -->
           </div>
         {% endif %}
     </div>

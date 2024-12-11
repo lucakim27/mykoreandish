@@ -250,6 +250,26 @@ strong {
     color: #cccccc;
 }
 
+.request-dishes {
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin: 40px;
+}
+
+.request-dishes button {
+    all: unset;
+    padding: 10px 15px;
+    margin-top: auto;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
 /* General Styles for the Confirmation Page */
 .confirmation-container {
     max-width: 800px;

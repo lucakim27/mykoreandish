@@ -9,10 +9,6 @@
                 <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
                     <h2>{{ dish.dish_name }}</h2>
                     <p>{{ dish.description }}</p>
-                    <!-- <p><strong>Adjectives:</strong> {{ dish.adjectives | join(', ') | replace('_', ' ') }}</p>
-                    <p><strong>Spiciness:</strong> {{ dish.spiciness }}</p>
-                    <p><strong>Dietary:</strong> {{ dish.dietary | join(', ') | replace('_', ' ') }}</p>
-                    <p><strong>Ingredients:</strong> {{ dish.ingredients | join(', ') | replace('_', ' ') }}</p> -->
                     <button type="submit" class="food-box-button">Details</button>
                 </form>
             </li>
@@ -24,5 +20,9 @@
             <p>Try relaxing the filters or selecting different criteria.</p>
         </div>
     {% endif %}
+    <form action="/request" class="request-dishes">
+        <h2>Not enough dishes?</h2>
+        <button>Request a new dish!</button>
+    </form>
 </div>
 {% endblock %}

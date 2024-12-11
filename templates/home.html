@@ -6,12 +6,12 @@
         <thead>
             <tr>
                 <th>Dish</th>
-                <th>Rating</th>
+                <th>Overall</th>
                 <th>Spiciness</th>
                 <th>Sweetness</th>
+                <th>Sourness</th>
                 <th>Texture</th>
                 <th>Healthiness</th>
-                <th>Sourness</th>
                 <th>Review</th>
             </tr>
         </thead>
@@ -41,6 +41,13 @@
                     {% endif %}
                 </td>
                 <td>
+                    {% if average_sourness[dish] is not none %}
+                    {{ average_sourness[dish] }} / 5
+                    {% else %}
+                    No sourness data
+                    {% endif %}
+                </td>
+                <td>
                 {% if average_texture[dish] is not none %}
                     {{ average_texture[dish] }} / 5
                     {% else %}
@@ -52,13 +59,6 @@
                     {{ average_healthiness[dish] }} / 5
                     {% else %}
                     No healthiness data
-                    {% endif %}
-                </td>
-                <td>
-                    {% if average_sourness[dish] is not none %}
-                    {{ average_sourness[dish] }} / 5
-                    {% else %}
-                    No sourness data
                     {% endif %}
                 </td>
                 <td>

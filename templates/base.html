@@ -11,14 +11,18 @@
 </head>
 <body>
 <div id="topBar">
-    <h1>
-        <a href="/" style="text-decoration: none; color: inherit;">Your K-food</a>
-    </h1>
+    <h1><a href="/" style="text-decoration: none; color: inherit;">Your K-food</a></h1>
     <div class="auth-links">
         {% if session.get('google_id') %}
-          <div class="user-dropdown">
-              <span class="username" onclick="toggleDropdown()">{{ user.get('name', 'Guest') }}</span>
+        <!-- Logged-in user -->
+        <div class="user-dropdown">
+              <button class="menu" onclick="toggleDropdown()">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </button>
               <div class="dropdown-menu">
+                  <a>{{ user.get('name', 'Guest') }}</a>
                   {% if user.get('admin') %}
                       <a href="/admin">Admin</a>
                   {% endif %}
@@ -27,32 +31,45 @@
               </div>
           </div>
         {% else %}
+          <!-- Unlogged-in user -->
           <div class="user-dropdown">
-            <a class="google-login-btn" href="{{ url_for('google.login') }}">
-                <i class="fab fa-google"></i> Sign in
-            </a>
+            <button class="menu" onclick="toggleDropdown()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="dropdown-menu">
+                <a class="google-login-btn" href="{{ url_for('google.login') }}">
+                    <i class="fab fa-google"></i> Sign in
+                </a>
+            </div>
           </div>
         {% endif %}
     </div>
 </div>
+
 <script>
-  function toggleDropdown() {
-      var dropdown = event.target.closest('.user-dropdown');
-      dropdown.classList.toggle('show-dropdown');
-  }
+    function toggleDropdown() {
+        const menu = document.querySelector('.menu');
+        menu.classList.toggle('open');
+        var dropdown = event.target.closest('.user-dropdown');
+        dropdown.classList.toggle('show-dropdown');
+    }
 </script>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <div class="flashes">
-            {% for category, message in messages %}
-                <div class="flash {{ category }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {% endwith %}
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <div class="flashes">
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
 </body>
 </html>

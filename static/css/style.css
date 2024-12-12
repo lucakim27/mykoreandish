@@ -64,8 +64,10 @@ h1 {
 }
 
 .dropdown-menu {
+    z-index: 8;
     display: none;
-    width: 100%;
+    width: 100px;
+    right: -15px;
     position: absolute;
     background-color: #000000;
     color: white;
@@ -623,10 +625,10 @@ strong {
 /* Container for the table */
 .top-foods {
     margin: 20px;
-    padding: 20px;
-    border: 1px solid #ffffff;
     background-color: #000000;
     overflow-x: auto; /* Enable horizontal scroll on small screens */
+    overflow-y: auto; /* Enable vertical scroll if needed */
+    height: 400px; /* Set a fixed height to enable vertical scrolling */
 }
 
 /* Heading styling */
@@ -645,24 +647,30 @@ strong {
 }
 
 /* Header row styling */
-.top-foods table thead tr {
+.top-foods table thead th {
     background-color: #000000;
     color: #fff;
     font-size: 18px;
-}
-
-.top-foods table th, .top-foods table td {
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #ffffff;
     text-align: center;
+
+    position: sticky;
+    top: 0; /* Sticks to the top of the container */
+    z-index: 2; /* Ensures it stays above table rows */
 }
 
-/* Alternating row colors */
+/* Row and cell styling */
 .top-foods table tbody tr:nth-child(even) {
     background-color: #000000;
 }
 
-/* Strong text styling */
+.top-foods table td {
+    padding: 12px;
+    border: 1px solid #ffffff;
+    text-align: center;
+}
+
 .top-foods table td strong {
     font-weight: bold;
     color: #ffffff;
@@ -677,4 +685,43 @@ strong {
     .top-foods table {
         font-size: 14px; /* Reduce font size */
     }
+}
+
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.menu span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #ffffff;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu.open span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+}
+
+.menu.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu.open span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+}
+
+/* Dropdown menu styles */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
 }

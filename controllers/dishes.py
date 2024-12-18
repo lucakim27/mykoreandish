@@ -1,15 +1,18 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
 from controllers.auth import login_required
 from models.dishes import DishManager
+from models.price import PriceManager
 from models.users import UserManager
 from models.userSelections import UserSelectionManager
 from config.db import db
 from utils.filters import format_time_ago
+from firebase_admin import firestore
 
 dishes_bp = Blueprint('dishes', __name__)
 manager = DishManager(db)
 user_manager = UserManager(db)
-selection_manager = UserSelectionManager(db)
+selection_manager = UserSelectionManager(db, firestore)
+price_manager = PriceManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def recommendation():
@@ -26,8 +29,9 @@ def recommendation():
 def food(name=None):
     user = user_manager.getUserBySession(session)
     dish = manager.get_dish_instance(name)
+    prices = price_manager.get_price(name)
     average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness = selection_manager.get_dish_statistics()
-    return render_template('food.html', user=user, dish=dish, average_ratings=average_ratings, selection_counts=selection_counts, average_spiciness=average_spiciness, average_sweetness=average_sweetness, average_texture=average_texture, average_healthiness=average_healthiness, average_sourness=average_sourness)
+    return render_template('food.html', prices=prices, user=user, dish=dish, average_ratings=average_ratings, selection_counts=selection_counts, average_spiciness=average_spiciness, average_sweetness=average_sweetness, average_texture=average_texture, average_healthiness=average_healthiness, average_sourness=average_sourness)
 
 @dishes_bp.route('/select/<name>', methods=['POST'])
 @login_required
@@ -40,6 +44,14 @@ def select_food(name=None):
     healthiness = request.form.get('healthiness')
     rating = request.form.get('rating')
     selection_manager.add_selection(session.get('google_id'), name, spiciness, sweetness, sourness, texture, temperature, healthiness, rating)
+    return redirect(url_for('home.home'))
+
+@dishes_bp.route('/price_review/<name>', methods=['POST'])
+@login_required
+def priceReviewRoute(name=None):
+    price = request.form.get('price')
+    location = request.form.get('location')
+    price_manager.add_price(session.get('google_id'), name, price, location)
     return redirect(url_for('home.home'))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])

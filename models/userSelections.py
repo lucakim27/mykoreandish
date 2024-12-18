@@ -1,5 +1,4 @@
 from flask import flash
-from firebase_admin import firestore
 
 class UserSelection:
     def __init__(self, history_id, dish_name, rating=None):
@@ -8,8 +7,9 @@ class UserSelection:
         self.rating = rating
 
 class UserSelectionManager:
-    def __init__(self, db):
+    def __init__(self, db, firestore):
         self.db = db
+        self.firestore = firestore
         self.dishes_ref = db.collection('Dishes')
         self.users_ref = db.collection('Users')
         self.user_selections_ref = db.collection('UserSelections')
@@ -183,9 +183,6 @@ class UserSelectionManager:
         selection_counts = dict(sorted(selection_counts.items(), key=lambda item: item[1], reverse=True))
 
         return average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness
-
-
-    
     
     def add_selection(self, google_id, dish_name, spiciness, sweetness, sourness, texture, temperature, healthiness, rating):
         """Add a food selection without a rating initially."""
@@ -212,7 +209,7 @@ class UserSelectionManager:
             'temperature': int(temperature),
             'healthiness': int(healthiness),
             'rating': int(rating),
-            'timestamp': firestore.SERVER_TIMESTAMP
+            'timestamp': self.firestore.SERVER_TIMESTAMP
         })
 
     def get_user_history(self, google_id):
@@ -248,4 +245,3 @@ class UserSelectionManager:
         except Exception as e:
             print(f"Error retrieving user history: {e}")
             return []  # Return an empty list if an error occurs
-        

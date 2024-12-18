@@ -38,82 +38,102 @@
             </td>
         </tr>
         {% endif %}
-        <tr>
-            <th>Spiciness</th>
-            <td>
-                {% if dish.dish_name in average_spiciness %}
-                    {{ average_spiciness[dish.dish_name] }} / 5
-                {% else %}
-                    No spiciness data
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Sourness</th>
-            <td>
-                {% if dish.dish_name in average_sourness %}
-                    {{ average_sourness[dish.dish_name] }} / 5
-                {% else %}
-                    No sourness data
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Sweetness</th>
-            <td>
-                {% if dish.dish_name in average_sweetness %}
-                    {{ average_sweetness[dish.dish_name] }} / 5
-                {% else %}
-                    No sweetness data
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Texture</th>
-            <td>
-                {% if dish.dish_name in average_texture %}
-                    {{ average_texture[dish.dish_name] }} / 5
-                {% else %}
-                    No texture data
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Healthiness</th>
-            <td>
-                {% if dish.dish_name in average_healthiness %}
-                    {{ average_healthiness[dish.dish_name] }} / 5
-                {% else %}
-                    No healthiness data
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Ratings</th>
-            <td>
-                {% if dish.dish_name in average_ratings %}
-                    {{ average_ratings[dish.dish_name] }} / 5
-                {% else %}
-                    No rating data
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Reviews</th>
-            <td>
-                {% if dish.dish_name in selection_counts %}
-                    {{ selection_counts[dish.dish_name] }} times
-                {% else %}
-                    No review data
-                {% endif %}
-            </td>
-        </tr>
-    </table>
-    
+        </table><br>
+        <h3>Taste</h3>
+        <table class="dish-details">
+            <tr>
+                <th>Spiciness</th>
+                <td>
+                    {% if dish.dish_name in average_spiciness %}
+                        {{ average_spiciness[dish.dish_name] }} / 5
+                    {% else %}
+                        No spiciness data
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Sourness</th>
+                <td>
+                    {% if dish.dish_name in average_sourness %}
+                        {{ average_sourness[dish.dish_name] }} / 5
+                    {% else %}
+                        No sourness data
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Sweetness</th>
+                <td>
+                    {% if dish.dish_name in average_sweetness %}
+                        {{ average_sweetness[dish.dish_name] }} / 5
+                    {% else %}
+                        No sweetness data
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Texture</th>
+                <td>
+                    {% if dish.dish_name in average_texture %}
+                        {{ average_texture[dish.dish_name] }} / 5
+                    {% else %}
+                        No texture data
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Healthiness</th>
+                <td>
+                    {% if dish.dish_name in average_healthiness %}
+                        {{ average_healthiness[dish.dish_name] }} / 5
+                    {% else %}
+                        No healthiness data
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Overall</th>
+                <td>
+                    {% if dish.dish_name in average_ratings %}
+                        {{ average_ratings[dish.dish_name] }} / 5
+                    {% else %}
+                        No rating data
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     <div class="button-box">
-        <a href="https://mykoreankitchen.com/?s={{ dish.dish_name | urlize }}" class="button recipe-button">Recipe</a>
         <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Review</button>
+            <button type="submit" class="button select-button">How was the taste?</button>
+        </form>
+    </div><br>
+    
+    <h3>Price</h3>
+    <table class="dish-details">
+        <tr>
+            <th>Price</th>
+            <th>Region</th>
+            <th>Date</th>
+        </tr>
+        {% if prices %}
+            {% for food in prices %}
+                <tr>
+                    <td>{{ food.price }}{% if not loop.last %} {% endif %}</td>
+                    <td>{{ food.location }}{% if not loop.last %} {% endif %}</td>
+                    <td>{{ food.timestamp|time_ago }}{% if not loop.last %} {% endif %}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+        <tr>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+        </tr>
+        {% endif %}
+    </table>
+    <div class="button-box">
+        <form action="/reviews/price/{{ dish.dish_name }}" method="post" style="display:inline;">
+            <button type="submit" class="button select-button">How much was it?</button>
         </form>
     </div>
 </div>

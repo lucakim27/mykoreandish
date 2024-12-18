@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Your Kfood-Review{% endblock %}
+{% block content %}
+<div class="review-container">
+    <h2>{{ dish.dish_name }}</h2>
+    <form method="POST" action="/dishes/price_review/{{ dish.dish_name }}">
+        <div class="input-group">
+            <input name="price" id="price" type="number" min="0" step="any" placeholder="{{ price_placeholder }}"/>
+            <p name="region" id="region">Location: {{ region_text }}</p>
+            <input type="hidden" name="location" id="location" value="{{ region_text }}" />
+        </div>
+        <div class="button-box" style="display: flex;">
+            <button type="submit" class="button select-button" style="width: auto;">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

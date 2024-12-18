@@ -3,69 +3,34 @@
 {% block content %}
 <div class="top-foods">
     <table>
+        <colgroup>
+            <col style="width: 70%;"> <!-- First column is wider -->
+            <col style="width: 15%;"> <!-- Second column -->
+            <col style="width: 15%;"> <!-- Third column -->
+        </colgroup>
         <thead>
             <tr>
                 <th>Dish</th>
-                <th>Overall</th>
-                <th>Spiciness</th>
-                <th>Sweetness</th>
-                <th>Sourness</th>
-                <th>Texture</th>
-                <th>Healthiness</th>
-                <th>Review</th>
+                <th>Taste Review</th>
+                <th>Price Review</th>
             </tr>
         </thead>
         <tbody>
-            {% for dish in average_ratings.keys() %}
+            {% for dish in dishes %}
             <tr>
-                <td><strong>{{ dish }}</strong></td>
+                <td><strong>{{ dish.dish_name }}</strong></td>
                 <td>
-                    {% if average_ratings[dish] is not none %}
-                        {{ average_ratings[dish] }} / 5
+                    {% if selection_counts[dish.dish_name] %}
+                        {{ selection_counts[dish.dish_name] }}
                     {% else %}
-                        No ratings yet
+                        n/a
                     {% endif %}
                 </td>
                 <td>
-                    {% if average_spiciness[dish] is not none %}
-                    {{ average_spiciness[dish] }} / 5
+                    {% if total_price_length[dish.dish_name] %}
+                        {{ total_price_length[dish.dish_name] }}
                     {% else %}
-                    No spiciness data
-                    {% endif %}
-                </td>
-                <td>
-                    {% if average_sweetness[dish] is not none %}
-                    {{ average_sweetness[dish] }} / 5
-                    {% else %}
-                    No sweetness data
-                    {% endif %}
-                </td>
-                <td>
-                    {% if average_sourness[dish] is not none %}
-                    {{ average_sourness[dish] }} / 5
-                    {% else %}
-                    No sourness data
-                    {% endif %}
-                </td>
-                <td>
-                {% if average_texture[dish] is not none %}
-                    {{ average_texture[dish] }} / 5
-                    {% else %}
-                    No texture data
-                    {% endif %}
-                </td>
-                <td>
-                    {% if average_healthiness[dish] is not none %}
-                    {{ average_healthiness[dish] }} / 5
-                    {% else %}
-                    No healthiness data
-                    {% endif %}
-                </td>
-                <td>
-                    {% if selection_counts[dish] > 0 %}
-                        {{ selection_counts[dish] }} times
-                    {% else %}
-                        No reviews yet
+                        n/a
                     {% endif %}
                 </td>
             </tr>

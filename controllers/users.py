@@ -4,11 +4,12 @@ from models.dishes import DishManager
 from models.users import UserManager
 from models.userSelections import UserSelectionManager
 from config.db import db
+from firebase_admin import firestore
 
 users_bp = Blueprint('users', __name__)
 manager = DishManager(db)
 user_manager = UserManager(db)
-selection_manager = UserSelectionManager(db)
+selection_manager = UserSelectionManager(db, firestore)
 
 @users_bp.route('/')
 @login_required

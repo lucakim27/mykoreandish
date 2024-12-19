@@ -67,6 +67,13 @@ def rate_dish():
     selection_manager.update_review(history_id, spiciness, sweetness, sourness, texture, temperature, healthiness, rating)
     return redirect(url_for('users.history'))
 
+@dishes_bp.route('/update_price', methods=['POST'])
+def update_price():
+    history_id = request.form.get('history_id')
+    price = request.form.get('price')
+    price_manager.update_price(history_id, price)
+    return redirect(url_for('users.history'))
+
 @dishes_bp.app_template_filter('time_ago')
 def time_ago_filter(timestamp):
     return format_time_ago(timestamp)

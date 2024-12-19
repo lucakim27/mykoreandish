@@ -1,3 +1,6 @@
+from flask import flash
+
+
 class Price:
     def __init__(self, name, description, adjectives):
         self.name = name
@@ -32,6 +35,34 @@ class PriceManager:
             'location': location,
             'timestamp': self.firestore.SERVER_TIMESTAMP
         })
+    
+    def update_price(self, history_id, price):
+        if not history_id or not price:
+            flash('Invalid input for price.', 'error')
+            return False
+
+        try:
+            price_ref = self.prices_ref.document(history_id)
+            price_ref.update({
+                'price': price
+            })
+            flash('Price saved successfully!', 'success')
+            return True
+        except Exception as e:
+            flash(f'Error saving price: {e}', 'error')
+            return False
+    
+    def delete_price(self, history_id):
+        """Delete a history item from the 'UserSelections' collection."""
+        try:
+            price_ref = self.prices_ref.document(history_id)
+            price_ref.delete()
+            flash('Price review deleted successfully.', 'success')
+            return True
+        except Exception as e:
+            flash('An error occurred while deleting the price review.', 'error')
+            print(f"Error: {e}")
+            return False
     
     def get_price(self, dish_name):
         price_ref = self.prices_ref.where('dish_name', '==', dish_name)
@@ -69,5 +100,22 @@ class PriceManager:
                 total_price[price.to_dict().get('dish_name')] = 1
         
         return total_price
+    
+    def get_price_history(self, google_id):
+        price_ref = self.prices_ref.where('google_id', '==', google_id)
+        prices = price_ref.stream()
         
-        
+        prices_list = [{
+                'id': price.id,  # Firestore document ID as 'id'
+                'dish_name': price.to_dict().get('dish_name'),
+                'timestamp': price.to_dict().get('timestamp'),
+                'location': price.to_dict().get('location'),
+                'price': price.to_dict().get('price')
+            } for price in prices]
+    
+        if not prices_list:
+            return []
+
+        # Sort the prices list by 'timestamp' in descending order
+        prices_list.sort(key=lambda x: x['timestamp'], reverse=True)
+        return prices_list

@@ -2,8 +2,32 @@
 {% block title %}Your Kfood-History{% endblock %}
 {% block content %}
 <div class="history-container">
+    <button onclick="myFunction()" id="show_button">Show Taste Review</button>
+    {% if price_history %}
+        <ul id="price_history">
+            {% for price in price_history %}
+            <li>
+                <span>{{ price.dish_name }} - {{ price.timestamp|time_ago }}</span><br>
+                <form method="POST" action="{{ url_for('dishes.update_price') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ price.id }}">
+                    <input type="text" name="price" value="{{ price.price }}">
+                    <p for="">Location: {{ price.location }}</p>
+                    <button type="submit" class="button update-button">Update</button>
+                </form>
+                
+                <form method="POST" action="{{ url_for('users.deletePriceRoute') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ price.id }}">
+                    <button type="submit" class="button delete-button">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p id="price_history">No price review available.</p>
+    {% endif %}
+
     {% if items %}
-        <ul>
+        <ul id="taste_history" style="display: none;">
         {% for item in items|sort(attribute='timestamp', reverse=true) %}
             <li>
                 <span>{{ item.dish_name }} - {{ item.timestamp|time_ago }}</span><br>
@@ -102,7 +126,46 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>No history available.</p>
+        <p id="taste_history" style="display: none;">No taste review available.</p>
     {% endif %}
 </div>
+<script>
+    function myFunction() {
+        var x = document.getElementById("price_history")
+        var y = document.getElementById("taste_history")
+        var z = document.getElementById("show_button")
+
+        if (x === null && y !== null) {
+            if (z.innerText == "Show Price Review") {
+                y.style.display = "none"
+                z.innerText = "Show Taste Review"
+            } else {
+                y.style.display = "block"
+                z.innerText = "Show Price Review"
+            }
+        } else if (y === null && x !== null) {
+            if (z.innerText == "Show Price Review") {
+                x.style.display = "none"
+                z.innerText = "Show Taste Review"
+            } else {
+                x.style.display = "block"
+                z.innerText = "Show Price Review"
+            }
+        } else if (x === null && y === null) {
+            if (z.innerText == "Show Price Review") {
+                z.innerText = "Show Taste Review"
+            } else {
+                z.innerText = "Show Price Review"
+            }
+        } else if (x === null || x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display = "none"
+            z.innerText = "Show Taste Review"
+        } else {
+            x.style.display = "none";
+            y.style.display = "block"
+            z.innerText = "Show Price Review"
+        }
+    }
+</script>
 {% endblock %}

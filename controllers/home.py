@@ -9,7 +9,7 @@ from firebase_admin import firestore
 home_bp = Blueprint('home', __name__)
 user_manager = UserManager(db)
 selection_manager = UserSelectionManager(db, firestore)
-dish_manager = DishManager(db)
+dish_manager = DishManager(csv_file='csv/dishes.csv')
 price_manager = PriceManager(db, firestore)
 
 @home_bp.route('/')

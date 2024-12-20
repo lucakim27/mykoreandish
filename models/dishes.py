@@ -1,3 +1,4 @@
+import csv
 import re
 from flask import flash, redirect
 from nltk.corpus import stopwords
@@ -46,23 +47,37 @@ class Dish:
 
     
 class DishManager:
-    def __init__(self, db):
-        self.dishes_ref = db.collection('Dishes')
+    def __init__(self, csv_file):
+        self.csv_file = csv_file
 
     def get_all_dishes(self):
-        dishes = self.dishes_ref.stream()
-        return [self.row_to_dish(dish) for dish in dishes]
+        dishes = []
+        try:
+            with open(self.csv_file, mode='r', newline='', encoding='utf-8') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    dishes.append(self.row_to_dish(row))
+        except Exception as e:
+            print(f"Error reading CSV file: {e}")
+        return dishes
 
-    def row_to_dish(self, dish_doc):
-        data = dish_doc.to_dict()
+    def row_to_dish(self, row):
         return Dish(
-            dish_name=data.get('dish_name', ''),
-            description=data.get('description', ''),
-            adjectives=data.get('adjectives', ''),
-            spiciness=data.get('spiciness', ''),
-            dietary=data.get('dietary', ''),
-            ingredients=data.get('ingredients', '')
+            dish_name=row.get('dish_name', ''),
+            description=row.get('description', ''),
+            adjectives=row.get('adjectives', ''),
+            spiciness=row.get('spiciness', ''),
+            dietary=row.get('dietary', ''),
+            ingredients=row.get('ingredients', '')
         )
+
+    def get_dish_instance(self, name):
+        dishes = self.get_all_dishes()  # Fetch all dishes from the CSV
+        for dish in dishes:
+            if dish.dish_name.lower() == name.lower():  # Case-insensitive matching
+                return dish
+        print(f"No dish found with name: '{name}'")
+        return None
 
     def make_recommendation(self, description, adjectives, spiciness, dietary, ingredients):
         dishes = self.get_all_dishes()
@@ -84,54 +99,33 @@ class DishManager:
 
         for dish in dishes:
             if dish.adjectives:
-                if isinstance(dish.adjectives, str):
-                    adjectives.update(dish.adjectives.split(','))
-                elif isinstance(dish.adjectives, list):
-                    adjectives.update(dish.adjectives)
-                
+                adjectives.update(dish.adjectives)
             if dish.spiciness:
-                if isinstance(dish.spiciness, str):
-                    spiciness.update(dish.spiciness.split(','))
-                elif isinstance(dish.spiciness, list):
-                    spiciness.update(dish.spiciness)
-            
+                spiciness.add(dish.spiciness)
             if dish.dietary:
-                if isinstance(dish.dietary, str):
-                    dietary.update(dish.dietary.split(','))
-                elif isinstance(dish.dietary, list):
-                    dietary.update(dish.dietary)
-            
+                dietary.update(dish.dietary)
             if dish.ingredients:
-                if isinstance(dish.ingredients, str):
-                    ingredients.update(dish.ingredients.split(','))
-                elif isinstance(dish.ingredients, list):
-                    ingredients.update(dish.ingredients)
+                ingredients.update(dish.ingredients)
 
         return adjectives, spiciness, dietary, ingredients
 
-    def get_dish_instance(self, name):
-        try:
-            dish_query = self.dishes_ref.where('dish_name', '==', name).limit(1)
-            dishes = list(dish_query.stream())
-            if dishes:
-                return self.row_to_dish(dishes[0])
-            else:
-                print(f"No dish found with name: '{name}'")
-                return None
-        except Exception as e:
-            print(f"Error fetching dish by name: {e}")
-            return None
-    
-    def add_dish(self, dish_name, description, adjectives):
+    def add_dish(self, dish_name, description, adjectives, spiciness, dietary, ingredients):
         if not dish_name or not description or not adjectives:
             flash('All fields are required!', 'error')
             return redirect('/admin')
 
-        # Add the food item to the Firestore 'foods' collection
-        self.dishes_ref.add({
-            'dish_name': dish_name,
-            'description': description,
-            'adjectives': adjectives  # Store adjectives as a list
-        })
-        
-        flash('Food added successfully!', 'success')
+        # Add the food item to the CSV file
+        try:
+            with open(self.csv_file, mode='a', newline='', encoding='utf-8') as file:
+                writer = csv.DictWriter(file, fieldnames=['dish_name', 'description', 'adjectives', 'spiciness', 'dietary', 'ingredients'])
+                writer.writerow({
+                    'dish_name': dish_name,
+                    'description': description,
+                    'adjectives': adjectives,
+                    'spiciness': spiciness,
+                    'dietary': dietary,
+                    'ingredients': ingredients
+                })
+            flash('Food added successfully!', 'success')
+        except Exception as e:
+            flash(f"Error adding dish: {e}", 'error')

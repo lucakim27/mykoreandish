@@ -7,7 +7,7 @@ from utils.location import fetch_geoapify_data
 from firebase_admin import firestore
 
 reviews_bp = Blueprint('reviews', __name__)
-manager = DishManager(db)
+manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = UserSelectionManager(db, firestore)
 

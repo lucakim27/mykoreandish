@@ -8,7 +8,7 @@ from firebase_admin import firestore
 admin_bp = Blueprint('admin', __name__)
 request_manager = RequestsManager(db, firestore)
 user_manager = UserManager(db)
-dish_manager = DishManager(db)
+dish_manager = DishManager(csv_file='csv/dishes.csv')
 
 @admin_bp.route('/')
 def admin_panel():

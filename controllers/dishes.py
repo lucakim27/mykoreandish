@@ -9,7 +9,7 @@ from utils.filters import format_time_ago
 from firebase_admin import firestore
 
 dishes_bp = Blueprint('dishes', __name__)
-manager = DishManager(db)
+manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = UserSelectionManager(db, firestore)
 price_manager = PriceManager(db, firestore)

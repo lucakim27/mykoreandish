@@ -81,16 +81,16 @@ h1 {
 
 .criteria-form {
     max-width: 100%; /* Match the width of top-foods */
-    margin: 20px;
+    margin: 0 20px;
     padding: 20px;
     background-color: rgb(0, 0, 0);
-    border: 1px solid #ddd;
     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: auto; /* Adjust height to match the content dynamically */
 }
+
 .criteria-form select {
     margin-bottom: 20px;
 }

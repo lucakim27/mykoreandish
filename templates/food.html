@@ -44,15 +44,33 @@
     <table class="dish-details">
         <tr>
             <th>Type</th>
-            <th>Percentage</th>
+            <th>Counts</th>
         </tr>
         {% if dietaries %}
-            {% for dietary in dietaries %}
+            {% if dietaries['Vegetarian'] %}
                 <tr>
-                    <td>{{ dietary.type }}{% if not loop.last %} {% endif %}</td>
-                    <td>{{ dietary.percentage }}{% if not loop.last %} {% endif %}</td>
+                    <td>Vegetarian</td>
+                    <td>{{ dietaries['Vegetarian'] }}</td>
                 </tr>
-            {% endfor %}
+            {% endif %}
+            {% if dietaries['Vegan'] %}
+                <tr>
+                    <td>Vegan</td>
+                    <td>{{ dietaries['Vegan'] }}</td>
+                </tr>
+            {% endif %}
+            {% if dietaries['Halal'] %}
+                <tr>
+                    <td>Halal</td>
+                    <td>{{ dietaries['Halal'] }}</td>
+                </tr>
+            {% endif %}
+            {% if dietaries['Seafood'] %}
+                <tr>
+                    <td>Seafood</td>
+                    <td>{{ dietaries['Seafood'] }}</td>
+                </tr>
+            {% endif %}
         {% else %}
         <tr>
             <td>n/a</td>
@@ -61,7 +79,7 @@
         {% endif %}
     </table>
     <div class="button-box">
-        <form action="/reviews/price/{{ dish.dish_name }}" method="post" style="display:inline;">
+        <form action="/reviews/dietary/{{ dish.dish_name }}" method="post" style="display:inline;">
             <button type="submit" class="button select-button">What was the type of dietary?</button>
         </form>
     </div><br>

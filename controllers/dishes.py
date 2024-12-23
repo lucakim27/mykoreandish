@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
 from controllers.auth import login_required
+from models.dietary import DietaryManager
 from models.dishes import DishManager
 from models.price import PriceManager
 from models.users import UserManager
@@ -13,13 +14,18 @@ manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = UserSelectionManager(db, firestore)
 price_manager = PriceManager(db, firestore)
+dietary_manager = DietaryManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def recommendation():
     user = user_manager.getUserBySession(session)
     description = request.form.get('description')
     recommendation = manager.make_recommendation(description)
-    return render_template('recommendation.html', user=user, recommendation=recommendation)
+    return render_template(
+        'recommendation.html', 
+        user=user, 
+        recommendation=recommendation
+    )
 
 @dishes_bp.route('/filter', methods=['POST'])
 def filtering():
@@ -33,15 +39,33 @@ def filtering():
     dietary = request.form.get('dietary')
     filtered_dishes = selection_manager.filter_dishes(spiciness, sweetness, sourness, texture, temperature, healthiness, dietary)
     recommendation = manager.filter_recommendation()
-    return render_template('recommendation.html', user=user, recommendation=recommendation)
+    return render_template(
+        'recommendation.html', 
+        user=user, 
+        recommendation=recommendation
+    )
 
 @dishes_bp.route('/<name>', methods=['POST'])
 def food(name=None):
     user = user_manager.getUserBySession(session)
     dish = manager.get_dish_instance(name)
     prices = price_manager.get_price(name)
+    dietaries = dietary_manager.getDietary(name)
     average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness = selection_manager.get_dish_statistics()
-    return render_template('food.html', prices=prices, user=user, dish=dish, average_ratings=average_ratings, selection_counts=selection_counts, average_spiciness=average_spiciness, average_sweetness=average_sweetness, average_texture=average_texture, average_healthiness=average_healthiness, average_sourness=average_sourness)
+    return render_template(
+        'food.html', 
+        prices=prices, 
+        user=user, 
+        dish=dish, 
+        average_ratings=average_ratings, 
+        selection_counts=selection_counts, 
+        average_spiciness=average_spiciness, 
+        average_sweetness=average_sweetness, 
+        average_texture=average_texture, 
+        average_healthiness=average_healthiness, 
+        average_sourness=average_sourness,
+        dietaries=dietaries
+    )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])
 @login_required
@@ -62,6 +86,13 @@ def priceReviewRoute(name=None):
     price = request.form.get('price')
     location = request.form.get('location')
     price_manager.add_price(session.get('google_id'), name, price, location)
+    return redirect(url_for('home.home'))
+
+@dishes_bp.route('/dietary_review/<name>', methods=['POST'])
+@login_required
+def dietaryReviewRoute(name=None):
+    dietary = request.form.get('dietary')
+    dietary_manager.addDietary(name, session.get('google_id'), dietary)
     return redirect(url_for('home.home'))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])

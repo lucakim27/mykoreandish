@@ -23,3 +23,9 @@ def priceController(name=None):
     dish = manager.get_dish_instance(name)
     region_text, price_placeholder = fetch_geoapify_data()
     return render_template('price.html', user=user, dish=dish, region_text=region_text, price_placeholder=price_placeholder)
+
+@reviews_bp.route('/dietary/<name>', methods=['POST'])
+def dietaryController(name=None):
+    user = user_manager.getUserBySession(session)
+    dish = manager.get_dish_instance(name)
+    return render_template('dietary.html', user=user, dish=dish)

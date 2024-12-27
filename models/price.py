@@ -14,7 +14,7 @@ class PriceManager:
         self.prices_ref = db.collection('Prices')
         self.firestore = firestore
     
-    def add_price(self, google_id, dish_name, price, location):
+    def add_price(self, google_id, dish_name, price, currency):
         user_ref = self.users_ref.where('google_id', '==', google_id)
         user = user_ref.get()
 
@@ -32,7 +32,7 @@ class PriceManager:
             'google_id': google_id,
             'dish_name': dish_name,
             'price': price,
-            'location': location,
+            'currency': currency,
             'timestamp': self.firestore.SERVER_TIMESTAMP
         })
     
@@ -72,7 +72,7 @@ class PriceManager:
                 'id': price.id,  # Firestore document ID as 'id'
                 'dish_name': price.to_dict().get('dish_name'),
                 'timestamp': price.to_dict().get('timestamp'),
-                'location': price.to_dict().get('location'),
+                'currency': price.to_dict().get('currency'),
                 'google_id': price.to_dict().get('google_id'),
                 'price': price.to_dict().get('price')
             } for price in prices]

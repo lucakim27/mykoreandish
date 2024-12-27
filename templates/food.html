@@ -157,14 +157,14 @@
     <table class="dish-details">
         <tr>
             <th>Price</th>
-            <th>Region</th>
+            <th>Currency</th>
             <th>Date</th>
         </tr>
         {% if prices %}
             {% for food in prices %}
                 <tr>
                     <td>{{ food.price }}{% if not loop.last %} {% endif %}</td>
-                    <td>{{ food.location }}{% if not loop.last %} {% endif %}</td>
+                    <td>{{ food.currency }}{% if not loop.last %} {% endif %}</td>
                     <td>{{ food.timestamp|time_ago }}{% if not loop.last %} {% endif %}</td>
                 </tr>
             {% endfor %}

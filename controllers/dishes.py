@@ -84,8 +84,8 @@ def select_food(name=None):
 @login_required
 def priceReviewRoute(name=None):
     price = request.form.get('price')
-    location = request.form.get('location')
-    price_manager.add_price(session.get('google_id'), name, price, location)
+    currency = request.form.get('currency')
+    price_manager.add_price(session.get('google_id'), name, price, currency)
     return redirect(url_for('home.home'))
 
 @dishes_bp.route('/dietary_review/<name>', methods=['POST'])

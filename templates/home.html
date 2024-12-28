@@ -1,17 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Your Kfood-Home{% endblock %}
 {% block content %}
-<form action="/dishes" method="post" class="criteria-form">
-  <div id="selectBox">
-    <h2>Text base search</h2>
-    <label for="description">Describe a korean food:</label><br>
-    <textarea id="description" name="description" rows="4"
-      placeholder="Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea><br><br>
-  </div>
-  <button type="submit">Search</button>
-</form>
 <form action="/dishes/filter" method="post" class="criteria-form">
-  <h2>Option base search</h2>
+  <h2>Taste base search</h2>
   <label for="spiciness">Select spiciness:</label>
   <select id="spiciness" name="spiciness">
     <option value="Any">Any</option>
@@ -72,14 +63,39 @@
     <option value="4">Healthy</option>
     <option value="5">Very healthy</option>
   </select>
+  <button type="submit">Search</button>
+</form>
+<form action="/dishes/filter" method="post" class="criteria-form">
+  <h2>Dietary base search</h2>
   <label for="dietary">Select dietary:</label>
   <select id="dietary" name="dietary">
     <option value="Any">Any</option>
-    <option value="0">Vegetarian</option>
-    <option value="1">Vegan</option>
-    <option value="2">Halal</option>
-    <option value="3">Seafood</option>
+    <option value="Vegetarian">Vegetarian</option>
+    <option value="Vegan">Vegan</option>
+    <option value="Halal">Halal</option>
+    <option value="Seafood">Seafood</option>
   </select>
+  <button type="submit">Search</button>
+</form>
+<form action="/dishes/filter" method="post" class="criteria-form">
+  <h2>Price base search</h2>
+  <label for="price">Select price:</label>
+  <select id="price" name="price">
+    <option value="Any">Any</option>
+    <option value="0">Cheap</option>
+    <option value="1">Affordable</option>
+    <option value="2">Mediocre</option>
+    <option value="4">Expensive</option>
+  </select>
+  <button type="submit">Search</button>
+</form>
+<form action="/dishes" method="post" class="criteria-form">
+  <div id="selectBox">
+    <h2>Description base search</h2>
+    <label for="description">Describe a korean food:</label><br>
+    <textarea id="description" name="description" rows="4"
+      placeholder="Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea><br><br>
+  </div>
   <button type="submit">Search</button>
 </form>
 {% endblock %}

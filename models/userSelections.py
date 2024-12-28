@@ -58,6 +58,7 @@ class UserSelectionManager:
         average_texture = {}
         average_healthiness = {}
         average_sourness = {}
+        average_temperature = {}
 
         try:
             # Dictionaries to hold dish ratings and new criteria
@@ -67,6 +68,7 @@ class UserSelectionManager:
             dish_texture = {}
             dish_healthiness = {}
             dish_sourness = {}
+            dish_temperature = {}
 
             # Retrieve ratings and criteria from the 'UserSelections' collection
             selections = self.user_selections_ref.stream()
@@ -81,6 +83,7 @@ class UserSelectionManager:
                 texture_value = selection_data.get('texture')
                 healthiness_value = selection_data.get('healthiness')
                 sourness_value = selection_data.get('sourness')  # New field for sourness
+                temperature_value = selection_data.get('temperature')
 
                 if dish_name:
                     # Count the selections for each dish
@@ -94,6 +97,12 @@ class UserSelectionManager:
                             dish_ratings[dish_name] = {'total': 0, 'count': 0}
                         dish_ratings[dish_name]['total'] += rating_value
                         dish_ratings[dish_name]['count'] += 1
+                    
+                    if temperature_value is not None:
+                        if dish_name not in dish_temperature:
+                            dish_temperature[dish_name] = {'total': 0, 'count': 0}
+                        dish_temperature[dish_name]['total'] += temperature_value
+                        dish_temperature[dish_name]['count'] += 1
 
                     # Handle the spiciness ratings for dishes
                     if spiciness_value is not None:
@@ -138,6 +147,9 @@ class UserSelectionManager:
             # Calculate average spiciness for each dish
             for dish_name, data in dish_spiciness.items():
                 average_spiciness[dish_name] = data['total'] / data['count']
+            
+            for dish_name, data in dish_temperature.items():
+                average_temperature[dish_name] = data['total'] / data['count']
 
             # Calculate average sweetness for each dish
             for dish_name, data in dish_sweetness.items():
@@ -169,6 +181,8 @@ class UserSelectionManager:
                     average_healthiness[dish_name] = 0  # No healthiness data but included in selections
                 if dish_name not in average_sourness:
                     average_sourness[dish_name] = 0  # No sourness data but included in selections
+                if dish_name not in average_temperature:
+                    average_temperature[dish_name] = 0
 
         except Exception as e:
             print(f"Error fetching dish statistics: {e}")
@@ -181,8 +195,10 @@ class UserSelectionManager:
         average_healthiness = dict(sorted(average_healthiness.items(), key=lambda item: item[1], reverse=True))
         average_sourness = dict(sorted(average_sourness.items(), key=lambda item: item[1], reverse=True))
         selection_counts = dict(sorted(selection_counts.items(), key=lambda item: item[1], reverse=True))
+        average_temperature = dict(sorted(average_temperature.items(), key=lambda item: item[1], reverse=True))
 
-        return average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness
+
+        return average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature
     
     def add_selection(self, google_id, dish_name, spiciness, sweetness, sourness, texture, temperature, healthiness, rating):
         """Add a food selection without a rating initially."""

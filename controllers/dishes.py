@@ -51,7 +51,7 @@ def food(name=None):
     dish = manager.get_dish_instance(name)
     prices = price_manager.get_price(name)
     dietaries = dietary_manager.getDietary(name)
-    average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness = selection_manager.get_dish_statistics()
+    average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature = selection_manager.get_dish_statistics()
     return render_template(
         'food.html', 
         prices=prices, 
@@ -64,7 +64,8 @@ def food(name=None):
         average_texture=average_texture, 
         average_healthiness=average_healthiness, 
         average_sourness=average_sourness,
-        dietaries=dietaries
+        dietaries=dietaries,
+        average_temperature=average_temperature
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])

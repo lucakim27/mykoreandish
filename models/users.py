@@ -29,16 +29,18 @@ class UserManager:
             if user_doc.exists:
                 # If the user exists, update their data
                 user_ref.update({
-                    'name': user.name,
+                    'admin': False,
                     'email': user.email,
-                    'google_id': user.google_id
+                    'google_id': user.google_id,
+                    'name': user.name
                 })
             else:
                 # If the user doesn't exist, add new user
                 user_ref.set({
-                    'name': user.name,
+                    'admin': False,
                     'email': user.email,
-                    'google_id': user.google_id
+                    'google_id': user.google_id,
+                    'name': user.name
                 })
             
             print(f"User {user.name} stored successfully!")

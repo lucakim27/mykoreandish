@@ -113,7 +113,8 @@ def rate_dish():
 def update_price():
     history_id = request.form.get('history_id')
     price = request.form.get('price')
-    price_manager.update_price(history_id, price)
+    currency = request.form.get('currency')
+    price_manager.update_price(history_id, price, currency)
     return redirect(url_for('users.history'))
 
 @dishes_bp.app_template_filter('time_ago')

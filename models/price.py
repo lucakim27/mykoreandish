@@ -36,7 +36,7 @@ class PriceManager:
             'timestamp': self.firestore.SERVER_TIMESTAMP
         })
     
-    def update_price(self, history_id, price):
+    def update_price(self, history_id, price, currency):
         if not history_id or not price:
             flash('Invalid input for price.', 'error')
             return False
@@ -44,7 +44,8 @@ class PriceManager:
         try:
             price_ref = self.prices_ref.document(history_id)
             price_ref.update({
-                'price': price
+                'price': price,
+                'currency': currency
             })
             flash('Price saved successfully!', 'success')
             return True
@@ -109,7 +110,7 @@ class PriceManager:
                 'id': price.id,  # Firestore document ID as 'id'
                 'dish_name': price.to_dict().get('dish_name'),
                 'timestamp': price.to_dict().get('timestamp'),
-                'location': price.to_dict().get('location'),
+                'currency': price.to_dict().get('currency'),
                 'price': price.to_dict().get('price')
             } for price in prices]
     

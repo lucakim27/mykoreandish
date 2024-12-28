@@ -92,7 +92,7 @@
                 {% if dish.dish_name in average_ratings %}
                     {{ average_ratings[dish.dish_name] }} / 5
                 {% else %}
-                No rating data
+                    n/a
                 {% endif %}
             </td>
         </tr>
@@ -102,7 +102,7 @@
                 {% if dish.dish_name in average_texture %}
                     {{ average_texture[dish.dish_name] }} / 5
                 {% else %}
-                    No texture data
+                    n/a
                 {% endif %}
             </td>
         </tr>
@@ -110,9 +110,9 @@
             <th>Sourness</th>
             <td>
                 {% if dish.dish_name in average_sourness %}
-                {{ average_sourness[dish.dish_name] }} / 5
+                    {{ average_sourness[dish.dish_name] }} / 5
                 {% else %}
-                No sourness data
+                    n/a
                 {% endif %}
             </td>
         </tr>
@@ -122,7 +122,7 @@
                 {% if dish.dish_name in average_spiciness %}
                     {{ average_spiciness[dish.dish_name] }} / 5
                 {% else %}
-                    No spiciness data
+                    n/a
                 {% endif %}
             </td>
         </tr>
@@ -132,7 +132,7 @@
                 {% if dish.dish_name in average_sweetness %}
                     {{ average_sweetness[dish.dish_name] }} / 5
                 {% else %}
-                    No sweetness data
+                    n/a
                 {% endif %}
             </td>
         </tr>
@@ -140,9 +140,9 @@
             <th>Healthiness</th>
             <td>
                 {% if dish.dish_name in average_healthiness %}
-                {{ average_healthiness[dish.dish_name] }} / 5
+                    {{ average_healthiness[dish.dish_name] }} / 5
                 {% else %}
-                No healthiness data
+                    n/a
                 {% endif %}
             </td>
         </tr>
@@ -152,7 +152,7 @@
                 {% if dish.dish_name in average_temperature %}
                     {{ average_temperature[dish.dish_name] }} / 5
                 {% else %}
-                    No healthiness data
+                    n/a
                 {% endif %}
             </td>
         </tr>

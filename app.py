@@ -11,6 +11,7 @@ from controllers.reviews import reviews_bp
 from controllers.error_handlers import error_bp
 from config.nltk_config import initialize_nltk
 from config.config import Config
+from controllers.aboutusController import aboutus_bp
 
 initialize_nltk()
 app = Flask(__name__)
@@ -29,6 +30,7 @@ app.register_blueprint(users_bp, url_prefix='/users')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(request_bp, url_prefix='/request')
 app.register_blueprint(reviews_bp, url_prefix='/reviews')
+app.register_blueprint(aboutus_bp, url_prefix='/aboutus')
 app.register_blueprint(home_bp)
 app.register_blueprint(error_bp)
 

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Your K-food{% endblock %}</title>
+    <title>{% block title %}K-food{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <div id="topBar">
-    <h1><a href="/" style="text-decoration: none; color: inherit;">Your K-food</a></h1>
+    <h1><a href="/" style="text-decoration: none; color: inherit;">K-food Review</a></h1>
     <div class="auth-links">
         <div class="user-dropdown">
             <button class="menu" onclick="toggleDropdown()">
@@ -21,17 +21,15 @@
             </button>
             <div class="dropdown-menu">
                 {% if session.get('google_id') %}
-                <a>{{ user.get('name', 'Guest') }}</a>
-                  {% if user.get('admin') %}
-                      <a href="/admin">Admin</a>
-                  {% endif %}
-                  <a href="/users">History</a>
-                  <a href="/auth/logout">Logout</a>
-                  {% else %}
-                  <a class="google-login-btn" href="{{ url_for('google.login') }}">
-                      <i class="fab fa-google"></i> Sign in
-                  </a>
-                  {% endif %}
+                    {% if user.get('admin') %}
+                        <a href="/admin">Admin</a>
+                    {% endif %}
+                        <a href="/users">History</a>
+                        <a href="/auth/logout">Logout</a>
+                {% else %}
+                    <a class="google-login-btn" href="{{ url_for('google.login') }}">Sign in</a>
+                {% endif %}
+                <a href="/aboutus">About Us</a>
               </div>
           </div>
     </div>

@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-{% block title %}Your Kfood-Review{% endblock %}
+{% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
 {% block content %}
 <div class="review-container">
     <h2>{{ dish.dish_name }}</h2>

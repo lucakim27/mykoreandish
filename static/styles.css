@@ -57,8 +57,8 @@ h1 {
     position: absolute;
     background-color: #000000;
     color: white;
-    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.3);
     margin-top: 17px;
+    width: 93px;
     border: 1px solid white;
 }
 
@@ -184,7 +184,7 @@ strong {
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
     overflow: hidden; /* Prevent overflow of content */
-    height: 250px;
+    /* height: 250px; */
 }
 
 .food-box:hover {
@@ -710,4 +710,38 @@ strong {
 .user-dropdown {
     position: relative;
     display: inline-block;
+}
+.about-us-body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+}
+.about-us-container {
+    max-width: 800px;
+    margin: 0 20px;
+    padding: 20px;
+}
+.about-us-container h2 {
+    color: #e0e0e0;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 5px;
+}
+.about-us-container p {
+    margin: 10px 0;
+}
+.about-us-container ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+.about-us-container ul li {
+    color: #ccc;
+}
+.about-us-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #aaa;
 }

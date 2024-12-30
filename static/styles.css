@@ -102,8 +102,9 @@ h1 {
 }
 
 #description  {
+    box-sizing: border-box;
     width: 100%;
-    padding: 0;
+    padding: 10px;
     height: 100px;
 }
 
@@ -274,11 +275,6 @@ strong {
 .confirmation-container h2 {
     font-size: 24px;
     margin-bottom: 15px;
-}
-
-.confirmation-container p {
-    font-size: 18px;
-    margin-bottom: 20px;
 }
 
 /* Container for buttons (flexbox for alignment) */
@@ -514,7 +510,7 @@ strong {
 .dish-details {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    /* margin: 20px 0; */
 }
 
 .dish-details th, .dish-details td {
@@ -570,7 +566,8 @@ strong {
 .review-container input[type="number"],
 .review-container input[type="text"],
 .input-group select {
-    width: 80%; /* Adjusts the width of inputs */
+    box-sizing: border-box;
+    width: 100%; /* Adjusts the width of inputs */
     max-width: 300px;
     padding: 10px;
     border: 1px solid #ffffff;
@@ -724,24 +721,55 @@ strong {
     margin: 0 20px;
     padding: 20px;
 }
-.about-us-container h2 {
-    color: #e0e0e0;
-    border-bottom: 2px solid #000000;
-    padding-bottom: 5px;
-}
-.about-us-container p {
-    margin: 10px 0;
-}
+
 .about-us-container ul {
     list-style-type: disc;
     margin-left: 20px;
 }
+
 .about-us-container ul li {
     color: #ccc;
 }
+
+.about-us-container a {
+    text-decoration: none;
+    color: #3498db;
+}
+
 .about-us-footer {
     text-align: center;
     margin-top: 20px;
     font-size: 0.9em;
     color: #aaa;
+}
+
+/* Style for the search container */
+.search-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Style for the search input field */
+#search-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: black;
+    color: white;
+}
+
+/* Change border color when the input is focused */
+#search-input:focus {
+    border-color: #666666;
+}
+
+/* Optional: Add a placeholder style for better visibility */
+#search-input::placeholder {
+    color: #aaa;
+    font-style: italic;
 }

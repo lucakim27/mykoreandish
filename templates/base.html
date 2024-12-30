@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="topBar">
-    <h1><a href="/" style="text-decoration: none; color: inherit;">K-food Review</a></h1>
+    <h1><a href="/" style="text-decoration: none; color: inherit;">Food Suggestion</a></h1>
     <div class="auth-links">
         <div class="user-dropdown">
             <button class="menu" onclick="toggleDropdown()">
@@ -20,6 +20,7 @@
                 <span></span>
             </button>
             <div class="dropdown-menu">
+                <a href="/aboutus">About Us</a>
                 {% if session.get('google_id') %}
                     {% if user.get('admin') %}
                         <a href="/admin">Admin</a>
@@ -29,7 +30,6 @@
                 {% else %}
                     <a class="google-login-btn" href="{{ url_for('google.login') }}">Sign in</a>
                 {% endif %}
-                <a href="/aboutus">About Us</a>
               </div>
           </div>
     </div>

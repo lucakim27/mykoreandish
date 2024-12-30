@@ -3,11 +3,8 @@
 {% block content %}
 <div class="confirmation-container">
     <h2>{{ dish.dish_name }}</h2>
+    <p>{{ dish.description }}</p>
     <table class="dish-details">
-        <tr>
-            <th>Description</th>
-            <td>{{ dish.description }}</td>
-        </tr>
         {% if dish.adjectives %}
         <tr>
             <th>Characteristics</th>

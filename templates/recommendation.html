@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 <div id="recommendation-results">
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for dishes..." onkeyup="filterDishes()" />
+    </div>
+
     {% if recommendation and recommendation[0].dish_name != "No match found" %}
-        <ul class="food-container">
+        <ul class="food-container" id="food-list">
             {% for dish in recommendation %}
-            <li>
+            <li class="food-item">
                 <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
                     <h2>{{ dish.dish_name }}</h2>
                     <p>{{ dish.description }}</p>
@@ -19,9 +23,29 @@
             <p>Try relaxing the filters or selecting different criteria.</p>
         </div>
     {% endif %}
+
     <form action="/request" class="request-dishes">
         <h2>Not enough dishes?</h2>
         <button>Request a new dish!</button>
     </form>
 </div>
+
+<script>
+    // Function to filter the dishes based on the search input
+    function filterDishes() {
+        let input = document.getElementById("search-input").value.toLowerCase();
+        let foodItems = document.querySelectorAll(".food-item");
+
+        foodItems.forEach(item => {
+            let dishName = item.querySelector("h2").textContent.toLowerCase();
+            let description = item.querySelector("p").textContent.toLowerCase();
+
+            if (dishName.includes(input) || description.includes(input)) {
+                item.style.display = "";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+</script>
 {% endblock %}

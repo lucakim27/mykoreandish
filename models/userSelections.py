@@ -262,8 +262,8 @@ class UserSelectionManager:
             print(f"Error retrieving user history: {e}")
             return []  # Return an empty list if an error occurs
     
-    def filter_dishes(self, spiciness, sweetness, sourness, texture, temperature, healthiness, dietary):
-        """
-        WIP
-        """
-        print(spiciness, sweetness, sourness, texture, temperature, healthiness, dietary)
+    # def filter_dishes(self, spiciness, sweetness, sourness, texture, temperature, healthiness, dietary):
+    #     """
+    #     WIP
+    #     """
+    #     print(spiciness, sweetness, sourness, texture, temperature, healthiness, dietary)

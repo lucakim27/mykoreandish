@@ -1,5 +1,7 @@
+from itertools import chain
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from controllers.auth import login_required
+from models.dietary import DietaryManager
 from models.dishes import DishManager
 from models.price import PriceManager
 from models.users import UserManager
@@ -12,6 +14,7 @@ manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = UserSelectionManager(db, firestore)
 price_manager = PriceManager(db, firestore)
+dietary_manager = DietaryManager(db, firestore)
 
 @users_bp.route('/')
 @login_required
@@ -19,7 +22,13 @@ def history():
     user = user_manager.getUserBySession(session)
     price_history = price_manager.get_price_history(session['google_id'])
     user_history = selection_manager.get_user_history(session['google_id'])
-    return render_template('history.html', user=user, items=user_history, price_history=price_history)
+    dietary_history = dietary_manager.get_dietary_history(session['google_id'])
+     # Combine both histories into one list
+    combined_history = list(chain(price_history, user_history, dietary_history))
+
+    # Sort by timestamp (assuming each entry has a 'timestamp' field)
+    combined_history.sort(key=lambda x: x['timestamp'])
+    return render_template('history.html', user=user, combined_history=combined_history)
 
 @users_bp.route('/delete-history', methods=['POST'])
 def deleteHistoryRoute():
@@ -36,3 +45,12 @@ def deletePriceRoute():
         if price_manager.delete_price(history_id):
             return redirect(url_for('users.history'))
     return redirect(url_for('users.history'))
+
+@users_bp.route('/delete-dietary', methods=['POST'])
+def deleteDietaryRoute():
+    history_id = request.form.get('history_id')
+    if history_id:
+        if dietary_manager.delete_dietary(history_id):
+            return redirect(url_for('users.history'))
+    return redirect(url_for('users.history'))
+

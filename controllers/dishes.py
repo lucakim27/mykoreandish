@@ -30,14 +30,6 @@ def recommendation():
 @dishes_bp.route('/filter', methods=['POST'])
 def filtering():
     user = user_manager.getUserBySession(session)
-    spiciness = request.form.get('spiciness')
-    sweetness = request.form.get('sweetness')
-    sourness = request.form.get('sourness')
-    texture = request.form.get('texture')
-    temperature = request.form.get('temperature')
-    healthiness = request.form.get('healthiness')
-    dietary = request.form.get('dietary')
-    filtered_dishes = selection_manager.filter_dishes(spiciness, sweetness, sourness, texture, temperature, healthiness, dietary)
     recommendation = manager.filter_recommendation()
     return render_template(
         'recommendation.html', 
@@ -115,6 +107,13 @@ def update_price():
     price = request.form.get('price')
     currency = request.form.get('currency')
     price_manager.update_price(history_id, price, currency)
+    return redirect(url_for('users.history'))
+
+@dishes_bp.route('/update_dietary', methods=['POST'])
+def update_dietary():
+    history_id = request.form.get('history_id')
+    dietary = request.form.get('dietary')
+    dietary_manager.update_dietary(history_id, dietary)
     return redirect(url_for('users.history'))
 
 @dishes_bp.app_template_filter('time_ago')

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}K-food{% endblock %}</title>
+    <title>{% block title %}Food Suggestion{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -25,6 +25,7 @@
                     {% if user.get('admin') %}
                         <a href="/admin">Admin</a>
                     {% endif %}
+                        <a href="/profile">Profile</a>
                         <a href="/users">History</a>
                         <a href="/auth/logout">Logout</a>
                 {% else %}

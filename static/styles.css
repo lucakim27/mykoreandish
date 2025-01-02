@@ -104,7 +104,7 @@ h1 {
 #description  {
     box-sizing: border-box;
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     height: 100px;
 }
 
@@ -423,6 +423,7 @@ strong {
 }
 
 .history-container select, .history-container input, .history-container label {
+    box-sizing: border-box;
     background-color: black;
     width: 100%;
     color: white;
@@ -771,4 +772,62 @@ strong {
 /* Optional: Add a placeholder style for better visibility */
 #search-input::placeholder {
     color: #aaa;
+}
+
+.dietary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.dietary-tag {
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+}
+.dietary-tag i {
+    margin-right: 5px;
+}
+
+.price-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.price-point {
+    display: flex;
+    justify-content: space-between;
+    background: #000000;
+    padding: 8px;
+    border: 1px solid #ffffff;
+}
+.price {
+    font-weight: bold;
+    color: #ffffff;
+}
+.timestamp {
+    font-size: 0.8em;
+    color: #adadad;
+}
+.ingredients-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ingredient-tag {
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ingredient-tag i {
+    color: #6c757d; /* Add a color for icons */
 }

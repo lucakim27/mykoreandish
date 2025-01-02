@@ -27,3 +27,9 @@ def dietaryController(name=None):
     user = user_manager.getUserBySession(session)
     dish = manager.get_dish_instance(name)
     return render_template('dietary.html', user=user, dish=dish)
+
+@reviews_bp.route('/ingredient/<name>', methods=['POST'])
+def drinkController(name=None):
+    user = user_manager.getUserBySession(session)
+    dish = manager.get_dish_instance(name)
+    return render_template('ingredient.html', user=user, dish=dish)

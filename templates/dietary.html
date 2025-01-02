@@ -2,7 +2,7 @@
 {% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
 {% block content %}
 <div class="review-container">
-    <h2>{{ dish.dish_name }}</h2>
+    <h2>Dietary of {{ dish.dish_name }}</h2>
     <form method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}">
         <div class="input-group">
             <select id="dietary" name="dietary">
@@ -11,6 +11,8 @@
                 <option value="Vegan">Vegan</option>
                 <option value="Halal">Halal</option>
                 <option value="Seafood">Seafood</option>
+                <option value="Broth">Broth</option>
+                <option value="Contain Meat">Contain Meat</option>
             </select>
         </div>
         <div class="button-box" style="display: flex;">

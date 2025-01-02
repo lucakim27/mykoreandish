@@ -10,7 +10,7 @@
             <th>Characteristics</th>
             <td>
                 {% for adjective in dish.adjectives %}
-                    {{ adjective }}{% if not loop.last %}, {% endif %}
+                {{ adjective }}{% if not loop.last %}, {% endif %}
                 {% endfor %}
             </td>
         </tr>
@@ -20,7 +20,7 @@
             <th>Dietary</th>
             <td>
                 {% for diet in dish.dietary %}
-                    {{ diet }}{% if not loop.last %}, {% endif %}
+                {{ diet }}{% if not loop.last %}, {% endif %}
                 {% endfor %}
             </td>
         </tr>
@@ -37,156 +37,101 @@
         {% endif %}
     </table><br>
 
-    <h3>Dietary</h3>
-    <table class="dish-details">
-        <tr>
-            <th>Type</th>
-            <th>Votes</th>
-        </tr>
+    <h3>Dietary Information</h3>
+    <div class="dietary-tags">
         {% if dietaries %}
-            {% if dietaries['Vegetarian'] %}
-                <tr>
-                    <td>Vegetarian</td>
-                    <td>{{ dietaries['Vegetarian'] }}</td>
-                </tr>
-            {% endif %}
-            {% if dietaries['Vegan'] %}
-                <tr>
-                    <td>Vegan</td>
-                    <td>{{ dietaries['Vegan'] }}</td>
-                </tr>
-            {% endif %}
-            {% if dietaries['Halal'] %}
-                <tr>
-                    <td>Halal</td>
-                    <td>{{ dietaries['Halal'] }}</td>
-                </tr>
-            {% endif %}
-            {% if dietaries['Seafood'] %}
-                <tr>
-                    <td>Seafood</td>
-                    <td>{{ dietaries['Seafood'] }}</td>
-                </tr>
-            {% endif %}
-        {% else %}
-        <tr>
-            <td>n/a</td>
-            <td>n/a</td>
-        </tr>
+        {% for diet, count in dietaries.items() %}
+        {% if count > 0 %}
+        <span class="dietary-tag">
+            <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ count }})
+        </span>
         {% endif %}
-    </table>
+        {% endfor %}
+        {% else %}
+        <p>No dietary information available.</p>
+        {% endif %}
+    </div>
     <div class="button-box">
         <form action="/reviews/dietary/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">What was the type of dietary?</button>
+            <button type="submit" class="button select-button">Which dietary type was it?</button>
         </form>
     </div><br>
-    
-    <h3>Taste</h3>
+
+    <h3>Ingredients</h3>
+    <div class="ingredients-list">
+        {% if ingredients %}
+        {% for ingredient, count in ingredients.items() %}
+        {% if count > 0 %}
+        <span class="ingredient-tag">
+            <i class="icon-{{ ingredient | lower }}"></i> {{ ingredient }} ({{ count }})
+        </span>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <p>No ingredients available.</p>
+        {% endif %}
+    </div>
+    <div class="button-box">
+        <form action="/reviews/ingredient/{{ dish.dish_name }}" method="post" style="display:inline;">
+            <button type="submit" class="button select-button">Which ingredient was it used?</button>
+        </form>
+    </div><br>
+
+    <h3>Taste Ratings</h3>
     <table class="dish-details">
         <tr>
-            <th>Overall</th>
-            <td>
-                {% if dish.dish_name in average_ratings %}
-                    {{ average_ratings[dish.dish_name] }} / 5
-                {% else %}
-                    n/a
-                {% endif %}
-            </td>
+            <th>Aspect</th>
+            <th>Rating</th>
         </tr>
+        {% set aspects = {
+        'Overall': average_ratings,
+        'Texture': average_texture,
+        'Sourness': average_sourness,
+        'Spiciness': average_spiciness,
+        'Sweetness': average_sweetness,
+        'Healthiness': average_healthiness,
+        'Temperature': average_temperature
+        } %}
+        {% for aspect, data in aspects.items() %}
         <tr>
-            <th>Texture</th>
+            <th>{{ aspect }}</th>
             <td>
-                {% if dish.dish_name in average_texture %}
-                    {{ average_texture[dish.dish_name] }} / 5
-                {% else %}
-                    n/a
-                {% endif %}
+                {% if dish.dish_name in data %}
+                {% set rating = data[dish.dish_name] %}
+                <span class="stars">
+                    {% for i in range(1, 6) %}
+                    {% if i <= rating %} ★ {% else %} ☆ {% endif %} {% endfor %} </span>
+                        {% else %}
+                        n/a
+                        {% endif %}
             </td>
         </tr>
-        <tr>
-            <th>Sourness</th>
-            <td>
-                {% if dish.dish_name in average_sourness %}
-                    {{ average_sourness[dish.dish_name] }} / 5
-                {% else %}
-                    n/a
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Spiciness</th>
-            <td>
-                {% if dish.dish_name in average_spiciness %}
-                    {{ average_spiciness[dish.dish_name] }} / 5
-                {% else %}
-                    n/a
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Sweetness</th>
-            <td>
-                {% if dish.dish_name in average_sweetness %}
-                    {{ average_sweetness[dish.dish_name] }} / 5
-                {% else %}
-                    n/a
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Healthiness</th>
-            <td>
-                {% if dish.dish_name in average_healthiness %}
-                    {{ average_healthiness[dish.dish_name] }} / 5
-                {% else %}
-                    n/a
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Temperature</th>
-            <td>
-                {% if dish.dish_name in average_temperature %}
-                    {{ average_temperature[dish.dish_name] }} / 5
-                {% else %}
-                    n/a
-                {% endif %}
-            </td>
-        </tr>
+        {% endfor %}
     </table>
+
     <div class="button-box">
         <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">
             <button type="submit" class="button select-button">How was the taste?</button>
         </form>
     </div><br>
-    
-    <h3>Price</h3>
-    <table class="dish-details">
-        <tr>
-            <th>Price</th>
-            <th>Currency</th>
-            <th>Date</th>
-        </tr>
+
+    <h3>Price History</h3>
+    <div class="price-timeline">
         {% if prices %}
-            {% for food in prices %}
-                <tr>
-                    <td>{{ food.price }}{% if not loop.last %} {% endif %}</td>
-                    <td>{{ food.currency }}{% if not loop.last %} {% endif %}</td>
-                    <td>{{ food.timestamp|time_ago }}{% if not loop.last %} {% endif %}</td>
-                </tr>
-            {% endfor %}
+        {% for food in prices %}
+        <div class="price-point">
+            <span class="price">💲{{ food.price }} {{ food.currency }}</span>
+            <span class="timestamp">{{ food.timestamp | time_ago }}</span>
+        </div>
+        {% endfor %}
         {% else %}
-        <tr>
-            <td>n/a</td>
-            <td>n/a</td>
-            <td>n/a</td>
-        </tr>
+        <p>No price history available.</p>
         {% endif %}
-    </table>
+    </div>
     <div class="button-box">
         <form action="/reviews/price/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">How much was it?</button>
+            <button type="submit" class="button select-button">How much did it cost?</button>
         </form>
-    </div>
+    </div><br>
 </div>
 {% endblock %}

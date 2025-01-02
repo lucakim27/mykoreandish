@@ -295,6 +295,8 @@
                         <option value="Vegan" {% if item.dietary=="Vegan" %}selected{% endif %}>Vegan</option>
                         <option value="Halal" {% if item.dietary=="Halal" %}selected{% endif %}>Halal</option>
                         <option value="Seafood" {% if item.dietary=="Seafood" %}selected{% endif %}>Seafood</option>
+                        <option value="Broth" {% if item.dietary=="Broth" %}selected{% endif %}>Broth</option>
+                        <option value="Contain Meat" {% if item.dietary=="Contain Meat" %}selected{% endif %}>Contain Meat</option>
                     </select>
                     <button type="submit" class="button update-button">Update</button>
                 </form>

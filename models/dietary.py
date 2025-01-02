@@ -1,6 +1,4 @@
-
 from flask import flash
-
 
 class Dietary:
     def __init__(self, dish_name, dietary):
@@ -44,7 +42,9 @@ class DietaryManager:
             'Vegetarian': 0,
             'Halal': 0,
             'Vegan': 0,
-            'Seafood': 0
+            'Seafood': 0,
+            'Broth': 0,
+            'Contain Meat': 0
         }
 
         for dietary in dietaries_list:

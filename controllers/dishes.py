@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, session, url_fo
 from controllers.auth import login_required
 from models.dietary import DietaryManager
 from models.dishes import DishManager
+from models.ingredient import IngredientManager
 from models.price import PriceManager
 from models.users import UserManager
 from models.userSelections import UserSelectionManager
@@ -15,6 +16,7 @@ user_manager = UserManager(db)
 selection_manager = UserSelectionManager(db, firestore)
 price_manager = PriceManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
+ingredient_manager = IngredientManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def recommendation():
@@ -43,6 +45,7 @@ def food(name=None):
     dish = manager.get_dish_instance(name)
     prices = price_manager.get_price(name)
     dietaries = dietary_manager.getDietary(name)
+    ingredients = ingredient_manager.getIngredient(name)
     average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature = selection_manager.get_dish_statistics()
     return render_template(
         'food.html', 
@@ -57,7 +60,8 @@ def food(name=None):
         average_healthiness=average_healthiness, 
         average_sourness=average_sourness,
         dietaries=dietaries,
-        average_temperature=average_temperature
+        average_temperature=average_temperature,
+        ingredients=ingredients
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])
@@ -86,6 +90,13 @@ def priceReviewRoute(name=None):
 def dietaryReviewRoute(name=None):
     dietary = request.form.get('dietary')
     dietary_manager.addDietary(name, session.get('google_id'), dietary)
+    return redirect(url_for('home.home'))
+
+@dishes_bp.route('/ingredient_review/<name>', methods=['POST'])
+@login_required
+def ingredientReviewRoute(name=None):
+    ingredient = request.form.get('ingredient')
+    ingredient_manager.addIngredient(name, session.get('google_id'), ingredient)
     return redirect(url_for('home.home'))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])

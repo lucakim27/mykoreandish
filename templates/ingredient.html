@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
+{% block content %}
+<div class="review-container">
+    <h2>Ingredients of {{ dish.dish_name }}</h2>
+    <form method="POST" action="/dishes/ingredient_review/{{ dish.dish_name }}">
+        <div class="input-group">
+            <select id="ingredient" name="ingredient">
+                <option value="" disabled selected>Which ingredient was it used?</option>
+                <!-- Staples -->
+                <option value="Rice">Rice</option>
+                <option value="Noodles">Noodles</option>
+                <!-- Fermented Ingredients -->
+                <option value="Gochujang">Gochujang</option>
+                <option value="Doenjang">Doenjang</option>
+                <option value="Gochugaru">Gochugaru</option>
+                <option value="Soy Sauce">Soy Sauce</option>
+                <option value="Ssamjang">Ssamjang</option>
+                <!-- Vegetables -->
+                <option value="Kimchi">Kimchi</option>
+                <option value="Garlic">Garlic</option>
+                <option value="Ginger">Ginger</option>
+                <option value="Green Onions">Green Onions</option>
+                <option value="Onion">Onion</option>
+                <option value="Cabbage">Cabbage</option>
+                <option value="Spinach">Spinach</option>
+                <option value="Zucchini">Zucchini</option>
+                <option value="Radish">Radish</option>
+                <option value="Bean Sprouts">Bean Sprouts</option>
+                <option value="Perilla Leaves">Perilla Leaves</option>
+                <option value="Carrot">Carrot</option>
+                <!-- Proteins -->
+                <option value="Beef">Beef</option>
+                <option value="Pork">Pork</option>
+                <option value="Chicken">Chicken</option>
+                <option value="Tofu">Tofu</option>
+                <option value="Eggs">Eggs</option>
+                <option value="Fish">Fish</option>
+                <option value="Clams">Clams</option>
+                <option value="Octopus">Octopus</option>
+                <!-- Seafood and Seaweed -->
+                <option value="Seaweed">Seaweed</option>
+                <option value="Dried Anchovies">Dried Anchovies</option>
+                <option value="Miyuk">Miyuk</option>
+                <!-- Oils and Seeds -->
+                <option value="Sesame Oil">Sesame Oil</option>
+                <option value="Sesame Seeds">Sesame Seeds</option>
+                <option value="Perilla Oil">Perilla Oil</option>
+                <!-- Other Ingredients -->
+                <option value="Rice Cakes">Rice Cakes</option>
+                <option value="Sweet Potato Starch">Sweet Potato Starch</option>
+                <option value="Acorn Jelly">Acorn Jelly</option>
+                <option value="Jujube">Jujube</option>
+                <option value="Barley Malt Powder">Barley Malt Powder</option>
+                <option value="Fermented Soybean Flour">Fermented Soybean Flour</option>
+                <option value="Bread Crumbs">Bread Crumbs</option>
+                <option value="Acorn Jelly Powder">Acorn Jelly Powder</option>
+            </select>            
+        </div>
+        <div class="button-box" style="display: flex;">
+            <button type="submit" class="button select-button" style="width: auto;">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

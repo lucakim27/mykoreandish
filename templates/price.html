@@ -5,10 +5,9 @@
     <h2>Price of {{ dish.dish_name }}</h2>
     <form method="POST" action="/dishes/price_review/{{ dish.dish_name }}">
         <div class="input-group">
-            <input name="price" id="price" type="number" min="0" step="any" placeholder="Example: 25.30"/>
-            <select class="form-select" id="currency" name="currency">
-                <option disabled selected>Select a currency</option>
-                <option value="AFN">Afghan Afghani</option>
+            <input name="price" id="price" type="number" min="0" step="any" placeholder="Example: 25.30" required/>
+            <select class="form-select" id="currency" name="currency" required>
+                <option value="AFN" selected>Afghan Afghani</option>
                 <option value="ALL">Albanian Lek</option>
                 <option value="DZD">Algerian Dinar</option>
                 <option value="AOA">Angolan Kwanza</option>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="review-container">
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>{{ user.name }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Admin</th>
+            <td>{{ user.admin }}</td>
+        </tr>
+        <tr>
+            <th>Google ID</th>
+            <td>{{ user.google_id }}</td>
+        </tr>
+    </table>
+    <!-- Add more user details as needed -->
+</div>
+{% endblock %}

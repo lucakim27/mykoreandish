@@ -6,63 +6,56 @@
     <h2>Taste of {{ dish.dish_name }}</h2>
     <form method="POST" action="/dishes/select/{{ dish.dish_name }}">
         <div class="input-group">
-            <select id="spiciness" name="spiciness">
-                <option value="" disabled selected>How spicy was it?</option>
-                <option value="0">Not at all spicy</option>
+            <select id="spiciness" name="spiciness" required>
+                <option value="0" selected>Not at all spicy</option>
                 <option value="1">A little spicy</option>
                 <option value="2">Mildly spicy</option>
                 <option value="3">Moderately spicy</option>
                 <option value="4">Very spicy</option>
                 <option value="5">Extremely spicy</option>
             </select>
-            <select id="sweetness" name="sweetness">
-                <option value="" disabled selected>How sweet was it?</option>
-                <option value="0">Not sweet at all</option>
+            <select id="sweetness" name="sweetness" required>
+                <option value="0" selected>Not sweet at all</option>
                 <option value="1">Barely sweet</option>
                 <option value="2">Mildly sweet</option>
                 <option value="3">Moderately sweet</option>
                 <option value="4">Very sweet</option>
                 <option value="5">Extremely sweet</option>
             </select>
-            <select id="sourness" name="sourness">
-                <option value="" disabled selected>How sour was it?</option>
-                <option value="0">Not sour at all</option>
+            <select id="sourness" name="sourness" required>
+                <option value="0" selected>Not sour at all</option>
                 <option value="1">Slightly sour</option>
                 <option value="2">Moderately sour</option>
                 <option value="3">Quite sour</option>
                 <option value="4">Very sour</option>
                 <option value="5">Extremely sour</option>
             </select>            
-            <select id="texture" name="texture">
-                <option value="" disabled selected>How was the texture?</option>
-                <option value="0">Very Soft</option>
+            <select id="texture" name="texture" required>
+                <option value="0" selected>Very Soft</option>
                 <option value="1">Soft</option>
                 <option value="2">Slightly Soft</option>
                 <option value="3">Moderate</option>
                 <option value="4">Slightly Hard</option>
                 <option value="5">Hard</option>
             </select>                   
-            <select id="temperature" name="temperature">
-                <option value="" disabled selected>How was the temperature?</option>
-                <option value="0">Cold</option>
+            <select id="temperature" name="temperature" required>
+                <option value="0" selected>Cold</option>
                 <option value="1">Cool</option>
                 <option value="2">Slightly Cool</option>
                 <option value="3">Warm</option>
                 <option value="4">Hot</option>
                 <option value="5">Very Hot</option>
             </select> 
-            <select id="healthiness" name="healthiness">
-                <option value="" disabled selected>How healthy was it?</option>
-                <option value="0">Not healthy at all</option>
+            <select id="healthiness" name="healthiness" required>
+                <option value="0" selected>Not healthy at all</option>
                 <option value="1">Unhealthy</option>
                 <option value="2">Below average</option>
                 <option value="3">Moderately healthy</option>
                 <option value="4">Healthy</option>
                 <option value="5">Very healthy</option>
             </select>        
-            <select id="rating" name="rating">
-                <option value="" disabled selected>How was it in overall?</option>
-                <option value="0">Terrible</option>
+            <select id="rating" name="rating" required>
+                <option value="0" selected>Terrible</option>
                 <option value="1">Bad</option>
                 <option value="2">Below Average</option>
                 <option value="3">Average</option>

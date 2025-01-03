@@ -2,13 +2,12 @@
 {% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
 {% block content %}
 <div class="review-container">
-    <h2>Ingredients of {{ dish.dish_name }}</h2>
+    <h2>Ingredient of {{ dish.dish_name }}</h2>
     <form method="POST" action="/dishes/ingredient_review/{{ dish.dish_name }}">
         <div class="input-group">
-            <select id="ingredient" name="ingredient">
-                <option value="" disabled selected>Which ingredient was it used?</option>
+            <select id="ingredient" name="ingredient" required>
                 <!-- Staples -->
-                <option value="Rice">Rice</option>
+                <option value="Rice" selected>Rice</option>
                 <option value="Noodles">Noodles</option>
                 <!-- Fermented Ingredients -->
                 <option value="Gochujang">Gochujang</option>

@@ -831,3 +831,8 @@ strong {
 .ingredient-tag i {
     color: #6c757d; /* Add a color for icons */
 }
+
+.review-container table th, .review-container table td {
+    border: 1px solid white;
+    padding: 15px;
+}

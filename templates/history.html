@@ -305,6 +305,66 @@
                     <button type="submit" class="button delete-button">Delete</button>
                 </form>
             {% endif %}
+            {% if item.ingredient is defined %}
+                <form method="POST" action="{{ url_for('dishes.update_ingredient') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    <select class="form-select" id="ingredient" name="ingredient">
+                        <!-- Staples -->
+                        <option value="Rice" {% if item.ingredient=="Rice" %}selected{% endif %}>Rice</option>
+                        <option value="Noodles" {% if item.ingredient=="Noodles" %}selected{% endif %}>Noodles</option>
+                        <!-- Fermented Ingredients -->
+                        <option value="Gochujang" {% if item.ingredient=="Gochujang" %}selected{% endif %}>Gochujang</option>
+                        <option value="Doenjang" {% if item.ingredient=="Doenjang" %}selected{% endif %}>Doenjang</option>
+                        <option value="Gochugaru" {% if item.ingredient=="Gochugaru" %}selected{% endif %}>Gochugaru</option>
+                        <option value="Soy Sauce" {% if item.ingredient=="Soy Sauce" %}selected{% endif %}>Soy Sauce</option>
+                        <option value="Ssamjang" {% if item.ingredient=="Ssamjang" %}selected{% endif %}>Ssamjang</option>
+                        <!-- Vegetables -->
+                        <option value="Kimchi" {% if item.ingredient=="Kimchi" %}selected{% endif %}>Kimchi</option>
+                        <option value="Garlic" {% if item.ingredient=="Garlic" %}selected{% endif %}>Garlic</option>
+                        <option value="Ginger" {% if item.ingredient=="Ginger" %}selected{% endif %}>Ginger</option>
+                        <option value="Green Onions" {% if item.ingredient=="Green Onions" %}selected{% endif %}>Green Onions</option>
+                        <option value="Onion" {% if item.ingredient=="Onion" %}selected{% endif %}>Onion</option>
+                        <option value="Cabbage" {% if item.ingredient=="Cabbage" %}selected{% endif %}>Cabbage</option>
+                        <option value="Spinach" {% if item.ingredient=="Spinach" %}selected{% endif %}>Spinach</option>
+                        <option value="Zucchini" {% if item.ingredient=="Zucchini" %}selected{% endif %}>Zucchini</option>
+                        <option value="Radish" {% if item.ingredient=="Radish" %}selected{% endif %}>Radish</option>
+                        <option value="Bean Sprouts" {% if item.ingredient=="Bean Sprouts" %}selected{% endif %}>Bean Sprouts</option>
+                        <option value="Perilla Leaves" {% if item.ingredient=="Perilla Leaves" %}selected{% endif %}>Perilla Leaves</option>
+                        <option value="Carrot" {% if item.ingredient=="Carrot" %}selected{% endif %}>Carrot</option>
+                        <!-- Proteins -->
+                        <option value="Beef" {% if item.ingredient=="Beef" %}selected{% endif %}>Beef</option>
+                        <option value="Pork" {% if item.ingredient=="Pork" %}selected{% endif %}>Pork</option>
+                        <option value="Chicken" {% if item.ingredient=="Chicken" %}selected{% endif %}>Chicken</option>
+                        <option value="Tofu" {% if item.ingredient=="Tofu" %}selected{% endif %}>Tofu</option>
+                        <option value="Eggs" {% if item.ingredient=="Eggs" %}selected{% endif %}>Eggs</option>
+                        <option value="Fish" {% if item.ingredient=="Fish" %}selected{% endif %}>Fish</option>
+                        <option value="Clams" {% if item.ingredient=="Clams" %}selected{% endif %}>Clams</option>
+                        <option value="Octopus" {% if item.ingredient=="Octopus" %}selected{% endif %}>Octopus</option>
+                        <!-- Seafood and Seaweed -->
+                        <option value="Seaweed" {% if item.ingredient=="Seaweed" %}selected{% endif %}>Seaweed</option>
+                        <option value="Dried Anchovies" {% if item.ingredient=="Dried Anchovies" %}selected{% endif %}>Dried Anchovies</option>
+                        <option value="Miyuk" {% if item.ingredient=="Miyuk" %}selected{% endif %}>Miyuk</option>
+                        <!-- Oils and Seeds -->
+                        <option value="Sesame Oil" {% if item.ingredient=="Sesame Oil" %}selected{% endif %}>Sesame Oil</option>
+                        <option value="Sesame Seeds" {% if item.ingredient=="Sesame Seeds" %}selected{% endif %}>Sesame Seeds</option>
+                        <option value="Perilla Oil" {% if item.ingredient=="Perilla Oil" %}selected{% endif %}>Perilla Oil</option>
+                        <!-- Other Ingredients -->
+                        <option value="Rice Cakes" {% if item.ingredient=="Rice Cakes" %}selected{% endif %}>Rice Cakes</option>
+                        <option value="Sweet Potato Starch" {% if item.ingredient=="Sweet Potato Starch" %}selected{% endif %}>Sweet Potato Starch</option>
+                        <option value="Acorn Jelly" {% if item.ingredient=="Acorn Jelly" %}selected{% endif %}>Acorn Jelly</option>
+                        <option value="Jujube" {% if item.ingredient=="Jujube" %}selected{% endif %}>Jujube</option>
+                        <option value="Barley Malt Powder" {% if item.ingredient=="Barley Malt Powder" %}selected{% endif %}>Barley Malt Powder</option>
+                        <option value="Fermented Soybean Flour" {% if item.ingredient=="Fermented Soybean Flour" %}selected{% endif %}>Fermented Soybean Flour</option>
+                        <option value="Bread Crumbs" {% if item.ingredient=="Bread Crumbs" %}selected{% endif %}>Bread Crumbs</option>
+                        <option value="Acorn Jelly Powder" {% if item.ingredient=="Acorn Jelly Powder" %}selected{% endif %}>Acorn Jelly Powder</option>
+                    </select>
+                    <button type="submit" class="button update-button">Update</button>
+                </form>
+                <form method="POST" action="{{ url_for('users.deleteIngredientRoute') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    <button type="submit" class="button delete-button">Delete</button>
+                </form>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

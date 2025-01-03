@@ -127,6 +127,13 @@ def update_dietary():
     dietary_manager.update_dietary(history_id, dietary)
     return redirect(url_for('users.history'))
 
+@dishes_bp.route('/update_ingredient', methods=['POST'])
+def update_ingredient():
+    history_id = request.form.get('history_id')
+    ingredient = request.form.get('ingredient')
+    ingredient_manager.update_ingredient(history_id, ingredient)
+    return redirect(url_for('users.history'))
+
 @dishes_bp.app_template_filter('time_ago')
 def time_ago_filter(timestamp):
     return format_time_ago(timestamp)

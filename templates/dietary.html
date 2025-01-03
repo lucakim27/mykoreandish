@@ -5,9 +5,8 @@
     <h2>Dietary of {{ dish.dish_name }}</h2>
     <form method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}">
         <div class="input-group">
-            <select id="dietary" name="dietary">
-                <option value="" disabled selected>What was the type of dietary?</option>
-                <option value="Vegetarian">Vegetarian</option>
+            <select id="dietary" name="dietary" required>
+                <option value="Vegetarian" selected>Vegetarian</option>
                 <option value="Vegan">Vegan</option>
                 <option value="Halal">Halal</option>
                 <option value="Seafood">Seafood</option>

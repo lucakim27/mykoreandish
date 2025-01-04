@@ -6,22 +6,22 @@
     </div>
 
     {% if recommendation and recommendation[0].dish_name != "No match found" %}
-        <ul class="food-container" id="food-list">
-            {% for dish in recommendation %}
-            <li class="food-item">
-                <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
-                    <h2>{{ dish.dish_name }}</h2>
-                    <p>{{ dish.description }}</p>
-                    <button type="submit" class="food-box-button">Details</button>
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
+    <ul class="food-container" id="food-list">
+        {% for dish in recommendation %}
+        <li class="food-item">
+            <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
+                <h2>{{ dish.dish_name }}</h2>
+                <p>{{ dish.description }}</p>
+                <button type="submit" class="food-box-button">Details</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
     {% else %}
-        <div class="no-matches">
-            <h2>No Matches Found</h2>
-            <p>Try relaxing the filters or selecting different criteria.</p>
-        </div>
+    <div class="no-matches">
+        <h2>No Matches Found</h2>
+        <p>Try relaxing the filters or selecting different criteria.</p>
+    </div>
     {% endif %}
 
     <form action="/request" class="request-dishes">

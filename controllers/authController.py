@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import Blueprint, redirect, url_for, session
 from flask_dance.contrib.google import google
-from models.users import UserManager
+from models.usersModel import UserManager
 from config.db import db
 from flask_dance.contrib.google import google
 

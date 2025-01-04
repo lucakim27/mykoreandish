@@ -1,5 +1,7 @@
+import logging
+
 class User:
-    def __init__(self, google_id, name, email):
+    def __init__(self, google_id: str, name: str, email: str):
         self.google_id = google_id
         self.name = name
         self.email = email
@@ -9,7 +11,7 @@ class UserManager:
         self.db = db
         self.users_ref = db.collection('Users')
 
-    def store_google_user(self, google_user_data):
+    def store_google_user(self, google_user_data: dict) -> None:
         """
         Store user data in Firebase Firestore.
         
@@ -42,29 +44,38 @@ class UserManager:
                     'name': user.name
                 })
             
-            print(f"User {user.name} stored successfully!")
+            logging.info(f"User {user.name} stored successfully!")
         except Exception as e:
-            print(f"Error storing user: {e}")
+            logging.error(f"Error storing user: {e}")
 
-    def getUserBySession(self, session):
+    def get_user_by_session(self, session: dict) -> dict:
         """
         Get user details by session's google_id.
 
         :param session: Flask session containing the google_id
+        :return: Dictionary containing user data or None if not found
         """
+        if session is None:
+            logging.warning("Session is None")
+            return None
+
         google_id = session.get('google_id')
         if google_id:
-            # Query to get the user by google_id from the session
-            user_ref = self.users_ref.where('google_id', '==', google_id)
-            user_docs = user_ref.get()
+            try:
+                # Query to get the user by google_id from the session
+                user_ref = self.users_ref.where('google_id', '==', google_id)
+                user_docs = user_ref.get()
 
-            if user_docs:
-                # Assuming only one user document matches, get the first document
-                user_data = user_docs[0].to_dict()
-                return user_data
-            else:
-                print(f"No user found with google_id {google_id}")
+                if user_docs:
+                    # Assuming only one user document matches, get the first document
+                    user_data = user_docs[0].to_dict()
+                    return user_data
+                else:
+                    logging.info(f"No user found with google_id {google_id}")
+                    return None
+            except Exception as e:
+                logging.error(f"Error retrieving user: {e}")
                 return None
         else:
-            print("No google_id found in session")
+            logging.warning("No google_id found in session")
             return None

@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
-from controllers.auth import login_required
-from models.dietary import DietaryManager
-from models.dishes import DishManager
-from models.ingredient import IngredientManager
-from models.price import PriceManager
-from models.users import UserManager
-from models.userSelections import UserSelectionManager
+from controllers.authController import login_required
+from models.dietaryModel import DietaryManager
+from models.dishesModel import DishManager
+from models.ingredientModel import IngredientManager
+from models.priceModel import PriceManager
+from models.usersModel import UserManager
+from models.userSelectionsModel import UserSelectionManager
 from config.db import db
-from utils.filters import format_time_ago
+from utils.time import format_time_ago
 from firebase_admin import firestore
 
 dishes_bp = Blueprint('dishes', __name__)
@@ -20,33 +20,34 @@ ingredient_manager = IngredientManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def recommendation():
-    user = user_manager.getUserBySession(session)
+    user = user_manager.get_user_by_session(session)
     description = request.form.get('description')
     recommendation = manager.make_recommendation(description)
     return render_template(
-        'recommendation.html', 
+        'search.html', 
         user=user, 
         recommendation=recommendation
     )
 
 @dishes_bp.route('/filter', methods=['POST'])
 def filtering():
-    user = user_manager.getUserBySession(session)
+    user = user_manager.get_user_by_session(session)
     recommendation = manager.filter_recommendation()
     return render_template(
-        'recommendation.html', 
+        'search.html', 
         user=user, 
         recommendation=recommendation
     )
 
 @dishes_bp.route('/<name>', methods=['POST'])
 def food(name=None):
-    user = user_manager.getUserBySession(session)
+    user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
     prices = price_manager.get_price(name)
-    dietaries = dietary_manager.getDietary(name)
-    ingredients = ingredient_manager.getIngredient(name)
-    average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature = selection_manager.get_dish_statistics()
+    dietaries = dietary_manager.get_dietary(name)
+    ingredients = ingredient_manager.get_ingredient(name)
+    average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature = selection_manager.get_dish_statistics(name)
+    print(average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature)
     return render_template(
         'food.html', 
         prices=prices, 
@@ -89,14 +90,14 @@ def priceReviewRoute(name=None):
 @login_required
 def dietaryReviewRoute(name=None):
     dietary = request.form.get('dietary')
-    dietary_manager.addDietary(name, session.get('google_id'), dietary)
+    dietary_manager.add_dietary(name, session.get('google_id'), dietary)
     return redirect(url_for('home.home'))
 
 @dishes_bp.route('/ingredient_review/<name>', methods=['POST'])
 @login_required
 def ingredientReviewRoute(name=None):
     ingredient = request.form.get('ingredient')
-    ingredient_manager.addIngredient(name, session.get('google_id'), ingredient)
+    ingredient_manager.add_ingredient(name, session.get('google_id'), ingredient)
     return redirect(url_for('home.home'))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])

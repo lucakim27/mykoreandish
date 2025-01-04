@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, session
 from config.db import db
-from models.dishes import DishManager
-from models.price import PriceManager
-from models.users import UserManager
-from models.userSelections import UserSelectionManager
+from models.dishesModel import DishManager
+from models.priceModel import PriceManager
+from models.usersModel import UserManager
+from models.userSelectionsModel import UserSelectionManager
 from firebase_admin import firestore
 
 home_bp = Blueprint('home', __name__)
@@ -14,7 +14,7 @@ price_manager = PriceManager(db, firestore)
 
 @home_bp.route('/')
 def home():
-    user = user_manager.getUserBySession(session)
+    user = user_manager.get_user_by_session(session)
     dishes = dish_manager.get_all_dishes()
     return render_template(
         'home.html',

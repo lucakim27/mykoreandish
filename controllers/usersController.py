@@ -1,12 +1,12 @@
 from itertools import chain
 from flask import Blueprint, redirect, render_template, request, session, url_for
-from controllers.auth import login_required
-from models.dietary import DietaryManager
-from models.dishes import DishManager
-from models.ingredient import IngredientManager
-from models.price import PriceManager
-from models.users import UserManager
-from models.userSelections import UserSelectionManager
+from controllers.authController import login_required
+from models.dietaryModel import DietaryManager
+from models.dishesModel import DishManager
+from models.ingredientModel import IngredientManager
+from models.priceModel import PriceManager
+from models.usersModel import UserManager
+from models.userSelectionsModel import UserSelectionManager
 from config.db import db
 from firebase_admin import firestore
 
@@ -21,7 +21,8 @@ ingredient_manager = IngredientManager(db, firestore)
 @users_bp.route('/')
 @login_required
 def history():
-    user = user_manager.getUserBySession(session)
+    user = user_manager.get_user_by_session(session)
+    currency = price_manager.get_all_currency()
     price_history = price_manager.get_price_history(session['google_id'])
     user_history = selection_manager.get_user_history(session['google_id'])
     dietary_history = dietary_manager.get_dietary_history(session['google_id'])
@@ -31,7 +32,7 @@ def history():
 
     # Sort by timestamp (assuming each entry has a 'timestamp' field)
     combined_history.sort(key=lambda x: x['timestamp'])
-    return render_template('history.html', user=user, combined_history=combined_history)
+    return render_template('history.html', user=user, combined_history=combined_history, currency=currency)
 
 @users_bp.route('/delete-history', methods=['POST'])
 def deleteHistoryRoute():
@@ -67,5 +68,5 @@ def deleteIngredientRoute():
 
 @users_bp.route('/profile')
 def profile():
-    user = user_manager.getUserBySession(session)
+    user = user_manager.get_user_by_session(session)
     return render_template('profile.html', user=user)

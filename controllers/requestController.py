@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from config.db import db
-from models.requests import RequestsManager
-from models.users import UserManager
+from models.requestsModel import RequestsManager
+from models.usersModel import UserManager
 from firebase_admin import firestore
 
 request_bp = Blueprint('request', __name__)
@@ -10,7 +10,7 @@ user_manager = UserManager(db)
 
 @request_bp.route('/')
 def request_page():
-    user = user_manager.getUserBySession(session)
+    user = user_manager.get_user_by_session(session)
     return render_template('request.html', user=user)
 
 @request_bp.route('/submit-request', methods=['POST'])

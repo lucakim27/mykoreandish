@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
 {% block content %}
 <!-- Add Food Form -->
 <h2>Add New Food</h2>
@@ -29,7 +32,6 @@
         container.appendChild(newInput);
     }
 </script>
-<hr>
 <!-- Display User Requests -->
 <h2>User Requests</h2>
 <div class="requests-container">
@@ -47,5 +49,4 @@
     <p>No user requests found.</p>
     {% endfor %}
 </div>
-<hr>
 {% endblock %}

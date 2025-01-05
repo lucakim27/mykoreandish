@@ -1,0 +1,67 @@
+/* General Page Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* About Us Container */
+.about-us-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Section Title */
+.about-us-container h2 {
+    font-size: 2em;
+    color: #d72638;
+    margin-bottom: 20px;
+}
+
+/* Paragraph Styling */
+.about-us-container p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #555;
+    text-align: justify;
+}
+
+/* Link Styling */
+.about-us-container a {
+    color: #d72638;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.about-us-container a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styling */
+.about-us-footer {
+    font-size: 1em;
+    color: #777;
+    margin-top: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-us-container {
+        padding: 20px;
+    }
+
+    .about-us-container h2 {
+        font-size: 1.6em;
+    }
+
+    .about-us-container p {
+        font-size: 1em;
+    }
+}

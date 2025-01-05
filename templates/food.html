@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='food.css') }}">
+{% endblock %}
 {% block content %}
 <div class="confirmation-container">
     <h2>{{ dish.dish_name }}</h2>
@@ -103,11 +106,11 @@
                     {% if i <= rating %} ★ {% else %} ☆ {% endif %} {% endfor %} </span>
                         {% else %}
                         <span class="stars"></span>
-                            {% for i in range(1, 6) %}
-                            ☆
-                            {% endfor %}
-                        </span>
-                        {% endif %}
+                        {% for i in range(1, 6) %}
+                        ☆
+                        {% endfor %}
+                </span>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

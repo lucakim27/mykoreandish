@@ -1,0 +1,104 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Introduction Form */
+.introduction-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.introduction-form h3 {
+    font-size: 1.8em;
+    color: #d72638; /* Vibrant red for headings */
+    margin-bottom: 10px;
+}
+
+.introduction-form p {
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+.introduction-form button {
+    background-color: #d72638;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.introduction-form button:hover {
+    background-color: #a91d2c; /* Slightly darker red for hover */
+}
+
+/* Description Form */
+.description-form {
+    background-color: white; /* Very light orange for differentiation */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.description-form h2 {
+    font-size: 2em;
+    color: #d72638;
+    margin-bottom: 15px;
+}
+
+.description-form textarea {
+    width: 90%;
+    max-width: 750px;
+    font-size: 1em;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+.description-form button {
+    background-color: #d72638;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.description-form button:hover {
+    background-color: #a91d2c;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .introduction-form, .description-form {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .introduction-form h3, .description-form h2 {
+        font-size: 1.5em;
+    }
+
+    .description-form textarea {
+        font-size: 0.9em;
+    }
+}

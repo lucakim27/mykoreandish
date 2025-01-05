@@ -1,0 +1,94 @@
+/* General Reset */
+body, h1, h2, h3, p, ul, li, a, form, label, input, textarea {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Main Container */
+.review-container {
+    padding: 20px;
+    background-color: #fff;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+h2 {
+    color: #dc3545;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Styling */
+.criteria-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.criteria-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #dc3545;
+}
+
+.criteria-form input, .criteria-form textarea {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.criteria-form input:focus, .criteria-form textarea:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.criteria-form button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.criteria-form button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .review-container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .criteria-form {
+        gap: 10px;
+    }
+
+    .criteria-form input, .criteria-form textarea, .criteria-form button {
+        font-size: 0.9em;
+    }
+}

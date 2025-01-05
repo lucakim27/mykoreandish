@@ -1,28 +1,27 @@
 {% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
 {% block content %}
-<div class="introduction-form">
+<form action="/dishes/filter" method="post" class="introduction-form">
   <h3>About This Platform</h3>
   <p>Welcome to your go-to Korean food review website! This platform is designed for food enthusiasts, especially those
     new to the world of Korean cuisine. It helps you navigate and discover the rich variety of Korean dishes based on
     detailed reviews contributed by users. Whether you're curious about taste, dietary options, or affordability, we've
-    got you covered!</p>
+    got you covered!</p><br>
 
   <h3>What You Can Do Here</h3>
   <p>As a user, you can explore authentic Korean dishes by browsing reviews that highlight their unique flavors, dietary
     compatibility, and pricing details. Additionally, you can share your own experiences, leaving thoughtful reviews to
     help others on their journey to enjoy Korean cuisine. Let this platform be your guide to an unforgettable culinary
-    adventure!</p>
-</div>
-<form action="/dishes/filter" method="post" class="criteria-form">
-  <button type="submit">Check Out Korean Food</button>
+    adventure!</p><br>
+  <button type="submit">Explore Now</button>
 </form>
 
-<form action="/dishes" method="post" class="criteria-form">
-  <div id="selectBox">
-    <h2>Search by Description</h2>
-    <textarea id="description" name="description" rows="4"
-      placeholder="Example: Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea><br><br>
-  </div>
+<form action="/dishes" method="post" class="description-form">
+  <h2>Search by Description</h2>
+  <textarea id="description" name="description" rows="4"
+    placeholder="Example: Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea><br><br>
   <button type="submit">Find My Dish</button>
 </form>
 {% endblock %}

@@ -1,0 +1,179 @@
+/* General Reset */
+body, h1, h2, h3, p, ul, li, a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f4ee; /* Light beige tone */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Top Bar */
+#topBar {
+    background-color: #d72638; /* Vibrant red to match Korean cultural tones */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#topBar h1 a {
+    font-family: 'Indie Flower', cursive;
+    font-size: 40px;
+    word-wrap: break-word; /* Ensures long text wraps within the container */
+}
+
+/* Auth Links */
+.auth-links {
+    display: flex;
+    align-items: center;
+}
+
+.user-dropdown {
+    position: relative;
+}
+
+.menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.menu.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 10;
+    min-width: 150px;
+    overflow: hidden;
+}
+
+.user-dropdown.show-dropdown .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+.google-login-btn {
+    color: white;
+    /* background-color: #4285f4; */
+    padding: 10px;
+    border-radius: 5px;
+    /* text-align: center; */
+}
+
+/* Flash Messages */
+.flashes {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: 500px;
+}
+
+.flash {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.flash.success {
+    background-color: #28a745;
+    color: white;
+}
+
+.flash.error {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #topBar {
+        display: flex;
+    }
+
+    #topBar h1 a {
+        font-size: 25px; /* Smaller font for mobile view */
+        word-wrap: break-word; /* Ensures long text wraps within the container */
+        padding: 0 10px; /* Prevents text from overflowing */
+    }
+
+    .auth-links {
+        width: 100%; /* Full width to prevent overlap */
+        display: flex;
+        justify-content: flex-end; /* Align dropdown to the right */
+        margin-top: 10px;
+    }
+
+    .user-dropdown {
+        position: static; /* Prevents positioning issues in mobile view */
+        text-align: right; /* Align dropdown to the right edge */
+    }
+
+    .dropdown-menu {
+        /* position: relative; Adjust to stack below the menu in mobile */
+        top: 65px;
+    }
+
+    .menu {
+        margin-left: auto; /* Align the menu icon to the far right */
+    }
+}

@@ -1,5 +1,10 @@
 {% extends "base.html" %}
-{% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
+{% block title %}
+{{ dish.dish_name | capitalize }}
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='price.css') }}">
+{% endblock %}
 {% block content %}
 <div class="review-container">
     <h2>Price of {{ dish.dish_name }}</h2>

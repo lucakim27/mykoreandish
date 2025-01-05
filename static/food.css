@@ -1,0 +1,155 @@
+/* General Page Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f4ee;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Confirmation Container */
+.confirmation-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+.confirmation-container h2 {
+    color: #d72638;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.confirmation-container p {
+    font-size: 1.1em;
+    color: #555;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+/* Dish Details Table */
+.dish-details {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.dish-details th, 
+.dish-details td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.dish-details th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.dish-details td {
+    background-color: #fff;
+}
+
+/* Tags and Icons */
+.dietary-tags, .ingredients-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.dietary-tag, .ingredient-tag {
+    background-color: #f0f0f0;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #ccc;
+}
+
+.dietary-tag i, 
+.ingredient-tag i {
+    font-size: 1.2em;
+    color: #d72638;
+}
+
+/* Stars for Taste Ratings */
+.stars {
+    font-size: 1.2em;
+    color: #ffc107;
+}
+
+.stars span {
+    color: #ddd; /* Default star color */
+}
+
+/* Button Box */
+.button-box {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.select-button {
+    background-color: #d72638;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.select-button:hover {
+    background-color: #a91d2c;
+}
+
+/* Price Timeline */
+.price-timeline {
+    margin: 20px 0;
+}
+
+.price-point {
+    background-color: #fff6f0;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-point .price {
+    font-weight: bold;
+    color: #d72638;
+}
+
+.price-point .timestamp {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .confirmation-container {
+        padding: 15px;
+    }
+
+    .dish-details th, 
+    .dish-details td {
+        font-size: 0.9em;
+    }
+
+    .dietary-tag, .ingredient-tag {
+        font-size: 0.8em;
+    }
+}

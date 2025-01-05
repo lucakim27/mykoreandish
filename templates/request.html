@@ -1,25 +1,28 @@
 {% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='request.css') }}">
+{% endblock %}
 {% block content %}
 <form action="/request/submit-request" method="POST" class="criteria-form">
-    <label for="name">Food Name:</label><br>
-    <input autocomplete="text" id="name" name="name" placeholder="Sundae" required><br><br>
+    <label for="name">Food Name:</label>
+    <input autocomplete="text" id="name" name="name" placeholder="Example: Sundae" required>
 
-    <label for="description">Description:</label><br>
-    <textarea id="description" name="description" rows="4" placeholder="Korean blood sausage stuffed with glass noodles"
-        required></textarea><br><br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="4" placeholder="Example: Korean blood sausage stuffed with glass noodles"
+        required></textarea>
 
-    <label for="characteristics">Characteristics:</label><br>
-    <input type="text" id="characteristics" name="characteristics" placeholder="Hearty" required><br><br>
+    <label for="characteristics">Characteristics:</label>
+    <input type="text" id="characteristics" name="characteristics" placeholder="Example: Hearty" required>
 
-    <label for="Spiciness">Spiciness:</label><br>
-    <input type="text" id="Spiciness" name="Spiciness" placeholder="Medium" required><br><br>
+    <label for="Spiciness">Spiciness:</label>
+    <input type="text" id="Spiciness" name="Spiciness" placeholder="Example: Medium" required>
 
-    <label for="Dietary">Dietary:</label><br>
-    <input type="text" id="Dietary" name="Dietary" placeholder="Non-Vegetarian" required><br><br>
+    <label for="Dietary">Dietary:</label>
+    <input type="text" id="Dietary" name="Dietary" placeholder="Example: Non-Vegetarian" required>
 
-    <label for="Ingredients">Ingredients:</label><br>
-    <input type="text" id="Ingredients" name="Ingredients" placeholder="Intestines, Glass Noodles, Blood"
-        required><br><br>
+    <label for="Ingredients">Ingredients:</label>
+    <input type="text" id="Ingredients" name="Ingredients" placeholder="Example: Intestines, Glass Noodles, Blood"
+        required>
 
     <button type="submit">Submit</button>
 </form>

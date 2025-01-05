@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='search.css') }}">
+{% endblock %}
 {% block content %}
 <div id="recommendation-results">
     <div class="search-container">

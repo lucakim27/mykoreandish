@@ -1,0 +1,146 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    /* background-color: #f4f4f9; */
+    color: #333;
+}
+
+/* Container Styling */
+.history-container {
+    width: 80%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Price History Styling */
+ul#price_history {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul#price_history li {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ececec;
+    transition: all 0.3s ease;
+}
+
+ul#price_history li:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul#price_history li span {
+    font-weight: bold;
+    font-size: 16px;
+    color: #d72638;
+}
+
+/* Button Styles */
+.button {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #e60000;
+}
+
+.update-button {
+    background-color: #4c5caf;
+}
+
+.update-button:hover {
+    background-color: #263aa3;
+}
+
+.delete-button {
+    background-color: #e60000;
+}
+
+.delete-button:hover {
+    background-color: #b30000;
+}
+
+/* Input Fields and Select Styling */
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #ff4c4c;
+    outline: none;
+}
+
+select {
+    background-color: #f9f9f9;
+}
+
+select:focus {
+    background-color: #ffffff;
+}
+
+/* Form Elements */
+form {
+    margin-bottom: 15px;
+}
+
+form input[type="hidden"] {
+    display: none;
+}
+
+form .form-select {
+    margin-right: 2%;
+}
+
+form .form-select:last-child {
+    margin-right: 0;
+}
+
+/* Info Message Styling */
+#price_history {
+    font-size: 18px;
+    font-weight: bold;
+    color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .history-container {
+        width: 95%;
+    }
+
+    form .form-select {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    ul#price_history li {
+        margin-bottom: 15px;
+    }
+}

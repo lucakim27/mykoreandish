@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dietary.css') }}">
+{% endblock %}
 {% block content %}
 <div class="review-container">
     <h2>Dietary of {{ dish.dish_name }}</h2>

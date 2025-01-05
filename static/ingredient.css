@@ -1,0 +1,81 @@
+/* General Page Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Review Container */
+.review-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.review-container h2 {
+    font-size: 1.8em;
+    color: #d72638;
+    margin-bottom: 20px;
+}
+
+/* Input Group Styling */
+.input-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.input-group select {
+    width: 80%;
+    padding: 12px;
+    font-size: 1.1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+.input-group select:hover,
+.input-group select:focus {
+    border-color: #a91d2c;
+}
+
+/* Button Box */
+.button-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.select-button {
+    background-color: #d72638;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.select-button:hover {
+    background-color: #a91d2c;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .input-group select {
+        width: 100%;
+    }
+
+    .review-container {
+        padding: 20px;
+    }
+}

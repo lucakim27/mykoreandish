@@ -7,13 +7,14 @@
     <title>{% block title %}Food Suggestion{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='flash.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    {% block style %}{% endblock %}
 </head>
 
 <body>
     <div id="topBar">
-        <h1><a href="/" style="text-decoration: none; color: inherit;">Food Suggestion</a></h1>
+        <h1><a href="/" style="text-decoration: none; color: inherit;">FoodSuggestion</a></h1>
         <div class="auth-links">
             <div class="user-dropdown">
                 <button class="menu" onclick="toggleDropdown()">

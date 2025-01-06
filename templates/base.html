@@ -13,52 +13,57 @@
 </head>
 
 <body>
-    <div id="topBar">
-        <h1><a href="/" style="text-decoration: none; color: inherit;">FoodSuggestion</a></h1>
-        <div class="auth-links">
-            <div class="user-dropdown">
-                <button class="menu" onclick="toggleDropdown()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <div class="dropdown-menu">
-                    <a href="/aboutus">About Us</a>
-                    {% if session.get('google_id') %}
-                    {% if user.get('admin') %}
-                    <a href="/admin">Admin</a>
-                    {% endif %}
-                    <a href="/users/profile">Profile</a>
-                    <a href="/users">History</a>
-                    <a href="/auth/logout">Logout</a>
-                    {% else %}
-                    <a class="google-login-btn" href="{{ url_for('google.login') }}">Sign in</a>
-                    {% endif %}
+    <div id="main-container">
+        <div id="topBar">
+            <h1><a href="/" style="text-decoration: none; color: inherit;">FoodSuggestion</a></h1>
+            <div class="auth-links">
+                <div class="user-dropdown">
+                    <button class="menu" onclick="toggleDropdown()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="dropdown-menu">
+                        {% if session.get('google_id') %}
+                        {% if user.get('admin') %}
+                        <a href="/admin">Admin</a>
+                        {% endif %}
+                        <a href="/users/profile">Profile</a>
+                        <a href="/users">History</a>
+                        <a href="/auth/logout">Logout</a>
+                        {% else %}
+                        <a class="google-login-btn" href="{{ url_for('google.login') }}">Sign in</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
+        <script>
+            function toggleDropdown() {
+                const menu = document.querySelector('.menu');
+                menu.classList.toggle('open');
+                var dropdown = event.target.closest('.user-dropdown');
+                dropdown.classList.toggle('show-dropdown');
+            }
+        </script>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flashes">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2025 Food Suggestion. All rights reserved.</p>
+            <p><a href="/aboutus">About Us</a> | <a href="/privacy">Privacy</a> | <a href="/terms">Terms</a></p>
+        </footer>
     </div>
-    <script>
-        function toggleDropdown() {
-            const menu = document.querySelector('.menu');
-            menu.classList.toggle('open');
-            var dropdown = event.target.closest('.user-dropdown');
-            dropdown.classList.toggle('show-dropdown');
-        }
-    </script>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="flashes">
-        {% for category, message in messages %}
-        <div class="flash {{ category }}">{{ message }}</div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
 </body>
 
 </html>

@@ -40,7 +40,7 @@
         {% endif %}
     </table><br>
 
-    <h3>Dietary Information</h3>
+    <h3>Dietary</h3>
     <div class="dietary-tags">
         {% if dietaries %}
         {% for diet, count in dietaries.items() %}
@@ -56,7 +56,7 @@
     </div>
     <div class="button-box">
         <form action="/reviews/dietary/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Which dietary type was it?</button>
+            <button type="submit" class="button select-button">Leave a Review</button>
         </form>
     </div><br>
 
@@ -76,11 +76,11 @@
     </div>
     <div class="button-box">
         <form action="/reviews/ingredient/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Which ingredient was used?</button>
+            <button type="submit" class="button select-button">Leave a Review</button>
         </form>
     </div><br>
 
-    <h3>Taste Ratings</h3>
+    <h3>Taste</h3>
     <table class="dish-details">
         <tr>
             <th>Aspect</th>
@@ -118,11 +118,11 @@
 
     <div class="button-box">
         <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">How would you rate?</button>
+            <button type="submit" class="button select-button">Leave a Review</button>
         </form>
     </div><br>
 
-    <h3>Price History</h3>
+    <h3>Price</h3>
     <div class="price-timeline">
         {% if prices %}
         {% for food in prices %}
@@ -137,7 +137,7 @@
     </div>
     <div class="button-box">
         <form action="/reviews/price/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">How much did it cost?</button>
+            <button type="submit" class="button select-button">Leave a Review</button>
         </form>
     </div><br>
 </div>

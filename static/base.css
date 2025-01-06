@@ -14,14 +14,38 @@ a {
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f4ee;
-    /* Light beige tone */
-    color: #333;
-    line-height: 1.6;
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Main container to hold content and footer */
+#main-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Ensures content takes up available space */
+    min-height: 100%;
+}
+
+/* Main content should grow and push footer to the bottom */
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Footer stays at the bottom */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    margin-top: auto;
+}
 /* Top Bar */
 #topBar {
     background-color: #d72638;
@@ -57,9 +81,10 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     display: none;
     z-index: 10;
-    min-width: 180px;
+    min-width: 100px;
     overflow: hidden;
     animation: fadeIn 0.3s ease-in-out;
+    text-align: center;
 }
 
 .user-dropdown.show-dropdown .dropdown-menu {
@@ -212,8 +237,6 @@ main {
     .user-dropdown {
         position: static;
         /* Prevents positioning issues in mobile view */
-        text-align: right;
-        /* Align dropdown to the right edge */
     }
 
     .dropdown-menu {
@@ -225,4 +248,21 @@ main {
         margin-left: auto;
         /* Align the menu icon to the far right */
     }
+}
+
+footer p {
+    margin: 10px 0;
+    color: white !important;
+}
+
+footer a {
+    color: #d72638;
+    /* Matches the top bar's red tone */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #f9f4ee;
+    /* Light beige tone on hover */
 }

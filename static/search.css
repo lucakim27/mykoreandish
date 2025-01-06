@@ -75,7 +75,7 @@ body {
 
 .food-box-button {
     background-color: #d72638;
-    color: white;
+    color: #ffffff;
     border: none;
     padding: 10px 15px;
     font-size: 1em;
@@ -83,6 +83,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: auto;
+    box-shadow: 0 4px 8px rgb(198 198 198);
 }
 
 .food-box-button:hover {
@@ -131,6 +132,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .request-dishes button:hover {

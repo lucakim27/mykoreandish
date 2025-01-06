@@ -4,6 +4,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    background-color: #f9f4ee; /* Light beige tone */
 }
 
 /* About Us Container */
@@ -42,13 +43,6 @@ body {
 
 .about-us-container a:hover {
     text-decoration: underline;
-}
-
-/* Footer Styling */
-.about-us-footer {
-    font-size: 1em;
-    color: #777;
-    margin-top: 40px;
 }
 
 /* Responsive Design */

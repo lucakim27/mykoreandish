@@ -8,7 +8,10 @@
     <ul id="price_history">
         {% for item in combined_history|sort(attribute='timestamp', reverse=true) %}
         <li>
-            <span>{{ item.dish_name }} - {{ item.timestamp|time_ago }}</span><br>
+            <div class="price-point">
+                <span class="price">{{ item.dish_name }}</span>
+                <span class="timestamp">{{ item.timestamp | time_ago }}</span>
+            </div><br>
             {% if item.price is defined %}
             <form method="POST" action="{{ url_for('dishes.update_price') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">

@@ -2,6 +2,7 @@
 body {
     font-family: 'Arial', sans-serif;
     color: #333;
+    background-color: #f9f4ee; /* Light beige tone */
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -38,6 +39,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .introduction-form button:hover {
@@ -81,6 +83,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .description-form button:hover {

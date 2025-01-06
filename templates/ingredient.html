@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 <div class="review-container">
-    <h2>Ingredient of {{ dish.dish_name }}</h2>
+    <h2>Ingredient</h2>
     <form method="POST" action="/dishes/ingredient_review/{{ dish.dish_name }}">
         <div class="input-group">
             <select id="ingredient" name="ingredient" required>

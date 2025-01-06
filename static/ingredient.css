@@ -4,6 +4,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    background-color: #f9f4ee; /* Light beige tone */
 }
 
 /* Review Container */
@@ -57,11 +58,12 @@ body {
     background-color: #d72638;
     color: white;
     border: none;
-    padding: 12px 25px;
-    font-size: 1.2em;
+    padding: 10px 20px;
+    font-size: 1em;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .select-button:hover {

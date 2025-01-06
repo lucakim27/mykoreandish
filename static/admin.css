@@ -57,6 +57,7 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .criteria-form button:hover {
@@ -106,6 +107,7 @@ button[type="button"]:hover {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .delete-button:hover {

@@ -67,6 +67,7 @@ h2 {
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .criteria-form button:hover {

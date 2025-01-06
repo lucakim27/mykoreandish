@@ -9,6 +9,7 @@ body {
     font-family: Arial, sans-serif;
     /* background-color: #f4f4f9; */
     color: #333;
+    background-color: #f9f4ee; /* Light beige tone */
 }
 
 /* Container Styling */
@@ -16,9 +17,7 @@ body {
     width: 80%;
     margin: 30px auto;
     padding: 20px;
-    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Price History Styling */
@@ -30,53 +29,45 @@ ul#price_history {
 ul#price_history li {
     margin-bottom: 20px;
     padding: 15px;
-    background-color: #f9f9f9;
     border-radius: 8px;
-    border: 1px solid #ececec;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
-ul#price_history li:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.price-point {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-ul#price_history li span {
+.price-point .price {
     font-weight: bold;
-    font-size: 16px;
     color: #d72638;
+}
+
+.price-point .timestamp {
+    font-size: 0.9em;
+    color: #555;
 }
 
 /* Button Styles */
 .button {
-    background-color: #ff4c4c;
+    background-color: #d72638;
     color: white;
     padding: 10px 15px;
     border: none;
+    width: 100%;
+    margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .button:hover {
-    background-color: #e60000;
-}
-
-.update-button {
-    background-color: #4c5caf;
-}
-
-.update-button:hover {
-    background-color: #263aa3;
-}
-
-.delete-button {
-    background-color: #e60000;
-}
-
-.delete-button:hover {
-    background-color: #b30000;
+    background-color: #a91d2c;
 }
 
 /* Input Fields and Select Styling */
@@ -132,7 +123,7 @@ form .form-select:last-child {
 /* Responsive Design */
 @media (max-width: 768px) {
     .history-container {
-        width: 95%;
+        width: 100%;
     }
 
     form .form-select {

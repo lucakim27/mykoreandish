@@ -24,10 +24,10 @@ body {
 #search-input {
     width: 90%;
     max-width: 600px;
-    padding: 10px;
+    padding: 15px;
     font-size: 1em;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 /* Food Container */
@@ -51,6 +51,9 @@ body {
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
 }
 
 .food-box:hover {
@@ -79,6 +82,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: auto;
 }
 
 .food-box-button:hover {
@@ -143,5 +147,9 @@ body {
 
     .food-container {
         grid-template-columns: 1fr;
+    }
+
+    .food-box {
+        height: auto;
     }
 }

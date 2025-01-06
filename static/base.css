@@ -1,5 +1,12 @@
 /* General Reset */
-body, h1, h2, h3, p, ul, li, a {
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li,
+a {
     margin: 0;
     padding: 0;
     text-decoration: none;
@@ -9,14 +16,16 @@ body, h1, h2, h3, p, ul, li, a {
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f4ee; /* Light beige tone */
+    background-color: #f9f4ee;
+    /* Light beige tone */
     color: #333;
     line-height: 1.6;
 }
 
 /* Top Bar */
 #topBar {
-    background-color: #d72638; /* Vibrant red to match Korean cultural tones */
+    background-color: #d72638;
+    /* Vibrant red to match Korean cultural tones */
     color: white;
     padding: 10px 20px;
     display: flex;
@@ -28,7 +37,8 @@ body {
 #topBar h1 a {
     font-family: 'Indie Flower', cursive;
     font-size: 40px;
-    word-wrap: break-word; /* Ensures long text wraps within the container */
+    word-wrap: break-word;
+    /* Ensures long text wraps within the container */
 }
 
 /* Auth Links */
@@ -37,52 +47,19 @@ body {
     align-items: center;
 }
 
-.user-dropdown {
-    position: relative;
-}
-
-.menu {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.menu span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-
-.menu.open span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.menu.open span:nth-child(2) {
-    opacity: 0;
-}
-
-.menu.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* Dropdown Menu */
+/* Updated Dropdown Menu */
 .dropdown-menu {
     position: absolute;
     top: 40px;
     right: 0;
     background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     display: none;
     z-index: 10;
-    min-width: 150px;
+    min-width: 180px;
     overflow: hidden;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .user-dropdown.show-dropdown .dropdown-menu {
@@ -91,14 +68,78 @@ body {
 
 .dropdown-menu a {
     display: block;
-    padding: 10px 15px;
+    padding: 12px 20px;
     color: #333;
     font-weight: 500;
-    transition: background-color 0.2s ease;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dropdown-menu a:hover {
-    background-color: #f1f1f1;
+    background-color: #d72638;
+    /* Matches the top bar's red tone */
+    color: white;
+    border-radius: 5px;
+    /* Adds a pill effect when hovering */
+}
+
+/* Add subtle animations for a modern feel */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Updated Menu Button for Better Interaction */
+.menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+.menu span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.menu:hover {
+    transform: scale(1.1);
+    /* Slight zoom effect on hover */
+}
+
+.menu.open span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Add Space Around Dropdown for Better UX */
+.user-dropdown {
+    position: relative;
+    margin-left: 20px;
+    /* Adjust spacing to separate dropdown from other elements */
 }
 
 .google-login-btn {
@@ -151,21 +192,28 @@ main {
     }
 
     #topBar h1 a {
-        font-size: 25px; /* Smaller font for mobile view */
-        word-wrap: break-word; /* Ensures long text wraps within the container */
-        padding: 0 10px; /* Prevents text from overflowing */
+        font-size: 25px;
+        /* Smaller font for mobile view */
+        word-wrap: break-word;
+        /* Ensures long text wraps within the container */
+        padding: 0 10px;
+        /* Prevents text from overflowing */
     }
 
     .auth-links {
-        width: 100%; /* Full width to prevent overlap */
+        width: 100%;
+        /* Full width to prevent overlap */
         display: flex;
-        justify-content: flex-end; /* Align dropdown to the right */
+        justify-content: flex-end;
+        /* Align dropdown to the right */
         margin-top: 10px;
     }
 
     .user-dropdown {
-        position: static; /* Prevents positioning issues in mobile view */
-        text-align: right; /* Align dropdown to the right edge */
+        position: static;
+        /* Prevents positioning issues in mobile view */
+        text-align: right;
+        /* Align dropdown to the right edge */
     }
 
     .dropdown-menu {
@@ -174,6 +222,7 @@ main {
     }
 
     .menu {
-        margin-left: auto; /* Align the menu icon to the far right */
+        margin-left: auto;
+        /* Align the menu icon to the far right */
     }
 }

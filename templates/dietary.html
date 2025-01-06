@@ -9,12 +9,9 @@
     <form method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}">
         <div class="input-group">
             <select id="dietary" name="dietary" required>
-                <option value="Vegetarian" selected>Vegetarian</option>
-                <option value="Vegan">Vegan</option>
-                <option value="Halal">Halal</option>
-                <option value="Seafood">Seafood</option>
-                <option value="Broth">Broth</option>
-                <option value="Contain Meat">Contain Meat</option>
+                {% for dietary in dietaries %}
+                <option value="{{ dietary.dietary }}">{{ dietary.dietary }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="button-box" style="display: flex;">

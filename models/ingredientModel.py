@@ -1,6 +1,7 @@
 from typing import List, Dict, Any
 from flask import flash
 from google.cloud import firestore
+import csv
 
 class Ingredient:
     def __init__(self, dish_name: str, ingredient: str):
@@ -87,3 +88,17 @@ class IngredientManager:
         except Exception as e:
             flash(f'An error occurred while deleting the ingredient review: {e}', 'error')
             return False
+        
+    def get_all_ingredients(self) -> List[Dict[str, str]]:
+        ingredients = []
+        try:
+            with open('csv/ingredients.csv', mode='r') as file:
+                csv_reader = csv.DictReader(file)
+                for row in csv_reader:
+                    ingredients.append({
+                        'ingredient': row['ingredient']
+                    })
+        except Exception as e:
+            flash(f'Error reading ingredients from CSV: {e}', 'error')
+        
+        return ingredients

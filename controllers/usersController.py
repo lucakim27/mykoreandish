@@ -27,12 +27,11 @@ def history():
     user_history = selection_manager.get_user_history(session['google_id'])
     dietary_history = dietary_manager.get_dietary_history(session['google_id'])
     ingredient_history = ingredient_manager.get_ingredient_history(session['google_id'])
-     # Combine both histories into one list
+    ingredients = ingredient_manager.get_all_ingredients()
+    dietaries = dietary_manager.get_all_dietaries()
     combined_history = list(chain(price_history, user_history, dietary_history, ingredient_history))
-
-    # Sort by timestamp (assuming each entry has a 'timestamp' field)
     combined_history.sort(key=lambda x: x['timestamp'])
-    return render_template('history.html', user=user, combined_history=combined_history, currency=currency)
+    return render_template('history.html', user=user, combined_history=combined_history, currency=currency, ingredients=ingredients, dietaries=dietaries)
 
 @users_bp.route('/delete-history', methods=['POST'])
 def deleteHistoryRoute():

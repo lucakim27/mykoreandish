@@ -1,3 +1,4 @@
+import csv
 from flask import flash
 from google.cloud import firestore
 from typing import List, Dict, Any
@@ -102,3 +103,17 @@ class DietaryManager:
             flash('An error occurred while deleting the dietary review.', 'error')
             print(f"Error: {e}")
             return False
+
+    def get_all_dietaries(self) -> List[Dict[str, str]]:
+        dietaries = []
+        try:
+            with open('csv/dietary.csv', mode='r') as file:
+                csv_reader = csv.DictReader(file)
+                for row in csv_reader:
+                    dietaries.append({
+                        'dietary': row['Dietary']
+                    })
+        except Exception as e:
+            flash(f'Error reading ingredients from CSV: {e}', 'error')
+        
+        return dietaries

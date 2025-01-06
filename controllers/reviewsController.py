@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, session
 from config.db import db
+from models.dietaryModel import DietaryManager
 from models.dishesModel import DishManager
+from models.ingredientModel import IngredientManager
 from models.priceModel import PriceManager
 from models.userSelectionsModel import UserSelectionManager
 from models.usersModel import UserManager
@@ -11,6 +13,8 @@ manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = UserSelectionManager(db, firestore)
 price_manager = PriceManager(db, firestore)
+ingredient_manager = IngredientManager(db, firestore)
+dietary_manager = DietaryManager(db, firestore)
 
 @reviews_bp.route('/<name>', methods=['POST'])
 def reviewController(name=None):
@@ -29,10 +33,12 @@ def priceController(name=None):
 def dietaryController(name=None):
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
-    return render_template('dietary.html', user=user, dish=dish)
+    dietaries = dietary_manager.get_all_dietaries()
+    return render_template('dietary.html', user=user, dish=dish, dietaries=dietaries)
 
 @reviews_bp.route('/ingredient/<name>', methods=['POST'])
 def drinkController(name=None):
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
-    return render_template('ingredient.html', user=user, dish=dish)
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template('ingredient.html', user=user, dish=dish, ingredients=ingredients)

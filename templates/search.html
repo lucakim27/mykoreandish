@@ -4,11 +4,10 @@
 {% endblock %}
 {% block content %}
 <div id="recommendation-results">
+    {% if recommendation and recommendation[0].dish_name != "No match found" %}
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search" onkeyup="filterDishes()" />
     </div>
-
-    {% if recommendation and recommendation[0].dish_name != "No match found" %}
     <ul class="food-container" id="food-list">
         {% for dish in recommendation %}
         <li class="food-item">

@@ -101,7 +101,30 @@ body {
         font-size: 1.5em;
     }
 
-    .description-form textarea {
+    .description-form textarea, select {
         font-size: 0.9em;
     }
+}
+
+select {
+    width: 90%;
+    padding: 10px;
+    font-size: 1em;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.3s ease;
+}
+
+select:focus {
+    border-color: #ff4c4c;
+    outline: none;
+}
+
+select, textarea {
+    background-color: #f9f9f9;
+}
+
+select:focus {
+    background-color: #ffffff;
 }

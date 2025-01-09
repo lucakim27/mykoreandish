@@ -19,24 +19,38 @@ dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
-def recommendation():
+def explore():
     user = user_manager.get_user_by_session(session)
-    description = request.form.get('description')
-    recommendation = manager.make_recommendation(description)
+    dishes = manager.all_search()
     return render_template(
         'search.html', 
         user=user, 
-        recommendation=recommendation
+        recommendation=dishes
     )
 
 @dishes_bp.route('/filter', methods=['POST'])
 def filtering():
     user = user_manager.get_user_by_session(session)
-    recommendation = manager.filter_recommendation()
+    filter_type = request.form.get('filter')
+    ingredient = request.form.get('ingredient') if filter_type == 'ingredient' else None
+    dietary = request.form.get('dietary') if filter_type == 'dietary' else None
+    dish_names = selection_manager.filter_search(ingredient, dietary)
+    dishes = manager.get_dish_instances(dish_names)
     return render_template(
         'search.html', 
         user=user, 
-        recommendation=recommendation
+        recommendation=dishes
+    )
+
+@dishes_bp.route('/description', methods=['POST'])
+def description():
+    user = user_manager.get_user_by_session(session)
+    description = request.form.get('description')
+    dishes = manager.description_search(description)
+    return render_template(
+        'search.html', 
+        user=user, 
+        recommendation=dishes
     )
 
 @dishes_bp.route('/<name>', methods=['POST'])
@@ -47,7 +61,6 @@ def food(name=None):
     dietaries = dietary_manager.get_dietary(name)
     ingredients = ingredient_manager.get_ingredient(name)
     average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature = selection_manager.get_dish_statistics(name)
-    print(average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature)
     return render_template(
         'food.html', 
         prices=prices, 

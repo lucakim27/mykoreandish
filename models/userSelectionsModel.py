@@ -13,6 +13,8 @@ class UserSelectionManager:
         self.dishes_ref = db.collection('Dishes')
         self.users_ref = db.collection('Users')
         self.user_selections_ref = db.collection('UserSelections')
+        self.ingredients_ref = db.collection('Ingredients')
+        self.dietaries_ref = db.collection('Dietaries')
 
     def delete_history(self, history_id):
         """Delete a history item from the 'UserSelections' collection."""
@@ -231,3 +233,12 @@ class UserSelectionManager:
         except Exception as e:
             print(f"Error retrieving user history: {e}")
             return []  # Return an empty list if an error occurs
+    
+    def filter_search(self, ingredient=None, dietary=None):
+        if ingredient is not None:
+            query = self.ingredients_ref.where('ingredient', '==', ingredient)
+        if dietary is not None:
+            query = self.dietaries_ref.where('dietary', '==', dietary)
+        
+        results = query.stream()
+        return [review.to_dict().get('dish_name') for review in results]

@@ -53,8 +53,20 @@ class DishManager:
                 return dish
         print(f"No dish found with name: '{name}'")
         return None
+    
+    def get_dish_instances(self, names):
+        dishes = self.get_all_dishes()  # Fetch all dishes from the CSV
+        matched_dishes = []
+        for name in names:
+            for dish in dishes:
+                if dish.dish_name.lower() == name.lower():  # Case-insensitive matching
+                    matched_dishes.append(dish)
+                    break
+            else:
+                print(f"No dish found with name: '{name}'")
+        return matched_dishes
 
-    def make_recommendation(self, description):
+    def description_search(self, description):
         dishes = self.get_all_dishes()
         if description:
             filtered_dishes = [dish for dish in dishes if dish.matches_description(description)]
@@ -63,7 +75,7 @@ class DishManager:
         
         return filtered_dishes if filtered_dishes else [{"dish_name": "No match found", "reason": "Try relaxing the description."}]
     
-    def filter_recommendation(self):
+    def all_search(self):
         dishes = self.get_all_dishes()
         return dishes if dishes else [{"dish_name": "No match found", "reason": "Try relaxing the description."}]
 

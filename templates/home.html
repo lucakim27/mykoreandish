@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 {% endblock %}
 {% block content %}
-<form action="/dishes/filter" method="post" class="introduction-form">
+<form action="/dishes" method="post" class="introduction-form">
   <h3>About This Platform</h3>
   <p>Welcome to your go-to Korean food review website! This platform is designed for food enthusiasts, especially those
     new to the world of Korean cuisine. It helps you navigate and discover the rich variety of Korean dishes based on
@@ -18,26 +18,15 @@
   <button type="submit">Explore Now</button>
 </form>
 
-<form action="/dishes" method="post" class="description-form">
+<form action="/dishes/filter" method="post" class="description-form">
   <h2>Filter by Review</h2>
-
-  <!-- Dropdown to select filter type -->
   <div id="filter-dropdown">
     <select name="filter" id="filter" onchange="showFilterOptions()" required>
       <option value="" disabled selected>Select a filter</option>
       <option value="ingredient">Ingredient</option>
       <option value="dietary">Dietary</option>
-      <option value="price">Price</option>
-      <option value="spiciness">Spiciness</option>
-      <option value="sweetness">Sweetness</option>
-      <option value="sourness">Sourness</option>
-      <option value="texture">Texture</option>
-      <option value="temperature">Temperature</option>
-      <option value="healthiness">Healthiness</option>
-      <option value="rating">Rating</option>
     </select>
   </div>
-
   <div id="ingredient" style="display:none;">
     <select name="ingredient" id="ingredient-select">
       {% for ingredient in ingredients %}
@@ -45,7 +34,6 @@
       {% endfor %}
     </select>
   </div>
-
   <div id="dietary" style="display:none;">
     <select name="dietary" id="dietary-select">
       {% for dietary in dietaries %}
@@ -53,113 +41,19 @@
       {% endfor %}
     </select>
   </div>
-
-  <div id="price" style="display:none;">
-    <select name="price" id="price-select">
-      <option value="cheap">Cheap</option>
-      <option value="moderate">Moderate</option>
-      <option value="expensive">Expensive</option>
-    </select>
-  </div>
-
-  <div id="spiciness" style="display:none;">
-    <select name="spiciness" id="spiciness-select">
-      <option value="0" selected>Not at all spicy</option>
-      <option value="1">A little spicy</option>
-      <option value="2">Mildly spicy</option>
-      <option value="3">Moderately spicy</option>
-      <option value="4">Very spicy</option>
-      <option value="5">Extremely spicy</option>
-    </select>
-  </div>
-
-  <div id="sweetness" style="display:none;">
-    <select name="sweetness" id="sweetness-select">
-      <option value="0" selected>Not sweet at all</option>
-      <option value="1">Barely sweet</option>
-      <option value="2">Mildly sweet</option>
-      <option value="3">Moderately sweet</option>
-      <option value="4">Very sweet</option>
-      <option value="5">Extremely sweet</option>
-    </select>
-  </div>
-
-  <div id="sourness" style="display:none;">
-    <select name="sourness" id="sourness-select">
-      <option value="0" selected>Not sour at all</option>
-      <option value="1">Slightly sour</option>
-      <option value="2">Moderately sour</option>
-      <option value="3">Quite sour</option>
-      <option value="4">Very sour</option>
-      <option value="5">Extremely sour</option>
-    </select>
-  </div>
-
-  <div id="texture" style="display:none;">
-    <select name="texture" id="texture-select">
-      <option value="0" selected>Very Soft</option>
-      <option value="1">Soft</option>
-      <option value="2">Slightly Soft</option>
-      <option value="3">Moderate</option>
-      <option value="4">Slightly Hard</option>
-      <option value="5">Hard</option>
-    </select>
-  </div>
-
-  <div id="temperature" style="display:none;">
-    <select name="temperature" id="temperature-select">
-      <option value="0" selected>Cold</option>
-      <option value="1">Cool</option>
-      <option value="2">Slightly Cool</option>
-      <option value="3">Warm</option>
-      <option value="4">Hot</option>
-      <option value="5">Very Hot</option>
-    </select>
-  </div>
-
-  <div id="healthiness" style="display:none;">
-    <select name="healthiness" id="healthiness-select">
-      <option value="0" selected>Not healthy at all</option>
-      <option value="1">Unhealthy</option>
-      <option value="2">Below average</option>
-      <option value="3">Moderately healthy</option>
-      <option value="4">Healthy</option>
-      <option value="5">Very healthy</option>
-    </select>
-  </div>
-
-  <div id="rating" style="display:none;">
-    <select name="rating" id="rating-select">
-      <option value="0" selected>Terrible</option>
-      <option value="1">Bad</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-  </div>
-
   <button type="submit">Filter My Dish</button>
 </form>
 
-<form action="/dishes" method="post" class="description-form">
+<form action="/dishes/description" method="post" class="description-form">
   <h2>Search by Description</h2>
   <textarea id="description" name="description" rows="4"
-    placeholder="Example: Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea><br><br>
+    placeholder="Example: Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea>
   <button type="submit">Search My Dish</button>
 </form>
 <script>
   function showFilterOptions() {
     document.getElementById('ingredient').style.display = 'none';
     document.getElementById('dietary').style.display = 'none';
-    document.getElementById('price').style.display = 'none';
-    document.getElementById('spiciness').style.display = 'none';
-    document.getElementById('sweetness').style.display = 'none';
-    document.getElementById('sourness').style.display = 'none';
-    document.getElementById('texture').style.display = 'none';
-    document.getElementById('temperature').style.display = 'none';
-    document.getElementById('healthiness').style.display = 'none';
-    document.getElementById('rating').style.display = 'none';
 
     const selectedFilter = document.getElementById('filter').value;
 
@@ -167,22 +61,6 @@
       document.getElementById('ingredient').style.display = 'block';
     } else if (selectedFilter === 'dietary') {
       document.getElementById('dietary').style.display = 'block';
-    } else if (selectedFilter === 'price') {
-      document.getElementById('price').style.display = 'block';
-    } else if (selectedFilter === 'spiciness') {
-      document.getElementById('spiciness').style.display = 'block';
-    } else if (selectedFilter === 'sweetness') {
-      document.getElementById('sweetness').style.display = 'block';
-    } else if (selectedFilter === 'sourness') {
-      document.getElementById('sourness').style.display = 'block';
-    } else if (selectedFilter === 'texture') {
-      document.getElementById('texture').style.display = 'block';
-    } else if (selectedFilter === 'temperature') {
-      document.getElementById('temperature').style.display = 'block';
-    } else if (selectedFilter === 'healthiness') {
-      document.getElementById('healthiness').style.display = 'block';
-    } else if (selectedFilter === 'rating') {
-      document.getElementById('rating').style.display = 'block';
     }
   }
 </script>

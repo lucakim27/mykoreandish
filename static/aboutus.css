@@ -28,10 +28,9 @@ body {
 /* Paragraph Styling */
 .about-us-container p {
     font-size: 1.1em;
-    line-height: 1.6;
     margin-bottom: 20px;
     color: #555;
-    text-align: justify;
+    text-align: center;
 }
 
 /* Link Styling */

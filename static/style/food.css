@@ -134,6 +134,12 @@ body {
     color: #333;
 }
 
+.shop-link {
+    color: #d72638;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .price-point .timestamp {
     font-size: 0.9em;
     color: #555;

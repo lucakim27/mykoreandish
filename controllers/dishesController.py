@@ -4,6 +4,7 @@ from models.dietaryModel import DietaryManager
 from models.dishesModel import DishManager
 from models.ingredientModel import IngredientManager
 from models.priceModel import PriceManager
+from models.shopModel import ShopManager
 from models.usersModel import UserManager
 from models.userSelectionsModel import UserSelectionManager
 from config.db import db
@@ -17,6 +18,7 @@ selection_manager = UserSelectionManager(db, firestore)
 price_manager = PriceManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
+shop_manager = ShopManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def explore():
@@ -60,12 +62,14 @@ def food(name=None):
     prices = price_manager.get_price(name)
     dietaries = dietary_manager.get_dietary(name)
     ingredients = ingredient_manager.get_ingredient(name)
+    shops = shop_manager.get_shop(name)
     average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature = selection_manager.get_dish_statistics(name)
     return render_template(
         'food.html', 
         prices=prices, 
         user=user, 
-        dish=dish, 
+        dish=dish,
+        shops=shops,
         average_ratings=average_ratings, 
         selection_counts=selection_counts, 
         average_spiciness=average_spiciness, 
@@ -88,7 +92,17 @@ def select_food(name=None):
     temperature = request.form.get('temperature')
     healthiness = request.form.get('healthiness')
     rating = request.form.get('rating')
-    selection_manager.add_selection(session.get('google_id'), name, spiciness, sweetness, sourness, texture, temperature, healthiness, rating)
+    selection_manager.add_selection(
+        session.get('google_id'), 
+        name, 
+        spiciness, 
+        sweetness, 
+        sourness, 
+        texture, 
+        temperature, 
+        healthiness, 
+        rating
+    )
     return redirect(url_for('home.home'))
 
 @dishes_bp.route('/price_review/<name>', methods=['POST'])
@@ -113,6 +127,13 @@ def ingredientReviewRoute(name=None):
     ingredient_manager.add_ingredient(name, session.get('google_id'), ingredient)
     return redirect(url_for('home.home'))
 
+@dishes_bp.route('/shop_review/<name>', methods=['POST'])
+@login_required
+def shopReviewRoute(name=None):
+    shop = request.form.get('shop')
+    shop_manager.add_shop(session.get('google_id'), name, shop)
+    return redirect(url_for('home.home'))
+
 @dishes_bp.route('/rate_dish', methods=['POST'])
 def rate_dish():
     history_id = request.form.get('history_id')
@@ -123,7 +144,16 @@ def rate_dish():
     temperature = request.form.get('temperature')
     healthiness = request.form.get('healthiness')
     rating = request.form.get('rating')
-    selection_manager.update_review(history_id, spiciness, sweetness, sourness, texture, temperature, healthiness, rating)
+    selection_manager.update_review(
+        history_id, 
+        spiciness, 
+        sweetness, 
+        sourness, 
+        texture, 
+        temperature, 
+        healthiness, 
+        rating
+    )
     return redirect(url_for('users.history'))
 
 @dishes_bp.route('/update_price', methods=['POST'])
@@ -132,6 +162,13 @@ def update_price():
     price = request.form.get('price')
     currency = request.form.get('currency')
     price_manager.update_price(history_id, price, currency)
+    return redirect(url_for('users.history'))
+
+@dishes_bp.route('/update_shop', methods=['POST'])
+def update_shop():
+    history_id = request.form.get('history_id')
+    link = request.form.get('link')
+    shop_manager.update_shop(history_id, link)
     return redirect(url_for('users.history'))
 
 @dishes_bp.route('/update_dietary', methods=['POST'])

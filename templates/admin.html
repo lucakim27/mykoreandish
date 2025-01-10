@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/admin.css') }}">
 {% endblock %}
 {% block content %}
 <!-- Add Food Form -->
@@ -39,7 +39,6 @@
     <div class="request-box">
         <h3>{{ request.food_name }}</h3>
         <p><strong>Description:</strong> {{ request.description }}</p>
-        <p><strong>Adjectives:</strong> {{ request.adjectives }}</p>
         <form action="/admin/delete-request" method="POST" class="delete-form">
             <input type="hidden" name="id" value="{{ request.id }}">
             <button type="submit" class="delete-button">Delete</button>

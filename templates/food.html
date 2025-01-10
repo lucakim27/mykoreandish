@@ -1,44 +1,12 @@
 {% extends "base.html" %}
 {% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='food.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/food.css') }}">
 {% endblock %}
 {% block content %}
 <div class="confirmation-container">
     <h2>{{ dish.dish_name }}</h2>
     <p>{{ dish.description }}</p>
-    <table class="dish-details">
-        {% if dish.adjectives %}
-        <tr>
-            <th>Characteristics</th>
-            <td>
-                {% for adjective in dish.adjectives %}
-                {{ adjective }}{% if not loop.last %}, {% endif %}
-                {% endfor %}
-            </td>
-        </tr>
-        {% endif %}
-        {% if dish.dietary %}
-        <tr>
-            <th>Dietary</th>
-            <td>
-                {% for diet in dish.dietary %}
-                {{ diet }}{% if not loop.last %}, {% endif %}
-                {% endfor %}
-            </td>
-        </tr>
-        {% endif %}
-        {% if dish.ingredients %}
-        <tr>
-            <th>Ingredients</th>
-            <td>
-                {% for ingredient in dish.ingredients %}
-                {{ ingredient }}{% if not loop.last %}, {% endif %}
-                {% endfor %}
-            </td>
-        </tr>
-        {% endif %}
-    </table><br>
 
     <h3>Dietary</h3>
     <div class="dietary-tags">
@@ -60,7 +28,7 @@
         </form>
     </div><br>
 
-    <h3>Ingredients</h3>
+    <h3>Ingredient</h3>
     <div class="ingredients-list">
         {% if ingredients %}
         {% for ingredient, count in ingredients.items() %}
@@ -140,5 +108,29 @@
             <button type="submit" class="button select-button">Leave a Review</button>
         </form>
     </div><br>
+
+    <h3>Shop</h3>
+    <div class="price-timeline">
+        {% if shops %}
+        {% for shop in shops %}
+        <div class="price-point">
+            {% if shop.name %}
+            <a class="shop-link" href="{{ shop.link }}" target="_blank">{{ shop.name }}</a>
+            {% else %}
+            <span class="shop-link">Unavailable</span>
+            {% endif %}
+            <span class="timestamp">{{ shop.timestamp | time_ago }}</span>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No shops available.</p>
+        {% endif %}
+    </div>
+    <div class="button-box">
+        <form action="/reviews/shop/{{ dish.dish_name }}" method="post" style="display:inline;">
+            <button type="submit" class="button select-button">Leave a Review</button>
+        </form>
+    </div>
+
 </div>
 {% endblock %}

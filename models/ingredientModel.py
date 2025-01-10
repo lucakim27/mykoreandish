@@ -4,9 +4,14 @@ from google.cloud import firestore
 import csv
 
 class Ingredient:
-    def __init__(self, dish_name: str, ingredient: str):
+    def __init__(self, dish_name: str, ingredient: str, google_id: str, timestamp: Any):
         self.dish_name = dish_name
         self.ingredient = ingredient
+        self.google_id = google_id
+        self.timestamp = timestamp
+
+class UserNotFoundError(Exception):
+    pass
 
 class IngredientManager:
     def __init__(self, db: firestore.Client, firestore_module: Any):
@@ -14,19 +19,29 @@ class IngredientManager:
         self.ingredients_ref = db.collection('Ingredients')
         self.firestore = firestore_module
     
-    def add_ingredient(self, dish_name: str, google_id: str, ingredient: str) -> None:
+    def _get_user(self, google_id: str) -> Any:
         user_ref = self.users_ref.where('google_id', '==', google_id)
         user = user_ref.get()
-
         if not user:
-            raise ValueError("User does not exist.")
-
-        self.ingredients_ref.add({
-            'google_id': google_id,
-            'dish_name': dish_name,
-            'ingredient': ingredient,
-            'timestamp': self.firestore.SERVER_TIMESTAMP
-        })
+            raise UserNotFoundError("User does not exist.")
+        return user
+    
+    def add_ingredient(self, dish_name: str, google_id: str, ingredient: str) -> None:
+        try:
+            self._get_user(google_id)
+            ingredient_instance = Ingredient(dish_name, ingredient, google_id, self.firestore.SERVER_TIMESTAMP)
+            self.ingredients_ref.add({
+                'google_id': ingredient_instance.google_id,
+                'dish_name': ingredient_instance.dish_name,
+                'ingredient': ingredient_instance.ingredient,
+                'timestamp': ingredient_instance.timestamp
+            })
+            flash('Ingredient added successfully!', 'success')
+        except UserNotFoundError as e:
+            flash(str(e), 'error')
+        except Exception as e:
+            flash(f'Error adding ingredient: {e}', 'error')
+            print(f"Error: {e}")
     
     def get_ingredient(self, dish_name: str) -> Dict[str, int]:
         ingredient_ref = self.ingredients_ref.where('dish_name', '==', dish_name)

@@ -5,7 +5,7 @@ from models.usersModel import UserManager
 from firebase_admin import firestore
 
 request_bp = Blueprint('request', __name__)
-manager = RequestsManager(db, firestore)
+request_manager = RequestsManager(db, firestore)
 user_manager = UserManager(db)
 
 @request_bp.route('/')
@@ -17,9 +17,5 @@ def request_page():
 def submit_request():
     name = request.form.get('name')
     description = request.form.get('description')
-    adjectives = request.form.get('characteristics')
-    Spiciness = request.form.get('Spiciness')
-    Dietary = request.form.get('Dietary')
-    Ingredients = request.form.get('Ingredients')
-    manager.add_food_request(name, description, adjectives, Spiciness, Dietary, Ingredients)
+    request_manager.add_food_request(name, description)
     return redirect(url_for('home.home'))

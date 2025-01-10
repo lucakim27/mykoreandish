@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/history.css') }}">
 {% endblock %}
 {% block content %}
 <div class="history-container">
@@ -12,6 +12,18 @@
                 <span class="price">{{ item.dish_name }}</span>
                 <span class="timestamp">{{ item.timestamp | time_ago }}</span>
             </div><br>
+            {% if item.link is defined %}
+            <form method="POST" action="{{ url_for('dishes.update_shop') }}" style="display:inline;">
+                <input type="hidden" name="history_id" value="{{ item.id }}">
+                <input type="text" name="link" value="{{ item.link }}">
+                <button type="submit" class="button update-button">Update</button>
+            </form>
+
+            <form method="POST" action="{{ url_for('users.deleteShopRoute') }}" style="display:inline;">
+                <input type="hidden" name="history_id" value="{{ item.id }}">
+                <button type="submit" class="button delete-button">Delete</button>
+            </form>
+            {% endif %}
             {% if item.price is defined %}
             <form method="POST" action="{{ url_for('dishes.update_price') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">

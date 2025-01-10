@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+{{ dish.dish_name | capitalize }}
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/shop.css') }}">
+{% endblock %}
+{% block content %}
+<div class="review-container">
+    <h2>Shop</h2>
+    <form method="POST" action="/dishes/shop_review/{{ dish.dish_name }}">
+        <div class="input-group">
+            <input name="shop" id="shop" type="link" min="0" step="any" placeholder="Example: https://maps.app.goo.gl/yHUYvWBpqwbJNaDZ7" required />
+        </div>
+        <div class="button-box" style="display: flex;">
+            <button type="submit" class="button select-button" style="width: auto;">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

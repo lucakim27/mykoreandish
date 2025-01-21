@@ -10,6 +10,7 @@ body, h1, h2, h3, p, ul, li, a, form, label, input, textarea {
 body {
     font-family: 'Arial', sans-serif;
     color: #333;
+    background-color: #f9f4ee;
     line-height: 1.6;
 }
 

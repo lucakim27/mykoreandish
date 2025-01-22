@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, session
 from config.db import db
-from models.dishesModel import DishManager
-from models.requestsModel import RequestsManager
-from models.usersModel import UserManager
+from models.dishModel import DishManager
+from models.requestModel import RequestManager
+from models.userModel import UserManager
 from firebase_admin import firestore
 
 admin_bp = Blueprint('admin', __name__)
-request_manager = RequestsManager(db, firestore)
+request_manager = RequestManager(db, firestore)
 user_manager = UserManager(db)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
 

@@ -9,16 +9,13 @@ class Dish:
         self.description = description
 
     def matches_description(self, input):
-        # Preprocess input: tokenize and remove stop words
         stop_words = set(stopwords.words('english'))
-        tokens = re.findall(r'\b\w+\b', input)  # Extract words from input
+        tokens = re.findall(r'\b\w+\b', input)
         filtered_tokens = [word.lower() for word in tokens if word.lower() not in stop_words]
 
-        # Perform case-insensitive matching
         dish_name_lower = self.dish_name.lower()
         description_lower = self.description.lower()
 
-        # Check if any meaningful token matches the dish_name or description
         for token in filtered_tokens:
             if token in dish_name_lower or token in description_lower:
                 return True
@@ -47,19 +44,19 @@ class DishManager:
         )
 
     def get_dish_instance(self, name):
-        dishes = self.get_all_dishes()  # Fetch all dishes from the CSV
+        dishes = self.get_all_dishes()
         for dish in dishes:
-            if dish.dish_name.lower() == name.lower():  # Case-insensitive matching
+            if dish.dish_name.lower() == name.lower():
                 return dish
         print(f"No dish found with name: '{name}'")
         return None
     
     def get_dish_instances(self, names):
-        dishes = self.get_all_dishes()  # Fetch all dishes from the CSV
+        dishes = self.get_all_dishes()
         matched_dishes = []
         for name in names:
             for dish in dishes:
-                if dish.dish_name.lower() == name.lower():  # Case-insensitive matching
+                if dish.dish_name.lower() == name.lower():
                     matched_dishes.append(dish)
                     break
             else:
@@ -84,7 +81,6 @@ class DishManager:
             flash('All fields are required!', 'error')
             return redirect('/admin')
 
-        # Add the food item to the CSV file
         try:
             with open(self.csv_file, mode='a', newline='', encoding='utf-8') as file:
                 writer = csv.DictWriter(file, fieldnames=['dish_name', 'description'])

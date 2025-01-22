@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
-from controllers.authController import login_required
+from utils.login import login_required
 from models.dietaryModel import DietaryManager
-from models.dishesModel import DishManager
+from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
 from models.priceModel import PriceManager
 from models.shopModel import ShopManager
-from models.usersModel import UserManager
-from models.userSelectionsModel import UserSelectionManager
+from models.userModel import UserManager
+from models.tasteModel import TasteManager
 from config.db import db
 from utils.time import format_time_ago
 from firebase_admin import firestore
@@ -14,7 +14,7 @@ from firebase_admin import firestore
 dishes_bp = Blueprint('dishes', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
-selection_manager = UserSelectionManager(db, firestore)
+selection_manager = TasteManager(db, firestore)
 price_manager = PriceManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
@@ -55,31 +55,27 @@ def description():
         recommendation=dishes
     )
 
-@dishes_bp.route('/<name>', methods=['POST'])
+@dishes_bp.route('/<name>', methods=['GET', 'POST'])
 def food(name=None):
+    if request.method == 'POST':
+        # Logic to handle POST request (e.g., updating user preferences, submitting forms, etc.)
+        return redirect(url_for('dishes.food', name=name))  # Redirect to the same page
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
     prices = price_manager.get_price(name)
     dietaries = dietary_manager.get_dietary(name)
     ingredients = ingredient_manager.get_ingredient(name)
     shops = shop_manager.get_shop(name)
-    average_ratings, selection_counts, average_spiciness, average_sweetness, average_texture, average_healthiness, average_sourness, average_temperature = selection_manager.get_dish_statistics(name)
+    tastes = selection_manager.get_dish_rating(name)
     return render_template(
         'food.html', 
         prices=prices, 
         user=user, 
         dish=dish,
         shops=shops,
-        average_ratings=average_ratings, 
-        selection_counts=selection_counts, 
-        average_spiciness=average_spiciness, 
-        average_sweetness=average_sweetness, 
-        average_texture=average_texture, 
-        average_healthiness=average_healthiness, 
-        average_sourness=average_sourness,
         dietaries=dietaries,
-        average_temperature=average_temperature,
-        ingredients=ingredients
+        ingredients=ingredients,
+        tastes=tastes
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])
@@ -103,7 +99,7 @@ def select_food(name=None):
         healthiness, 
         rating
     )
-    return redirect(url_for('home.home'))
+    return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/price_review/<name>', methods=['POST'])
 @login_required
@@ -111,28 +107,28 @@ def priceReviewRoute(name=None):
     price = request.form.get('price')
     currency = request.form.get('currency')
     price_manager.add_price(session.get('google_id'), name, price, currency)
-    return redirect(url_for('home.home'))
+    return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/dietary_review/<name>', methods=['POST'])
 @login_required
 def dietaryReviewRoute(name=None):
     dietary = request.form.get('dietary')
     dietary_manager.add_dietary(name, session.get('google_id'), dietary)
-    return redirect(url_for('home.home'))
+    return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/ingredient_review/<name>', methods=['POST'])
 @login_required
 def ingredientReviewRoute(name=None):
     ingredient = request.form.get('ingredient')
     ingredient_manager.add_ingredient(name, session.get('google_id'), ingredient)
-    return redirect(url_for('home.home'))
+    return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/shop_review/<name>', methods=['POST'])
 @login_required
 def shopReviewRoute(name=None):
     shop = request.form.get('shop')
     shop_manager.add_shop(session.get('google_id'), name, shop)
-    return redirect(url_for('home.home'))
+    return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])
 def rate_dish():

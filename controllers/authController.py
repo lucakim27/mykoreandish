@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import Blueprint, redirect, url_for, session
 from flask_dance.contrib.google import google
-from models.usersModel import UserManager
+from models.userModel import UserManager
 from config.db import db
 from flask_dance.contrib.google import google
 
@@ -26,11 +26,3 @@ def google_login():
 def logout():
     session.clear()
     return redirect(url_for('home.home'))
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'google_id' not in session:
-            return redirect(url_for('google.login'))
-        return f(*args, **kwargs)
-    return decorated_function

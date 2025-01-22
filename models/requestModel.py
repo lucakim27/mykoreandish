@@ -2,20 +2,20 @@ from typing import List, Dict, Any
 from flask import flash
 from google.cloud import firestore
 
-class Requests:
+class Request:
     def __init__(self, name: str, description: str, timestamp: Any):
         self.name = name
         self.description = description
         self.timestamp = timestamp
 
-class RequestsManager:
+class RequestManager:
     def __init__(self, db: firestore.Client, firestore_module: Any):
         self.requests_ref = db.collection('Requests')
         self.firestore = firestore_module
-
+    
     def add_food_request(self, name, description) -> Dict[str, Any]:
         try:
-            request_instance = Requests(name, description, self.firestore.SERVER_TIMESTAMP)
+            request_instance = Request(name, description, self.firestore.SERVER_TIMESTAMP)
             
             request_data = {
                 'food_name': request_instance.name,

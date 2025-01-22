@@ -1,16 +1,16 @@
 from flask import Blueprint, render_template, session
 from config.db import db
 from models.dietaryModel import DietaryManager
-from models.dishesModel import DishManager
+from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
 from models.priceModel import PriceManager
-from models.usersModel import UserManager
-from models.userSelectionsModel import UserSelectionManager
+from models.userModel import UserManager
+from models.tasteModel import TasteManager
 from firebase_admin import firestore
 
 home_bp = Blueprint('home', __name__)
 user_manager = UserManager(db)
-selection_manager = UserSelectionManager(db, firestore)
+selection_manager = TasteManager(db, firestore)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
 price_manager = PriceManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)

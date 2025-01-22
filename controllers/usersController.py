@@ -1,20 +1,20 @@
 from itertools import chain
 from flask import Blueprint, redirect, render_template, request, session, url_for
-from controllers.authController import login_required
+from utils.login import login_required
 from models.dietaryModel import DietaryManager
-from models.dishesModel import DishManager
+from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
 from models.priceModel import PriceManager
 from models.shopModel import ShopManager
-from models.usersModel import UserManager
-from models.userSelectionsModel import UserSelectionManager
+from models.userModel import UserManager
+from models.tasteModel import TasteManager
 from config.db import db
 from firebase_admin import firestore
 
 users_bp = Blueprint('users', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
-selection_manager = UserSelectionManager(db, firestore)
+selection_manager = TasteManager(db, firestore)
 price_manager = PriceManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)

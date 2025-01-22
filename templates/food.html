@@ -55,34 +55,32 @@
             <th>Rating</th>
         </tr>
         {% set aspects = {
-        'Overall': average_ratings,
-        'Texture': average_texture,
-        'Sourness': average_sourness,
-        'Spiciness': average_spiciness,
-        'Sweetness': average_sweetness,
-        'Healthiness': average_healthiness,
-        'Temperature': average_temperature
+        'Overall': tastes.average_rating,
+        'Texture': tastes.average_texture,
+        'Sourness': tastes.average_sourness,
+        'Spiciness': tastes.average_spiciness,
+        'Sweetness': tastes.average_sweetness,
+        'Healthiness': tastes.average_healthiness,
+        'Temperature': tastes.average_temperature
         } %}
-        {% for aspect, data in aspects.items() %}
+        {% for aspect, rating in aspects.items() %}
         <tr>
             <th>{{ aspect }}</th>
             <td>
-                {% if dish.dish_name in data %}
-                {% set rating = data[dish.dish_name] %}
+                {% if rating is not none %}
                 <span class="stars">
                     {% for i in range(1, 6) %}
                     {% if i <= rating %} ★ {% else %} ☆ {% endif %} {% endfor %} </span>
                         {% else %}
-                        <span class="stars"></span>
-                        {% for i in range(1, 6) %}
-                        ☆
-                        {% endfor %}
-                </span>
-                {% endif %}
+                        <span class="stars">
+                            {% for i in range(1, 6) %} ☆ {% endfor %}
+                        </span>
+                        {% endif %}
             </td>
         </tr>
         {% endfor %}
     </table>
+
 
     <div class="button-box">
         <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session
 from config.db import db
-from models.usersModel import UserManager
+from models.userModel import UserManager
 
 aboutus_bp = Blueprint('aboutus', __name__)
 user_manager = UserManager(db)

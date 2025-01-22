@@ -1,11 +1,11 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from config.db import db
-from models.requestsModel import RequestsManager
-from models.usersModel import UserManager
+from models.requestModel import RequestManager
+from models.userModel import UserManager
 from firebase_admin import firestore
 
 request_bp = Blueprint('request', __name__)
-request_manager = RequestsManager(db, firestore)
+request_manager = RequestManager(db, firestore)
 user_manager = UserManager(db)
 
 @request_bp.route('/')

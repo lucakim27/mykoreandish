@@ -2,13 +2,13 @@
 body {
     font-family: 'Arial', sans-serif;
     color: #333;
-    background-color: #f9f4ee; /* Light beige tone */
+    background-color: #f9f4ee;
+    /* Light beige tone */
     line-height: 1.6;
     margin: 0;
     padding: 0;
 }
 
-/* Introduction Form */
 .introduction-form {
     background-color: white;
     padding: 20px;
@@ -19,15 +19,21 @@ body {
     text-align: center;
 }
 
+.introduction-form img {
+    max-width: 800px;
+    height: auto;
+    border-radius: 10px;
+}
+
 .introduction-form h3 {
     font-size: 1.8em;
-    color: #d72638; /* Vibrant red for headings */
+    color: #d72638;
+    /* Vibrant red for headings */
     margin-bottom: 10px;
 }
 
 .introduction-form p {
     font-size: 1em;
-    margin-bottom: 15px;
 }
 
 .introduction-form button {
@@ -43,12 +49,14 @@ body {
 }
 
 .introduction-form button:hover {
-    background-color: #a91d2c; /* Slightly darker red for hover */
+    background-color: #a91d2c;
+    /* Slightly darker red for hover */
 }
 
 /* Description Form */
 .description-form {
-    background-color: white; /* Very light orange for differentiation */
+    background-color: white;
+    /* Very light orange for differentiation */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -92,16 +100,24 @@ body {
 
 /* Responsiveness */
 @media (max-width: 768px) {
-    .introduction-form, .description-form {
+
+    .introduction-form,
+    .description-form {
         padding: 15px;
         max-width: 90%;
     }
 
-    .introduction-form h3, .description-form h2 {
+    .introduction-form img {
+        max-width: 100%;
+    }
+
+    .introduction-form h3,
+    .description-form h2 {
         font-size: 1.5em;
     }
 
-    .description-form textarea, select {
+    .description-form textarea,
+    select {
         font-size: 0.9em;
     }
 }
@@ -121,7 +137,8 @@ select:focus {
     outline: none;
 }
 
-select, textarea {
+select,
+textarea {
     background-color: #f9f9f9;
 }
 

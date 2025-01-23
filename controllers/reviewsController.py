@@ -3,7 +3,7 @@ from config.db import db
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
-from models.priceModel import PriceManager
+# from models.priceModel import PriceManager
 from models.tasteModel import TasteManager
 from models.userModel import UserManager
 from firebase_admin import firestore
@@ -12,7 +12,7 @@ reviews_bp = Blueprint('reviews', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = TasteManager(db, firestore)
-price_manager = PriceManager(db, firestore)
+# price_manager = PriceManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 

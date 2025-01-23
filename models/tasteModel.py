@@ -173,10 +173,10 @@ class TasteManager:
             print(f"Error retrieving user history: {e}")
             return []
     
-    def filter_search(self, ingredient=None, dietary=None):
+    def filter_search(self, ingredient=None, dietary=None, taste=None, texture=None, spiciness=None, sourness=None, sweetness=None, healthiness=None, temperature=None):
         if ingredient is not None:
             query = self.ingredients_ref.where('ingredient', '==', ingredient)
-        if dietary is not None:
+        elif dietary is not None:
             query = self.dietaries_ref.where('dietary', '==', dietary)
         
         results = query.stream()

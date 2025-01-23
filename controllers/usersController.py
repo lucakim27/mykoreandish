@@ -4,8 +4,8 @@ from utils.login import login_required
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
-from models.priceModel import PriceManager
-from models.shopModel import ShopManager
+# from models.priceModel import PriceManager
+# from models.shopModel import ShopManager
 from models.userModel import UserManager
 from models.tasteModel import TasteManager
 from config.db import db
@@ -15,16 +15,16 @@ users_bp = Blueprint('users', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = TasteManager(db, firestore)
-price_manager = PriceManager(db, firestore)
+# price_manager = PriceManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
-shop_manager = ShopManager(db, firestore)
+# shop_manager = ShopManager(db, firestore)
 
 @users_bp.route('/')
 @login_required
 def history():
     user = user_manager.get_user_by_session(session)
-    currency = price_manager.get_all_currency()
+    # currency = price_manager.get_all_currency()
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
     combined_history = list(chain(
@@ -34,7 +34,7 @@ def history():
         dietary_manager.get_dietary_history(session['google_id']), 
         ingredient_manager.get_ingredient_history(session['google_id'])
     ))
-    return render_template('history.html', user=user, combined_history=combined_history, currency=currency, ingredients=ingredients, dietaries=dietaries)
+    return render_template('history.html', user=user, combined_history=combined_history, ingredients=ingredients, dietaries=dietaries)
 
 @users_bp.route('/delete-history', methods=['POST'])
 def deleteHistoryRoute():

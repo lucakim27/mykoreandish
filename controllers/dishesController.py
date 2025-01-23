@@ -3,8 +3,8 @@ from utils.login import login_required
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
-from models.priceModel import PriceManager
-from models.shopModel import ShopManager
+# from models.priceModel import PriceManager
+# from models.shopModel import ShopManager
 from models.userModel import UserManager
 from models.tasteModel import TasteManager
 from config.db import db
@@ -15,10 +15,10 @@ dishes_bp = Blueprint('dishes', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = TasteManager(db, firestore)
-price_manager = PriceManager(db, firestore)
+# price_manager = PriceManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
-shop_manager = ShopManager(db, firestore)
+# shop_manager = ShopManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def explore():
@@ -44,32 +44,32 @@ def filtering():
         recommendation=dishes
     )
 
-@dishes_bp.route('/description', methods=['POST'])
-def description():
-    user = user_manager.get_user_by_session(session)
-    description = request.form.get('description')
-    dishes = manager.description_search(description)
-    return render_template(
-        'search.html', 
-        user=user, 
-        recommendation=dishes
-    )
+# @dishes_bp.route('/description', methods=['POST'])
+# def description():
+#     user = user_manager.get_user_by_session(session)
+#     description = request.form.get('description')
+#     dishes = manager.description_search(description)
+#     return render_template(
+#         'search.html', 
+#         user=user, 
+#         recommendation=dishes
+#     )
 
 @dishes_bp.route('/<name>', methods=['GET', 'POST'])
 def food(name=None):
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
-    prices = price_manager.get_price(name)
+    # prices = price_manager.get_price(name)
+    # shops = shop_manager.get_shop(name)
     dietaries = dietary_manager.get_dietary(name)
     ingredients = ingredient_manager.get_ingredient(name)
-    shops = shop_manager.get_shop(name)
     tastes = selection_manager.get_dish_rating(name)
     return render_template(
         'food.html', 
-        prices=prices, 
+        # prices=prices, 
+        # shops=shops,
         user=user, 
         dish=dish,
-        shops=shops,
         dietaries=dietaries,
         ingredients=ingredients,
         tastes=tastes

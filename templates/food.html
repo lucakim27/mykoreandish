@@ -55,7 +55,7 @@
             <th>Rating</th>
         </tr>
         {% set aspects = {
-        'Overall': tastes.average_rating,
+        'Taste': tastes.average_rating,
         'Texture': tastes.average_texture,
         'Sourness': tastes.average_sourness,
         'Spiciness': tastes.average_spiciness,
@@ -87,7 +87,7 @@
             <button type="submit" class="button select-button">Leave a Review</button>
         </form>
     </div><br>
-<!-- 
+    <!-- 
     <h3>Price</h3>
     <div class="price-timeline">
         {% if prices %}

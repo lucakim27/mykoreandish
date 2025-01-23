@@ -57,9 +57,6 @@ def description():
 
 @dishes_bp.route('/<name>', methods=['GET', 'POST'])
 def food(name=None):
-    if request.method == 'POST':
-        # Logic to handle POST request (e.g., updating user preferences, submitting forms, etc.)
-        return redirect(url_for('dishes.food', name=name))  # Redirect to the same page
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
     prices = price_manager.get_price(name)
@@ -101,13 +98,13 @@ def select_food(name=None):
     )
     return redirect(url_for('dishes.food', name=name))
 
-@dishes_bp.route('/price_review/<name>', methods=['POST'])
-@login_required
-def priceReviewRoute(name=None):
-    price = request.form.get('price')
-    currency = request.form.get('currency')
-    price_manager.add_price(session.get('google_id'), name, price, currency)
-    return redirect(url_for('dishes.food', name=name))
+# @dishes_bp.route('/price_review/<name>', methods=['POST'])
+# @login_required
+# def priceReviewRoute(name=None):
+#     price = request.form.get('price')
+#     currency = request.form.get('currency')
+#     price_manager.add_price(session.get('google_id'), name, price, currency)
+#     return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/dietary_review/<name>', methods=['POST'])
 @login_required
@@ -123,12 +120,12 @@ def ingredientReviewRoute(name=None):
     ingredient_manager.add_ingredient(name, session.get('google_id'), ingredient)
     return redirect(url_for('dishes.food', name=name))
 
-@dishes_bp.route('/shop_review/<name>', methods=['POST'])
-@login_required
-def shopReviewRoute(name=None):
-    shop = request.form.get('shop')
-    shop_manager.add_shop(session.get('google_id'), name, shop)
-    return redirect(url_for('dishes.food', name=name))
+# @dishes_bp.route('/shop_review/<name>', methods=['POST'])
+# @login_required
+# def shopReviewRoute(name=None):
+#     shop = request.form.get('shop')
+#     shop_manager.add_shop(session.get('google_id'), name, shop)
+#     return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])
 def rate_dish():
@@ -152,20 +149,20 @@ def rate_dish():
     )
     return redirect(url_for('users.history'))
 
-@dishes_bp.route('/update_price', methods=['POST'])
-def update_price():
-    history_id = request.form.get('history_id')
-    price = request.form.get('price')
-    currency = request.form.get('currency')
-    price_manager.update_price(history_id, price, currency)
-    return redirect(url_for('users.history'))
+# @dishes_bp.route('/update_price', methods=['POST'])
+# def update_price():
+#     history_id = request.form.get('history_id')
+#     price = request.form.get('price')
+#     currency = request.form.get('currency')
+#     price_manager.update_price(history_id, price, currency)
+#     return redirect(url_for('users.history'))
 
-@dishes_bp.route('/update_shop', methods=['POST'])
-def update_shop():
-    history_id = request.form.get('history_id')
-    link = request.form.get('link')
-    shop_manager.update_shop(history_id, link)
-    return redirect(url_for('users.history'))
+# @dishes_bp.route('/update_shop', methods=['POST'])
+# def update_shop():
+#     history_id = request.form.get('history_id')
+#     link = request.form.get('link')
+#     shop_manager.update_shop(history_id, link)
+#     return redirect(url_for('users.history'))
 
 @dishes_bp.route('/update_dietary', methods=['POST'])
 def update_dietary():

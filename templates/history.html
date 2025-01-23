@@ -12,7 +12,8 @@
                 <span class="price">{{ item.dish_name }}</span>
                 <span class="timestamp">{{ item.timestamp | time_ago }}</span>
             </div><br>
-            {% if item.link is defined %}
+
+            <!-- {% if item.link is defined %}
             <form method="POST" action="{{ url_for('dishes.update_shop') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <input type="text" name="link" value="{{ item.link }}">
@@ -23,8 +24,9 @@
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <button type="submit" class="button delete-button">Delete</button>
             </form>
-            {% endif %}
-            {% if item.price is defined %}
+            {% endif %} -->
+
+            <!-- {% if item.price is defined %}
             <form method="POST" action="{{ url_for('dishes.update_price') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <input type="text" name="price" value="{{ item.price }}">
@@ -41,7 +43,8 @@
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <button type="submit" class="button delete-button">Delete</button>
             </form>
-            {% endif %}
+            {% endif %} -->
+
             {% if item.spiciness is defined %}
             <form method="POST" action="{{ url_for('dishes.rate_dish') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">

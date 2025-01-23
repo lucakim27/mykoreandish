@@ -28,11 +28,11 @@ def history():
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
     combined_history = list(chain(
-        price_manager.get_price_history(session['google_id']), 
+        # price_manager.get_price_history(session['google_id']), 
+        # shop_manager.get_shop_history(session['google_id'])
         selection_manager.get_user_history(session['google_id']), 
         dietary_manager.get_dietary_history(session['google_id']), 
-        ingredient_manager.get_ingredient_history(session['google_id']),
-        shop_manager.get_shop_history(session['google_id'])
+        ingredient_manager.get_ingredient_history(session['google_id'])
     ))
     return render_template('history.html', user=user, combined_history=combined_history, currency=currency, ingredients=ingredients, dietaries=dietaries)
 
@@ -44,21 +44,21 @@ def deleteHistoryRoute():
             return redirect(url_for('users.history'))
     return redirect(url_for('users.history'))
 
-@users_bp.route('/delete-price', methods=['POST'])
-def deletePriceRoute():
-    history_id = request.form.get('history_id')
-    if history_id:
-        if price_manager.delete_price(history_id):
-            return redirect(url_for('users.history'))
-    return redirect(url_for('users.history'))
+# @users_bp.route('/delete-price', methods=['POST'])
+# def deletePriceRoute():
+#     history_id = request.form.get('history_id')
+#     if history_id:
+#         if price_manager.delete_price(history_id):
+#             return redirect(url_for('users.history'))
+#     return redirect(url_for('users.history'))
 
-@users_bp.route('/delete-shop', methods=['POST'])
-def deleteShopRoute():
-    history_id = request.form.get('history_id')
-    if history_id:
-        if shop_manager.delete_shop(history_id):
-            return redirect(url_for('users.history'))
-    return redirect(url_for('users.history'))
+# @users_bp.route('/delete-shop', methods=['POST'])
+# def deleteShopRoute():
+#     history_id = request.form.get('history_id')
+#     if history_id:
+#         if shop_manager.delete_shop(history_id):
+#             return redirect(url_for('users.history'))
+#     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-dietary', methods=['POST'])
 def deleteDietaryRoute():

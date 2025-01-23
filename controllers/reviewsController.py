@@ -22,18 +22,18 @@ def reviewController(name=None):
     dish = manager.get_dish_instance(name)
     return render_template('review.html', user=user, dish=dish)
 
-@reviews_bp.route('/price/<name>', methods=['POST'])
-def priceController(name=None):
-    user = user_manager.get_user_by_session(session)
-    dish = manager.get_dish_instance(name)
-    currency = price_manager.get_all_currency()
-    return render_template('price.html', user=user, dish=dish, currency=currency)
+# @reviews_bp.route('/price/<name>', methods=['POST'])
+# def priceController(name=None):
+#     user = user_manager.get_user_by_session(session)
+#     dish = manager.get_dish_instance(name)
+#     currency = price_manager.get_all_currency()
+#     return render_template('price.html', user=user, dish=dish, currency=currency)
 
-@reviews_bp.route('/shop/<name>', methods=['POST'])
-def shopController(name=None):
-    user = user_manager.get_user_by_session(session)
-    dish = manager.get_dish_instance(name)
-    return render_template('shop.html', user=user, dish=dish)
+# @reviews_bp.route('/shop/<name>', methods=['POST'])
+# def shopController(name=None):
+#     user = user_manager.get_user_by_session(session)
+#     dish = manager.get_dish_instance(name)
+#     return render_template('shop.html', user=user, dish=dish)
 
 @reviews_bp.route('/dietary/<name>', methods=['POST'])
 def dietaryController(name=None):

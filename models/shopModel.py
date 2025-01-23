@@ -1,7 +1,7 @@
 from flask import flash
 from google.cloud import firestore
 from typing import List, Dict, Union
-import requests
+from utils.link import extract_place_name, resolve_google_maps_link
 
 class Shop:
     def __init__(self, dish_name: str, link: str, timestamp, google_id: str):
@@ -84,22 +84,5 @@ class ShopManager:
             'timestamp': price.to_dict().get('timestamp'),
             'link': price.to_dict().get('link'),
             'google_id': price.to_dict().get('google_id'),
-            'name': self.extract_place_name(self.resolve_google_maps_link(price.to_dict().get('link')))
+            'name': extract_place_name(resolve_google_maps_link(price.to_dict().get('link')))
         } for price in prices]
-
-    def resolve_google_maps_link(self, shortened_url):
-        try:
-            # Send a HEAD request to follow the redirect
-            response = requests.head(shortened_url, allow_redirects=True)
-            full_url = response.url
-            return full_url
-        except Exception as e:
-            return f"Error resolving link: {str(e)}"
-    
-    def extract_place_name(self, full_url):
-        if "/place/" in full_url:
-            start = full_url.find("/place/") + len("/place/")
-            end = full_url.find("/", start)
-            place_name = full_url[start:end].replace("+", " ")
-            return place_name
-        return None

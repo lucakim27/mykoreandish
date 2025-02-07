@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ ingredient.ingredient | capitalize }}{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/food.css') }}">
+{% endblock %}
+{% block content %}
+<div class="confirmation-container">
+    <h2>{{ ingredient.ingredient }}</h2>
+    <p>{{ ingredient.description }}</p>
+
+    <h3>Nutrients</h3>
+    <div class="dietary-tags">
+        {% if nutrients %}
+        {% for diet, count in dietaries.items() %}
+        {% if count > 0 %}
+        <span class="dietary-tag">
+            <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ count }})
+        </span>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <p>No dietary information available.</p>
+        {% endif %}
+    </div>
+    <div class="button-box">
+        <form action="" style="display:inline;">
+        <!-- <form action="/reviews/nutrients/{{ ingredient.ingredient }}" method="post" style="display:inline;"> -->
+            <button type="submit" class="button select-button">Leave a Review</button>
+        </form>
+    </div><br>
+
+</div>
+{% endblock %}

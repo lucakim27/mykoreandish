@@ -30,19 +30,19 @@ def explore():
         recommendation=dishes
     )
 
-@dishes_bp.route('/filter', methods=['POST'])
-def filtering():
-    user = user_manager.get_user_by_session(session)
-    filter_type = request.form.get('filter')
-    ingredient = request.form.get('ingredient') if filter_type == 'ingredient' else None
-    dietary = request.form.get('dietary') if filter_type == 'dietary' else None
-    dish_names = selection_manager.filter_search(ingredient, dietary)
-    dishes = manager.get_dish_instances(dish_names)
-    return render_template(
-        'search.html', 
-        user=user, 
-        recommendation=dishes
-    )
+# @dishes_bp.route('/filter', methods=['POST'])
+# def filtering():
+#     user = user_manager.get_user_by_session(session)
+#     filter_type = request.form.get('filter')
+#     ingredient = request.form.get('ingredient') if filter_type == 'ingredient' else None
+#     dietary = request.form.get('dietary') if filter_type == 'dietary' else None
+#     dish_names = selection_manager.filter_search(ingredient, dietary)
+#     dishes = manager.get_dish_instances(dish_names)
+#     return render_template(
+#         'search.html', 
+#         user=user, 
+#         recommendation=dishes
+#     )
 
 # @dishes_bp.route('/description', methods=['POST'])
 # def description():

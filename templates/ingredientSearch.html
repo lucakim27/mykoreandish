@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/search.css') }}">
+{% endblock %}
+{% block content %}
+<div id="recommendation-results">
+    {% if recommendation and recommendation[0].ingredient != "No match found" %}
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search" onkeyup="filterIngredients()" />
+    </div>
+    <ul class="food-container" id="food-list">
+        {% for ingredient in recommendation %}
+        <li class="food-item">
+            <form action="/ingredients/{{ ingredient.ingredient }}" method="POST" class="food-box">
+                <h2>{{ ingredient.ingredient }}</h2>
+                <p>{{ ingredient.description }}</p>
+                <button type="submit" class="food-box-button">See More</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="no-matches">
+        <h2>No Matches Found</h2>
+        <p>Try relaxing the filters or selecting different criteria.</p>
+    </div>
+    {% endif %}
+
+    <form action="/request" class="request-dishes">
+        <h2>Not enough Ingredients?</h2>
+        <button>Request a new ingredient</button>
+    </form>
+</div>
+
+<script>
+    // Function to filter the dishes based on the search input
+    function filterIngredients() {
+        let input = document.getElementById("search-input").value.toLowerCase();
+        let foodItems = document.querySelectorAll(".food-item");
+        
+        foodItems.forEach(item => {
+            let dishName = item.querySelector("h2").textContent.toLowerCase();
+            let description = item.querySelector("p").textContent.toLowerCase();
+
+            if (dishName.includes(input) || description.includes(input)) {
+                item.style.display = "";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+</script>
+{% endblock %}

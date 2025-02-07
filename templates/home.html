@@ -3,20 +3,28 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style/home.css') }}">
 {% endblock %}
 {% block content %}
-<form class="introduction-form">
-  <h3>Your Korean Food Guide</h3>
-  <p>Craving authentic Korean cuisine? Our platform is your gateway to discovering mouthwatering dishes, tailored recommendations, and honest reviews—all contributed by food lovers like you. Whether you're exploring Korean flavors for the first time or you're already a fan, we've got something special for everyone.</p><br>
-  <img src="{{ url_for('static', filename='img/home.webp') }}" alt="food">
-</form>
 
-<form action="/dishes" method="post" class="introduction-form">
-  <h3>Discover. Taste. Share.</h3>
-  <p>Explore a variety of dishes, find options that match your taste, dietary and share your experiences to help others enjoy the world of Korean food. Start your journey to unforgettable flavors today!</p><br>
-  <button type="submit">Explore Now</button>
-</form>
+<div class="introduction-form">
+  <h3>Korean Cuisine</h3>
+  <p>A website that reviews korean dishes based on ingredients with nutrients, dietary preferences and detailed taste reviews.</p>
+</div>
 
-<form action="/dishes/filter" method="post" class="description-form">
-  <h2>Filter by Review</h2>
+<div class="explore-section">
+  <form action="/dishes" method="post" class="introduction-form">
+    <h3>Dish</h3>
+    <p>Discover a variety of korean dishes curated to match your taste.</p>
+    <button type="submit">Explore Now</button>
+  </form>
+
+  <form action="/ingredients" method="post" class="introduction-form">
+    <h3>Ingredient</h3>
+    <p>Find nutrients by exploring various ingredients that was used in korean dishes.</p>
+    <button type="submit">Explore Now</button>
+  </form>
+</div>
+
+<!-- <form action="/dishes/filter" method="post" class="description-form">
+  <h2>Filter</h2>
   <div id="filter-dropdown">
     <select name="filter" id="filter" onchange="showFilterOptions()" required>
       <option value="" disabled selected>Select a filter</option>
@@ -39,16 +47,9 @@
     </select>
   </div>
   <button type="submit">Filter My Dish</button>
-</form>
-
-<!-- <form action="/dishes/description" method="post" class="description-form">
-  <h2>Search by Description</h2>
-  <textarea id="description" name="description" rows="4"
-    placeholder="Example: Sweet pancakes filled with cinnamon, brown sugar, and nuts." required></textarea>
-  <button type="submit">Search My Dish</button>
 </form> -->
 
-<script>
+<!-- <script>
   function showFilterOptions() {
     document.getElementById('ingredient').style.display = 'none';
     document.getElementById('dietary').style.display = 'none';
@@ -61,5 +62,5 @@
       document.getElementById('dietary').style.display = 'block';
     }
   }
-</script>
+</script> -->
 {% endblock %}

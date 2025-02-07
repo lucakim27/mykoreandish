@@ -34,6 +34,7 @@ body {
 
 .introduction-form p {
     font-size: 1em;
+    margin-bottom: 10px;
 }
 
 .introduction-form button {

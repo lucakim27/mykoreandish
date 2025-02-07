@@ -26,6 +26,15 @@ class IngredientManager:
             raise UserNotFoundError("User does not exist.")
         return user
     
+    def get_ingredient_instance(self, name):
+        ingredients = self.get_all_ingredients()
+        for ingredient in ingredients:
+            print(ingredient)
+            if ingredient['ingredient'].lower() == name.lower():
+                return ingredient
+        print(f"No ingredient found with name: '{name}'")
+        return None
+    
     def add_ingredient(self, dish_name: str, google_id: str, ingredient: str) -> None:
         try:
             self._get_user(google_id)
@@ -111,7 +120,8 @@ class IngredientManager:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     ingredients.append({
-                        'ingredient': row['ingredient']
+                        'ingredient': row['ingredient'],
+                        'description': row['description']
                     })
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')

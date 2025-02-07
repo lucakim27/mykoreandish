@@ -3,6 +3,7 @@ import os
 from flask_dance.contrib.google import make_google_blueprint
 from controllers.authController import auth_bp
 from controllers.dishesController import dishes_bp
+from controllers.ingredientsController import ingredients_bp
 from controllers.usersController import users_bp
 from controllers.adminController import admin_bp
 from controllers.requestController import request_bp
@@ -28,6 +29,7 @@ google_blueprint = make_google_blueprint(
 app.register_blueprint(google_blueprint, url_prefix='/login')
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(dishes_bp, url_prefix='/dishes')
+app.register_blueprint(ingredients_bp, url_prefix='/ingredients')
 app.register_blueprint(users_bp, url_prefix='/users')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(request_bp, url_prefix='/request')

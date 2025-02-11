@@ -4,6 +4,7 @@ from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
 # from models.priceModel import PriceManager
+from models.nutrientModel import NutrientManager
 from models.tasteModel import TasteManager
 from models.userModel import UserManager
 from firebase_admin import firestore
@@ -15,6 +16,7 @@ selection_manager = TasteManager(db, firestore)
 # price_manager = PriceManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
+nutrient_manager = NutrientManager(db, firestore)
 
 @reviews_bp.route('/<name>', methods=['POST'])
 def reviewController(name=None):
@@ -43,8 +45,15 @@ def dietaryController(name=None):
     return render_template('dietary.html', user=user, dish=dish, dietaries=dietaries)
 
 @reviews_bp.route('/ingredient/<name>', methods=['POST'])
-def drinkController(name=None):
+def ingredientController(name=None):
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template('ingredient.html', user=user, dish=dish, ingredients=ingredients)
+
+@reviews_bp.route('/nutrient/<name>', methods=['POST'])
+def nutrientController(name=None):
+    user = user_manager.get_user_by_session(session)
+    ingredient = ingredient_manager.get_ingredient_instance(name)
+    nutrients = nutrient_manager.get_all_nutrients()
+    return render_template('nutrient.html', user=user, ingredient=ingredient, nutrients=nutrients)

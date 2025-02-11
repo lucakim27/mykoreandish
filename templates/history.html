@@ -9,7 +9,11 @@
         {% for item in combined_history|sort(attribute='timestamp', reverse=true) %}
         <li>
             <div class="price-point">
-                <span class="price">{{ item.dish_name }}</span>
+                {% if item.nutrient is defined %}
+                    <span class="price">{{ item.ingredient }}</span>
+                {% else %}
+                    <span class="price">{{ item.dish_name }}</span>
+                {% endif %}
                 <span class="timestamp">{{ item.timestamp | time_ago }}</span>
             </div><br>
 
@@ -145,7 +149,7 @@
                 <button type="submit" class="button delete-button">Delete</button>
             </form>
             {% endif %}
-            {% if item.ingredient is defined %}
+            {% if item.ingredient is defined and item.dish_name is defined %}
             <form method="POST" action="{{ url_for('dishes.update_ingredient') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <select class="form-select" id="ingredient" name="ingredient">
@@ -157,6 +161,22 @@
                 <button type="submit" class="button update-button">Update</button>
             </form>
             <form method="POST" action="{{ url_for('users.deleteIngredientRoute') }}" style="display:inline;">
+                <input type="hidden" name="history_id" value="{{ item.id }}">
+                <button type="submit" class="button delete-button">Delete</button>
+            </form>
+            {% endif %}
+            {% if item.nutrient is defined %}
+            <form method="POST" action="{{ url_for('ingredients.update_nutrient') }}" style="display:inline;">
+                <input type="hidden" name="history_id" value="{{ item.id }}">
+                <select class="form-select" id="nutrient" name="nutrient">
+                    {% for nutrient in nutrients %}
+                    <option value="{{ nutrient.nutrient }}" {% if item.nutrient==nutrient.nutrient
+                        %}selected{% endif %}>{{ nutrient.nutrient }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="button update-button">Update</button>
+            </form>
+            <form method="POST" action="{{ url_for('users.deleteNutrientRoute') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <button type="submit" class="button delete-button">Delete</button>
             </form>

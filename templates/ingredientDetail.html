@@ -11,20 +11,19 @@
     <h3>Nutrients</h3>
     <div class="dietary-tags">
         {% if nutrients %}
-        {% for diet, count in dietaries.items() %}
+        {% for nutrient, count in nutrients.items() %}
         {% if count > 0 %}
         <span class="dietary-tag">
-            <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ count }})
+            <i class="icon-{{ nutrient | lower }}"></i> {{ nutrient }} ({{ count }})
         </span>
         {% endif %}
         {% endfor %}
         {% else %}
-        <p>No dietary information available.</p>
+        <p>No nutrient information available.</p>
         {% endif %}
     </div>
     <div class="button-box">
-        <form action="" style="display:inline;">
-        <!-- <form action="/reviews/nutrients/{{ ingredient.ingredient }}" method="post" style="display:inline;"> -->
+        <form action="/reviews/nutrient/{{ ingredient.ingredient }}" method="post" style="display:inline;">
             <button type="submit" class="button select-button">Leave a Review</button>
         </form>
     </div><br>

@@ -1,5 +1,6 @@
 from itertools import chain
 from flask import Blueprint, redirect, render_template, request, session, url_for
+from models.nutrientModel import NutrientManager
 from utils.login import login_required
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
@@ -19,6 +20,7 @@ selection_manager = TasteManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
 # shop_manager = ShopManager(db, firestore)
+nutrient_manager = NutrientManager(db, firestore)
 
 @users_bp.route('/')
 @login_required
@@ -27,14 +29,16 @@ def history():
     # currency = price_manager.get_all_currency()
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
+    nutrients = nutrient_manager.get_all_nutrients()
     combined_history = list(chain(
         # price_manager.get_price_history(session['google_id']), 
         # shop_manager.get_shop_history(session['google_id'])
         selection_manager.get_user_history(session['google_id']), 
         dietary_manager.get_dietary_history(session['google_id']), 
-        ingredient_manager.get_ingredient_history(session['google_id'])
+        ingredient_manager.get_ingredient_history(session['google_id']),
+        nutrient_manager.get_nutrient_history(session['google_id'])
     ))
-    return render_template('history.html', user=user, combined_history=combined_history, ingredients=ingredients, dietaries=dietaries)
+    return render_template('history.html', user=user, combined_history=combined_history, ingredients=ingredients, dietaries=dietaries, nutrients=nutrients)
 
 @users_bp.route('/delete-history', methods=['POST'])
 def deleteHistoryRoute():
@@ -73,6 +77,14 @@ def deleteIngredientRoute():
     history_id = request.form.get('history_id')
     if history_id:
         if ingredient_manager.delete_ingredient(history_id):
+            return redirect(url_for('users.history'))
+    return redirect(url_for('users.history'))
+
+@users_bp.route('/delete-nutrient', methods=['POST'])
+def deleteNutrientRoute():
+    history_id = request.form.get('history_id')
+    if history_id:
+        if nutrient_manager.delete_nutrient(history_id):
             return redirect(url_for('users.history'))
     return redirect(url_for('users.history'))
 

@@ -25,8 +25,8 @@ def add_food():
             return "Access Denied", 403
     dish_name = request.form.get('dish_name')
     description = request.form.get('description')
-    adjectives = request.form.getlist('adjectives[]')
-    dish_manager.add_dish(dish_name, description, adjectives)
+    korean_name = request.form.getlist('korean_name')
+    dish_manager.add_dish(dish_name, description, korean_name)
     return redirect('/admin')
 
 @admin_bp.route('/delete-request', methods=['POST'])

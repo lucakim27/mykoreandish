@@ -29,7 +29,6 @@ class IngredientManager:
     def get_ingredient_instance(self, name):
         ingredients = self.get_all_ingredients()
         for ingredient in ingredients:
-            print(ingredient)
             if ingredient['ingredient'].lower() == name.lower():
                 return ingredient
         print(f"No ingredient found with name: '{name}'")
@@ -121,7 +120,8 @@ class IngredientManager:
                 for row in csv_reader:
                     ingredients.append({
                         'ingredient': row['ingredient'],
-                        'description': row['description']
+                        'description': row['description'],
+                        'korean_name': row['korean_name']
                     })
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')

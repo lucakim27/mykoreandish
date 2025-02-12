@@ -37,8 +37,8 @@ main {
 
 /* Footer stays at the bottom */
 footer {
-    background-color: #333;
-    color: white;
+    background-color: #d72638;
+    color: black;
     padding: 20px;
     text-align: center;
     font-size: 14px;
@@ -62,7 +62,12 @@ footer {
     font-family: 'Indie Flower', cursive;
     font-size: 40px;
     word-wrap: break-word;
-    /* Ensures long text wraps within the container */
+    display: inline-block;
+}
+
+#topBar h1 a:hover {
+    /* -webkit-transform: scale(1.1); Chrome, Safari, Opera */
+    transform: scale(1.1);
 }
 
 /* Auth Links */
@@ -256,13 +261,14 @@ footer p {
 }
 
 footer a {
-    color: #d72638;
+    color: white;
     /* Matches the top bar's red tone */
     text-decoration: none;
     transition: color 0.3s ease;
+    display: inline-block;
 }
 
 footer a:hover {
-    color: #f9f4ee;
-    /* Light beige tone on hover */
+    /* -webkit-transform: scale(1.1); Chrome, Safari, Opera */
+    transform: scale(1.1);
 }

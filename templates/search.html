@@ -12,8 +12,8 @@
         {% for dish in recommendation %}
         <li class="food-item">
             <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
-                <h2>{{ dish.dish_name }}</h2>
-                <p>{{ dish.description }}</p>
+                <h2>{{ dish.korean_name }}</h2>
+                <p><b>{{ dish.dish_name }}</b> that {{ dish.description }}</p>
                 <button type="submit" class="food-box-button">See More</button>
             </form>
         </li>

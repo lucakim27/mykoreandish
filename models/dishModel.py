@@ -4,9 +4,10 @@ from flask import flash, redirect
 # from nltk.corpus import stopwords
 
 class Dish:
-    def __init__(self, dish_name, description):
+    def __init__(self, dish_name, description, korean_name):
         self.dish_name = dish_name
         self.description = description
+        self.korean_name = korean_name
 
     # def matches_description(self, input):
     #     stop_words = set(stopwords.words('english'))
@@ -40,7 +41,8 @@ class DishManager:
     def row_to_dish(self, row):
         return Dish(
             dish_name=row.get('dish_name', ''),
-            description=row.get('description', '')
+            description=row.get('description', ''),
+            korean_name=row.get('korean_name', '')
         )
 
     def get_dish_instance(self, name):
@@ -76,7 +78,7 @@ class DishManager:
         dishes = self.get_all_dishes()
         return dishes if dishes else [{"dish_name": "No match found", "reason": "Try relaxing the description."}]
 
-    def add_dish(self, dish_name, description):
+    def add_dish(self, dish_name, description, korean_name):
         if not dish_name or not description:
             flash('All fields are required!', 'error')
             return redirect('/admin')
@@ -86,7 +88,8 @@ class DishManager:
                 writer = csv.DictWriter(file, fieldnames=['dish_name', 'description'])
                 writer.writerow({
                     'dish_name': dish_name,
-                    'description': description
+                    'description': description,
+                    'korean_name': korean_name
                 })
             flash('Food added successfully!', 'success')
         except Exception as e:

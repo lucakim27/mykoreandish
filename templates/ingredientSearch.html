@@ -12,8 +12,8 @@
         {% for ingredient in recommendation %}
         <li class="food-item">
             <form action="/ingredients/{{ ingredient.ingredient }}" method="POST" class="food-box">
-                <h2>{{ ingredient.ingredient }}</h2>
-                <p>{{ ingredient.description }}</p>
+                <h2>{{ ingredient.korean_name }}</h2>
+                <p><b>{{ ingredient.ingredient }}</b> that {{ ingredient.description }}</p>
                 <button type="submit" class="food-box-button">See More</button>
             </form>
         </li>

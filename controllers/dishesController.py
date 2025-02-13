@@ -24,10 +24,12 @@ ingredient_manager = IngredientManager(db, firestore)
 def explore():
     user = user_manager.get_user_by_session(session)
     dishes = manager.all_search()
+    dietaries = dietary_manager.get_all_dietaries()
     return render_template(
         'search.html', 
         user=user, 
-        recommendation=dishes
+        recommendation=dishes,
+        dietaries=dietaries
     )
 
 # @dishes_bp.route('/filter', methods=['POST'])

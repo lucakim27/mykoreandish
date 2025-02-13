@@ -134,7 +134,8 @@ class IngredientManager:
             ingredient_ref = self.ingredients_ref.where('ingredient', '==', ingredient)
             ingredients = ingredient_ref.stream()
             for ingredient in ingredients:
-                dishes.append(ingredient.to_dict().get('dish_name'))
+                if not ingredient.to_dict().get('dish_name') in dishes:
+                    dishes.append(ingredient.to_dict().get('dish_name'))
         except Exception as e:
             flash(f'Error retrieving dishes from Firestore: {e}', 'error')
         

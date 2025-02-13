@@ -16,9 +16,11 @@ nutrient_manager = NutrientManager(db, firestore)
 def ingredientsController():
     user = user_manager.get_user_by_session(session)
     ingredients = ingredient_manager.get_all_ingredients()
+    nutrients = nutrient_manager.get_all_nutrients()
     return render_template(
         'ingredientSearch.html', 
-        user=user, 
+        user=user,
+        nutrients=nutrients,
         recommendation=ingredients
     )
 

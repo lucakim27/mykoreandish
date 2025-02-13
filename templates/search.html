@@ -8,6 +8,56 @@
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search" onkeyup="filterDishes()" />
     </div>
+
+    <div class="filter-container">
+        <div class="filter-box" style="margin-bottom: 20px; height: auto; width: 90%;">
+            <div>
+                <label for="filter-select">Filter by:</label>
+                <select id="filter-select" onchange="showFilterOptions()">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="spiciness">Spiciness</option>
+                    <option value="dietary">Dietary</option>
+                </select>
+            </div>
+            <div id="spiciness-options" class="filter-options" style="display: none;">
+                <div>
+                    <input type="radio" id="spiciness-0" name="spiciness" value="0">
+                    <label for="spiciness-0">Not at all spicy</label>
+                </div>
+                <div>
+                    <input type="radio" id="spiciness-1" name="spiciness" value="1">
+                    <label for="spiciness-1">A little spicy</label>
+                </div>
+                <div>
+                    <input type="radio" id="spiciness-2" name="spiciness" value="2">
+                    <label for="spiciness-2">Mildly spicy</label>
+                </div>
+                <div>
+                    <input type="radio" id="spiciness-3" name="spiciness" value="3">
+                    <label for="spiciness-3">Moderately spicy</label>
+                </div>
+                <div>
+                    <input type="radio" id="spiciness-4" name="spiciness" value="4">
+                    <label for="spiciness-4">Very spicy</label>
+                </div>
+                <div>
+                    <input type="radio" id="spiciness-5" name="spiciness" value="5">
+                    <label for="spiciness-5">Extremely spicy</label>
+                </div>
+                <button type="submit" class="food-box-button">Filter Out</button>
+            </div>
+            <div id="dietary-options" class="filter-options" style="display: none;">
+                {% for dietary in dietaries %}
+                <div>
+                    <input type="radio" id="dietary-{{ dietary.dietary }}" name="dietary" value="{{ dietary.dietary }}">
+                    <label for="dietary-{{ dietary.dietary }}">{{ dietary.dietary }}</label>
+                </div>
+                {% endfor %}
+                <button type="submit" class="food-box-button">Filter Out</button>
+            </div>
+        </div>
+    </div>
+
     <ul class="food-container" id="food-list">
         {% for dish in recommendation %}
         <li class="food-item">
@@ -37,17 +87,32 @@
     function filterDishes() {
         let input = document.getElementById("search-input").value.toLowerCase();
         let foodItems = document.querySelectorAll(".food-item");
-
+        
         foodItems.forEach(item => {
             let dishName = item.querySelector("h2").textContent.toLowerCase();
             let description = item.querySelector("p").textContent.toLowerCase();
-
+            
             if (dishName.includes(input) || description.includes(input)) {
                 item.style.display = "";
             } else {
                 item.style.display = "none";
             }
         });
+    }
+
+    function showFilterOptions() {
+        let filterSelect = document.getElementById("filter-select").value;
+        let spicinessOptions = document.getElementById("spiciness-options");
+        let dietaryOptions = document.getElementById("dietary-options");
+
+        spicinessOptions.style.display = "none";
+        dietaryOptions.style.display = "none";
+
+        if (filterSelect === "spiciness") {
+            spicinessOptions.style.display = "block";
+        } else if (filterSelect === "dietary") {
+            dietaryOptions.style.display = "block";
+        }
     }
 </script>
 {% endblock %}

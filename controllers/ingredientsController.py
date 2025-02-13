@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
+from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
 from config.db import db
 from firebase_admin import firestore
@@ -26,9 +27,11 @@ def ingredientsListController(name=None):
     user = user_manager.get_user_by_session(session)
     ingredient = ingredient_manager.get_ingredient_instance(name)
     nutrients = nutrient_manager.get_nutrient(name)
+    dishes = ingredient_manager.get_dishes_by_ingredient(name)
     return render_template(
         'ingredientDetail.html',
         user=user,
+        dishes=dishes,
         ingredient=ingredient,
         nutrients=nutrients
     )

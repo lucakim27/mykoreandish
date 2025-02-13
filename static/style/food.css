@@ -26,7 +26,7 @@ body {
 }
 
 .confirmation-container p {
-    font-size: 1.1em;
+    /* font-size: 1.1em; */
     color: #555;
     text-align: justify;
     margin-bottom: 20px;
@@ -75,10 +75,21 @@ body {
     border: 1px solid #ccc;
 }
 
+.ingredient-tag {
+    text-decoration: underline;
+    color: #d72638;
+    transition: transform 0.2s ease;
+    text-decoration: none;
+}
+
 .dietary-tag i, 
 .ingredient-tag i {
     font-size: 1.2em;
     color: #d72638;
+}
+
+.ingredient-tag:hover {
+    transform: scale(1.1);
 }
 
 /* Stars for Taste Ratings */

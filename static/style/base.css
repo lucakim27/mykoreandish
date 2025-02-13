@@ -63,6 +63,7 @@ footer {
     font-size: 40px;
     word-wrap: break-word;
     display: inline-block;
+    transition: transform 0.2s ease;
 }
 
 #topBar h1 a:hover {
@@ -266,6 +267,7 @@ footer a {
     text-decoration: none;
     transition: color 0.3s ease;
     display: inline-block;
+    transition: transform 0.2s ease;
 }
 
 footer a:hover {

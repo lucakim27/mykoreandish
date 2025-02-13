@@ -127,3 +127,15 @@ class IngredientManager:
             flash(f'Error reading ingredients from CSV: {e}', 'error')
         
         return ingredients
+    
+    def get_dishes_by_ingredient(self, ingredient: str) -> List[str]:
+        dishes = []
+        try:
+            ingredient_ref = self.ingredients_ref.where('ingredient', '==', ingredient)
+            ingredients = ingredient_ref.stream()
+            for ingredient in ingredients:
+                dishes.append(ingredient.to_dict().get('dish_name'))
+        except Exception as e:
+            flash(f'Error retrieving dishes from Firestore: {e}', 'error')
+        
+        return dishes

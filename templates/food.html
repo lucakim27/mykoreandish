@@ -33,9 +33,9 @@
         {% if ingredients %}
         {% for ingredient, count in ingredients.items() %}
         {% if count > 0 %}
-        <span class="ingredient-tag">
+        <a href="/ingredients/{{ ingredient }}" class="ingredient-tag">
             <i class="icon-{{ ingredient | lower }}"></i> {{ ingredient }} ({{ count }})
-        </span>
+        </a>
         {% endif %}
         {% endfor %}
         {% else %}

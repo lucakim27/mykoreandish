@@ -7,6 +7,19 @@
 <div class="confirmation-container">
     <h2>{{ ingredient.korean_name }}</h2>
     <p><b>{{ ingredient.ingredient }}</b> that {{ ingredient.description }}</p>
+    
+    <h3>Dishes</h3>
+    <div class="ingredients-list">
+        {% if dishes %}
+        {% for dish in dishes %}
+        <a href="/dishes/{{ dish }}" class="ingredient-tag">
+            <i class="icon-{{ dish | lower }}"></i> {{ dish }}
+        </a>
+        {% endfor %}
+        {% else %}
+        <p>No dish information available.</p>
+        {% endif %}
+    </div>
 
     <h3>Nutrients</h3>
     <div class="dietary-tags">
@@ -14,7 +27,7 @@
         {% for nutrient, count in nutrients.items() %}
         {% if count > 0 %}
         <span class="dietary-tag">
-            <i class="icon-{{ nutrient | lower }}"></i> {{ nutrient }} ({{ count }})
+            <i class="icon-{{ nutrient }}"></i> {{ nutrient }} ({{ count }})
         </span>
         {% endif %}
         {% endfor %}
@@ -22,11 +35,11 @@
         <p>No nutrient information available.</p>
         {% endif %}
     </div>
+
     <div class="button-box">
         <form action="/reviews/nutrient/{{ ingredient.ingredient }}" method="post" style="display:inline;">
             <button type="submit" class="button select-button">Leave a Review</button>
         </form>
     </div><br>
-
 </div>
 {% endblock %}

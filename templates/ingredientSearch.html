@@ -7,26 +7,40 @@
     {% if recommendation and recommendation[0].ingredient != "No match found" %}
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search" onkeyup="filterIngredients()" />
+        <button type="button" class="filter-button" onclick="toggleFilterOptions()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter"><polygon points="22 3 2 3 10 12.5 10 19 14 21 14 12.5 22 3"></polygon></svg>
+        </button>
     </div>
 
-    <div class="filter-container">
+    <div class="filter-container" style="display: none;">
         <div class="filter-box" style="margin-bottom: 20px; height: auto; width: 90%;">
-            <div>
+            <div style="display: flex; justify-content: center;">
                 <label for="filter-select">Filter by:</label>
-                <select id="filter-select" onchange="showFilterOptions()">
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="nutrient">Nutrient</option>
-                </select>
-            </div>
-            <div id="nutrient-options" class="filter-options" style="display: none;">
-                {% for nutrient in nutrients %}
                 <div>
-                    <input type="radio" id="nutrient-{{ nutrient.nutrient }}" name="nutrient" value="{{ nutrient.nutrient }}">
-                    <label for="nutrient-{{ nutrient.nutrient }}">{{ nutrient.nutrient }}</label>
+                    <input type="radio" id="filter-dish" name="filter" value="dish" onclick="showFilterOptions()">
+                    <label for="filter-dish">Dish</label>
                 </div>
-                {% endfor %}
-                <button type="submit" class="food-box-button">Filter Out</button>
+                <div>
+                    <input type="radio" id="filter-nutrient" name="filter" value="nutrient" onclick="showFilterOptions()">
+                    <label for="filter-nutrient">Nutrient</label>
+                </div>
             </div>
+            <form action="/ingredients/nutrient" method="POST" id="nutrient-options" class="filter-options" style="display: none;">
+                <select id="nutrient-select" name="nutrient">
+                    {% for nutrient in nutrients %}
+                    <option value="{{ nutrient.nutrient }}">{{ nutrient.nutrient }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="food-box-button">Filter My Ingredient</button>
+            </form>
+            <form action="/ingredients/dish" method="POST" id="dish-options" class="filter-options" style="display: none;">
+                <select id="dish-select" name="dish">
+                    {% for dish in dishes %}
+                    <option value="{{ dish.dish_name }}">{{ dish.dish_name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="food-box-button">Filter My Ingredient</button>
+            </form>
         </div>
     </div>
 
@@ -73,13 +87,26 @@
     }
 
     function showFilterOptions() {
-        let filterSelect = document.getElementById("filter-select").value;
         let nutrientOptions = document.getElementById("nutrient-options");
+        let dishOptions = document.getElementById("dish-options");
+        let filterNutrient = document.getElementById("filter-nutrient");
 
         nutrientOptions.style.display = "none";
+        dishOptions.style.display = "none";
 
-        if (filterSelect === "nutrient") {
+        if (filterNutrient.checked) {
             nutrientOptions.style.display = "block";
+        } else {
+            dishOptions.style.display = "block";
+        }
+    }
+
+    function toggleFilterOptions() {
+        let filterContainer = document.querySelector(".filter-container");
+        if (filterContainer.style.display === "none") {
+            filterContainer.style.display = "block";
+        } else {
+            filterContainer.style.display = "none";
         }
     }
 </script>

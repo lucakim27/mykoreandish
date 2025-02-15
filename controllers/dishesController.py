@@ -25,26 +25,46 @@ def explore():
     user = user_manager.get_user_by_session(session)
     dishes = manager.all_search()
     dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
         'search.html', 
-        user=user, 
+        user=user,
+        ingredients=ingredients,
         recommendation=dishes,
         dietaries=dietaries
     )
 
-# @dishes_bp.route('/filter', methods=['POST'])
-# def filtering():
-#     user = user_manager.get_user_by_session(session)
-#     filter_type = request.form.get('filter')
-#     ingredient = request.form.get('ingredient') if filter_type == 'ingredient' else None
-#     dietary = request.form.get('dietary') if filter_type == 'dietary' else None
-#     dish_names = selection_manager.filter_search(ingredient, dietary)
-#     dishes = manager.get_dish_instances(dish_names)
-#     return render_template(
-#         'search.html', 
-#         user=user, 
-#         recommendation=dishes
-#     )
+@dishes_bp.route('/dietary', methods=['POST'])
+def dietaryFilter():
+    user = user_manager.get_user_by_session(session)
+    dietary = request.form.get('dietary')
+    dish_names = dietary_manager.get_dishes_by_ingredient(dietary)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user, 
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
+
+@dishes_bp.route('/ingredient', methods=['POST'])
+def ingredientFilter():
+    user = user_manager.get_user_by_session(session)
+    ingredient = request.form.get('ingredient')
+    dish_names = ingredient_manager.get_dishes_by_ingredient(ingredient)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user, 
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
 
 # @dishes_bp.route('/description', methods=['POST'])
 # def description():

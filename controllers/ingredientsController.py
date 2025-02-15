@@ -11,15 +11,50 @@ ingredients_bp = Blueprint('ingredients', __name__)
 ingredient_manager = IngredientManager(db, firestore)
 user_manager = UserManager(db)
 nutrient_manager = NutrientManager(db, firestore)
+dish_manager = DishManager(csv_file='csv/dishes.csv')
 
 @ingredients_bp.route('/', methods=['POST'])
 def ingredientsController():
     user = user_manager.get_user_by_session(session)
     ingredients = ingredient_manager.get_all_ingredients()
     nutrients = nutrient_manager.get_all_nutrients()
+    dishes = dish_manager.get_all_dishes()
     return render_template(
         'ingredientSearch.html', 
         user=user,
+        nutrients=nutrients,
+        dishes=dishes,
+        recommendation=ingredients
+    )
+
+@ingredients_bp.route('/nutrient', methods=['POST'])
+def nutrientFilterController():
+    user = user_manager.get_user_by_session(session)
+    nutrient = request.form.get('nutrient')
+    ingredients_name = nutrient_manager.get_ingredients_by_nutrient(nutrient)
+    ingredients = ingredient_manager.get_ingredients_instance(ingredients_name)
+    nutrients = nutrient_manager.get_all_nutrients()
+    dishes = dish_manager.get_all_dishes()
+    return render_template(
+        'ingredientSearch.html', 
+        user=user, 
+        dishes=dishes,
+        nutrients=nutrients,
+        recommendation=ingredients
+    )
+
+@ingredients_bp.route('/dish', methods=['POST'])
+def ingredientFilterController():
+    user = user_manager.get_user_by_session(session)
+    dish = request.form.get('dish')
+    ingredients_name = ingredient_manager.get_ingredients_by_dish(dish)
+    ingredients = ingredient_manager.get_ingredients_instance(ingredients_name)
+    nutrients = nutrient_manager.get_all_nutrients()
+    dishes = dish_manager.get_all_dishes()
+    return render_template(
+        'ingredientSearch.html', 
+        user=user, 
+        dishes=dishes,
         nutrients=nutrients,
         recommendation=ingredients
     )

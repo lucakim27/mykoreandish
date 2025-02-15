@@ -34,6 +34,18 @@ class IngredientManager:
         print(f"No ingredient found with name: '{name}'")
         return None
     
+    def get_ingredients_instance(self, names: List[str]) -> List[Dict[str, str]]:
+        ingredients = self.get_all_ingredients()
+        matched_ingredients = []
+        for name in names:
+            for ingredient in ingredients:
+                if ingredient['ingredient'].lower() == name.lower():
+                    matched_ingredients.append(ingredient)
+                    break
+            else:
+                print(f"No ingredient found with name: '{name}'")
+        return matched_ingredients
+    
     def add_ingredient(self, dish_name: str, google_id: str, ingredient: str) -> None:
         try:
             self._get_user(google_id)
@@ -140,3 +152,14 @@ class IngredientManager:
             flash(f'Error retrieving dishes from Firestore: {e}', 'error')
         
         return dishes
+    
+    def get_ingredients_by_dish(self, dish_name: str) -> List[str]:
+        ingredients = []
+        try:
+            ingredient_ref = self.ingredients_ref.where('dish_name', '==', dish_name)
+            ingredients = ingredient_ref.stream()
+            ingredients = [ingredient.to_dict().get('ingredient') for ingredient in ingredients]
+        except Exception as e:
+            flash(f'Error retrieving ingredients from Firestore: {e}', 'error')
+        
+        return ingredients

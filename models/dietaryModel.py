@@ -124,3 +124,13 @@ class DietaryManager:
             flash(f'Error reading ingredients from CSV: {e}', 'error')
         
         return dietaries
+    
+    def get_dishes_by_ingredient(self, ingredient: str) -> List[str]:
+        dietary_ref = self.dietaries_ref.where('dietary', '==', ingredient)
+        dietaries = dietary_ref.stream()
+        dish_names = [dietary.to_dict().get('dish_name') for dietary in dietaries]
+
+        if not dish_names:
+            return []
+
+        return dish_names

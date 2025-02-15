@@ -79,7 +79,6 @@ body {
     text-decoration: underline;
     color: #d72638;
     transition: transform 0.2s ease;
-    text-decoration: none;
 }
 
 .dietary-tag i, 

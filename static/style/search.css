@@ -55,10 +55,35 @@ body {
     color: #333;
     margin-left: 5px;
 }
-.filter-box input[type="radio"] {
-    margin-right: 5px;
-    transform: scale(1.2); /* Make the radio button bigger */
-    cursor: pointer; /* Change cursor to pointer for better UX */
+.filter-box input[type="radio"], #filter-reset {
+    display: none; /* Hide the original radio button */
+}
+
+.filter-box label {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    line-height: 1;
+}
+
+.filter-box input[type="radio"]:checked + label {
+    background-color: #d72638; /* Change background color when selected */
+    color: white; /* Change text color when selected */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-box label:hover {
+    background-color: #f0f0f0; /* Slightly darker background on hover */
+}
+
+.filter-box input[type="radio"]:hover {
+    transform: scale(1.4); /* Slightly enlarge on hover */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
 }
 
 @media (max-width: 768px) {
@@ -71,7 +96,7 @@ body {
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-bottom: 10px;
     width: 100%;
 }
@@ -85,10 +110,17 @@ body {
 
 .filter-button {
     margin-left: 5px;
-    background-color: white;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    background-color: #d72638;
     border-radius: 10px;
     width: 60px;
+    border: none;
+    box-shadow: 0 4px 8px rgb(198 198 198);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-button:hover {
+    background-color: #a91d2c;
 }
 
 /* Search Bar */
@@ -145,11 +177,11 @@ body {
     display: flex;
     flex-direction: column;
 }
-
+/* 
 .food-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
+} */
 
 .food-box h2 {
     font-size: 1.5em;
@@ -169,7 +201,7 @@ body {
     border: none;
     padding: 10px 15px;
     font-size: 1em;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: auto;

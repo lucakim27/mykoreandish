@@ -75,10 +75,11 @@ body {
     border: none;
     padding: 10px 20px;
     font-size: 1em;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .select-button:hover {

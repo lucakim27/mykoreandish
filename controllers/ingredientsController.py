@@ -63,13 +63,15 @@ def ingredientFilterController():
 def ingredientsListController(name=None):
     user = user_manager.get_user_by_session(session)
     ingredient = ingredient_manager.get_ingredient_instance(name)
-    nutrients = nutrient_manager.get_nutrient(name)
+    nutrient = nutrient_manager.get_nutrient(name)
     dishes = ingredient_manager.get_dishes_by_ingredient(name)
+    nutrients = nutrient_manager.get_all_nutrients()
     return render_template(
         'ingredientDetail.html',
         user=user,
         dishes=dishes,
         ingredient=ingredient,
+        nutrient=nutrient,
         nutrients=nutrients
     )
 

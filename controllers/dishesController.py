@@ -3,8 +3,6 @@ from utils.login import login_required
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
-# from models.priceModel import PriceManager
-# from models.shopModel import ShopManager
 from models.userModel import UserManager
 from models.tasteModel import TasteManager
 from config.db import db
@@ -15,10 +13,8 @@ dishes_bp = Blueprint('dishes', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = TasteManager(db, firestore)
-# price_manager = PriceManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
-# shop_manager = ShopManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def explore():
@@ -66,35 +62,24 @@ def ingredientFilter():
         ingredients=ingredients
     )
 
-# @dishes_bp.route('/description', methods=['POST'])
-# def description():
-#     user = user_manager.get_user_by_session(session)
-#     description = request.form.get('description')
-#     dishes = manager.description_search(description)
-#     return render_template(
-#         'search.html', 
-#         user=user, 
-#         recommendation=dishes
-#     )
-
 @dishes_bp.route('/<name>', methods=['GET', 'POST'])
 def food(name=None):
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
-    # prices = price_manager.get_price(name)
-    # shops = shop_manager.get_shop(name)
-    dietaries = dietary_manager.get_dietary(name)
-    ingredients = ingredient_manager.get_ingredient(name)
+    dietary = dietary_manager.get_dietary(name)
+    ingredient = ingredient_manager.get_ingredient(name)
     tastes = selection_manager.get_dish_rating(name)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
-        'food.html', 
-        # prices=prices, 
-        # shops=shops,
+        'food.html',
         user=user, 
         dish=dish,
+        dietary=dietary,
+        ingredient=ingredient,
+        tastes=tastes,
         dietaries=dietaries,
-        ingredients=ingredients,
-        tastes=tastes
+        ingredients=ingredients
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])
@@ -120,14 +105,6 @@ def select_food(name=None):
     )
     return redirect(url_for('dishes.food', name=name))
 
-# @dishes_bp.route('/price_review/<name>', methods=['POST'])
-# @login_required
-# def priceReviewRoute(name=None):
-#     price = request.form.get('price')
-#     currency = request.form.get('currency')
-#     price_manager.add_price(session.get('google_id'), name, price, currency)
-#     return redirect(url_for('dishes.food', name=name))
-
 @dishes_bp.route('/dietary_review/<name>', methods=['POST'])
 @login_required
 def dietaryReviewRoute(name=None):
@@ -141,13 +118,6 @@ def ingredientReviewRoute(name=None):
     ingredient = request.form.get('ingredient')
     ingredient_manager.add_ingredient(name, session.get('google_id'), ingredient)
     return redirect(url_for('dishes.food', name=name))
-
-# @dishes_bp.route('/shop_review/<name>', methods=['POST'])
-# @login_required
-# def shopReviewRoute(name=None):
-#     shop = request.form.get('shop')
-#     shop_manager.add_shop(session.get('google_id'), name, shop)
-#     return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])
 def rate_dish():
@@ -170,21 +140,6 @@ def rate_dish():
         rating
     )
     return redirect(url_for('users.history'))
-
-# @dishes_bp.route('/update_price', methods=['POST'])
-# def update_price():
-#     history_id = request.form.get('history_id')
-#     price = request.form.get('price')
-#     currency = request.form.get('currency')
-#     price_manager.update_price(history_id, price, currency)
-#     return redirect(url_for('users.history'))
-
-# @dishes_bp.route('/update_shop', methods=['POST'])
-# def update_shop():
-#     history_id = request.form.get('history_id')
-#     link = request.form.get('link')
-#     shop_manager.update_shop(history_id, link)
-#     return redirect(url_for('users.history'))
 
 @dishes_bp.route('/update_dietary', methods=['POST'])
 def update_dietary():

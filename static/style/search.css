@@ -13,6 +13,7 @@ body {
 }
 
 .filter-box {
+    animation: fadeIn 0.3s ease-in-out;
     text-align: center;
     background-color: white;
     border: 1px solid #ccc;

@@ -17,38 +17,6 @@
                 <span class="timestamp">{{ item.timestamp | time_ago }}</span>
             </div><br>
 
-            <!-- {% if item.link is defined %}
-            <form method="POST" action="{{ url_for('dishes.update_shop') }}" style="display:inline;">
-                <input type="hidden" name="history_id" value="{{ item.id }}">
-                <input type="text" name="link" value="{{ item.link }}">
-                <button type="submit" class="button update-button">Update</button>
-            </form>
-
-            <form method="POST" action="{{ url_for('users.deleteShopRoute') }}" style="display:inline;">
-                <input type="hidden" name="history_id" value="{{ item.id }}">
-                <button type="submit" class="button delete-button">Delete</button>
-            </form>
-            {% endif %} -->
-
-            <!-- {% if item.price is defined %}
-            <form method="POST" action="{{ url_for('dishes.update_price') }}" style="display:inline;">
-                <input type="hidden" name="history_id" value="{{ item.id }}">
-                <input type="text" name="price" value="{{ item.price }}">
-                <select class="form-select" id="currency" name="currency">
-                    {% for value in currency %}
-                    <option value="{{ value.Code }}" {% if value.Code==item.currency %}selected{% endif %}>{{
-                        value.Currency }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit" class="button update-button">Update</button>
-            </form>
-
-            <form method="POST" action="{{ url_for('users.deletePriceRoute') }}" style="display:inline;">
-                <input type="hidden" name="history_id" value="{{ item.id }}">
-                <button type="submit" class="button delete-button">Delete</button>
-            </form>
-            {% endif %} -->
-
             {% if item.spiciness is defined %}
             <form method="POST" action="{{ url_for('dishes.rate_dish') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">

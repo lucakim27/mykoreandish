@@ -23,8 +23,8 @@
 
     <h3>Nutrients</h3>
     <div class="dietary-tags">
-        {% if nutrients %}
-        {% for nutrient, count in nutrients.items() %}
+        {% if nutrient %}
+        {% for nutrient, count in nutrient.items() %}
         {% if count > 0 %}
         <span class="dietary-tag">
             <i class="icon-{{ nutrient }}"></i> {{ nutrient }} ({{ count }})
@@ -38,8 +38,33 @@
 
     <div class="button-box">
         <form action="/reviews/nutrient/{{ ingredient.ingredient }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Review Nutrient</button>
+            <button type="button" class="button select-button" onclick="document.getElementById('nutrientModal').style.display='block'">Review Nutrient</button>
         </form>
     </div><br>
+
+    <div id="nutrientModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>{{ ingredient.korean_name }}</h2>
+            <form method="POST" action="/ingredients/nutrient_review/{{ ingredient.ingredient }}">
+                <label for="nutrient"><b>Nutrient:</b></label>
+                <select id="nutrient" name="nutrient" required>
+                    {% for nutrient in nutrients %}
+                    <option value="{{ nutrient.nutrient }}">{{ nutrient.nutrient }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="button submit-button">Review</button>
+            </form>
+        </div>
+    </div>
 </div>
+<script>
+    // Get the modal
+    var nutrientModal = document.getElementById("nutrientModal");
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == nutrientModal) {
+            nutrientModal.style.display = "none";
+        }
+    }
+</script>
 {% endblock %}

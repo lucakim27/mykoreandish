@@ -10,8 +10,8 @@
 
     <h3>Dietary</h3>
     <div class="dietary-tags">
-        {% if dietaries %}
-        {% for diet, count in dietaries.items() %}
+        {% if dietary %}
+        {% for diet, count in dietary.items() %}
         {% if count > 0 %}
         <span class="dietary-tag">
             <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ count }})
@@ -23,15 +23,30 @@
         {% endif %}
     </div>
     <div class="button-box">
-        <form action="/reviews/dietary/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Review Dietary</button>
-        </form>
+        <div style="display:inline;">
+            <button type="button" class="button select-button" onclick="document.getElementById('dietaryModal').style.display='block'">Review Dietary</button>
+        </div>
     </div><br>
+
+    <div id="dietaryModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>{{ dish.korean_name }}</h2>
+            <form method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}">
+                <label for="dietary"><b>Dietary:</b></label>
+                <select id="dietary" name="dietary" required>
+                    {% for dietary in dietaries %}
+                    <option value="{{ dietary.dietary }}">{{ dietary.dietary }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="button submit-button">Review</button>
+            </form>
+        </div>
+    </div>
 
     <h3>Ingredient</h3>
     <div class="ingredients-list">
-        {% if ingredients %}
-        {% for ingredient, count in ingredients.items() %}
+        {% if ingredient %}
+        {% for ingredient, count in ingredient.items() %}
         {% if count > 0 %}
         <a href="/ingredients/{{ ingredient }}" class="ingredient-tag">
             <i class="icon-{{ ingredient | lower }}"></i> {{ ingredient }} ({{ count }})
@@ -44,9 +59,24 @@
     </div>
     <div class="button-box">
         <form action="/reviews/ingredient/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Review Ingredient</button>
+            <button type="button" class="button select-button" onclick="document.getElementById('ingredientModal').style.display='block'">Review Ingredient</button>
         </form>
     </div><br>
+
+    <div id="ingredientModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>{{ dish.korean_name }}</h2>
+            <form method="POST" action="/dishes/ingredient_review/{{ dish.dish_name }}">
+                <label for="ingredient"><b>Ingredient:</b></label>
+                <select id="ingredient" name="ingredient" required>
+                    {% for ingredient in ingredients %}
+                    <option value="{{ ingredient.ingredient }}">{{ ingredient.ingredient }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="button submit-button">Review</button>
+            </form>
+        </div>
+    </div>
 
     <h3>Taste</h3>
     <table class="dish-details">
@@ -81,54 +111,101 @@
         {% endfor %}
     </table>
 
-
     <div class="button-box">
         <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Review Taste</button>
+            <button type="button" class="button select-button" onclick="document.getElementById('tasteModal').style.display='block'">Review Taste</button>
         </form>
     </div><br>
-    <!-- 
-    <h3>Price</h3>
-    <div class="price-timeline">
-        {% if prices %}
-        {% for food in prices %}
-        <div class="price-point">
-            <span class="price">💲{{ food.price }} {{ food.currency }}</span>
-            <span class="timestamp">{{ food.timestamp | time_ago }}</span>
-        </div>
-        {% endfor %}
-        {% else %}
-        <p>No price history available.</p>
-        {% endif %}
-    </div>
-    <div class="button-box">
-        <form action="/reviews/price/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Leave a Review</button>
-        </form>
-    </div><br> -->
 
-    <!-- <h3>Shop</h3>
-    <div class="price-timeline">
-        {% if shops %}
-        {% for shop in shops %}
-        <div class="price-point">
-            {% if shop.name %}
-            <a class="shop-link" href="{{ shop.link }}" target="_blank">{{ shop.name }}</a>
-            {% else %}
-            <span class="shop-link">Unavailable</span>
-            {% endif %}
-            <span class="timestamp">{{ shop.timestamp | time_ago }}</span>
+    <div id="tasteModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>{{ dish.korean_name }}</h2>
+            <form method="POST" action="/dishes/select/{{ dish.dish_name }}">
+                <div class="input-group">
+                    <label for="spiciness"><b>Spiciness:</b></label>
+                    <select id="spiciness" name="spiciness" required>
+                        <option value="0" selected>Not at all spicy</option>
+                        <option value="1">A little spicy</option>
+                        <option value="2">Mildly spicy</option>
+                        <option value="3">Moderately spicy</option>
+                        <option value="4">Very spicy</option>
+                        <option value="5">Extremely spicy</option>
+                    </select>
+                    <label for="sweetness"><b>Sweetness:</b></label>
+                    <select id="sweetness" name="sweetness" required>
+                        <option value="0" selected>Not sweet at all</option>
+                        <option value="1">Barely sweet</option>
+                        <option value="2">Mildly sweet</option>
+                        <option value="3">Moderately sweet</option>
+                        <option value="4">Very sweet</option>
+                        <option value="5">Extremely sweet</option>
+                    </select>
+                    <label for="sourness"><b>Sourness:</b></label>
+                    <select id="sourness" name="sourness" required>
+                        <option value="0" selected>Not sour at all</option>
+                        <option value="1">Slightly sour</option>
+                        <option value="2">Moderately sour</option>
+                        <option value="3">Quite sour</option>
+                        <option value="4">Very sour</option>
+                        <option value="5">Extremely sour</option>
+                    </select>
+                    <label for="texture"><b>Texture:</b></label>
+                    <select id="texture" name="texture" required>
+                        <option value="0" selected>Very Soft</option>
+                        <option value="1">Soft</option>
+                        <option value="2">Slightly Soft</option>
+                        <option value="3">Moderate</option>
+                        <option value="4">Slightly Hard</option>
+                        <option value="5">Hard</option>
+                    </select>
+                    <label for="temperature"><b>Temperature:</b></label>
+                    <select id="temperature" name="temperature" required>
+                        <option value="0" selected>Cold</option>
+                        <option value="1">Cool</option>
+                        <option value="2">Slightly Cool</option>
+                        <option value="3">Warm</option>
+                        <option value="4">Hot</option>
+                        <option value="5">Very Hot</option>
+                    </select>
+                    <label for="healthiness"><b>Healthiness:</b></label>
+                    <select id="healthiness" name="healthiness" required>
+                        <option value="0" selected>Not healthy at all</option>
+                        <option value="1">Unhealthy</option>
+                        <option value="2">Below average</option>
+                        <option value="3">Moderately healthy</option>
+                        <option value="4">Healthy</option>
+                        <option value="5">Very healthy</option>
+                    </select>
+                    <label for="rating"><b>Rating:</b></label>
+                    <select id="rating" name="rating" required>
+                        <option value="0" selected>Terrible</option>
+                        <option value="1">Bad</option>
+                        <option value="2">Below Average</option>
+                        <option value="3">Average</option>
+                        <option value="4">Good</option>
+                        <option value="5">Excellent</option>
+                    </select>
+                </div>
+                <div class="button-box" style="display: flex;">
+                    <button type="submit" class="button select-button">Review</button>
+                </div>
+            </form>
         </div>
-        {% endfor %}
-        {% else %}
-        <p>No shops available.</p>
-        {% endif %}
     </div>
-    <div class="button-box">
-        <form action="/reviews/shop/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="submit" class="button select-button">Leave a Review</button>
-        </form>
-    </div> -->
-
 </div>
+<script>
+    // Get the modal
+    var dietaryModal = document.getElementById("dietaryModal");
+    var ingredientModal = document.getElementById("ingredientModal");
+    var tasteModal = document.getElementById("tasteModal");
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == dietaryModal || event.target == ingredientModal || event.target == tasteModal) {
+            dietaryModal.style.display = "none";
+            ingredientModal.style.display = "none";
+            tasteModal.style.display = "none";
+        }
+    }
+</script>
 {% endblock %}

@@ -5,8 +5,6 @@ from utils.login import login_required
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
-# from models.priceModel import PriceManager
-# from models.shopModel import ShopManager
 from models.userModel import UserManager
 from models.tasteModel import TasteManager
 from config.db import db
@@ -16,23 +14,18 @@ users_bp = Blueprint('users', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
 user_manager = UserManager(db)
 selection_manager = TasteManager(db, firestore)
-# price_manager = PriceManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
-# shop_manager = ShopManager(db, firestore)
 nutrient_manager = NutrientManager(db, firestore)
 
 @users_bp.route('/')
 @login_required
 def history():
     user = user_manager.get_user_by_session(session)
-    # currency = price_manager.get_all_currency()
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
     nutrients = nutrient_manager.get_all_nutrients()
     combined_history = list(chain(
-        # price_manager.get_price_history(session['google_id']), 
-        # shop_manager.get_shop_history(session['google_id'])
         selection_manager.get_user_history(session['google_id']), 
         dietary_manager.get_dietary_history(session['google_id']), 
         ingredient_manager.get_ingredient_history(session['google_id']),
@@ -47,22 +40,6 @@ def deleteHistoryRoute():
         if selection_manager.delete_history(history_id):
             return redirect(url_for('users.history'))
     return redirect(url_for('users.history'))
-
-# @users_bp.route('/delete-price', methods=['POST'])
-# def deletePriceRoute():
-#     history_id = request.form.get('history_id')
-#     if history_id:
-#         if price_manager.delete_price(history_id):
-#             return redirect(url_for('users.history'))
-#     return redirect(url_for('users.history'))
-
-# @users_bp.route('/delete-shop', methods=['POST'])
-# def deleteShopRoute():
-#     history_id = request.form.get('history_id')
-#     if history_id:
-#         if shop_manager.delete_shop(history_id):
-#             return redirect(url_for('users.history'))
-#     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-dietary', methods=['POST'])
 def deleteDietaryRoute():

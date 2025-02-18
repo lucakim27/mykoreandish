@@ -8,7 +8,6 @@ from controllers.usersController import users_bp
 from controllers.adminController import admin_bp
 from controllers.requestController import request_bp
 from controllers.homeController import home_bp
-from controllers.reviewsController import reviews_bp
 from controllers.errorHandlersController import error_bp
 from config.nltk_config import initialize_nltk
 from config.config import Config
@@ -33,7 +32,6 @@ app.register_blueprint(ingredients_bp, url_prefix='/ingredients')
 app.register_blueprint(users_bp, url_prefix='/users')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(request_bp, url_prefix='/request')
-app.register_blueprint(reviews_bp, url_prefix='/reviews')
 app.register_blueprint(aboutus_bp, url_prefix='/aboutus')
 app.register_blueprint(privacy_bp, url_prefix='/privacy')
 app.register_blueprint(terms_bp, url_prefix='/terms')

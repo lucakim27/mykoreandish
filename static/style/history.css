@@ -36,18 +36,35 @@ ul#price_history li {
 }
 
 .price-point {
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
     align-items: center;
+}
+
+.close {
+    background: none;
+    border: none;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
 }
 
 .price-point .price {
     font-weight: bold;
     color: #d72638;
+    font-size: 1.5em;
 }
 
 .price-point .timestamp {
-    font-size: 0.9em;
+    font-size: 0.7em;
     color: #555;
 }
 
@@ -59,7 +76,7 @@ ul#price_history li {
     border: none;
     width: 100%;
     margin: 5px 0;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
@@ -111,13 +128,6 @@ form .form-select {
 
 form .form-select:last-child {
     margin-right: 0;
-}
-
-/* Info Message Styling */
-#price_history {
-    font-size: 18px;
-    font-weight: bold;
-    color: #888;
 }
 
 /* Responsive Design */

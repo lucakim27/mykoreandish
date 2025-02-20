@@ -9,19 +9,46 @@
         {% for item in combined_history|sort(attribute='timestamp', reverse=true) %}
         <li>
             <div class="price-point">
-                {% if item.nutrient is defined %}
-                    <span class="price">{{ item.ingredient }}</span>
-                {% else %}
-                    <span class="price">{{ item.dish_name }}</span>
+                {% if item.spiciness is defined %}
+                <form method="POST" action="{{ url_for('users.deleteHistoryRoute') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    <button type="submit" class="close">&times;</button>
+                </form>
+                
+                {% elif item.dietary is defined %}
+                <form method="POST" action="{{ url_for('users.deleteDietaryRoute') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    <button type="submit" class="close">&times;</button>
+                </form>
+                
+                {% elif item.ingredient is defined and item.dish_name is defined %}
+                <form method="POST" action="{{ url_for('users.deleteIngredientRoute') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    <button type="submit" class="close">&times;</button>
+                </form>
+                
+                {% elif item.nutrient is defined %}
+                <form method="POST" action="{{ url_for('users.deleteNutrientRoute') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    <button type="submit" class="close">&times;</button>
+                </form>
                 {% endif %}
-                <span class="timestamp">{{ item.timestamp | time_ago }}</span>
-            </div><br>
 
+                {% if item.nutrient is defined %}
+                <span class="price">{{ item.ingredient }}</span>
+                {% else %}
+                <span class="price">{{ item.dish_name }}</span>
+                {% endif %}
+                <span class="timestamp">({{ item.timestamp | time_ago }})</span>
+            </div><br>
+            
             {% if item.spiciness is defined %}
+            <label for=""></label>
             <form method="POST" action="{{ url_for('dishes.rate_dish') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">
 
                 <!-- Spiciness -->
+                <label for="spiciness"><b>Spiciness:</b></label>
                 <select id="spiciness-{{ item.id }}" name="spiciness">
                     <option value="0" {% if item.spiciness==0 %}selected{% endif %}>Not at all spicy</option>
                     <option value="1" {% if item.spiciness==1 %}selected{% endif %}>A little spicy</option>
@@ -32,6 +59,7 @@
                 </select>
 
                 <!-- Sweetness -->
+                <label for="sweetness"><b>Sweetness:</b></label>
                 <select id="sweetness-{{ item.id }}" name="sweetness">
                     <option value="0" {% if item.sweetness==0 %}selected{% endif %}>Not sweet at all</option>
                     <option value="1" {% if item.sweetness==1 %}selected{% endif %}>Barely sweet</option>
@@ -42,6 +70,7 @@
                 </select>
 
                 <!-- Sourness -->
+                <label for="sourness"><b>Sourness:</b></label>
                 <select id="sourness-{{ item.id }}" name="sourness">
                     <option value="0" {% if item.sourness==0 %}selected{% endif %}>Not sour at all</option>
                     <option value="1" {% if item.sourness==1 %}selected{% endif %}>Slightly sour</option>
@@ -52,6 +81,7 @@
                 </select>
 
                 <!-- Texture -->
+                <label for="texture"><b>Texture:</b></label>
                 <select id="texture-{{ item.id }}" name="texture">
                     <option value="0" {% if item.texture==0 %}selected{% endif %}>Very Soft</option>
                     <option value="1" {% if item.texture==1 %}selected{% endif %}>Soft</option>
@@ -62,6 +92,7 @@
                 </select>
 
                 <!-- Temperature -->
+                <label for="temperature"><b>Temperature:</b></label>
                 <select id="temperature-{{ item.id }}" name="temperature">
                     <option value="0" {% if item.temperature==0 %}selected{% endif %}>Cold</option>
                     <option value="1" {% if item.temperature==1 %}selected{% endif %}>Cool</option>
@@ -72,6 +103,7 @@
                 </select>
 
                 <!-- Healthiness -->
+                <label for="healthiness"><b>Healthiness:</b></label>
                 <select id="healthiness-{{ item.id }}" name="healthiness">
                     <option value="0" {% if item.healthiness==0 %}selected{% endif %}>Not healthy at all</option>
                     <option value="1" {% if item.healthiness==1 %}selected{% endif %}>Unhealthy</option>
@@ -82,6 +114,7 @@
                 </select>
 
                 <!-- Overall Rating -->
+                <label for="rating"><b>Rating:</b></label>
                 <select id="rating-{{ item.id }}" name="rating">
                     <option value="0" {% if item.rating==0 %}selected{% endif %}>Terrible</option>
                     <option value="1" {% if item.rating==1 %}selected{% endif %}>Bad</option>
@@ -94,15 +127,10 @@
                 <!-- Submit Button -->
                 <button type="submit" class="button update-button">Update</button>
             </form>
-
-            <!-- Delete Button -->
-            <form method="POST" action="{{ url_for('users.deleteHistoryRoute') }}" style="display:inline;">
-                <input type="hidden" name="history_id" value="{{ item.id }}">
-                <button type="submit" class="button delete-button">Delete</button>
-            </form>
             {% endif %}
             {% if item.dietary is defined %}
             <form method="POST" action="{{ url_for('dishes.update_dietary') }}" style="display:inline;">
+                <label for="dietary"><b>Dietary:</b></label>
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <select class="form-select" id="dietary" name="dietary">
                     {% for dietary in dietaries %}
@@ -112,13 +140,10 @@
                 </select>
                 <button type="submit" class="button update-button">Update</button>
             </form>
-            <form method="POST" action="{{ url_for('users.deleteDietaryRoute') }}" style="display:inline;">
-                <input type="hidden" name="history_id" value="{{ item.id }}">
-                <button type="submit" class="button delete-button">Delete</button>
-            </form>
             {% endif %}
             {% if item.ingredient is defined and item.dish_name is defined %}
             <form method="POST" action="{{ url_for('dishes.update_ingredient') }}" style="display:inline;">
+                <label for="ingredient"><b>Ingredient:</b></label>
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <select class="form-select" id="ingredient" name="ingredient">
                     {% for ingredient in ingredients %}
@@ -128,13 +153,10 @@
                 </select>
                 <button type="submit" class="button update-button">Update</button>
             </form>
-            <form method="POST" action="{{ url_for('users.deleteIngredientRoute') }}" style="display:inline;">
-                <input type="hidden" name="history_id" value="{{ item.id }}">
-                <button type="submit" class="button delete-button">Delete</button>
-            </form>
             {% endif %}
             {% if item.nutrient is defined %}
             <form method="POST" action="{{ url_for('ingredients.update_nutrient') }}" style="display:inline;">
+                <label for="nutrient"><b>Nutrient:</b></label>
                 <input type="hidden" name="history_id" value="{{ item.id }}">
                 <select class="form-select" id="nutrient" name="nutrient">
                     {% for nutrient in nutrients %}
@@ -143,10 +165,6 @@
                     {% endfor %}
                 </select>
                 <button type="submit" class="button update-button">Update</button>
-            </form>
-            <form method="POST" action="{{ url_for('users.deleteNutrientRoute') }}" style="display:inline;">
-                <input type="hidden" name="history_id" value="{{ item.id }}">
-                <button type="submit" class="button delete-button">Delete</button>
             </form>
             {% endif %}
         </li>

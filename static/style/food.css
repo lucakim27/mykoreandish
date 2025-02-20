@@ -20,7 +20,7 @@ body {
 /* Header Styling */
 .confirmation-container h2 {
     color: #d72638;
-    font-size: 2em;
+    font-size: 1.5em;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -37,11 +37,13 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dish-details th, 
 .dish-details td {
-    border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
 }
@@ -66,18 +68,17 @@ body {
 .dietary-tag, .ingredient-tag {
     background-color: #f0f0f0;
     padding: 8px 15px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 0.9em;
     color: #333;
     display: flex;
     align-items: center;
     gap: 5px;
-    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ingredient-tag {
-    text-decoration: underline;
-    color: #d72638;
+     color: #d72638;
     transition: transform 0.2s ease;
 }
 
@@ -143,6 +144,7 @@ body {
 .price-point .price {
     font-weight: bold;
     color: #333;
+    font-size: 1.5em
 }
 
 .shop-link {
@@ -152,7 +154,7 @@ body {
 }
 
 .price-point .timestamp {
-    font-size: 0.9em;
+    font-size: 0.7em;
     color: #555;
 }
 
@@ -214,11 +216,15 @@ body {
     border: none;
     width: 100%;
     margin: 5px 0;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content button:hover {
+    background-color: #a91d2c;
 }
 
 .close {

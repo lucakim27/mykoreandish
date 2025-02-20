@@ -1,7 +1,8 @@
 /* General Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f4ee; /* Light beige tone */
+    background-color: #f9f4ee;
+    /* Light beige tone */
     color: #333;
     line-height: 1.6;
     margin: 0;
@@ -23,7 +24,8 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     width: 90%;
     max-width: 665px;
-    margin: 0 auto; /* Center align the box */
+    margin: 0 auto;
+    /* Center align the box */
     font-size: 1em;
     margin-top: -17px;
 }
@@ -56,8 +58,11 @@ body {
     color: #333;
     margin-left: 5px;
 }
-.filter-box input[type="radio"], #filter-reset {
-    display: none; /* Hide the original radio button */
+
+.filter-box input[type="radio"],
+#filter-reset {
+    display: none;
+    /* Hide the original radio button */
 }
 
 .filter-box label {
@@ -72,24 +77,30 @@ body {
     line-height: 1;
 }
 
-.filter-box input[type="radio"]:checked + label {
-    background-color: #d72638; /* Change background color when selected */
-    color: white; /* Change text color when selected */
+.filter-box input[type="radio"]:checked+label {
+    background-color: #d72638;
+    /* Change background color when selected */
+    color: white;
+    /* Change text color when selected */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .filter-box label:hover {
-    background-color: #f0f0f0; /* Slightly darker background on hover */
+    background-color: #f0f0f0;
+    /* Slightly darker background on hover */
 }
 
 .filter-box input[type="radio"]:hover {
-    transform: scale(1.4); /* Slightly enlarge on hover */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+    transform: scale(1.4);
+    /* Slightly enlarge on hover */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    /* Add a subtle shadow on hover */
 }
 
 @media (max-width: 768px) {
     .filter-options input[type="radio"] {
-        transform: scale(1.2); /* Slightly smaller on smaller screens */
+        transform: scale(1.2);
+        /* Slightly smaller on smaller screens */
     }
 }
 
@@ -129,7 +140,8 @@ body {
     text-align: center;
     margin-bottom: 20px;
     display: flex;
-    justify-content: center; /* Center align the search bar */
+    justify-content: center;
+    /* Center align the search bar */
 }
 
 #search-input {
@@ -141,7 +153,10 @@ body {
     border-radius: 10px;
 }
 
-#options, #spiciness, #ingredient, #dietary {
+#options,
+#spiciness,
+#ingredient,
+#dietary {
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ccc;
@@ -149,7 +164,9 @@ body {
     margin: 0 10px;
 }
 
-#spiciness, #ingredient, #dietary {
+#spiciness,
+#ingredient,
+#dietary {
     display: none;
 }
 
@@ -178,6 +195,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 /* 
 .food-box:hover {
     transform: translateY(-5px);
@@ -186,7 +204,8 @@ body {
 
 .food-box h2 {
     font-size: 1.5em;
-    color: #d72638; /* Vibrant red for dish names */
+    color: #d72638;
+    /* Vibrant red for dish names */
     margin-bottom: 10px;
 }
 
@@ -211,7 +230,8 @@ body {
 }
 
 .food-box-button:hover {
-    background-color: #a91d2c; /* Slightly darker red for hover */
+    background-color: #a91d2c;
+    /* Slightly darker red for hover */
 }
 
 /* No Matches Found */
@@ -219,7 +239,8 @@ body {
     text-align: center;
     margin-top: 30px;
     padding: 20px;
-    background-color: #ffffff; /* Very light orange for contrast */
+    background-color: #ffffff;
+    /* Very light orange for contrast */
     border: 1px solid #ccc;
     border-radius: 10px;
 }
@@ -253,7 +274,7 @@ body {
     border: none;
     padding: 10px 15px;
     font-size: 1em;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

@@ -79,8 +79,9 @@ class IngredientManager:
                 ingredient_count[ingredient] = 1
                 total += 1
 
-        for ingredient in ingredient_count:
-            ingredient_count[ingredient] = round(ingredient_count[ingredient] / total * 100, 1)
+        if total is not 0:
+            for ingredient in ingredient_count:
+                ingredient_count[ingredient] = round(ingredient_count[ingredient] / total * 100, 1)
 
         return ingredient_count
     

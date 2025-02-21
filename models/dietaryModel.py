@@ -70,9 +70,10 @@ class DietaryManager:
             if dietary.dietary in dietary_count:
                 dietary_count[dietary.dietary] += 1
                 total += 1
-                
-        for dietary in dietary_count:
-            dietary_count[dietary] = round(dietary_count[dietary] / total * 100, 1)
+        
+        if total is not 0:
+            for dietary in dietary_count:
+                dietary_count[dietary] = round(dietary_count[dietary] / total * 100, 1)
         
         return dietary_count
 

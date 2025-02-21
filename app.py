@@ -9,13 +9,11 @@ from controllers.adminController import admin_bp
 from controllers.requestController import request_bp
 from controllers.homeController import home_bp
 from controllers.errorHandlersController import error_bp
-from config.nltk_config import initialize_nltk
 from config.config import Config
 from controllers.aboutusController import aboutus_bp
 from controllers.privacyController import privacy_bp
 from controllers.termsController import terms_bp
 
-initialize_nltk()
 app = Flask(__name__)
 app.secret_key = Config.SECRET_KEY
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = Config.OAUTHLIB_INSECURE_TRANSPORT

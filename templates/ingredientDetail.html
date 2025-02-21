@@ -13,7 +13,7 @@
         {% if dishes %}
         {% for dish in dishes %}
         <a href="/dishes/{{ dish }}" class="ingredient-tag">
-            <i class="icon-{{ dish | lower }}"></i> {{ dish }}
+            <i class="icon-{{ dish | lower }}"></i> <b>{{ dish }}</b>
         </a>
         {% endfor %}
         {% else %}
@@ -24,10 +24,10 @@
     <h3>Nutrients</h3>
     <div class="dietary-tags">
         {% if nutrient %}
-        {% for nutrient, count in nutrient.items() %}
+        {% for nutrient, count in nutrient.items() | sort(attribute='1', reverse=True) %}
         {% if count > 0 %}
         <span class="dietary-tag">
-            <i class="icon-{{ nutrient }}"></i> {{ nutrient }} ({{ count }})
+            <i class="icon-{{ nutrient }}"></i> {{ nutrient }} ({{ count }}%)
         </span>
         {% endif %}
         {% endfor %}
@@ -44,7 +44,8 @@
 
     <div id="nutrientModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <h2>{{ ingredient.korean_name }}</h2>
+            <span class="close" onclick="document.getElementById('nutrientModal').style.display='none'">&times;</span>
+            <h2 style="margin-left: 16px;">{{ ingredient.korean_name }}</h2>
             <form method="POST" action="/ingredients/nutrient_review/{{ ingredient.ingredient }}">
                 <label for="nutrient"><b>Nutrient:</b></label>
                 <select id="nutrient" name="nutrient" required>

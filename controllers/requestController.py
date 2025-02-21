@@ -8,11 +8,6 @@ request_bp = Blueprint('request', __name__)
 request_manager = RequestManager(db, firestore)
 user_manager = UserManager(db)
 
-@request_bp.route('/')
-def request_page():
-    user = user_manager.get_user_by_session(session)
-    return render_template('request.html', user=user)
-
 @request_bp.route('/submit-request', methods=['POST'])
 def submit_request():
     name = request.form.get('name')

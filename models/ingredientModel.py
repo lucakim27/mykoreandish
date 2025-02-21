@@ -68,16 +68,19 @@ class IngredientManager:
         ingredients = ingredient_ref.stream()
         
         ingredients_list = [ingredient.to_dict().get('ingredient') for ingredient in ingredients]
-    
-        if not ingredients_list:
-            return {}
 
+        total = 0
         ingredient_count = {}
         for ingredient in ingredients_list:
             if ingredient in ingredient_count:
                 ingredient_count[ingredient] += 1
+                total += 1
             else:
                 ingredient_count[ingredient] = 1
+                total += 1
+
+        for ingredient in ingredient_count:
+            ingredient_count[ingredient] = round(ingredient_count[ingredient] / total * 100, 1)
 
         return ingredient_count
     

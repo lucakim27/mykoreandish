@@ -81,7 +81,7 @@ footer {
 .dropdown-menu {
     position: absolute;
     top: 40px;
-    right: 0;
+    right: 5px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
@@ -138,6 +138,7 @@ footer {
     gap: 5px;
     padding: 5px;
     transition: transform 0.2s ease;
+    box-shadow: none;
 }
 
 .menu span {

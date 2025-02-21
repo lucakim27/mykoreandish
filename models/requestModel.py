@@ -24,7 +24,7 @@ class RequestManager:
             }
             
             self.requests_ref.add(request_data)
-            flash(f"Request for '{request_instance.name}' added successfully!")
+            flash(f"Request for '{request_instance.name}' added successfully!", 'success')
         except firestore.exceptions.FirestoreError as e:
             flash(f'Error adding request: {e}', 'error')
             print(f"Error: {e}")

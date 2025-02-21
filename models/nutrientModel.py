@@ -62,16 +62,19 @@ class NutrientManager:
         nutrients = nutrient_ref.stream()
         
         nutrients_list = [nutrient.to_dict().get('nutrient') for nutrient in nutrients]
-    
-        if not nutrients_list:
-            return {}
 
+        total = 0
         nutrient_count = {}
         for nutrient in nutrients_list:
             if nutrient in nutrient_count:
                 nutrient_count[nutrient] += 1
+                total += 1
             else:
                 nutrient_count[nutrient] = 1
+                total += 1
+        
+        for nutrient in nutrient_count:
+            nutrient_count[nutrient] = round(nutrient_count[nutrient] / total * 100, 2)
 
         return nutrient_count
 

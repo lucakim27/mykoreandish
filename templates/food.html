@@ -11,10 +11,10 @@
     <h3>Dietary</h3>
     <div class="dietary-tags">
         {% if dietary %}
-        {% for diet, count in dietary.items() %}
+        {% for diet, count in dietary.items() | sort(attribute='1', reverse=True) %}
         {% if count > 0 %}
         <span class="dietary-tag">
-            <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ count }})
+            <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ count }}%)
         </span>
         {% endif %}
         {% endfor %}
@@ -47,10 +47,10 @@
     <h3>Ingredient</h3>
     <div class="ingredients-list">
         {% if ingredient %}
-        {% for ingredient, count in ingredient.items() %}
+        {% for ingredient, count in ingredient.items() | sort(attribute='1', reverse=True) %}
         {% if count > 0 %}
         <a href="/ingredients/{{ ingredient }}" class="ingredient-tag">
-            <i class="icon-{{ ingredient | lower }}"></i> {{ ingredient }} ({{ count }})
+            <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b> ({{ count }}%)
         </a>
         {% endif %}
         {% endfor %}

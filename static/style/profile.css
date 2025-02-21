@@ -13,7 +13,7 @@ body {
     margin: 50px auto;
     padding: 30px;
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
@@ -22,6 +22,8 @@ table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fafafa;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 th, td {
@@ -29,7 +31,6 @@ th, td {
     text-align: left;
     font-size: 1.1em;
     color: #555;
-    border-bottom: 1px solid #ddd;
 }
 
 th {

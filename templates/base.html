@@ -35,7 +35,7 @@
                             <span></span>
                         </button>
                     {% endif %}
-                    <div class="dropdown-menu">
+                    <div id="dropdown-menu" class="dropdown-menu">
                         {% if session.get('google_id') %}
                         {% if user.get('admin') %}
                         <a href="/admin">Admin</a>
@@ -48,14 +48,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            function toggleDropdown() {
-                const menu = document.querySelector('.menu');
-                menu.classList.toggle('open');
-                var dropdown = event.target.closest('.user-dropdown');
-                dropdown.classList.toggle('show-dropdown');
-            }
-        </script>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <div class="flashes">
@@ -75,5 +67,14 @@
         </footer>
     </div>
 </body>
+
+<script>
+    function toggleDropdown() {
+        const menu = document.querySelector('.menu');
+        menu.classList.toggle('open');
+        var dropdown = event.target.closest('.user-dropdown');
+        dropdown.classList.toggle('show-dropdown');
+    }
+</script>
 
 </html>

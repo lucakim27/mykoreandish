@@ -6,7 +6,7 @@
 {% block content %}
 <div class="confirmation-container">
     <h2>{{ ingredient.korean_name }}</h2>
-    <p><b>{{ ingredient.ingredient }}</b> that {{ ingredient.description }}</p>
+    <p><b>{{ ingredient.ingredient }}</b> which is {{ ingredient.description }}</p>
     
     <h3>Dishes</h3>
     <div class="ingredients-list">
@@ -58,14 +58,4 @@
         </div>
     </div>
 </div>
-<script>
-    // Get the modal
-    var nutrientModal = document.getElementById("nutrientModal");
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == nutrientModal) {
-            nutrientModal.style.display = "none";
-        }
-    }
-</script>
 {% endblock %}

@@ -100,29 +100,6 @@ body {
     background-color: #a91d2c;
 }
 
-/* Responsiveness */
-@media (max-width: 768px) {
-
-    .introduction-form,
-    .description-form {
-        padding: 15px;
-        max-width: 90%;
-    }
-
-    .introduction-form img {
-        max-width: 100%;
-    }
-
-    .introduction-form h3,
-    .description-form h2 {
-        font-size: 1.5em;
-    }
-
-    .description-form textarea,
-    select {
-        font-size: 0.9em;
-    }
-}
 
 select {
     width: 90%;
@@ -146,4 +123,66 @@ textarea {
 
 select:focus {
     background-color: #ffffff;
+}
+
+.carousel {
+    background: white;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    max-width: 800px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    text-align: center;
+}
+
+.slide {
+    position: absolute;
+    top: 50%;            /* Vertically center */
+    left: 50%;           /* Horizontally center */
+    transform: translate(-50%, -50%); /* Offset by half of its own width/height to truly center it */
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide h3 {
+    font-size: 1.5em;
+    color: #d72638;
+    margin-bottom: 10px;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide ul li {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    color: #333;
+    margin: 10px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+
+    .introduction-form,
+    .description-form,
+    .carousel {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .introduction-form h3,
+    .description-form h2 {
+        font-size: 1.5em;
+    }
+
+    .description-form textarea,
+    select {
+        font-size: 0.9em;
+    }
 }

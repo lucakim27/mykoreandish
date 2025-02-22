@@ -9,6 +9,71 @@
   <p>A website that reviews <b>korean cuisines</b> based on ingredients with nutrients, dietary preferences and detailed taste reviews.</p>
 </div>
 
+<div class="carousel">
+  <div class="slide active">
+    <h3>Spiciness</h3>
+    <ul>
+      {% for dish in top_spicy %}
+        <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h3>Sweetness</h3>
+    <ul>
+      {% for dish in top_sweet %}
+        <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h3>Sourness</h3>
+    <ul>
+      {% for dish in top_sour %}
+        <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h3>Healthiness</h3>
+    <ul>
+      {% for dish in top_healthy %}
+        <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h3>Temperature</h3>
+    <ul>
+      {% for dish in top_temperature %}
+        <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h3>Rating</h3>
+    <ul>
+      {% for dish in top_rating %}
+        <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h3>Texture</h3>
+    <ul>
+      {% for dish in top_texture %}
+        <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
 <div class="explore-section">
   <form action="/dishes" method="post" class="introduction-form">
     <h3>요리</h3>
@@ -23,44 +88,19 @@
   </form>
 </div>
 
-<!-- <form action="/dishes/filter" method="post" class="description-form">
-  <h2>Filter</h2>
-  <div id="filter-dropdown">
-    <select name="filter" id="filter" onchange="showFilterOptions()" required>
-      <option value="" disabled selected>Select a filter</option>
-      <option value="ingredient">Ingredient</option>
-      <option value="dietary">Dietary</option>
-    </select>
-  </div>
-  <div id="ingredient" style="display:none;">
-    <select name="ingredient" id="ingredient-select">
-      {% for ingredient in ingredients %}
-      <option value="{{ ingredient.ingredient }}">{{ ingredient.ingredient }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div id="dietary" style="display:none;">
-    <select name="dietary" id="dietary-select">
-      {% for dietary in dietaries %}
-      <option value="{{ dietary.dietary }}">{{ dietary.dietary }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <button type="submit">Filter My Dish</button>
-</form> -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let slides = document.querySelectorAll(".slide");
+    let currentIndex = 0;
 
-<!-- <script>
-  function showFilterOptions() {
-    document.getElementById('ingredient').style.display = 'none';
-    document.getElementById('dietary').style.display = 'none';
-
-    const selectedFilter = document.getElementById('filter').value;
-
-    if (selectedFilter === 'ingredient') {
-      document.getElementById('ingredient').style.display = 'block';
-    } else if (selectedFilter === 'dietary') {
-      document.getElementById('dietary').style.display = 'block';
+    function showNextSlide() {
+      slides[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex].classList.add("active");
     }
-  }
-</script> -->
+
+    setInterval(showNextSlide, 5000); // Switch slide every 5 seconds
+  });
+</script>
+
 {% endblock %}

@@ -6,7 +6,7 @@
 {% block content %}
 <div class="confirmation-container">
     <h2>{{ dish.korean_name }}</h2>
-    <p><b>{{ dish.dish_name }}</b> that {{ dish.description }}</p>
+    <p><b>{{ dish.dish_name }}</b> which is {{ dish.description }}</p>
 
     <h3>Dietary</h3>
     <div class="dietary-tags">
@@ -196,19 +196,4 @@
         </div>
     </div>
 </div>
-<script>
-    // Get the modal
-    var dietaryModal = document.getElementById("dietaryModal");
-    var ingredientModal = document.getElementById("ingredientModal");
-    var tasteModal = document.getElementById("tasteModal");
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == dietaryModal || event.target == ingredientModal || event.target == tasteModal) {
-            dietaryModal.style.display = "none";
-            ingredientModal.style.display = "none";
-            tasteModal.style.display = "none";
-        }
-    }
-</script>
 {% endblock %}

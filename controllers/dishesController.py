@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
+from models.cacheModel import CacheManager
 from utils.login import login_required
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
@@ -15,6 +16,7 @@ user_manager = UserManager(db)
 selection_manager = TasteManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
+cache_manager = CacheManager(db)
 
 @dishes_bp.route('/', methods=['POST'])
 def explore():
@@ -57,6 +59,118 @@ def ingredientFilter():
     return render_template(
         'search.html', 
         user=user, 
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
+
+@dishes_bp.route('/spiciness', methods=['POST'])
+def spicinessFilter():
+    user = user_manager.get_user_by_session(session)
+    spiciness = request.form.get('spiciness')
+    dish_names = cache_manager.get_dishes_by_spiciness(spiciness)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user,
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
+
+@dishes_bp.route('/sweetness', methods=['POST'])
+def sweetnessFilter():
+    user = user_manager.get_user_by_session(session)
+    sweetness = request.form.get('sweetness')
+    dish_names = cache_manager.get_dishes_by_sweetness(sweetness)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user,
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
+
+@dishes_bp.route('/sourness', methods=['POST'])
+def sournessFilter():
+    user = user_manager.get_user_by_session(session)
+    sourness = request.form.get('sourness')
+    dish_names = cache_manager.get_dishes_by_sourness(sourness)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user,
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
+
+@dishes_bp.route('/texture', methods=['POST'])
+def textureFilter():
+    user = user_manager.get_user_by_session(session)
+    texture = request.form.get('texture')
+    dish_names = cache_manager.get_dishes_by_texture(texture)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user,
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
+
+@dishes_bp.route('/temperature', methods=['POST'])
+def temperatureFilter():
+    user = user_manager.get_user_by_session(session)
+    temperature = request.form.get('temperature')
+    dish_names = cache_manager.get_dishes_by_temperature(temperature)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user,
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
+
+@dishes_bp.route('/healthiness', methods=['POST'])
+def healthinessFilter():
+    user = user_manager.get_user_by_session(session)
+    healthiness = request.form.get('healthiness')
+    dish_names = cache_manager.get_dishes_by_healthiness(healthiness)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user,
+        recommendation=dishes,
+        dietaries=dietaries,
+        ingredients=ingredients
+    )
+
+@dishes_bp.route('/rating', methods=['POST'])
+def ratingFilter():
+    user = user_manager.get_user_by_session(session)
+    rating = request.form.get('rating')
+    dish_names = cache_manager.get_dishes_by_rating(rating)
+    dishes = manager.get_dish_instances(dish_names)
+    dietaries = dietary_manager.get_all_dietaries()
+    ingredients = ingredient_manager.get_all_ingredients()
+    return render_template(
+        'search.html', 
+        user=user,
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients

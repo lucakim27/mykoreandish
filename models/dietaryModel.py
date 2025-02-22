@@ -61,21 +61,22 @@ class DietaryManager:
 
         dietary_count = {}
 
-        for dietary_type in all_dietaries:
-            dietary_count[dietary_type] = 0
-
         total = 0
 
         for dietary in dietaries_list:
             if dietary.dietary in dietary_count:
                 dietary_count[dietary.dietary] += 1
                 total += 1
+            else:
+                dietary_count[dietary.dietary] = 1
+                total += 1
         
         if total is not 0:
             for dietary in dietary_count:
                 dietary_count[dietary] = round(dietary_count[dietary] / total * 100, 1)
-        
+                
         return dietary_count
+    
 
     def get_dietary_history(self, google_id: str) -> List[Dict[str, Any]]:
         dietary_ref = self.dietaries_ref.where('google_id', '==', google_id)

@@ -196,6 +196,7 @@ body {
     height: 220px;
     display: flex;
     flex-direction: column;
+    position: relative; /* Make the container relative so the button can be positioned absolutely inside */
 }
 
 /* 
@@ -427,4 +428,15 @@ body {
 
 .criteria-form button:hover {
     background-color: #a91d2c;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 10px;   /* Distance from the top of the .food-box */
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    transition: transform 0.2s ease-in-out;
+    color: #d72638;
 }

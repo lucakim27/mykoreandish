@@ -2,9 +2,23 @@
 {% block title %}{{ ingredient.ingredient | capitalize }}{% endblock %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='style/food.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 {% endblock %}
 {% block content %}
 <div class="confirmation-container">
+    {% if ingredient.ingredient in favorites %}
+    <form action="/favorite/delete/ingredient/{{ ingredient.ingredient }}" method="POST">
+        <button class="favorite-btn" type="submit">
+            <i class="fa-solid fa-heart" style="color: #d72638;"></i> <!-- Filled Heart -->
+        </button>
+    </form>
+    {% else %}
+    <form action="/favorite/add/ingredient/{{ ingredient.ingredient }}" method="POST">
+        <button class="favorite-btn" type="submit">
+            <i class="fa-regular fa-heart"></i> <!-- Empty Heart -->
+        </button>
+    </form>
+    {% endif %}
     <h2>{{ ingredient.korean_name }}</h2>
     <p><b>{{ ingredient.ingredient }}</b> which is {{ ingredient.description }}</p>
     

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
 # from models.cacheModel import CacheManager
+from models.favoriteModel import FavoriteManager
 from utils.login import login_required
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
@@ -17,6 +18,7 @@ selection_manager = TasteManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
 # cache_manager = CacheManager(db)
+favorite_manager = FavoriteManager(db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def explore():
@@ -24,12 +26,14 @@ def explore():
     dishes = manager.all_search()
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
+    favorites = favorite_manager.get_all_favorites(user)
     return render_template(
         'search.html', 
         user=user,
         ingredients=ingredients,
         recommendation=dishes,
-        dietaries=dietaries
+        dietaries=dietaries,
+        favorites=favorites
     )
 
 @dishes_bp.route('/dietary', methods=['POST'])
@@ -185,6 +189,7 @@ def food(name=None):
     tastes = selection_manager.get_dish_rating(name)
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
+    favorites = favorite_manager.get_all_favorites(user)
     return render_template(
         'food.html',
         user=user, 
@@ -193,7 +198,8 @@ def food(name=None):
         ingredient=ingredient,
         tastes=tastes,
         dietaries=dietaries,
-        ingredients=ingredients
+        ingredients=ingredients,
+        favorites=favorites
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])

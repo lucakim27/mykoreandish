@@ -13,6 +13,7 @@ from config.config import Config
 from controllers.aboutusController import aboutus_bp
 from controllers.privacyController import privacy_bp
 from controllers.termsController import terms_bp
+from controllers.favoriteController import favorite_bp
 
 app = Flask(__name__)
 app.secret_key = Config.SECRET_KEY
@@ -33,6 +34,7 @@ app.register_blueprint(request_bp, url_prefix='/request')
 app.register_blueprint(aboutus_bp, url_prefix='/aboutus')
 app.register_blueprint(privacy_bp, url_prefix='/privacy')
 app.register_blueprint(terms_bp, url_prefix='/terms')
+app.register_blueprint(favorite_bp, url_prefix='/favorite')
 app.register_blueprint(home_bp)
 app.register_blueprint(error_bp)
 

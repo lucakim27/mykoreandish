@@ -14,6 +14,7 @@ body {
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
+    position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -243,4 +244,20 @@ body {
 @keyframes modalopen {
     from {opacity: 0}
     to {opacity: 1}
+}
+
+.favorite-btn {
+    position: absolute;
+    background: none;
+    right: 10px;
+    top: 10px;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    color: #d72638;
+}
+
+.favorite-btn:active {
+    transform: scale(1.2);
 }

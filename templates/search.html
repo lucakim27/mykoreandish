@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='style/search.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 {% endblock %}
 {% block content %}
 <div id="recommendation-results">
@@ -156,6 +157,13 @@
         {% for dish in recommendation %}
         <li class="food-item">
             <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
+                <button type="button" class="favorite-btn">
+                    {% if dish.dish_name in favorites %}
+                        <i class="fa-solid fa-heart" style="color: #d72638;"></i> <!-- Filled Heart -->
+                    {% else %}
+                        <i class="fa-regular fa-heart"></i> <!-- Empty Heart -->
+                    {% endif %}
+                </button>
                 <h2>{{ dish.korean_name }}</h2>
                 <p><b>{{ dish.dish_name }}</b> which is {{ dish.description }}</p>
                 <button type="submit" class="food-box-button">See More</button>
@@ -236,7 +244,7 @@
         } else if (document.getElementById("filter-dietary").checked) {
             dietaryOptions.style.display = "block";
         } 
-        
+
         // else if (document.getElementById("filter-spiciness").checked) {
         //     spicinessOptions.style.display = "block";
         // } else if (document.getElementById("filter-sweetness").checked) {

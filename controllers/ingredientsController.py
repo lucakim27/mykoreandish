@@ -1,5 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from models.dishModel import DishManager
+from models.favoriteModel import FavoriteManager
 from models.ingredientModel import IngredientManager
 from config.db import db
 from firebase_admin import firestore
@@ -12,6 +13,7 @@ ingredient_manager = IngredientManager(db, firestore)
 user_manager = UserManager(db)
 nutrient_manager = NutrientManager(db, firestore)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
+favorite_manager = FavoriteManager(db, firestore)
 
 @ingredients_bp.route('/', methods=['POST'])
 def ingredientsController():
@@ -19,12 +21,14 @@ def ingredientsController():
     ingredients = ingredient_manager.get_all_ingredients()
     nutrients = nutrient_manager.get_all_nutrients()
     dishes = dish_manager.get_all_dishes()
+    favorites = favorite_manager.get_all_favorites(user)
     return render_template(
         'ingredientSearch.html', 
         user=user,
         nutrients=nutrients,
         dishes=dishes,
-        recommendation=ingredients
+        recommendation=ingredients,
+        favorites=favorites
     )
 
 @ingredients_bp.route('/nutrient', methods=['POST'])
@@ -35,12 +39,14 @@ def nutrientFilterController():
     ingredients = ingredient_manager.get_ingredients_instance(ingredients_name)
     nutrients = nutrient_manager.get_all_nutrients()
     dishes = dish_manager.get_all_dishes()
+    favorites = favorite_manager.get_all_favorites(user)
     return render_template(
         'ingredientSearch.html', 
         user=user, 
         dishes=dishes,
         nutrients=nutrients,
-        recommendation=ingredients
+        recommendation=ingredients,
+        favorites=favorites
     )
 
 @ingredients_bp.route('/dish', methods=['POST'])
@@ -51,12 +57,14 @@ def ingredientFilterController():
     ingredients = ingredient_manager.get_ingredients_instance(ingredients_name)
     nutrients = nutrient_manager.get_all_nutrients()
     dishes = dish_manager.get_all_dishes()
+    favorites = favorite_manager.get_all_favorites(user)
     return render_template(
         'ingredientSearch.html', 
         user=user, 
         dishes=dishes,
         nutrients=nutrients,
-        recommendation=ingredients
+        recommendation=ingredients,
+        favorites=favorites
     )
 
 @ingredients_bp.route('/<name>', methods=['GET', 'POST'])
@@ -66,13 +74,15 @@ def ingredientsListController(name=None):
     nutrient = nutrient_manager.get_nutrient(name)
     dishes = ingredient_manager.get_dishes_by_ingredient(name)
     nutrients = nutrient_manager.get_all_nutrients()
+    favorites = favorite_manager.get_all_favorites(user)
     return render_template(
         'ingredientDetail.html',
         user=user,
         dishes=dishes,
         ingredient=ingredient,
         nutrient=nutrient,
-        nutrients=nutrients
+        nutrients=nutrients,
+        favorites=favorites
     )
 
 @ingredients_bp.route('/nutrient_review/<name>', methods=['POST'])

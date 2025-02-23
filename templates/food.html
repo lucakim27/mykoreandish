@@ -2,9 +2,23 @@
 {% block title %}{{ dish.dish_name | capitalize }}{% endblock %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='style/food.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 {% endblock %}
 {% block content %}
 <div class="confirmation-container">
+    {% if dish.dish_name in favorites %}
+    <form action="/favorite/delete/dish/{{ dish.dish_name }}" method="POST">
+        <button class="favorite-btn" type="submit">
+            <i class="fa-solid fa-heart" style="color: #d72638;"></i> <!-- Filled Heart -->
+        </button>
+    </form>
+    {% else %}
+    <form action="/favorite/add/dish/{{ dish.dish_name }}" method="POST">
+        <button class="favorite-btn" type="submit">
+            <i class="fa-regular fa-heart"></i> <!-- Empty Heart -->
+        </button>
+    </form>
+    {% endif %}
     <h2>{{ dish.korean_name }}</h2>
     <p><b>{{ dish.dish_name }}</b> which is {{ dish.description }}</p>
 
@@ -24,7 +38,8 @@
     </div>
     <div class="button-box">
         <div style="display:inline;">
-            <button type="button" class="button select-button" onclick="document.getElementById('dietaryModal').style.display='block'">Review Dietary</button>
+            <button type="button" class="button select-button"
+                onclick="document.getElementById('dietaryModal').style.display='block'">Review Dietary</button>
         </div>
     </div><br>
 
@@ -60,7 +75,8 @@
     </div>
     <div class="button-box">
         <form action="/reviews/ingredient/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="button" class="button select-button" onclick="document.getElementById('ingredientModal').style.display='block'">Review Ingredient</button>
+            <button type="button" class="button select-button"
+                onclick="document.getElementById('ingredientModal').style.display='block'">Review Ingredient</button>
         </form>
     </div><br>
 
@@ -115,7 +131,8 @@
 
     <div class="button-box">
         <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="button" class="button select-button" onclick="document.getElementById('tasteModal').style.display='block'">Review Taste</button>
+            <button type="button" class="button select-button"
+                onclick="document.getElementById('tasteModal').style.display='block'">Review Taste</button>
         </form>
     </div><br>
 

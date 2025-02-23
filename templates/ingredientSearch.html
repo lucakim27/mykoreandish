@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='style/search.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 {% endblock %}
 {% block content %}
 <div id="recommendation-results">
@@ -52,6 +53,13 @@
         {% for ingredient in recommendation %}
         <li class="food-item">
             <form action="/ingredients/{{ ingredient.ingredient }}" method="POST" class="food-box">
+                <button type="button" class="favorite-btn" onclick="toggleFavorite(this)">
+                    {% if ingredient.ingredient  in favorites %}
+                        <i class="fa-solid fa-heart" style="color: #d72638;"></i> <!-- Filled Heart -->
+                    {% else %}
+                        <i class="fa-regular fa-heart"></i> <!-- Empty Heart -->
+                    {% endif %}
+                </button>
                 <h2>{{ ingredient.korean_name }}</h2>
                 <p><b>{{ ingredient.ingredient }}</b> that {{ ingredient.description }}</p>
                 <button type="submit" class="food-box-button">See More</button>

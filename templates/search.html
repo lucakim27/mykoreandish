@@ -23,7 +23,7 @@
                     <input type="radio" id="filter-ingredient" name="filter" value="ingredient" onclick="showFilterOptions()">
                     <label for="filter-ingredient">Ingredient</label>
                 </div>
-                <!-- <div>
+                <div>
                     <input type="radio" id="filter-spiciness" name="filter" value="spiciness" onclick="showFilterOptions()">
                     <label for="filter-spiciness">Spiciness</label>
                 </div>
@@ -50,7 +50,7 @@
                 <div>
                     <input type="radio" id="filter-healthiness" name="filter" value="healthiness" onclick="showFilterOptions()">
                     <label for="filter-healthiness">Healthiness</label>
-                </div> -->
+                </div>
                 <form action="/dishes" method="POST">
                     <button type="submit" id="filter-reset" name="filter" value="reset"></button>
                     <label for="filter-reset">Reset</label>
@@ -72,9 +72,9 @@
                 </select>
                 <button type="submit" class="food-box-button">Filter Out</button>
             </form>
-            <!-- <form action="/dishes/spiciness" method="POST" id="spiciness-options" class="filter-options" style="display: none;">
+            <form action="/dishes/spiciness" method="POST" id="spiciness-options" class="filter-options" style="display: none;">
                 <select id="spiciness-select" name="spiciness" required>
-                    <option value="0" selected>Not at all spicy</option>
+                    <option value="0" selected>Not spicy at all</option>
                     <option value="1">A little spicy</option>
                     <option value="2">Mildly spicy</option>
                     <option value="3">Moderately spicy</option>
@@ -148,7 +148,7 @@
                     <option value="5">Excellent</option>
                 </select>
                 <button type="submit" class="food-box-button">Filter Out</button>
-            </form> -->
+            </form>
         </div>
     </div>
     
@@ -201,7 +201,6 @@
 </div>
 
 <script>
-    // Function to filter the dishes based on the search input
     function filterDishes() {
         let input = document.getElementById("search-input").value.toLowerCase();
         let foodItems = document.querySelectorAll(".food-item");
@@ -221,45 +220,43 @@
     function showFilterOptions() {
         let ingredientOptions = document.getElementById("ingredient-options");
         let dietaryOptions = document.getElementById("dietary-options");
-        // let spicinessOptions = document.getElementById("spiciness-options");
-        // let sweetnessOptions = document.getElementById("sweetness-options");
-        // let sournessOptions = document.getElementById("sourness-options");
-        // let textureOptions = document.getElementById("texture-options");
-        // let temperatureOptions = document.getElementById("temperature-options");
-        // let healthinessOptions = document.getElementById("healthiness-options");
-        // let ratingOptions = document.getElementById("rating-options");
+        let spicinessOptions = document.getElementById("spiciness-options");
+        let sweetnessOptions = document.getElementById("sweetness-options");
+        let sournessOptions = document.getElementById("sourness-options");
+        let textureOptions = document.getElementById("texture-options");
+        let temperatureOptions = document.getElementById("temperature-options");
+        let healthinessOptions = document.getElementById("healthiness-options");
+        let ratingOptions = document.getElementById("rating-options");
 
         ingredientOptions.style.display = "none";
         dietaryOptions.style.display = "none";
-        // spicinessOptions.style.display = "none";
-        // sweetnessOptions.style.display = "none";
-        // sournessOptions.style.display = "none";
-        // textureOptions.style.display = "none";
-        // temperatureOptions.style.display = "none";
-        // healthinessOptions.style.display = "none";
-        // ratingOptions.style.display = "none";
+        spicinessOptions.style.display = "none";
+        sweetnessOptions.style.display = "none";
+        sournessOptions.style.display = "none";
+        textureOptions.style.display = "none";
+        temperatureOptions.style.display = "none";
+        healthinessOptions.style.display = "none";
+        ratingOptions.style.display = "none";
 
         if (document.getElementById("filter-ingredient").checked) {
             ingredientOptions.style.display = "block";
         } else if (document.getElementById("filter-dietary").checked) {
             dietaryOptions.style.display = "block";
-        } 
-
-        // else if (document.getElementById("filter-spiciness").checked) {
-        //     spicinessOptions.style.display = "block";
-        // } else if (document.getElementById("filter-sweetness").checked) {
-        //     sweetnessOptions.style.display = "block";
-        // } else if (document.getElementById("filter-sourness").checked) {
-        //     sournessOptions.style.display = "block";
-        // } else if (document.getElementById("filter-texture").checked) {
-        //     textureOptions.style.display = "block";
-        // } else if (document.getElementById("filter-temperature").checked) {
-        //     temperatureOptions.style.display = "block";
-        // } else if (document.getElementById("filter-healthiness").checked) {
-        //     healthinessOptions.style.display = "block";
-        // } else if (document.getElementById("filter-rating").checked) {
-        //     ratingOptions.style.display = "block";
-        // }
+        } else if (document.getElementById("filter-spiciness").checked) {
+            spicinessOptions.style.display = "block";
+        } else if (document.getElementById("filter-sweetness").checked) {
+            sweetnessOptions.style.display = "block";
+        } else if (document.getElementById("filter-sourness").checked) {
+            sournessOptions.style.display = "block";
+        } else if (document.getElementById("filter-texture").checked) {
+            textureOptions.style.display = "block";
+        } else if (document.getElementById("filter-temperature").checked) {
+            temperatureOptions.style.display = "block";
+        } else if (document.getElementById("filter-healthiness").checked) {
+            healthinessOptions.style.display = "block";
+        } else if (document.getElementById("filter-rating").checked) {
+            ratingOptions.style.display = "block";
+        }
     }
 
     function toggleFilterOptions() {

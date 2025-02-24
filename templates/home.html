@@ -8,10 +8,19 @@
   <h3>한식</h3>
   <p>A website that reviews <b>korean cuisines</b> based on ingredients with nutrients, dietary preferences and detailed taste reviews.</p>
 </div>
-<!-- 
-<div class="carousel">
+
+<!-- <div class="carousel">
   <div class="slide active">
-    <h3>Spiciness</h3>
+    <h3>Trending</h3>
+    <ul>
+      {% for dish in top_dishes %}
+        <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h3>Spiciest</h3>
     <ul>
       {% for dish in top_spicy %}
         <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
@@ -29,7 +38,7 @@
   </div>
 
   <div class="slide">
-    <h3>Sourness</h3>
+    <h3>Sourest</h3>
     <ul>
       {% for dish in top_sour %}
         <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
@@ -38,7 +47,7 @@
   </div>
 
   <div class="slide">
-    <h3>Healthiness</h3>
+    <h3>Healthiest</h3>
     <ul>
       {% for dish in top_healthy %}
         <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
@@ -47,7 +56,7 @@
   </div>
 
   <div class="slide">
-    <h3>Temperature</h3>
+    <h3>Hottest</h3>
     <ul>
       {% for dish in top_temperature %}
         <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
@@ -56,7 +65,7 @@
   </div>
 
   <div class="slide">
-    <h3>Rating</h3>
+    <h3>Popular</h3>
     <ul>
       {% for dish in top_rating %}
         <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>
@@ -65,7 +74,7 @@
   </div>
 
   <div class="slide">
-    <h3>Texture</h3>
+    <h3>Softest</h3>
     <ul>
       {% for dish in top_texture %}
         <li><b>{{ loop.index }}. {{ dish.dish_name }}</b></li>

@@ -103,13 +103,13 @@
             <th>Rating</th>
         </tr>
         {% set aspects = {
-        'Rating': tastes.average_rating,
-        'Texture': tastes.average_texture,
-        'Sourness': tastes.average_sourness,
-        'Spiciness': tastes.average_spiciness,
-        'Sweetness': tastes.average_sweetness,
-        'Healthiness': tastes.average_healthiness,
-        'Temperature': tastes.average_temperature
+        'Rating': tastes.rating,
+        'Texture': tastes.texture,
+        'Sourness': tastes.sourness,
+        'Spiciness': tastes.spiciness,
+        'Sweetness': tastes.sweetness,
+        'Healthiness': tastes.healthiness,
+        'Temperature': tastes.temperature
         } %}
         {% for aspect, rating in aspects.items() %}
         <tr>
@@ -144,7 +144,7 @@
                 <div class="input-group">
                     <label for="spiciness"><b>Spiciness:</b></label>
                     <select id="spiciness" name="spiciness" required>
-                        <option value="0" selected>Not at all spicy</option>
+                        <option value="0" selected>Not spicy at all</option>
                         <option value="1">A little spicy</option>
                         <option value="2">Mildly spicy</option>
                         <option value="3">Moderately spicy</option>

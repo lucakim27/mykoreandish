@@ -1,5 +1,6 @@
 from itertools import chain
 from flask import Blueprint, redirect, render_template, request, session, url_for
+from models.aggregateModel import AggregateManager
 from models.nutrientModel import NutrientManager
 from utils.login import login_required
 from models.dietaryModel import DietaryManager
@@ -17,6 +18,7 @@ selection_manager = TasteManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
 nutrient_manager = NutrientManager(db, firestore)
+aggregate_manager = AggregateManager(db)
 
 @users_bp.route('/')
 @login_required
@@ -36,8 +38,17 @@ def history():
 @users_bp.route('/delete-history', methods=['POST'])
 def deleteHistoryRoute():
     history_id = request.form.get('history_id')
+    dish_review = selection_manager.get_dish_review_by_id(history_id)
     if history_id:
-        if selection_manager.delete_history(history_id):
+        if selection_manager.delete_history(history_id) and aggregate_manager.delete_aggregate(dish_review['dish_name'], {
+        "spiciness": int(dish_review['spiciness']),
+        "sweetness": int(dish_review['sweetness']),
+        "sourness": int(dish_review['sourness']),
+        "temperature": int(dish_review['temperature']),
+        "texture": int(dish_review['texture']),
+        "rating": int(dish_review['rating']),
+        "healthiness": int(dish_review['healthiness'])
+    }):
             return redirect(url_for('users.history'))
     return redirect(url_for('users.history'))
 

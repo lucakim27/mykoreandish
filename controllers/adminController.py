@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session
 from config.db import db
+from models.aggregateModel import AggregateManager
 from models.dishModel import DishManager
 from models.requestModel import RequestManager
 from models.userModel import UserManager
@@ -9,6 +10,7 @@ admin_bp = Blueprint('admin', __name__)
 request_manager = RequestManager(db, firestore)
 user_manager = UserManager(db)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
+aggregate_manager = AggregateManager(db)
 
 @admin_bp.route('/')
 def admin_panel():
@@ -36,4 +38,12 @@ def delete_request():
             return "Access Denied", 403
     request_id = request.form.get('id')
     request_manager.delete_request(request_id)
+    return redirect('/admin')
+
+@admin_bp.route('/fix-aggregate', methods=['POST'])
+def fix_aggregate():
+    user = user_manager.get_user_by_session(session)
+    if not user or not user.get('admin', False):
+            return "Access Denied", 403
+    aggregate_manager.verify_and_fix_all_aggregates()
     return redirect('/admin')

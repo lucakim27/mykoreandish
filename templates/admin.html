@@ -5,6 +5,9 @@
 {% block content %}
 <!-- Add Food Form -->
 <h2>Add New Food</h2>
+<form action="/admin/fix-aggregate" method="POST">
+    <button type="submit">Fix Aggregate!</button>
+</form>
 <form action="/admin/add-food" method="POST" class="criteria-form">
     <label for="dish_name">Dish Name:</label><br>
     <input type="text" id="dish_name" name="dish_name" placeholder="Kimchi Soup" required><br><br>

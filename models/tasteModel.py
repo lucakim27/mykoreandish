@@ -27,6 +27,41 @@ class TasteManager:
             flash('An error occurred while deleting the history item.', 'error')
             print(f"Error: {e}")
             return False
+    
+    def get_dish_review_by_id(self, history_id):
+        # Reference to the UserSelections collection
+        reviews_ref = self.db.collection("UserSelections")
+
+        # Fetch the review document by the history_id
+        review_doc = reviews_ref.document(history_id).get()
+
+        if review_doc.exists:
+            # Retrieve the entire review data from the document
+            review_data = review_doc.to_dict()
+
+            # Extract the specific fields (dish_name and the 7 aspects)
+            dish_name = review_data.get("dish_name")
+            spiciness = review_data.get("spiciness")
+            sweetness = review_data.get("sweetness")
+            sourness = review_data.get("sourness")
+            temperature = review_data.get("temperature")
+            texture = review_data.get("texture")
+            rating = review_data.get("rating")
+            healthiness = review_data.get("healthiness")
+
+            # Return the relevant information
+            return {
+                "dish_name": dish_name,
+                "spiciness": spiciness,
+                "sweetness": sweetness,
+                "sourness": sourness,
+                "temperature": temperature,
+                "texture": texture,
+                "rating": rating,
+                "healthiness": healthiness
+            }
+        else:
+            return None  # If the review document doesn't exist
 
     def update_review(self, history_id, spiciness, sweetness, sourness, texture, temperature, healthiness, rating):
         """Rate a dish by updating its rating in the 'UserSelections' collection."""

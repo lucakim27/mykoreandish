@@ -79,7 +79,7 @@ class AggregateManager:
 
         if doc.exists:
             return doc.to_dict()
-        return None
+        return {}
 
     def initialize_all_aggregates(self):
         reviews_ref = self.db.collection("UserSelections")

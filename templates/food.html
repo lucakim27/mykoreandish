@@ -99,17 +99,23 @@
     <h3>Taste</h3>
     <table class="dish-details">
         <tr>
-            <th>Aspect</th>
-            <th>Rating</th>
+            <th>Count</th>
+            {% if not tastes['total_reviews'] %}
+            <th>0 Review</th>
+            {% elif tastes['total_reviews'] == 1 %}
+            <th>1 Review</th>
+            {% else %}
+            <th>{{ tastes['total_reviews'] }} Reviews</th>
+            {% endif %}
         </tr>
         {% set aspects = {
-        'Rating': tastes.rating,
-        'Texture': tastes.texture,
-        'Sourness': tastes.sourness,
-        'Spiciness': tastes.spiciness,
-        'Sweetness': tastes.sweetness,
-        'Healthiness': tastes.healthiness,
-        'Temperature': tastes.temperature
+            'Rating': tastes['rating'] if 'rating' in tastes else None,
+            'Texture': tastes['texture'] if 'texture' in tastes else None,
+            'Sourness': tastes['sourness'] if 'sourness' in tastes else None,
+            'Spiciness': tastes['spiciness'] if 'spiciness' in tastes else None,
+            'Sweetness': tastes['sweetness'] if 'sweetness' in tastes else None,
+            'Healthiness': tastes['healthiness'] if 'healthiness' in tastes else None,
+            'Temperature': tastes['temperature'] if 'temperature' in tastes else None
         } %}
         {% for aspect, rating in aspects.items() %}
         <tr>
@@ -118,12 +124,16 @@
                 {% if rating is not none %}
                 <span class="stars">
                     {% for i in range(1, 6) %}
-                    {% if i <= rating %} ★ {% else %} ☆ {% endif %} {% endfor %} </span>
-                        {% else %}
-                        <span class="stars">
-                            {% for i in range(1, 6) %} ☆ {% endfor %}
-                        </span>
-                        {% endif %}
+                    {% if i <= rating %} ★ 
+                    {% else %} ☆ 
+                    {% endif %} 
+                    {% endfor %} 
+                </span>
+                {% else %}
+                <span class="stars">
+                    {% for i in range(1, 6) %} ☆ {% endfor %}
+                </span>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

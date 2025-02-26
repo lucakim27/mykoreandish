@@ -55,7 +55,6 @@ class NutrientManager:
             flash(str(e), 'error')
         except Exception as e:
             flash(f'Error adding nutrient: {e}', 'error')
-            print(f"Error: {e}")
     
     def get_nutrient(self, ingredient: str) -> Dict[str, int]:
         nutrient_ref = self.nutrients_ref.where('ingredient', '==', ingredient)

@@ -31,7 +31,7 @@ class IngredientManager:
         for ingredient in ingredients:
             if ingredient['ingredient'].lower() == name.lower():
                 return ingredient
-        print(f"No ingredient found with name: '{name}'")
+            
         return None
     
     def get_ingredients_instance(self, names: List[str]) -> List[Dict[str, str]]:
@@ -42,8 +42,7 @@ class IngredientManager:
                 if ingredient['ingredient'].lower() == name.lower():
                     matched_ingredients.append(ingredient)
                     break
-            else:
-                print(f"No ingredient found with name: '{name}'")
+                
         return matched_ingredients
     
     def add_ingredient(self, dish_name: str, google_id: str, ingredient: str) -> None:
@@ -61,7 +60,6 @@ class IngredientManager:
             flash(str(e), 'error')
         except Exception as e:
             flash(f'Error adding ingredient: {e}', 'error')
-            print(f"Error: {e}")
     
     def get_ingredient(self, dish_name: str) -> Dict[str, int]:
         ingredient_ref = self.ingredients_ref.where('dish_name', '==', dish_name)
@@ -101,6 +99,26 @@ class IngredientManager:
 
         ingredients_list.sort(key=lambda x: x['timestamp'], reverse=True)
         return ingredients_list
+    
+    def get_ingredient_review_by_id(self, history_id):
+        # Fetch the review document by the history_id
+        review_doc = self.ingredients_ref.document(history_id).get()
+
+        if review_doc.exists:
+            # Retrieve the entire review data from the document
+            review_data = review_doc.to_dict()
+
+            # Extract the specific fields (dish_name and the 7 aspects)
+            dish_name = review_data.get("dish_name")
+            ingredient = review_data.get("ingredient")
+
+            # Return the relevant information
+            return {
+                "dish_name": dish_name,
+                "ingredient": ingredient
+            }
+        else:
+            return {}  # If the review document doesn't exist
     
     def update_ingredient(self, history_id: str, ingredient: str) -> bool:
         if not history_id or not ingredient:

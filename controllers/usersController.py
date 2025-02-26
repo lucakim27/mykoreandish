@@ -55,16 +55,18 @@ def deleteHistoryRoute():
 @users_bp.route('/delete-dietary', methods=['POST'])
 def deleteDietaryRoute():
     history_id = request.form.get('history_id')
+    dietary = dietary_manager.get_dietary_review_by_id(history_id)
     if history_id:
-        if dietary_manager.delete_dietary(history_id):
+        if dietary_manager.delete_dietary(history_id) and aggregate_manager.delete_dietary_aggregate(dietary['dish_name'], dietary['dietary']):
             return redirect(url_for('users.history'))
     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-ingredient', methods=['POST'])
 def deleteIngredientRoute():
     history_id = request.form.get('history_id')
+    ingredient = ingredient_manager.get_ingredient_review_by_id(history_id)
     if history_id:
-        if ingredient_manager.delete_ingredient(history_id):
+        if ingredient_manager.delete_ingredient(history_id) and aggregate_manager.delete_ingredient_aggregate(ingredient['dish_name'], ingredient['ingredient']):
             return redirect(url_for('users.history'))
     return redirect(url_for('users.history'))
 

@@ -47,7 +47,6 @@ class FavoriteManager:
             flash(str(e), 'error')
         except Exception as e:
             flash(f'Error adding favorite: {e}', 'error')
-            print(f"Error: {e}")  # Consider logging in production
     
     def delete_favorite(self, dish_name, google_id):
         try:
@@ -80,8 +79,6 @@ class FavoriteManager:
             flash(str(e), 'error')
         except Exception as e:
             flash(f'Error removing favorite: {e}', 'error')
-            print(f"Error: {e}")  # Consider logging in production
-
     
     def get_all_favorites(self, user):
         try:
@@ -101,5 +98,4 @@ class FavoriteManager:
             return user_favorites  # List of dish names favorited by the user
 
         except Exception as e:
-            print(f"Error fetching favorites: {e}")  # Log error
             return []

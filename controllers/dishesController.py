@@ -190,9 +190,9 @@ def ratingFilter():
 def food(name=None):
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
-    dietary = dietary_manager.get_dietary(name)
-    ingredient = ingredient_manager.get_ingredient(name)
-    tastes = aggregate_manager.get_dish_aggregate(name)
+    # dietary = dietary_manager.get_dietary(name)
+    # ingredient = ingredient_manager.get_ingredient(name)
+    aggregates = aggregate_manager.get_dish_aggregate(name)
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     favorites = favorite_manager.get_all_favorites(user)
@@ -200,9 +200,9 @@ def food(name=None):
         'food.html',
         user=user, 
         dish=dish,
-        dietary=dietary,
-        ingredient=ingredient,
-        tastes=tastes,
+        # dietary=dietary,
+        # ingredient=ingredient,
+        aggregates=aggregates,
         dietaries=dietaries,
         ingredients=ingredients,
         favorites=favorites
@@ -245,6 +245,7 @@ def select_food(name=None):
 def dietaryReviewRoute(name=None):
     dietary = request.form.get('dietary')
     dietary_manager.add_dietary(name, session.get('google_id'), dietary)
+    aggregate_manager.add_dietary_aggregate(name, dietary)
     return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/ingredient_review/<name>', methods=['POST'])
@@ -252,6 +253,7 @@ def dietaryReviewRoute(name=None):
 def ingredientReviewRoute(name=None):
     ingredient = request.form.get('ingredient')
     ingredient_manager.add_ingredient(name, session.get('google_id'), ingredient)
+    aggregate_manager.add_ingredient_aggregate(name, ingredient)
     return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])
@@ -297,15 +299,27 @@ def rate_dish():
 @dishes_bp.route('/update_dietary', methods=['POST'])
 def update_dietary():
     history_id = request.form.get('history_id')
-    dietary = request.form.get('dietary')
-    dietary_manager.update_dietary(history_id, dietary)
+    new_dietary = request.form.get('dietary')
+    dietary_review = dietary_manager.get_dietary_review_by_id(history_id)
+    aggregate_manager.update_dietary_aggregate(
+        dietary_review.get('dish_name', 0), 
+        dietary_review.get('dietary', 0), 
+        new_dietary
+    )
+    dietary_manager.update_dietary(history_id, new_dietary)
     return redirect(url_for('users.history'))
 
 @dishes_bp.route('/update_ingredient', methods=['POST'])
 def update_ingredient():
     history_id = request.form.get('history_id')
-    ingredient = request.form.get('ingredient')
-    ingredient_manager.update_ingredient(history_id, ingredient)
+    new_ingredient = request.form.get('ingredient')
+    ingredient_review = ingredient_manager.get_ingredient_review_by_id(history_id)
+    aggregate_manager.update_ingredient_aggregate(
+        ingredient_review.get('dish_name', 0), 
+        ingredient_review.get('ingredient', 0), 
+        new_ingredient
+    )
+    ingredient_manager.update_ingredient(history_id, new_ingredient)
     return redirect(url_for('users.history'))
 
 @dishes_bp.app_template_filter('time_ago')

@@ -41,7 +41,26 @@ class DietaryManager:
             flash(str(e), 'error')
         except Exception as e:
             flash(f'Error adding dietary: {e}', 'error')
-            print(f"Error: {e}")
+    
+    def get_dietary_review_by_id(self, history_id):
+        # Fetch the review document by the history_id
+        review_doc = self.dietaries_ref.document(history_id).get()
+
+        if review_doc.exists:
+            # Retrieve the entire review data from the document
+            review_data = review_doc.to_dict()
+
+            # Extract the specific fields (dish_name and the 7 aspects)
+            dish_name = review_data.get("dish_name")
+            dietary = review_data.get("dietary")
+
+            # Return the relevant information
+            return {
+                "dish_name": dish_name,
+                "dietary": dietary
+            }
+        else:
+            return {}  # If the review document doesn't exist
 
     def get_dietary(self, dish_name: str) -> Dict[str, int]:
         dietary_ref = self.dietaries_ref.where('dish_name', '==', dish_name)
@@ -105,7 +124,6 @@ class DietaryManager:
             return True
         except Exception as e:
             flash(f'Error saving dietary: {e}', 'error')
-            print(f"Error: {e}")
             return False
 
     def delete_dietary(self, history_id: str) -> bool:
@@ -116,7 +134,6 @@ class DietaryManager:
             return True
         except Exception as e:
             flash('An error occurred while deleting the dietary review.', 'error')
-            print(f"Error: {e}")
             return False
 
     def get_all_dietaries(self) -> List[Dict[str, str]]:

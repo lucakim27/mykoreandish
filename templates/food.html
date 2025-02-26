@@ -9,13 +9,13 @@
     {% if dish.dish_name in favorites %}
     <form action="/favorite/delete/dish/{{ dish.dish_name }}" method="POST">
         <button class="favorite-btn" type="submit">
-            <i class="fa-solid fa-heart" style="color: #d72638;"></i> <!-- Filled Heart -->
+            <i class="fa-solid fa-heart" style="color: #d72638;"></i>
         </button>
     </form>
     {% else %}
     <form action="/favorite/add/dish/{{ dish.dish_name }}" method="POST">
         <button class="favorite-btn" type="submit">
-            <i class="fa-regular fa-heart"></i> <!-- Empty Heart -->
+            <i class="fa-regular fa-heart"></i>
         </button>
     </form>
     {% endif %}
@@ -24,18 +24,20 @@
 
     <h3>Dietary</h3>
     <div class="dietary-tags">
-        {% if dietary %}
-        {% for diet, count in dietary.items() | sort(attribute='1', reverse=True) %}
-        {% if count > 0 %}
-        <span class="dietary-tag">
-            <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ count }}%)
-        </span>
-        {% endif %}
-        {% endfor %}
+        {% if aggregates['dietary_distribution'] %}
+            {% set total_count = aggregates['dietary_distribution'].values() | sum %}
+            {% for diet, count in aggregates['dietary_distribution'].items() | sort(attribute='1', reverse=True) %}
+                {% if count > 0 %}
+                    <span class="dietary-tag">
+                        <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ (count / total_count * 100) | round(1) }}%)
+                    </span>
+                {% endif %}
+            {% endfor %}
         {% else %}
-        <p>No dietary information available.</p>
+            <p>No dietary information available.</p>
         {% endif %}
     </div>
+    
     <div class="button-box">
         <div style="display:inline;">
             <button type="button" class="button select-button"
@@ -61,18 +63,20 @@
 
     <h3>Ingredient</h3>
     <div class="ingredients-list">
-        {% if ingredient %}
-        {% for ingredient, count in ingredient.items() | sort(attribute='1', reverse=True) %}
-        {% if count > 0 %}
-        <a href="/ingredients/{{ ingredient }}" class="ingredient-tag">
-            <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b> ({{ count }}%)
-        </a>
-        {% endif %}
-        {% endfor %}
+        {% if aggregates['ingredient_distribution'] %}
+            {% set total_count = aggregates['ingredient_distribution'].values() | sum %}
+            {% for ingredient, count in aggregates['ingredient_distribution'].items() | sort(attribute='1', reverse=True) %}
+                {% if count > 0 %}
+                    <a href="/ingredients/{{ ingredient }}" class="ingredient-tag">
+                        <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b> ({{ (count / total_count * 100) | round(1) }}%)
+                    </a>
+                {% endif %}
+            {% endfor %}
         {% else %}
-        <p>No ingredients available.</p>
+            <p>No ingredients available.</p>
         {% endif %}
     </div>
+    
     <div class="button-box">
         <form action="/reviews/ingredient/{{ dish.dish_name }}" method="post" style="display:inline;">
             <button type="button" class="button select-button"
@@ -99,39 +103,44 @@
     <h3>Taste</h3>
     <table class="dish-details">
         <tr>
-            <th>Count</th>
-            {% if not tastes['total_reviews'] %}
+            <th>Total</th>
+            {% if not aggregates['total_reviews'] %}
             <th>0 Review</th>
-            {% elif tastes['total_reviews'] == 1 %}
+            {% elif aggregates['total_reviews'] == 1 %}
             <th>1 Review</th>
             {% else %}
-            <th>{{ tastes['total_reviews'] }} Reviews</th>
+            <th>{{ aggregates['total_reviews'] }} Reviews</th>
             {% endif %}
         </tr>
         {% set aspects = {
-            'Rating': tastes['rating'] if 'rating' in tastes else None,
-            'Texture': tastes['texture'] if 'texture' in tastes else None,
-            'Sourness': tastes['sourness'] if 'sourness' in tastes else None,
-            'Spiciness': tastes['spiciness'] if 'spiciness' in tastes else None,
-            'Sweetness': tastes['sweetness'] if 'sweetness' in tastes else None,
-            'Healthiness': tastes['healthiness'] if 'healthiness' in tastes else None,
-            'Temperature': tastes['temperature'] if 'temperature' in tastes else None
+            'Rating': aggregates['rating'] if 'rating' in aggregates else None,
+            'Texture': aggregates['texture'] if 'texture' in aggregates else None,
+            'Sourness': aggregates['sourness'] if 'sourness' in aggregates else None,
+            'Spiciness': aggregates['spiciness'] if 'spiciness' in aggregates else None,
+            'Sweetness': aggregates['sweetness'] if 'sweetness' in aggregates else None,
+            'Healthiness': aggregates['healthiness'] if 'healthiness' in aggregates else None,
+            'Temperature': aggregates['temperature'] if 'temperature' in aggregates else None
         } %}
         {% for aspect, rating in aspects.items() %}
         <tr>
             <th>{{ aspect }}</th>
             <td>
                 {% if rating is not none %}
-                <span class="stars">
+                <div class="stars" title="{{ rating }}/5">
                     {% for i in range(1, 6) %}
-                    {% if i <= rating %} ★ 
-                    {% else %} ☆ 
-                    {% endif %} 
-                    {% endfor %} 
-                </span>
+                        <div class="star" style="--fill: 
+                            {% if rating >= i %} 100% 
+                            {% elif rating > i - 1 %} {{ (rating - (i - 1)) * 100 }}% 
+                            {% else %} 0% 
+                            {% endif %}
+                        ;"></div>
+                    {% endfor %}
+                </div>   
                 {% else %}
                 <span class="stars">
-                    {% for i in range(1, 6) %} ☆ {% endfor %}
+                    {% for i in range(1, 6) %}
+                        <div class="star" style="--fill: 0% ;"></div>
+                    {% endfor %}
                 </span>
                 {% endif %}
             </td>

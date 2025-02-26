@@ -25,7 +25,6 @@ class TasteManager:
             return True
         except Exception as e:
             flash('An error occurred while deleting the history item.', 'error')
-            print(f"Error: {e}")
             return False
     
     def get_dish_review_by_id(self, history_id):
@@ -148,7 +147,6 @@ class TasteManager:
             }
 
         except Exception as e:
-            print(f"Error fetching dish statistics: {e}")
             return None
 
     def add_selection(self, google_id, dish_name, spiciness, sweetness, sourness, texture, temperature, healthiness, rating):
@@ -205,14 +203,4 @@ class TasteManager:
             } for selection in selections]
 
         except Exception as e:
-            print(f"Error retrieving user history: {e}")
             return []
-    
-    # def filter_search(self, ingredient=None, dietary=None, taste=None, texture=None, spiciness=None, sourness=None, sweetness=None, healthiness=None, temperature=None):
-    #     if ingredient is not None:
-    #         query = self.ingredients_ref.where('ingredient', '==', ingredient)
-    #     elif dietary is not None:
-    #         query = self.dietaries_ref.where('dietary', '==', dietary)
-        
-    #     results = query.stream()
-    #     return [review.to_dict().get('dish_name') for review in results]

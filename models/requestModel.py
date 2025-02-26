@@ -27,7 +27,6 @@ class RequestManager:
             flash(f"Request for '{request_instance.name}' added successfully!", 'success')
         except firestore.exceptions.FirestoreError as e:
             flash(f'Error adding request: {e}', 'error')
-            print(f"Error: {e}")
     
     def get_food_request(self) -> List[Dict[str, Any]]:
         requests = []

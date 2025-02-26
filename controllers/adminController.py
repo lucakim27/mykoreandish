@@ -39,11 +39,3 @@ def delete_request():
     request_id = request.form.get('id')
     request_manager.delete_request(request_id)
     return redirect('/admin')
-
-@admin_bp.route('/fix-aggregate', methods=['POST'])
-def fix_aggregate():
-    user = user_manager.get_user_by_session(session)
-    if not user or not user.get('admin', False):
-            return "Access Denied", 403
-    aggregate_manager.verify_and_fix_all_aggregates()
-    return redirect('/admin')

@@ -1,5 +1,5 @@
 import csv
-from flask import flash, redirect
+from flask import flash, logging, redirect
 # import re
 # from nltk.corpus import stopwords
 
@@ -35,7 +35,7 @@ class DishManager:
                 for row in reader:
                     dishes.append(self.row_to_dish(row))
         except Exception as e:
-            print(f"Error reading CSV file: {e}")
+            logging.info(f"Error reading CSV file: {e}")
         return dishes
 
     def row_to_dish(self, row):
@@ -50,7 +50,6 @@ class DishManager:
         for dish in dishes:
             if dish.dish_name.lower() == name.lower():
                 return dish
-        print(f"No dish found with name: '{name}'")
         return None
     
     def get_dish_instances(self, names):
@@ -61,8 +60,7 @@ class DishManager:
                 if dish.dish_name.lower() == name.lower():
                     matched_dishes.append(dish)
                     break
-            else:
-                print(f"No dish found with name: '{name}'")
+
         return matched_dishes
 
     # def description_search(self, description):

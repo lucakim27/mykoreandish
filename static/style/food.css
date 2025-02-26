@@ -92,16 +92,6 @@ body {
     transform: scale(1.1);
 }
 
-/* Stars for Taste Ratings */
-.stars {
-    font-size: 1.2em;
-    color: #ffc107;
-}
-
-.stars span {
-    color: #ddd; /* Default star color */
-}
-
 /* Button Box */
 .button-box {
     text-align: center;
@@ -261,3 +251,33 @@ body {
 .favorite-btn:active {
     transform: scale(1.2);
 }
+
+.stars {
+    display: flex;
+    gap: 5px;
+}
+
+.star {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+}
+
+.star::before {
+    content: "★";
+    font-size: 24px;
+    color: lightgray; /* Empty part */
+    position: absolute;
+}
+
+.star::after {
+    content: "★";
+    font-size: 24px;
+    color: gold; /* Filled part */
+    position: absolute;
+    width: var(--fill, 0%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+

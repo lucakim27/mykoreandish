@@ -47,7 +47,6 @@
             <form method="POST" action="{{ url_for('dishes.rate_dish') }}" style="display:inline;">
                 <input type="hidden" name="history_id" value="{{ item.id }}">
 
-                <!-- Spiciness -->
                 <label for="spiciness"><b>Spiciness:</b></label>
                 <select id="spiciness-{{ item.id }}" name="spiciness">
                     <option value="0" {% if item.spiciness==0 %}selected{% endif %}>Not at all spicy</option>
@@ -58,7 +57,6 @@
                     <option value="5" {% if item.spiciness==5 %}selected{% endif %}>Extremely spicy</option>
                 </select>
 
-                <!-- Sweetness -->
                 <label for="sweetness"><b>Sweetness:</b></label>
                 <select id="sweetness-{{ item.id }}" name="sweetness">
                     <option value="0" {% if item.sweetness==0 %}selected{% endif %}>Not sweet at all</option>
@@ -69,7 +67,6 @@
                     <option value="5" {% if item.sweetness==5 %}selected{% endif %}>Extremely sweet</option>
                 </select>
 
-                <!-- Sourness -->
                 <label for="sourness"><b>Sourness:</b></label>
                 <select id="sourness-{{ item.id }}" name="sourness">
                     <option value="0" {% if item.sourness==0 %}selected{% endif %}>Not sour at all</option>
@@ -80,7 +77,6 @@
                     <option value="5" {% if item.sourness==5 %}selected{% endif %}>Extremely sour</option>
                 </select>
 
-                <!-- Texture -->
                 <label for="texture"><b>Texture:</b></label>
                 <select id="texture-{{ item.id }}" name="texture">
                     <option value="0" {% if item.texture==0 %}selected{% endif %}>Very Soft</option>
@@ -91,7 +87,6 @@
                     <option value="5" {% if item.texture==5 %}selected{% endif %}>Hard</option>
                 </select>
 
-                <!-- Temperature -->
                 <label for="temperature"><b>Temperature:</b></label>
                 <select id="temperature-{{ item.id }}" name="temperature">
                     <option value="0" {% if item.temperature==0 %}selected{% endif %}>Cold</option>
@@ -102,7 +97,6 @@
                     <option value="5" {% if item.temperature==5 %}selected{% endif %}>Very Hot</option>
                 </select>
 
-                <!-- Healthiness -->
                 <label for="healthiness"><b>Healthiness:</b></label>
                 <select id="healthiness-{{ item.id }}" name="healthiness">
                     <option value="0" {% if item.healthiness==0 %}selected{% endif %}>Not healthy at all</option>
@@ -113,7 +107,6 @@
                     <option value="5" {% if item.healthiness==5 %}selected{% endif %}>Very healthy</option>
                 </select>
 
-                <!-- Overall Rating -->
                 <label for="rating"><b>Rating:</b></label>
                 <select id="rating-{{ item.id }}" name="rating">
                     <option value="0" {% if item.rating==0 %}selected{% endif %}>Terrible</option>
@@ -124,7 +117,6 @@
                     <option value="5" {% if item.rating==5 %}selected{% endif %}>Excellent</option>
                 </select>
 
-                <!-- Submit Button -->
                 <button type="submit" class="button update-button">Update</button>
             </form>
             {% endif %}

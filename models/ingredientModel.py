@@ -61,28 +61,6 @@ class IngredientManager:
         except Exception as e:
             flash(f'Error adding ingredient: {e}', 'error')
     
-    def get_ingredient(self, dish_name: str) -> Dict[str, int]:
-        ingredient_ref = self.ingredients_ref.where('dish_name', '==', dish_name)
-        ingredients = ingredient_ref.stream()
-        
-        ingredients_list = [ingredient.to_dict().get('ingredient') for ingredient in ingredients]
-
-        total = 0
-        ingredient_count = {}
-        for ingredient in ingredients_list:
-            if ingredient in ingredient_count:
-                ingredient_count[ingredient] += 1
-                total += 1
-            else:
-                ingredient_count[ingredient] = 1
-                total += 1
-
-        if total is not 0:
-            for ingredient in ingredient_count:
-                ingredient_count[ingredient] = round(ingredient_count[ingredient] / total * 100, 1)
-
-        return ingredient_count
-    
     def get_ingredient_history(self, google_id: str) -> List[Dict[str, Any]]:
         ingredient_ref = self.ingredients_ref.where('google_id', '==', google_id)
         ingredients = ingredient_ref.stream()
@@ -137,14 +115,13 @@ class IngredientManager:
             return False
     
     def delete_ingredient(self, history_id: str) -> bool:
-        try:
-            ingredient_ref = self.ingredients_ref.document(history_id)
-            ingredient_ref.delete()
-            flash('Ingredient review deleted successfully.', 'success')
-            return True
-        except Exception as e:
-            flash(f'An error occurred while deleting the ingredient review: {e}', 'error')
-            return False
+        if history_id:
+            try:
+                ingredient_ref = self.ingredients_ref.document(history_id)
+                ingredient_ref.delete()
+                flash('Ingredient review deleted successfully.', 'success')
+            except Exception as e:
+                flash(f'An error occurred while deleting the ingredient review: {e}', 'error')
         
     def get_all_ingredients(self) -> List[Dict[str, str]]:
         ingredients = []

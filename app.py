@@ -10,9 +10,7 @@ from controllers.requestController import request_bp
 from controllers.homeController import home_bp
 from controllers.errorHandlersController import error_bp
 from config.config import Config
-from controllers.aboutusController import aboutus_bp
-from controllers.privacyController import privacy_bp
-from controllers.termsController import terms_bp
+from controllers.footerController import footer_bp
 from controllers.favoriteController import favorite_bp
 
 app = Flask(__name__)
@@ -31,13 +29,12 @@ app.register_blueprint(ingredients_bp, url_prefix='/ingredients')
 app.register_blueprint(users_bp, url_prefix='/users')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(request_bp, url_prefix='/request')
-app.register_blueprint(aboutus_bp, url_prefix='/aboutus')
-app.register_blueprint(privacy_bp, url_prefix='/privacy')
-app.register_blueprint(terms_bp, url_prefix='/terms')
+app.register_blueprint(footer_bp, url_prefix='/footer')
 app.register_blueprint(favorite_bp, url_prefix='/favorite')
 app.register_blueprint(home_bp)
 app.register_blueprint(error_bp)
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
+    # set port to 10000 for Render
+    port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)

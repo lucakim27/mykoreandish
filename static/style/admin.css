@@ -24,7 +24,7 @@ h2 {
 .criteria-form {
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     margin: 0 auto;
@@ -42,7 +42,7 @@ h2 {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .criteria-form textarea {
@@ -84,19 +84,25 @@ button[type="button"]:hover {
 
 /* User Request Display */
 .requests-container {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .request-box {
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .request-box h3 {
     color: #d72638; /* Vibrant red */
+    padding: 5px;
+}
+
+.request-box p {
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
 .delete-button {
@@ -104,10 +110,11 @@ button[type="button"]:hover {
     color: white;
     border: none;
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .delete-button:hover {

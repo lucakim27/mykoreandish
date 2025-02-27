@@ -23,7 +23,7 @@ def ingredientsController():
     dishes = dish_manager.get_all_dishes()
     favorites = favorite_manager.get_all_favorites(user)
     return render_template(
-        'ingredientSearch.html', 
+        'ingredientList.html', 
         user=user,
         nutrients=nutrients,
         dishes=dishes,
@@ -41,7 +41,7 @@ def nutrientFilterController():
     dishes = dish_manager.get_all_dishes()
     favorites = favorite_manager.get_all_favorites(user)
     return render_template(
-        'ingredientSearch.html', 
+        'ingredientList.html', 
         user=user, 
         dishes=dishes,
         nutrients=nutrients,
@@ -59,7 +59,7 @@ def ingredientFilterController():
     dishes = dish_manager.get_all_dishes()
     favorites = favorite_manager.get_all_favorites(user)
     return render_template(
-        'ingredientSearch.html', 
+        'ingredientList.html', 
         user=user, 
         dishes=dishes,
         nutrients=nutrients,
@@ -76,7 +76,7 @@ def ingredientsListController(name=None):
     nutrients = nutrient_manager.get_all_nutrients()
     favorites = favorite_manager.get_all_favorites(user)
     return render_template(
-        'ingredientDetail.html',
+        'ingredient.html',
         user=user,
         dishes=dishes,
         ingredient=ingredient,

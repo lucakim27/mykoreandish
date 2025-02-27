@@ -42,7 +42,6 @@ class UserManager:
 
     def get_user_by_session(self, session: dict) -> dict:
         if session is None:
-            logging.warning("Session is None")
             return None
 
         google_id = session.get('google_id')
@@ -61,5 +60,4 @@ class UserManager:
                 logging.error(f"Error retrieving user: {e}")
                 return None
         else:
-            logging.warning("No google_id found in session")
             return None

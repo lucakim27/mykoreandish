@@ -55,9 +55,9 @@
             <form action="/ingredients/{{ ingredient.ingredient }}" method="POST" class="food-box">
                 <button type="button" class="favorite-btn" onclick="toggleFavorite(this)">
                     {% if ingredient.ingredient  in favorites %}
-                        <i class="fa-solid fa-heart" style="color: #d72638;"></i> <!-- Filled Heart -->
+                        <i class="fa-solid fa-heart" style="color: #d72638;"></i>
                     {% else %}
-                        <i class="fa-regular fa-heart"></i> <!-- Empty Heart -->
+                        <i class="fa-regular fa-heart"></i>
                     {% endif %}
                 </button>
                 <h2>{{ ingredient.korean_name }}</h2>
@@ -96,7 +96,6 @@
 </div>
 
 <script>
-    // Function to filter the dishes based on the search input
     function filterIngredients() {
         let input = document.getElementById("search-input").value.toLowerCase();
         let foodItems = document.querySelectorAll(".food-item");

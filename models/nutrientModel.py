@@ -72,7 +72,7 @@ class NutrientManager:
                 nutrient_count[nutrient] = 1
                 total += 1
         
-        if total is not 0:
+        if total != 0:
             for nutrient in nutrient_count:
                 nutrient_count[nutrient] = round(nutrient_count[nutrient] / total * 100, 1)
 
@@ -112,14 +112,13 @@ class NutrientManager:
             return False
     
     def delete_nutrient(self, history_id: str) -> bool:
-        try:
-            nutrient_ref = self.nutrients_ref.document(history_id)
-            nutrient_ref.delete()
-            flash('Nutrient review deleted successfully.', 'success')
-            return True
-        except Exception as e:
-            flash(f'An error occurred while deleting the nutrient review: {e}', 'error')
-            return False
+        if history_id:
+            try:
+                nutrient_ref = self.nutrients_ref.document(history_id)
+                nutrient_ref.delete()
+                flash('Nutrient review deleted successfully.', 'success')
+            except Exception as e:
+                flash(f'An error occurred while deleting the nutrient review: {e}', 'error')
     
     def get_ingredients_by_nutrient(self, nutrient: str) -> List[str]:
         try:

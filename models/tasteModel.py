@@ -17,15 +17,14 @@ class TasteManager:
         self.dietaries_ref = db.collection('Dietaries')
 
     def delete_history(self, history_id):
-        """Delete a history item from the 'UserSelections' collection."""
-        try:
-            history_ref = self.user_selections_ref.document(history_id)
-            history_ref.delete()
-            flash('History item deleted successfully.', 'success')
-            return True
-        except Exception as e:
-            flash('An error occurred while deleting the history item.', 'error')
-            return False
+        if history_id:
+            """Delete a history item from the 'UserSelections' collection."""
+            try:
+                history_ref = self.user_selections_ref.document(history_id)
+                history_ref.delete()
+                flash('History item deleted successfully.', 'success')
+            except Exception as e:
+                flash('An error occurred while deleting the history item.', 'error')
     
     def get_dish_review_by_id(self, history_id):
         # Reference to the UserSelections collection
@@ -84,70 +83,6 @@ class TasteManager:
         except Exception as e:
             flash(f'Error saving rating: {e}', 'error')
             return False
-        
-    def get_dish_rating(self, dish_name):
-        try:
-            total_rating, count_rating = 0, 0
-            total_spiciness, count_spiciness = 0, 0
-            total_sweetness, count_sweetness = 0, 0
-            total_texture, count_texture = 0, 0
-            total_healthiness, count_healthiness = 0, 0
-            total_sourness, count_sourness = 0, 0
-            total_temperature, count_temperature = 0, 0
-
-            selections = self.user_selections_ref.where('dish_name', '==', dish_name).stream()
-
-            for selection in selections:
-                selection_data = selection.to_dict()
-
-                if (rating := selection_data.get('rating')) is not None:
-                    total_rating += rating
-                    count_rating += 1
-
-                if (spiciness := selection_data.get('spiciness')) is not None:
-                    total_spiciness += spiciness
-                    count_spiciness += 1
-
-                if (sweetness := selection_data.get('sweetness')) is not None:
-                    total_sweetness += sweetness
-                    count_sweetness += 1
-
-                if (texture := selection_data.get('texture')) is not None:
-                    total_texture += texture
-                    count_texture += 1
-
-                if (healthiness := selection_data.get('healthiness')) is not None:
-                    total_healthiness += healthiness
-                    count_healthiness += 1
-
-                if (sourness := selection_data.get('sourness')) is not None:
-                    total_sourness += sourness
-                    count_sourness += 1
-
-                if (temperature := selection_data.get('temperature')) is not None:
-                    total_temperature += temperature
-                    count_temperature += 1
-
-            average_rating = total_rating / count_rating if count_rating else None
-            average_spiciness = total_spiciness / count_spiciness if count_spiciness else None
-            average_sweetness = total_sweetness / count_sweetness if count_sweetness else None
-            average_texture = total_texture / count_texture if count_texture else None
-            average_healthiness = total_healthiness / count_healthiness if count_healthiness else None
-            average_sourness = total_sourness / count_sourness if count_sourness else None
-            average_temperature = total_temperature / count_temperature if count_temperature else None
-
-            return {
-                "average_rating": average_rating,
-                "average_spiciness": average_spiciness,
-                "average_sweetness": average_sweetness,
-                "average_texture": average_texture,
-                "average_healthiness": average_healthiness,
-                "average_sourness": average_sourness,
-                "average_temperature": average_temperature,
-            }
-
-        except Exception as e:
-            return None
 
     def add_selection(self, google_id, dish_name, spiciness, sweetness, sourness, texture, temperature, healthiness, rating):
         """Add a food selection without a rating initially."""

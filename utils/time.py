@@ -1,11 +1,10 @@
 from datetime import datetime
-import pytz  # Use zoneinfo if Python 3.9+
+import pytz
 
 def format_time_ago(timestamp):
-    """Calculate how long ago the timestamp occurred."""
-    utc = pytz.UTC  # UTC timezone
-    now = datetime.now(utc)  # Make 'now' timezone-aware
-    timestamp_aware = timestamp.astimezone(utc)  # Ensure 'timestamp' is also timezone-aware
+    utc = pytz.UTC
+    now = datetime.now(utc)
+    timestamp_aware = timestamp.astimezone(utc)
 
     delta = now - timestamp_aware
 

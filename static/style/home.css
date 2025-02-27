@@ -55,134 +55,14 @@ body {
     /* Slightly darker red for hover */
 }
 
-/* Description Form */
-.description-form {
-    background-color: white;
-    /* Very light orange for differentiation */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    max-width: 800px;
-    text-align: center;
-}
-
-.description-form h2 {
-    font-size: 2em;
-    color: #d72638;
-    margin-bottom: 15px;
-}
-
-.description-form textarea {
-    width: 90%;
-    max-width: 750px;
-    font-size: 1em;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none;
-}
-
-.description-form button {
-    background-color: #d72638;
-    color: white;
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.description-form button:hover {
-    background-color: #a91d2c;
-}
-
-
-select {
-    width: 90%;
-    padding: 10px;
-    font-size: 1em;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: border 0.3s ease;
-}
-
-select:focus {
-    border-color: #ff4c4c;
-    outline: none;
-}
-
-select,
-textarea {
-    background-color: #f9f9f9;
-}
-
-select:focus {
-    background-color: #ffffff;
-}
-
-.carousel {
-    background: white;
-    position: relative;
-    width: 100%;
-    padding: 20px;
-    max-width: 800px;
-    height: 200px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    text-align: center;
-}
-
-.slide {
-    position: absolute;
-    top: 50%;            /* Vertically center */
-    left: 50%;           /* Horizontally center */
-    transform: translate(-50%, -50%); /* Offset by half of its own width/height to truly center it */
-    width: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.slide h3 {
-    font-size: 1.5em;
-    color: #d72638;
-    margin-bottom: 10px;
-}
-
-.slide.active {
-    opacity: 1;
-}
-
-.slide ul li {
-    padding: 8px 15px;
-    font-size: 0.9em;
-    color: #333;
-    margin: 10px;
-}
-
 /* Responsiveness */
 @media (max-width: 768px) {
-
-    .introduction-form,
-    .description-form,
-    .carousel {
+    .introduction-form {
         padding: 15px;
         max-width: 90%;
     }
 
-    .introduction-form h3,
-    .description-form h2 {
+    .introduction-form h3 {
         font-size: 1.5em;
-    }
-
-    .description-form textarea,
-    select {
-        font-size: 0.9em;
     }
 }

@@ -62,41 +62,6 @@ class DietaryManager:
         else:
             return {}  # If the review document doesn't exist
 
-    def get_dietary(self, dish_name: str) -> Dict[str, int]:
-        dietary_ref = self.dietaries_ref.where('dish_name', '==', dish_name)
-        dietaries = dietary_ref.stream()
-        dietaries_list = [
-            Dietary(dietary.to_dict().get('dish_name'), 
-                    dietary.to_dict().get('dietary'), 
-                    dietary.to_dict().get('google_id'), 
-                    dietary.to_dict().get('timestamp')
-            ) for dietary in dietaries
-        ]
-        
-        dietaries_object = self.get_all_dietaries()
-        all_dietaries = []
-        for dietary in dietaries_object:
-            all_dietaries.append(dietary['dietary'])
-
-        dietary_count = {}
-
-        total = 0
-
-        for dietary in dietaries_list:
-            if dietary.dietary in dietary_count:
-                dietary_count[dietary.dietary] += 1
-                total += 1
-            else:
-                dietary_count[dietary.dietary] = 1
-                total += 1
-        
-        if total is not 0:
-            for dietary in dietary_count:
-                dietary_count[dietary] = round(dietary_count[dietary] / total * 100, 1)
-                
-        return dietary_count
-    
-
     def get_dietary_history(self, google_id: str) -> List[Dict[str, Any]]:
         dietary_ref = self.dietaries_ref.where('google_id', '==', google_id)
         dietaries = dietary_ref.stream()
@@ -127,14 +92,13 @@ class DietaryManager:
             return False
 
     def delete_dietary(self, history_id: str) -> bool:
-        try:
-            dietary_ref = self.dietaries_ref.document(history_id)
-            dietary_ref.delete()
-            flash('Dietary review deleted successfully.', 'success')
-            return True
-        except Exception as e:
-            flash('An error occurred while deleting the dietary review.', 'error')
-            return False
+        if history_id:
+            try:
+                dietary_ref = self.dietaries_ref.document(history_id)
+                dietary_ref.delete()
+                flash('Dietary review deleted successfully.', 'success')
+            except Exception as e:
+                flash('An error occurred while deleting the dietary review.', 'error')
 
     def get_all_dietaries(self) -> List[Dict[str, str]]:
         dietaries = []

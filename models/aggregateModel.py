@@ -164,10 +164,6 @@ class AggregateManager:
                 # Update the document with the modified data
                 aggregate_ref.update(data)
 
-            return True
-        else:
-            return False
-
     def update_aggregate(self, dish_name, old_review_data, new_review_data):
         aggregate_ref = self.db.collection("Aggregates").document(dish_name)
         doc = aggregate_ref.get()

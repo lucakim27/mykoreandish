@@ -159,9 +159,9 @@
             <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
                 <button type="button" class="favorite-btn">
                     {% if dish.dish_name in favorites %}
-                        <i class="fa-solid fa-heart" style="color: #d72638;"></i> <!-- Filled Heart -->
+                        <i class="fa-solid fa-heart" style="color: #d72638;"></i>
                     {% else %}
-                        <i class="fa-regular fa-heart"></i> <!-- Empty Heart -->
+                        <i class="fa-regular fa-heart"></i>
                     {% endif %}
                 </button>
                 <h2>{{ dish.korean_name }}</h2>

@@ -30,7 +30,7 @@ def explore():
     ingredients = ingredient_manager.get_all_ingredients()
     favorites = favorite_manager.get_all_favorites(user)
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user,
         ingredients=ingredients,
         recommendation=dishes,
@@ -48,7 +48,7 @@ def dietaryFilter():
     ingredients = ingredient_manager.get_all_ingredients()
     favorites = favorite_manager.get_all_favorites(user)
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user, 
         recommendation=dishes,
         dietaries=dietaries,
@@ -66,7 +66,7 @@ def ingredientFilter():
     ingredients = ingredient_manager.get_all_ingredients()
     favorites = favorite_manager.get_all_favorites(user)
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user, 
         recommendation=dishes,
         dietaries=dietaries,
@@ -83,7 +83,7 @@ def spicinessFilter():
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user,
         recommendation=dishes,
         dietaries=dietaries,
@@ -99,7 +99,7 @@ def sweetnessFilter():
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user,
         recommendation=dishes,
         dietaries=dietaries,
@@ -115,7 +115,7 @@ def sournessFilter():
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user,
         recommendation=dishes,
         dietaries=dietaries,
@@ -131,7 +131,7 @@ def textureFilter():
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user,
         recommendation=dishes,
         dietaries=dietaries,
@@ -147,7 +147,7 @@ def temperatureFilter():
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user,
         recommendation=dishes,
         dietaries=dietaries,
@@ -163,7 +163,7 @@ def healthinessFilter():
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user,
         recommendation=dishes,
         dietaries=dietaries,
@@ -179,7 +179,7 @@ def ratingFilter():
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
-        'search.html', 
+        'foodList.html', 
         user=user,
         recommendation=dishes,
         dietaries=dietaries,
@@ -190,8 +190,6 @@ def ratingFilter():
 def food(name=None):
     user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
-    # dietary = dietary_manager.get_dietary(name)
-    # ingredient = ingredient_manager.get_ingredient(name)
     aggregates = aggregate_manager.get_dish_aggregate(name)
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
@@ -200,8 +198,6 @@ def food(name=None):
         'food.html',
         user=user, 
         dish=dish,
-        # dietary=dietary,
-        # ingredient=ingredient,
         aggregates=aggregates,
         dietaries=dietaries,
         ingredients=ingredients,

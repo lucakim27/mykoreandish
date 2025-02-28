@@ -1,5 +1,5 @@
 import csv
-from flask import flash, logging, redirect
+from flask import logging
 
 class Dish:
     def __init__(self, dish_name, description, korean_name):

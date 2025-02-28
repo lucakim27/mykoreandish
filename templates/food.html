@@ -49,14 +49,14 @@
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('dietaryModal').style.display='none'">&times;</span>
             <h2 style="margin-left: 16px;">{{ dish.korean_name }}</h2>
-            <form method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}">
+            <form method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}" onsubmit="disableDietaryButton()">
                 <label for="dietary"><b>Dietary:</b></label>
                 <select id="dietary" name="dietary" required>
                     {% for dietary in dietaries %}
                     <option value="{{ dietary.dietary }}">{{ dietary.dietary }}</option>
                     {% endfor %}
                 </select>
-                <button type="submit" class="button submit-button">Review</button>
+                <button type="submit" id="submitDietaryButton" class="button submit-button">Review</button>
             </form>
         </div>
     </div>
@@ -88,14 +88,14 @@
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('ingredientModal').style.display='none'">&times;</span>
             <h2 style="margin-left: 16px;">{{ dish.korean_name }}</h2>
-            <form method="POST" action="/dishes/ingredient_review/{{ dish.dish_name }}">
+            <form method="POST" action="/dishes/ingredient_review/{{ dish.dish_name }}" onsubmit="disableIngredientButton()">
                 <label for="ingredient"><b>Ingredient:</b></label>
                 <select id="ingredient" name="ingredient" required>
                     {% for ingredient in ingredients %}
                     <option value="{{ ingredient.ingredient }}">{{ ingredient.ingredient }}</option>
                     {% endfor %}
                 </select>
-                <button type="submit" class="button submit-button">Review</button>
+                <button type="submit" id="submitIngredientButton" class="button submit-button">Review</button>
             </form>
         </div>
     </div>
@@ -159,7 +159,7 @@
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('tasteModal').style.display='none'">&times;</span>
             <h2 style="margin-left: 16px;">{{ dish.korean_name }}</h2>
-            <form method="POST" action="/dishes/select/{{ dish.dish_name }}">
+            <form method="POST" action="/dishes/select/{{ dish.dish_name }}" onsubmit="disableTasteButton()">
                 <div class="input-group">
                     <label for="spiciness"><b>Spiciness:</b></label>
                     <select id="spiciness" name="spiciness" required>
@@ -226,10 +226,23 @@
                     </select>
                 </div>
                 <div class="button-box" style="display: flex;">
-                    <button type="submit" class="button select-button">Review</button>
+                    <button type="submit" id="submitTasteButton" class="button select-button">Review</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script>
+function disableTasteButton() {
+    document.getElementById("submitTasteButton").disabled = true;
+}
+
+function disableDietaryButton() {
+    document.getElementById("submitDietaryButton").disabled = true;
+}
+
+function disableIngredientButton() {
+    document.getElementById("submitIngredientButton").disabled = true;
+}
+</script>
 {% endblock %}

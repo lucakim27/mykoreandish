@@ -47,15 +47,7 @@ def deleteHistoryRoute():
     history_id = request.form.get('history_id')
     dish_review = selection_manager.get_dish_review_by_id(history_id)
     selection_manager.delete_history(history_id)
-    aggregate_manager.delete_aggregate(dish_review['dish_name'], {
-        "spiciness": int(dish_review['spiciness']),
-        "sweetness": int(dish_review['sweetness']),
-        "sourness": int(dish_review['sourness']),
-        "temperature": int(dish_review['temperature']),
-        "texture": int(dish_review['texture']),
-        "rating": int(dish_review['rating']),
-        "healthiness": int(dish_review['healthiness'])
-    })
+    aggregate_manager.delete_aggregate(dish_review)
     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-dietary', methods=['POST'])
@@ -63,7 +55,7 @@ def deleteDietaryRoute():
     history_id = request.form.get('history_id')
     dietary = dietary_manager.get_dietary_review_by_id(history_id)
     dietary_manager.delete_dietary(history_id)
-    aggregate_manager.delete_dietary_aggregate(dietary['dish_name'], dietary['dietary'])
+    aggregate_manager.delete_dietary_aggregate(dietary)
     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-ingredient', methods=['POST'])
@@ -71,7 +63,7 @@ def deleteIngredientRoute():
     history_id = request.form.get('history_id')
     ingredient = ingredient_manager.get_ingredient_review_by_id(history_id)
     ingredient_manager.delete_ingredient(history_id)
-    aggregate_manager.delete_ingredient_aggregate(ingredient['dish_name'], ingredient['ingredient'])
+    aggregate_manager.delete_ingredient_aggregate(ingredient)
     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-nutrient', methods=['POST'])

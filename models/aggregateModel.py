@@ -1,4 +1,5 @@
 from firebase_admin import firestore
+from flask import flash
 
 class AggregateManager:
     def __init__(self, db: firestore.Client):
@@ -35,7 +36,14 @@ class AggregateManager:
         else:
             aggregate_ref.set({"ingredient_distribution": {review_data: 1}})
     
-    def delete_dietary_aggregate(self, dish_name, dietary):
+    def delete_dietary_aggregate(self, dietary):
+        if dietary is None:
+            flash("Dietary not found!", "error")
+            return
+
+        dish_name = dietary['dish_name']
+        dietary = dietary['dietary']
+
         aggregate_ref = self.db.collection("Aggregates").document(dish_name)
         doc = aggregate_ref.get()
 
@@ -48,20 +56,25 @@ class AggregateManager:
                 if dietary_distribution[dietary] <= 0:
                     del dietary_distribution[dietary]
 
-            if dietary_distribution:  # Update only if there are remaining dietary entries
+            if dietary_distribution:
                 data["dietary_distribution"] = dietary_distribution
                 aggregate_ref.update(data)
-            else:  
-                # Remove the dietary_distribution field instead of deleting the document
+            else:
                 aggregate_ref.update({"dietary_distribution": firestore.DELETE_FIELD})
 
-                # Check if other fields exist; if none, delete the document
                 updated_doc = aggregate_ref.get()
                 updated_data = updated_doc.to_dict()
                 if not updated_data:  
                     aggregate_ref.delete()
 
-    def delete_ingredient_aggregate(self, dish_name, ingredient):
+    def delete_ingredient_aggregate(self, ingredient):
+        if ingredient is None:
+            flash("Ingredient not found!", "error")
+            return
+        
+        dish_name = ingredient['dish_name']
+        ingredient = ingredient['ingredient']
+
         aggregate_ref = self.db.collection("Aggregates").document(dish_name)
         doc = aggregate_ref.get()
 
@@ -74,25 +87,25 @@ class AggregateManager:
                 if ingredient_distribution[ingredient] <= 0:
                     del ingredient_distribution[ingredient]
 
-            if ingredient_distribution:  # Update only if there are remaining ingredient entries
+            if ingredient_distribution:
                 data["ingredient_distribution"] = ingredient_distribution
                 aggregate_ref.update(data)
-            else:  
-                # Remove the ingredient_distribution field instead of deleting the document
+            else:
                 aggregate_ref.update({"ingredient_distribution": firestore.DELETE_FIELD})
 
-                # Check if other fields exist; if none, delete the document
                 updated_doc = aggregate_ref.get()
                 updated_data = updated_doc.to_dict()
                 if not updated_data:  
                     aggregate_ref.delete()
 
     def update_dietary_aggregate(self, dish_name, old_dietary, new_dietary):
-        self.delete_dietary_aggregate(dish_name, old_dietary)
+        dietary = {'dish_name': dish_name, 'dietary': old_dietary}
+        self.delete_dietary_aggregate(dietary)
         self.add_dietary_aggregate(dish_name, new_dietary)
     
     def update_ingredient_aggregate(self, dish_name, old_ingredient, new_ingredient):
-        self.delete_ingredient_aggregate(dish_name, old_ingredient)
+        ingredient = {'dish_name': dish_name, 'ingredient': old_ingredient}
+        self.delete_ingredient_aggregate(ingredient)
         self.add_ingredient_aggregate(dish_name, new_ingredient)
 
     def add_aggregate(self, dish_name, review_data):
@@ -103,25 +116,36 @@ class AggregateManager:
         if doc.exists:
             data = doc.to_dict()
 
-            # Initialize total_reviews if it doesn't exist
             total_reviews = data.get("total_reviews", 0) + 1
 
-            # Update taste categories
             for taste in self.TASTE_CATEGORIES:
                 data[taste] = ((data.get(taste, 0) * data.get("total_reviews", 0)) + review_data[taste]) / total_reviews
 
             data["total_reviews"] = total_reviews
 
-            # Update aggregate excluding dietary and ingredient fields
             aggregate_ref.update({k: v for k, v in data.items() if k not in ['dietary', 'ingredients']})
 
         else:
             aggregate_data = {"total_reviews": 1, **review_data}
 
-            # Set new aggregate document, excluding dietary and ingredient fields
             aggregate_ref.set(aggregate_data)
     
-    def delete_aggregate(self, dish_name, old_review_data):
+    def delete_aggregate(self, dish_review):
+        if dish_review is None:
+            flash("Taste not found!", "error")
+            return
+        
+        dish_name = dish_review['dish_name']
+        old_review_data = {
+            'spiciness': int(dish_review['spiciness']),
+            'sweetness': int(dish_review['sweetness']),
+            'sourness': int(dish_review['sourness']),
+            'temperature': int(dish_review['temperature']),
+            'texture': int(dish_review['texture']),
+            'rating': int(dish_review['rating']),
+            'healthiness': int(dish_review['healthiness'])
+        }
+                        
         aggregate_ref = self.db.collection("Aggregates").document(dish_name)
         doc = aggregate_ref.get()
 
@@ -130,38 +154,30 @@ class AggregateManager:
             total_reviews = data.get("total_reviews", 0)
 
             if total_reviews == 1:
-                # Prepare to delete taste fields and total_reviews
                 fields_to_delete = {'temperature', 'total_reviews', 'spiciness', 'sweetness', 'healthiness', 'rating', 'texture', 'sourness'}
 
-                # Get existing fields or set as empty only if they exist
-                dietary_distribution = data.get("dietary_distribution")  # This will return None if not present
-                ingredient_distribution = data.get("ingredient_distribution")  # This will return None if not present
+                dietary_distribution = data.get("dietary_distribution")
+                ingredient_distribution = data.get("ingredient_distribution")
 
-                # Delete taste fields and total_reviews
                 for field in fields_to_delete:
                     if field in data:
                         del data[field]
 
-                # Check if both dietary_distribution and ingredient_distribution are missing
                 if dietary_distribution is None and ingredient_distribution is None:
-                    aggregate_ref.delete()  # Delete the entire document if no reviews or distributions remain
+                    aggregate_ref.delete()
                 else:
-                    # Add back the dietary_distribution and ingredient_distribution only if they existed
                     if dietary_distribution is not None:
                         data["dietary_distribution"] = dietary_distribution
                     if ingredient_distribution is not None:
                         data["ingredient_distribution"] = ingredient_distribution
 
-                    # Update the document in Firebase
-                    aggregate_ref.set(data)  # Using set to replace the document
+                    aggregate_ref.set(data)
             else:
-                # Update the aggregate with new totals after review deletion
                 for taste in self.TASTE_CATEGORIES:
                     data[taste] = (data[taste] * total_reviews - old_review_data[taste]) / (total_reviews - 1)
 
                 data["total_reviews"] = total_reviews - 1
 
-                # Update the document with the modified data
                 aggregate_ref.update(data)
 
     def update_aggregate(self, dish_name, old_review_data, new_review_data):
@@ -170,23 +186,18 @@ class AggregateManager:
 
         if doc.exists:
             data = doc.to_dict()
-            # Initialize total_reviews if it doesn't exist
             total_reviews = data.get("total_reviews", 0)
 
-            # Update taste categories based on old review data
             for taste in self.TASTE_CATEGORIES:
                 data[taste] = (data.get(taste, 0) * total_reviews - old_review_data[taste]) / total_reviews
 
-            # Add new review data to taste categories
             for taste in self.TASTE_CATEGORIES:
                 data[taste] = ((data.get(taste, 0) * total_reviews) + new_review_data[taste]) / total_reviews
 
-            # Update aggregate excluding dietary and ingredient fields
             aggregate_ref.update({k: v for k, v in data.items() if k not in ['dietary', 'ingredients']})
 
         else:
             aggregate_data = {"total_reviews": 1, **new_review_data}
-            # Set new aggregate document, excluding dietary and ingredient fields
             aggregate_ref.set(aggregate_data)
     
     def get_dish_aggregate(self, dish_name):
@@ -253,9 +264,9 @@ class AggregateManager:
                 for taste in self.TASTE_CATEGORIES:
                     aggregate_data[taste] = taste_sums[taste] / total_reviews
                 
-                if dietary_count:  # Only add if not empty
+                if dietary_count:
                     aggregate_data["dietary_distribution"] = dietary_count
-                if ingredient_count:  # Only add if not empty
+                if ingredient_count:
                     aggregate_data["ingredient_distribution"] = ingredient_count
             
             aggregate_ref.set(aggregate_data)

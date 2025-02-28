@@ -6,10 +6,6 @@ from models.ingredientModel import IngredientManager
 from models.userModel import UserManager
 from models.tasteModel import TasteManager
 from firebase_admin import firestore
-# from controllers.dishesController import cache_manager
-# from models.aggregateModel import AggregateManager
-# aggregate_manager = AggregateManager(db)
-# aggregate_manager.initialize_all_aggregates()
 
 home_bp = Blueprint('home', __name__)
 user_manager = UserManager(db)

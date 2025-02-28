@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
-# from models.cacheModel import CacheManager
 from models.aggregateModel import AggregateManager
 from models.favoriteModel import FavoriteManager
 from utils.login import login_required
@@ -18,7 +17,6 @@ user_manager = UserManager(db)
 selection_manager = TasteManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
-# cache_manager = CacheManager(db)
 favorite_manager = FavoriteManager(db, firestore)
 aggregate_manager = AggregateManager(db)
 

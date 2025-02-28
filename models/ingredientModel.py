@@ -79,24 +79,20 @@ class IngredientManager:
         return ingredients_list
     
     def get_ingredient_review_by_id(self, history_id):
-        # Fetch the review document by the history_id
         review_doc = self.ingredients_ref.document(history_id).get()
 
         if review_doc.exists:
-            # Retrieve the entire review data from the document
             review_data = review_doc.to_dict()
 
-            # Extract the specific fields (dish_name and the 7 aspects)
             dish_name = review_data.get("dish_name")
             ingredient = review_data.get("ingredient")
 
-            # Return the relevant information
             return {
                 "dish_name": dish_name,
                 "ingredient": ingredient
             }
         else:
-            return {}  # If the review document doesn't exist
+            return None
     
     def update_ingredient(self, history_id: str, ingredient: str) -> bool:
         if not history_id or not ingredient:
@@ -122,6 +118,8 @@ class IngredientManager:
                 flash('Ingredient review deleted successfully.', 'success')
             except Exception as e:
                 flash(f'An error occurred while deleting the ingredient review: {e}', 'error')
+        else:
+            flash('Invalid history ID.', 'error')
         
     def get_all_ingredients(self) -> List[Dict[str, str]]:
         ingredients = []

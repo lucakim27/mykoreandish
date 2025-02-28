@@ -1,33 +1,86 @@
-# Food Suggestion
+# Food Suggestion 🍽️  
 
-A web application built with Python Flask that recommends Korean meals based on user interactions and ratings. The app incorporates real-time updates, user authentication via Google, and a robust architecture for meal suggestion management.
+A web application that enables users to explore and review **Korean dishes and ingredients**. Built with Python Flask and Jinja2 templates, it offers personalized recommendations, user authentication via Google, and comprehensive filtering options.  
 
-## Features
-- **Google Login**: Allows users to log in with their Google account.
-- **Personalized Meal Recommendations**: Suggests Korean dishes based on user preferences and previous ratings.
-- **Dish Ratings**: Users can rate dishes and see average ratings.
-- **History**: Users can view their meal selection history.
-- **Real-Time Updates**: Automatically updates dish statistics based on user interactions.
+## 🌟 Features  
 
-## Technologies Used
+- 🔐 **User Authentication**: Secure login using Google accounts.  
+- 🔍 **Search Functionality**: Find Korean dishes and ingredients with ease.  
+- 🎯 **Personalized Recommendations**: Receive dish suggestions tailored to your taste preferences and dietary needs.  
+- 📝 **Comprehensive Reviews**: Evaluate dishes based on dietary information and ingredient flavors; assess ingredients for their nutritional content.  
+- ❤️ **Favorites Management**: Save and manage your preferred dishes and ingredients.  
+- 🔄 **Advanced Filtering**:  
+  - Sort dishes by taste profiles, dietary restrictions, and specific ingredients.  
+  - Filter ingredients by nutritional values and associated dishes.  
+- 👤 **User Profiles**: Access your review history and manage personal information.  
+- ✏️ **Review Management**: Update or delete your past reviews as needed.  
 
-### Frameworks 
-- **Python Flask**: A lightweight web framework for building the backend and handling API requests.
+## 🛠️ Tech Stack  
 
-### Architecture & Technical Features
-- **Object-Oriented Programming (OOP)**: The project is designed with Object-Oriented Programming principles, using classes and objects to manage the data and interactions.
-- **MVC Architecture**: This project follows the MVC (Model-View-Controller)
-- **Cloud Integration**: Combines Firebase for database management and Render for seamless app deployment.
+- **Backend**: Python Flask  
+- **Frontend**: Jinja2 Templates  
+- **Database**: Firebase  
+- **Authentication**: Google Authentication
+- **Deployment**: Render
+- **Version Control**: Git
+- **Uptime Monitoring**: Uptime Robot
 
-### Database
-- **Firestore**: Cloud NoSQL database to manage user data, ratings, and history.
+## 🚀 Software Engineering Best Practices Followed
 
-### Deployment
-- **Render**: Cloud platform used for hosting the web app.
-- **Firebase Hosting**: Ensures reliable data storage and integration.
+- **MVC Architecture**: Separates concerns into models, views, and controllers, making the code easier to maintain and extend.
+- **Aggregate Pattern**: Efficiently handles complex review data, improving performance.
+- **OOP (Object-Oriented Programming)**: Organizes the code with reusable classes, ensuring scalability and clarity.
+- **Single Responsibility Principle**: Each function and class has a clear, single purpose, reducing complexity.
+- **Separation of Concerns**: Keeps the different parts of the application independent (e.g., data handling, user interface), making debugging and updates easier.
+- **Loose Coupling**: Reduces dependencies between components, allowing for simpler updates and changes.
+- **Open/Closed Principle**: The app can be extended with new features without changing existing code.
+- **DRY (Don't Repeat Yourself)**: Reduces redundant code by creating reusable functions and classes.
+- **Security Best Practices**: Uses Google Sign-In for secure user authentication, and sensitive data like API keys are stored safely in environment variables.
+- **Version Control**: Git and GitHub ensure code changes are well-managed and facilitate collaboration.
+- **User-Centered Design**: Features like personalized recommendations and filtering are designed to provide a better user experience.
+- **Scalable and Maintainable**: The code is structured to allow easy addition of features and future growth.
 
-## Live Link  
-You can visit the live website at: [https://food-suggestion.onrender.com/](https://food-suggestion.onrender.com/)
+## 🚀 Live Demo  
 
-## License
-This project is licensed under the [MIT License](LICENSE).
+🔗 [Food Suggestion](https://food-suggestion.onrender.com/)  
+
+## 📦 Setup & Installation  
+
+For developers interested in running the project locally:  
+
+1. **Clone the repository**:  
+   ```sh
+   git clone https://github.com/lucakim27/food-suggestion.git
+   cd food-suggestion
+   ```
+
+2. **Set up a virtual environment**:
+    ```sh
+    python3 -m venv venv
+    source .venv/bin/activate
+    ```
+
+3. **Install dependencies**:
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+4. **Configure environment variables**:
+    - Create a .env file in the root directory.
+    - Add your Firebase and Google Sign-In credentials to the .env file.
+
+5. **Start the Flask server**:
+    ```sh
+    flask run
+    ```
+
+6. **Access the application**:
+    - Navigate to http://127.0.0.1:5000 in your web browser.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request with your enhancements or bug fixes.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the LICENSE file for details.

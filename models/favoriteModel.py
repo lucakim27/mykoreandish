@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import Any
 from flask import flash
 from google.cloud import firestore
 
@@ -25,18 +25,16 @@ class FavoriteManager:
 
     def add_favorite(self, dish_name, google_id):
         try:        
-            self._get_user(google_id)  # Ensure the user exists
+            self._get_user(google_id)
             
-            dish_ref = self.favorites_ref.document(dish_name)  # Reference the dish document
+            dish_ref = self.favorites_ref.document(dish_name)
             dish_doc = dish_ref.get()
 
             if dish_doc.exists:
-                # Append google_id if it's not already in the list
                 dish_ref.update({
                     'favorited_by': self.firestore.ArrayUnion([google_id])
                 })
             else:
-                # Create a new document if it doesn't exist
                 dish_ref.set({
                     'favorited_by': [google_id]
                 })
@@ -50,9 +48,9 @@ class FavoriteManager:
     
     def delete_favorite(self, dish_name, google_id):
         try:
-            self._get_user(google_id)  # Ensure the user exists
+            self._get_user(google_id)
 
-            dish_ref = self.favorites_ref.document(dish_name)  # Reference the dish document
+            dish_ref = self.favorites_ref.document(dish_name)
             dish_doc = dish_ref.get()
 
             if dish_doc.exists:
@@ -60,13 +58,11 @@ class FavoriteManager:
                 favorited_by = dish_data.get("favorited_by", [])
 
                 if google_id in favorited_by:
-                    # Remove user from the list
                     dish_ref.update({
                         'favorited_by': self.firestore.ArrayRemove([google_id])
                     })
                     
-                    # Check if list is now empty; delete document if true
-                    if len(favorited_by) == 1:  # After removal, it would be empty
+                    if len(favorited_by) == 1:
                         dish_ref.delete()
 
                     flash('Favorite removed successfully!', 'success')
@@ -82,20 +78,18 @@ class FavoriteManager:
     
     def get_all_favorites(self, user):
         try:
-            user_favorites = []  # List to store favorited dishes
+            user_favorites = []
 
-            # Get all dish documents from Firestore
             dishes = self.favorites_ref.stream()  
 
             for dish in dishes:
                 dish_data = dish.to_dict()
                 favorited_by = dish_data.get("favorited_by", [])
 
-                # If user is in the favorited_by list, add dish name to the list
                 if user['google_id'] in favorited_by:
-                    user_favorites.append(dish.id)  # dish.id is the document name (dish_name)
+                    user_favorites.append(dish.id)
 
-            return user_favorites  # List of dish names favorited by the user
+            return user_favorites
 
         except Exception as e:
             return []

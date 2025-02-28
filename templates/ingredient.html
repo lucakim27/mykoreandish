@@ -60,16 +60,21 @@
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('nutrientModal').style.display='none'">&times;</span>
             <h2 style="margin-left: 16px;">{{ ingredient.korean_name }}</h2>
-            <form method="POST" action="/ingredients/nutrient_review/{{ ingredient.ingredient }}">
+            <form method="POST" action="/ingredients/nutrient_review/{{ ingredient.ingredient }}" onsubmit="disableButton()">
                 <label for="nutrient"><b>Nutrient:</b></label>
                 <select id="nutrient" name="nutrient" required>
                     {% for nutrient in nutrients %}
                     <option value="{{ nutrient.nutrient }}">{{ nutrient.nutrient }}</option>
                     {% endfor %}
                 </select>
-                <button type="submit" class="button submit-button">Review</button>
+                <button type="submit" id="submitButton" class="button submit-button">Review</button>
             </form>
         </div>
     </div>
 </div>
+<script>
+function disableButton() {
+    document.getElementById("submitButton").disabled = true;
+}
+</script>
 {% endblock %}

@@ -43,24 +43,20 @@ class DietaryManager:
             flash(f'Error adding dietary: {e}', 'error')
     
     def get_dietary_review_by_id(self, history_id):
-        # Fetch the review document by the history_id
         review_doc = self.dietaries_ref.document(history_id).get()
 
         if review_doc.exists:
-            # Retrieve the entire review data from the document
             review_data = review_doc.to_dict()
 
-            # Extract the specific fields (dish_name and the 7 aspects)
             dish_name = review_data.get("dish_name")
             dietary = review_data.get("dietary")
 
-            # Return the relevant information
             return {
                 "dish_name": dish_name,
                 "dietary": dietary
             }
         else:
-            return {}  # If the review document doesn't exist
+            return None
 
     def get_dietary_history(self, google_id: str) -> List[Dict[str, Any]]:
         dietary_ref = self.dietaries_ref.where('google_id', '==', google_id)
@@ -99,6 +95,8 @@ class DietaryManager:
                 flash('Dietary review deleted successfully.', 'success')
             except Exception as e:
                 flash('An error occurred while deleting the dietary review.', 'error')
+        else:
+            flash('Invalid history ID.', 'error')
 
     def get_all_dietaries(self) -> List[Dict[str, str]]:
         dietaries = []

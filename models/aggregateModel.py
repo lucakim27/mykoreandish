@@ -289,3 +289,23 @@ class AggregateManager:
             matching_dishes.append(dish_name)
 
         return matching_dishes
+    
+    def get_all_stats(self):
+        aggregate_docs = self.db.collection("Aggregates").stream()
+
+        total_reviews = 0
+        dietary_total = 0
+        ingredient_total = 0
+
+        for doc in aggregate_docs:
+            data = doc.to_dict() or {}
+
+            total_reviews += data.get("total_reviews", 0)
+
+            dietary_distribution = data.get("dietary_distribution", {})
+            dietary_total += sum(dietary_distribution.values())
+
+            ingredient_distribution = data.get("ingredient_distribution", {})
+            ingredient_total += sum(ingredient_distribution.values())
+
+        return total_reviews, dietary_total, ingredient_total

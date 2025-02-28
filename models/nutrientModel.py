@@ -134,3 +134,6 @@ class NutrientManager:
         except Exception as e:
             flash(f'Error retrieving ingredients: {e}', 'error')
             return []
+    
+    def get_nutrients_count(self):
+        return self.nutrients_ref.count().get()[0][0].value

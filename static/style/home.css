@@ -2,8 +2,7 @@
 body {
     font-family: 'Arial', sans-serif;
     color: #333;
-    background-color: #f9f4ee;
-    /* Light beige tone */
+    background-color: #f9f4ee; /* Light beige tone */
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -11,58 +10,80 @@ body {
 
 .introduction-form {
     background-color: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
     max-width: 600px;
     text-align: center;
 }
 
 .introduction-form img {
-    max-width: 800px;
+    max-width: 100%;
     height: auto;
     border-radius: 10px;
 }
 
 .introduction-form h3 {
     font-size: 1.8em;
-    color: #d72638;
-    /* Vibrant red for headings */
-    margin-bottom: 10px;
+    color: #d72638; /* Vibrant red for headings */
+    margin-bottom: 15px;
 }
 
 .introduction-form p {
-    font-size: 1em;
+    font-size: 1.1em;
     margin-bottom: 10px;
+    color: #444;
 }
 
+.introduction-form p strong {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.introduction-form hr {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin: 15px 0;
+}
+
+/* Button Styling */
 .introduction-form button {
     background-color: #d72638;
     color: white;
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 12px 25px;
+    font-size: 1.1em;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     width: 100%;
 }
 
 .introduction-form button:hover {
-    background-color: #a91d2c;
-    /* Slightly darker red for hover */
+    background-color: #a91d2c; /* Darker red on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsiveness */
 @media (max-width: 768px) {
     .introduction-form {
-        padding: 15px;
+        padding: 20px;
         max-width: 90%;
     }
 
     .introduction-form h3 {
-        font-size: 1.5em;
+        font-size: 1.6em;
+    }
+
+    .introduction-form p {
+        font-size: 1em;
+    }
+
+    .introduction-form button {
+        font-size: 1em;
+        padding: 10px 20px;
     }
 }

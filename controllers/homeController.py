@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, session
 from config.db import db
+from models.aggregateModel import AggregateManager
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
 from models.ingredientModel import IngredientManager
+from models.nutrientModel import NutrientManager
 from models.userModel import UserManager
 from models.tasteModel import TasteManager
 from firebase_admin import firestore
@@ -13,6 +15,8 @@ selection_manager = TasteManager(db, firestore)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
 ingredient_manager = IngredientManager(db, firestore)
 dietary_manager = DietaryManager(db, firestore)
+aggregate_manager = AggregateManager(db)
+nutrient_manager = NutrientManager(db, firestore)
 
 @home_bp.route('/')
 def home():
@@ -20,10 +24,17 @@ def home():
     dishes = dish_manager.get_all_dishes()
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
+    total_reviews, dietary_total, ingredient_total = aggregate_manager.get_all_stats()
+    nutrients_count = nutrient_manager.get_nutrients_count()
     return render_template(
         'home.html',
         user=user,
         dishes=dishes,
         ingredients=ingredients,
-        dietaries=dietaries
+        dietaries=dietaries,
+        total_reviews=total_reviews,
+        dietary_total=dietary_total,
+        ingredient_total=ingredient_total,
+        nutrients_count=nutrients_count,
+        total_count=total_reviews + dietary_total + ingredient_total + nutrients_count
     )

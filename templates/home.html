@@ -5,8 +5,13 @@
 {% block content %}
 
 <div class="introduction-form">
-  <h3>Korean Cuisine</h3>
-  <p>Discover the authentic flavors of Korea! Explore detailed reviews, nutritional insights, and dishes tailored to your taste.</p>
+  <h3>Review Stats</h3>
+  <p>👅 Total Taste Reviews: <strong>{{ total_reviews }}</strong></p>
+  <p>🥦 Dietary Information Reviews: <strong>{{ dietary_total }}</strong></p>
+  <p>🧂 Ingredient Breakdown Reviews: <strong>{{ ingredient_total }}</strong></p>
+  <p>📊 Nutrient Profile Reviews: <strong>{{ nutrients_count }}</strong></p>
+  <hr>
+  <p><strong>🔢 Grand Total of Entries: {{ total_count }}</strong></p>
 </div>
 
 <div class="explore-section">

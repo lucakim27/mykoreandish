@@ -4,14 +4,28 @@
 {% endblock %}
 {% block content %}
 
-<div class="introduction-form">
-  <h3>Review Stats</h3>
-  <p>👅 Total Taste Reviews: <strong>{{ total_reviews }}</strong></p>
-  <p>🥦 Dietary Information Reviews: <strong>{{ dietary_total }}</strong></p>
-  <p>🧂 Ingredient Breakdown Reviews: <strong>{{ ingredient_total }}</strong></p>
-  <p>📊 Nutrient Profile Reviews: <strong>{{ nutrients_count }}</strong></p>
-  <hr>
-  <p><strong>🔢 Grand Total of Entries: {{ total_count }}</strong></p>
+<div class="statistics-box">
+  <h3>Statistics</h3>
+  <div class="statistics-item">
+    <span class="label">Registered Users:</span>
+    <span class="value">{{ total_users }}</span>
+  </div>
+  <div class="statistics-item">
+    <span class="label">Dish Taste Reviews:</span>
+    <span class="value">{{ total_reviews }}</span>
+  </div>
+  <div class="statistics-item">
+    <span class="label">Dish Dietary Reviews:</span>
+    <span class="value">{{ dietary_total }}</span>
+  </div>
+  <div class="statistics-item">
+    <span class="label">Dish Ingredient Reviews:</span>
+    <span class="value">{{ ingredient_total }}</span>
+  </div>
+  <div class="statistics-item">
+    <span class="label">Ingredient Nutrient Reviews:</span>
+    <span class="value">{{ nutrients_count }}</span>
+  </div>
 </div>
 
 <div class="explore-section">

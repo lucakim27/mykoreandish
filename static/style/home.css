@@ -12,7 +12,8 @@ body {
     background-color: white;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
     max-width: 600px;
     text-align: center;
@@ -67,6 +68,41 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
+
+.statistics-box {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.statistics-box h3 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #d72638;
+}
+
+.statistics-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.statistics-item .label {
+    color: #555;
+    font-weight: 500;
+}
+  
+.statistics-item .value {
+    font-weight: bold;
+    color: #d72638;
+}
+
 /* Responsiveness */
 @media (max-width: 768px) {
     .introduction-form {
@@ -74,7 +110,7 @@ body {
         max-width: 90%;
     }
 
-    .introduction-form h3 {
+    .introduction-form h3, .statistics-box h3 {
         font-size: 1.6em;
     }
 

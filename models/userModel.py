@@ -61,3 +61,6 @@ class UserManager:
                 return None
         else:
             return None
+    
+    def get_total_users(self):
+        return self.users_ref.count().get()[0][0].value

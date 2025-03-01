@@ -24,8 +24,9 @@ def home():
     dishes = dish_manager.get_all_dishes()
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
-    total_reviews, dietary_total, ingredient_total = aggregate_manager.get_all_stats()
+    dietary_total, ingredient_total, total_reviews = aggregate_manager.get_all_stats()
     nutrients_count = nutrient_manager.get_nutrients_count()
+    total_users = user_manager.get_total_users()
     return render_template(
         'home.html',
         user=user,
@@ -36,5 +37,5 @@ def home():
         dietary_total=dietary_total,
         ingredient_total=ingredient_total,
         nutrients_count=nutrients_count,
-        total_count=total_reviews + dietary_total + ingredient_total + nutrients_count
+        total_users=total_users
     )

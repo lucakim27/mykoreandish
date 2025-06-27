@@ -87,13 +87,13 @@ class DietaryManager:
             flash(f'Error saving dietary: {e}', 'error')
             return False
 
-    def delete_dietary(self, history_id: str) -> bool:
+    def delete_dietary(self, history_id: str) -> bool | None:
         if history_id:
             try:
                 dietary_ref = self.dietaries_ref.document(history_id)
                 dietary_ref.delete()
                 flash('Dietary review deleted successfully.', 'success')
-            except Exception as e:
+            except Exception:
                 flash('An error occurred while deleting the dietary review.', 'error')
         else:
             flash('Invalid history ID.', 'error')

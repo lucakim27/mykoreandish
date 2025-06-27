@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Food Suggestion{% endblock %}</title>
+    <title>{% block title %}MyKoreanDish{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/base.css') }}">
@@ -15,7 +15,7 @@
 <body>
     <div id="main-container">
         <div id="topBar">
-            <h1><a href="/" style="text-decoration: none; color: inherit;">FoodSuggestion</a></h1>
+            <h1><a href="/" style="text-decoration: none; color: inherit;">mykoreandish</a></h1>
             <div class="auth-links">
                 <div class="user-dropdown">
                     {% if not session.get('google_id') %}
@@ -62,7 +62,7 @@
             {% endblock %}
         </main>
         <footer>
-            <p>&copy; 2025 Food Suggestion. All rights reserved.</p>
+            <p>&copy; 2025 mykoreandish. All rights reserved.</p>
             <p><a href="/footer/aboutus"><b>About Us</b></a> | <a href="/footer/privacy"><b>Privacy</b></a> | <a href="/footer/terms"><b>Terms</b></a></p>
         </footer>
     </div>

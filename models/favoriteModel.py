@@ -91,5 +91,5 @@ class FavoriteManager:
 
             return user_favorites
 
-        except Exception as e:
+        except Exception:
             return []

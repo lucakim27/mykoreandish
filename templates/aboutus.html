@@ -1,27 +1,44 @@
 {% extends "base.html" %}
 {% block title %}About Us{% endblock %}
+
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='style/aboutus.css') }}">
 {% endblock %}
+
 {% block content %}
-<div class="about-us-container">
-    <h2>Who We Are</h2>
-    <p>Welcome to Food Suggestion, your go-to platform for honest and insightful food reviews. Our mission is to create
+<section class="about-section">
+    <div class="about-us-container">
+        <h2>Who We Are</h2>
+        <p>Welcome to mykoreandish, your go-to platform for honest and insightful food reviews. Our mission is to create
         a space where food lovers can share their experiences, discover new dishes, and find inspiration for their next
         culinary adventure.</p>
+    </div>
+</section>
 
-    <h2>What We Do</h2>
-    <p>Our platform allows users to explore and contribute detailed reviews of various dishes and restaurants. Whether
+<section class="about-section alt">
+    <div class="about-us-container">
+        <h2>What We Do</h2>
+        <p>Our platform allows users to explore and contribute detailed reviews of various dishes and restaurants. Whether
         you're searching for a hidden gem or want to avoid a disappointing meal, we provide a community-driven approach
         to food discovery.</p>
+    </div>
+</section>
 
-    <h2>Our Vision</h2>
-    <p>We aim to build a trusted platform for food reviews where users can connect over their shared love for great
+<section class="about-section">
+    <div class="about-us-container">
+        <h2>Our Vision</h2>
+        <p>We aim to build a trusted platform for food reviews where users can connect over their shared love for great
         meals. By fostering a supportive and informative community, we hope to make dining experiences more enjoyable
         for everyone.</p>
+    </div>
+</section>
 
-    <h2>Open Source</h2>
-    <p>Explore the source code and contribute to the project on our <a
+<section class="about-section alt">
+    <div class="about-us-container">
+        <h2>Open Source</h2>
+        <p>Explore the source code and contribute to the project on our <a
             href="https://github.com/lucakim27/food-suggestion" target="_blank">GitHub repository</a>.</p>
-</div>
+    </div>
+</section>
+
 {% endblock %}

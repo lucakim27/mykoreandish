@@ -3,28 +3,19 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style/home.css') }}">
 {% endblock %}
 {% block content %}
+<div class="intro-banner">
+  <h1>🍽️ Welcome to mykoreandish</h1>
+  <p>Find Korean dishes based on your taste — spicy, sweet, sour, and more.</p>
 
-<div class="statistics-box">
-  <h3>Statistics</h3>
-  <div class="statistics-item">
-    <span class="label">Registered Users:</span>
-    <span class="value">{{ total_users }}</span>
-  </div>
-  <div class="statistics-item">
-    <span class="label">Dish Taste Reviews:</span>
-    <span class="value">{{ total_reviews }}</span>
-  </div>
-  <div class="statistics-item">
-    <span class="label">Dish Dietary Reviews:</span>
-    <span class="value">{{ dietary_total }}</span>
-  </div>
-  <div class="statistics-item">
-    <span class="label">Dish Ingredient Reviews:</span>
-    <span class="value">{{ ingredient_total }}</span>
-  </div>
-  <div class="statistics-item">
-    <span class="label">Ingredient Nutrient Reviews:</span>
-    <span class="value">{{ nutrients_count }}</span>
+  <div class="banner-stats">
+    <div class="stat-item">
+      <span class="stat-label">Total Reviews:</span>
+      <span class="stat-value">{{ total_reviews + dietary_total + ingredient_total + nutrients_count }}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Registered Users:</span>
+      <span class="stat-value">{{ total_users }}</span>
+    </div>
   </div>
 </div>
 

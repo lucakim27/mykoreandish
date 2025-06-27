@@ -25,7 +25,7 @@ class NutrientManager:
         if not user:
             raise UserNotFoundError("User does not exist.")
         return user
-    
+
     def get_all_nutrients(self) -> List[Dict[str, str]]:
         nutrients = []
         try:
@@ -37,9 +37,9 @@ class NutrientManager:
                     })
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')
-        
+
         return nutrients
-    
+
     def add_nutrient(self, ingredient: str, google_id: str, nutrient: str) -> None:
         try:
             self._get_user(google_id)
@@ -111,7 +111,7 @@ class NutrientManager:
             flash(f'Error saving nutrient: {e}', 'error')
             return False
     
-    def delete_nutrient(self, history_id: str) -> bool:
+    def delete_nutrient(self, history_id: str) -> bool | None:
         if history_id:
             try:
                 nutrient_ref = self.nutrients_ref.document(history_id)

@@ -226,7 +226,7 @@ main {
     }
 
     #topBar h1 a {
-        font-size: 25px;
+        font-size: 30px;
         /* Smaller font for mobile view */
         word-wrap: break-word;
         /* Ensures long text wraps within the container */

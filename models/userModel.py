@@ -1,5 +1,8 @@
 import logging
 
+from flask.sessions import SessionMixin
+
+
 class User:
     def __init__(self, google_id: str, name: str, email: str):
         self.google_id = google_id
@@ -40,7 +43,7 @@ class UserManager:
         except Exception as e:
             logging.error(f"Error storing user: {e}")
 
-    def get_user_by_session(self, session: dict) -> dict:
+    def get_user_by_session(self, session: SessionMixin) -> dict | None:
         if session is None:
             return None
 

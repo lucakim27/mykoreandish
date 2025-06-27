@@ -23,7 +23,7 @@ class TasteManager:
                 history_ref = self.user_selections_ref.document(history_id)
                 history_ref.delete()
                 flash('History item deleted successfully.', 'success')
-            except Exception as e:
+            except Exception:
                 flash('An error occurred while deleting the history item.', 'error')
         else:
             flash('Invalid history ID.', 'error')
@@ -134,5 +134,5 @@ class TasteManager:
                 'rating': selection.to_dict().get('rating')
             } for selection in selections]
 
-        except Exception as e:
+        except Exception:
             return []

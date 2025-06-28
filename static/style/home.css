@@ -166,6 +166,5 @@ body {
 }
 
 .stat-value {
-    font-weight: bold;
-    color: #d72638;
+    color: #444;
 }

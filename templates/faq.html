@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}FAQ{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/aboutus.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="about-section">
+    <div class="about-us-container">
+        <h2>What is this website for?</h2>
+        <p>This site helps users discover Korean dishes based on taste preferences such as spiciness, sweetness, and more. It's built as a personal project to explore how algorithms can enhance food recommendations.</p>
+    </div>
+</section>
+
+<section class="about-section alt">
+    <div class="about-us-container">
+        <h2>How are dish suggestions made?</h2>
+        <p>Suggestions are based on taste profiles. Dishes are categorized using structured data (like spiciness level or healthiness), and your selections help filter out the most relevant dishes for you.</p>
+    </div>
+</section>
+
+<section class="about-section alt">
+    <div class="about-us-container">
+        <h2>Are the ratings and data accurate?</h2>
+        <p>Most ratings are based on manually collected and organized data. While not crowd-sourced yet, they are structured and consistent for experimental recommendation logic.</p>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="about-us-container">
+        <h2>Can I suggest a new dish or feature?</h2>
+        <p>Yes! Your feedback is appreciated. Feel free to <a href="mailto:nikolaikim27@gmail.com">contact us via email</a> with suggestions or new dish ideas you'd like to see.</p>
+    </div>
+</section>
+
+<section class="about-section alt">
+    <div class="about-us-container">
+        <h2>Will more features be added?</h2>
+        <p>This project is still evolving. Future ideas include user login, favorites, and more advanced recommendation logic based on review data and similarity algorithms.</p>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="about-us-container">
+        <h2>How can I support or contribute?</h2>
+        <p>This is an open portfolio project. If you're a developer, feel free to reach out for collaboration. Users can support by sharing the project or providing feedback.</p>
+    </div>
+</section>
+
+{% endblock %}

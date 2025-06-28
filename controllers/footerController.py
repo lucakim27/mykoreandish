@@ -19,3 +19,8 @@ def privacyController():
 def termsController():
     user = user_manager.get_user_by_session(session)
     return render_template('terms.html', user=user)
+
+@footer_bp.route('/faq')
+def faqController():
+    user = user_manager.get_user_by_session(session)
+    return render_template('faq.html', user=user)

@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='style/home.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 {% endblock %}
 {% block content %}
 <div class="intro-banner">
-  <h1>🍽️ Welcome to mykoreandish</h1>
+  <h1>Welcome to mykoreandish</h1>
   <p>Find Korean dishes based on your taste — spicy, sweet, sour, and more.</p>
 
   <div class="banner-stats">
     <div class="stat-item">
-      <span class="stat-label">Total Reviews:</span>
-      <span class="stat-value">{{ total_reviews + dietary_total + ingredient_total + nutrients_count }}</span>
+      <i class="fa-solid fa-users fa-xl" style="color: #d72638;" title="Registered Users"></i>
+      <span class="stat-value">{{ total_users }}</span>
     </div>
     <div class="stat-item">
-      <span class="stat-label">Registered Users:</span>
-      <span class="stat-value">{{ total_users }}</span>
+      <i class="fa-solid fa-pen-to-square fa-xl" style="color: #d72638;" title="Total Reviews"></i>
+      <span class="stat-value">{{ total_reviews + dietary_total + ingredient_total + nutrients_count }}</span>
     </div>
   </div>
 </div>

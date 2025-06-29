@@ -9,6 +9,7 @@ from controllers.adminController import admin_bp
 from controllers.requestController import request_bp
 from controllers.homeController import home_bp
 from controllers.errorHandlersController import error_bp
+from controllers.insightController import insight_bp
 from config.config import Config
 from controllers.footerController import footer_bp
 from controllers.favoriteController import favorite_bp
@@ -31,6 +32,7 @@ app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(request_bp, url_prefix='/request')
 app.register_blueprint(footer_bp, url_prefix='/footer')
 app.register_blueprint(favorite_bp, url_prefix='/favorite')
+app.register_blueprint(insight_bp, url_prefix='/insight')
 app.register_blueprint(home_bp)
 app.register_blueprint(error_bp)
 

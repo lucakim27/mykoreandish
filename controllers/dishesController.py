@@ -192,6 +192,7 @@ def food(name=None):
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
     favorites = favorite_manager.get_all_favorites(user)
+    similar_dishes = ingredient_manager.get_similar_dishes(name)
     return render_template(
         'food.html',
         user=user, 
@@ -199,7 +200,8 @@ def food(name=None):
         aggregates=aggregates,
         dietaries=dietaries,
         ingredients=ingredients,
-        favorites=favorites
+        favorites=favorites,
+        similar_dishes=similar_dishes
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])

@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 from flask import flash
 from google.cloud import firestore
 import csv
+from collections import defaultdict
 
 class Ingredient:
     def __init__(self, dish_name: str, ingredient: str, google_id: str, timestamp: Any):
@@ -160,3 +161,62 @@ class IngredientManager:
             flash(f'Error retrieving ingredients from Firestore: {e}', 'error')
         
         return ingredients
+
+    def get_similar_dishes(self, current_dish_name: str, top_n: int = 5) -> List[Dict[str, Any]]:
+        try:
+            dish_metadata = {}
+            try:
+                with open('csv/dishes.csv', mode='r') as file:
+                    reader = csv.DictReader(file)
+                    for row in reader:
+                        dish_metadata[row['dish_name']] = {
+                            "korean_name": row.get('korean_name', row['dish_name']),
+                            "thumbnail_url": row.get('thumbnail_url', '')
+                        }
+            except Exception as e:
+                flash(f"Error reading dishes from CSV: {e}", "error")
+                return []
+
+            current_ingredient_docs = self.ingredients_ref.where("dish_name", "==", current_dish_name).stream()
+            current_ingredients = set(
+                doc.to_dict()["ingredient"].strip().lower()
+                for doc in current_ingredient_docs
+            )
+
+            if not current_ingredients:
+                return []
+
+            from collections import defaultdict
+            dish_ingredient_map = defaultdict(set)
+
+            all_ingredient_docs = self.ingredients_ref.stream()
+            for doc in all_ingredient_docs:
+                data = doc.to_dict()
+                dish = data["dish_name"]
+                ingredient = data["ingredient"].strip().lower()
+
+                if dish != current_dish_name:
+                    dish_ingredient_map[dish].add(ingredient)
+
+            scored_similars = []
+            for dish, ingredients in dish_ingredient_map.items():
+                shared = current_ingredients & ingredients
+                score = len(shared)
+
+                if score > 0 and dish in dish_metadata:
+                    dish_data = dish_metadata[dish]
+                    scored_similars.append({
+                        "dish_name": dish,
+                        "korean_name": dish_data["korean_name"],
+                        "thumbnail_url": dish_data["thumbnail_url"],
+                        "shared_ingredients": list(shared),
+                        "score": score
+                    })
+
+            scored_similars.sort(key=lambda x: x["score"], reverse=True)
+            return scored_similars[:top_n]
+
+        except Exception as e:
+            flash(f"Error finding similar dishes: {e}", "error")
+            return []
+

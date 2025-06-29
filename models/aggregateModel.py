@@ -296,3 +296,64 @@ class AggregateManager:
         taste_reviews = self.db.collection("UserSelections").count().get()[0][0].value
 
         return dietary_reviews, ingredient_reviews, taste_reviews
+
+    def get_overall_aggregates(self):
+        """Returns a combined summary from all dishes in the Aggregates collection."""
+        aggregates_ref = self.db.collection("Aggregates")
+        docs = aggregates_ref.stream()
+
+        total_reviews = 0
+        taste_totals = {taste: 0.0 for taste in self.TASTE_CATEGORIES}
+        dietary_distribution = {}
+        ingredient_distribution = {}
+        rating_total = 0.0
+
+        for doc in docs:
+            data = doc.to_dict()
+            doc_reviews = data.get("total_reviews", 0)
+
+            # Sum taste values weighted by review count
+            for taste in self.TASTE_CATEGORIES:
+                taste_totals[taste] += data.get(taste, 0) * doc_reviews
+
+            total_reviews += doc_reviews
+            rating_total += data.get("rating", 0) * doc_reviews
+
+            # Merge dietary distribution
+            for key, count in data.get("dietary_distribution", {}).items():
+                dietary_distribution[key] = dietary_distribution.get(key, 0) + count
+
+            # Merge ingredient distribution
+            for key, count in data.get("ingredient_distribution", {}).items():
+                ingredient_distribution[key] = ingredient_distribution.get(key, 0) + count
+
+        ingredient_items = sorted(
+            ingredient_distribution.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )[:10]
+
+        ingredient_labels = [item[0] for item in ingredient_items]
+        ingredient_counts = [item[1] for item in ingredient_items]
+
+        # Compute final averages
+        if total_reviews > 0:
+            taste_averages = {taste: round(total / total_reviews, 2) for taste, total in taste_totals.items()}
+            rating_avg = round(rating_total / total_reviews, 2)
+        else:
+            taste_averages = {taste: 0.0 for taste in self.TASTE_CATEGORIES}
+            rating_avg = 0.0
+
+        # Combine everything into one dictionary
+        summary = {
+            "dietary_distribution": dietary_distribution,
+            "ingredient_distribution": ingredient_distribution,
+            "total_reviews": total_reviews,
+            "rating": rating_avg,
+            **taste_averages,
+            "ingredient_labels": ingredient_labels,
+            "ingredient_counts": ingredient_counts
+        }
+
+        return summary
+

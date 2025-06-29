@@ -231,6 +231,22 @@
             </form>
         </div>
     </div>
+    <h3>Similar Dishes</h3>
+    {% if similar_dishes %}
+    <div class="similar-dishes">
+        {% for sim_dish in similar_dishes %}
+        <a href="/dishes/{{ sim_dish.dish_name }}" class="similar-dish-card">
+            <strong>{{ sim_dish.korean_name }}</strong>
+            <small>{{ sim_dish.dish_name }}</small>
+            {% if sim_dish.shared_ingredients %}
+            <div class="shared">Shares: {{ sim_dish.shared_ingredients | join(', ') }}</div>
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No similar dishes found.</p>
+    {% endif %}
 </div>
 <script>
 function disableTasteButton() {

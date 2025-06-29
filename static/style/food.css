@@ -29,8 +29,8 @@ body {
 .confirmation-container p {
     /* font-size: 1.1em; */
     color: #555;
-    text-align: justify;
-    margin-bottom: 20px;
+    text-align: center;
+    margin: 10px;
 }
 
 /* Dish Details Table */
@@ -280,4 +280,48 @@ body {
     overflow: hidden;
     white-space: nowrap;
 }
+.similar-dishes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 0;
+}
 
+.similar-dish-card {
+    background-color: #f0f0f0;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    min-width: 200px;
+    max-width: 240px;
+}
+
+.similar-dish-card:hover {
+    transform: scale(1.02);
+    background-color: #e8e8e8;
+}
+
+.similar-dish-card strong {
+    font-size: 1em;
+    margin-bottom: 4px;
+}
+
+.similar-dish-card small {
+    font-size: 0.85em;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.similar-dish-card .shared {
+    font-size: 0.75em;
+    color: #888;
+    font-style: italic;
+}

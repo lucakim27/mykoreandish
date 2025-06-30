@@ -30,7 +30,11 @@ body {
     /* font-size: 1.1em; */
     color: #555;
     text-align: center;
-    margin: 10px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 8px 15px;
+    border-radius: 15px;
 }
 
 /* Dish Details Table */
@@ -324,4 +328,8 @@ body {
     font-size: 0.75em;
     color: #888;
     font-style: italic;
+}
+
+.similar-dish-head {
+    margin-bottom: 10px;
 }

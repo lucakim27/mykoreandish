@@ -1,48 +1,47 @@
-# Food Suggestion 🍽️  
+# MyKoreanDish 🍽️  
 
-A web application that enables users to explore and review **Korean dishes and ingredients**. Built with Python Flask and Jinja2 templates, it offers personalized recommendations, user authentication via Google, and comprehensive filtering options.  
+A web application that enables users to explore, review, and discover **Korean dishes and ingredients**. Built with Python Flask and Jinja2 templates, it offers personalized recommendations, taste-based filtering, and ingredient-aware suggestions.
 
-## 🌟 Features  
+## 🌟 Features
 
-- 🔐 **User Authentication**: Secure login using Google accounts.  
-- 🔍 **Search Functionality**: Find Korean dishes and ingredients with ease.  
-- 🎯 **Personalized Recommendations**: Receive dish suggestions tailored to your taste preferences and dietary needs.  
-- 📝 **Comprehensive Reviews**: Evaluate dishes based on dietary information and ingredient flavors; assess ingredients for their nutritional content.  
-- ❤️ **Favorites Management**: Save and manage your preferred dishes and ingredients.  
-- 🔄 **Advanced Filtering**:  
-  - Sort dishes by taste profiles, dietary restrictions, and specific ingredients.  
-  - Filter ingredients by nutritional values and associated dishes.  
-- 👤 **User Profiles**: Access your review history and manage personal information.  
-- ✏️ **Review Management**: Update or delete your past reviews as needed.  
+- Google Sign-In authentication  
+- Dish and ingredient search  
+- Personalized dish suggestions  
+- Taste & ingredient-based filtering  
+- Dietary and nutritional tagging  
+- Favorites management  
+- Ingredient-specific review history  
+- Similar dish recommendation system  
+- Admin dashboard and user insights  
 
-## 🛠️ Tech Stack  
+## 🛠️ Tech Stack
 
 - **Backend**: Python Flask  
 - **Frontend**: Jinja2 Templates  
-- **Database**: Firebase  
-- **Authentication**: Google Authentication
-- **Deployment**: Render
-- **Version Control**: Git
-- **Uptime Monitoring**: Uptime Robot
+- **Database**: Firebase Firestore  
+- **Authentication**: Google Sign-In  
+- **Deployment**: Render  
 
-## 🚀 Software Engineering Best Practices Followed
+## 🔧 Tools & Services
 
-- **MVC Architecture**: Separates concerns into models, views, and controllers, making the code easier to maintain and extend.
-- **Aggregate Pattern**: Efficiently handles complex review data, improving performance.
-- **OOP (Object-Oriented Programming)**: Organizes the code with reusable classes, ensuring scalability and clarity.
-- **Single Responsibility Principle**: Each function and class has a clear, single purpose, reducing complexity.
-- **Separation of Concerns**: Keeps the different parts of the application independent (e.g., data handling, user interface), making debugging and updates easier.
-- **Loose Coupling**: Reduces dependencies between components, allowing for simpler updates and changes.
-- **Open/Closed Principle**: The app can be extended with new features without changing existing code.
-- **DRY (Don't Repeat Yourself)**: Reduces redundant code by creating reusable functions and classes.
-- **Security Best Practices**: Uses Google Sign-In for secure user authentication, and sensitive data like API keys are stored safely in environment variables.
-- **Version Control**: Git and GitHub ensure code changes are well-managed and facilitate collaboration.
-- **User-Centered Design**: Features like personalized recommendations and filtering are designed to provide a better user experience.
-- **Scalable and Maintainable**: The code is structured to allow easy addition of features and future growth.
+- **Link Tracking**: Bit.ly  
+- **Uptime Monitoring**: Uptime Robot  
+- **Version Control**: Git + GitHub  
+
+## 📐 Software Engineering Practices
+
+- MVC architecture  
+- OOP design  
+- Aggregate pattern  
+- Separation of concerns  
+- DRY principle  
+- Open/Closed principle  
+- Loose coupling  
+- Secure environment configuration  
 
 ## 🚀 Live Demo  
 
-🔗 [Food Suggestion](https://food-suggestion.onrender.com/)  
+🔗 [MyKoreanDish](https://food-suggestion.onrender.com/)  
 
 ## 📦 Setup & Installation  
 

@@ -13,14 +13,18 @@ body {
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 16px;
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.confirmation-container h3 {
+    color: #2c3e50;
+}
+
 /* Header Styling */
 .confirmation-container h2 {
-    color: #d72638;
+    color: #2c3e50;
     font-size: 1.5em;
     margin-bottom: 10px;
     text-align: center;
@@ -28,21 +32,22 @@ body {
 
 .confirmation-container p {
     /* font-size: 1.1em; */
-    color: #555;
+    color: #2c3e50;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     background-color: #f0f0f0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 8px 15px;
     border-radius: 15px;
+    width: 100%;
 }
 
 /* Dish Details Table */
 .dish-details {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-    border-radius: 10px;
+    margin: 15px 0;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -73,9 +78,9 @@ body {
 .dietary-tag, .ingredient-tag {
     background-color: #f0f0f0;
     padding: 8px 15px;
-    border-radius: 10px;
+    border-radius: 16px;
     font-size: 0.9em;
-    color: #333;
+    color: #2c3e50;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -108,7 +113,7 @@ body {
     border: none;
     padding: 10px 15px;
     font-size: 1em;
-    border-radius: 10px;
+    border-radius: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -138,7 +143,7 @@ body {
 .price-point .price {
     font-weight: bold;
     color: #333;
-    font-size: 1.5em
+    font-size: 1.5em;
 }
 
 .shop-link {
@@ -161,6 +166,7 @@ body {
     .dish-details th, 
     .dish-details td {
         font-size: 0.9em;
+        color: #2c3e50;
     }
 
     .dietary-tag, .ingredient-tag {
@@ -190,7 +196,7 @@ body {
     max-width: 500px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     animation: modalopen 0.4s;
-    border-radius: 10px;
+    border-radius: 16px;
 }
 
 .modal-content select {
@@ -199,7 +205,7 @@ body {
     margin: 10px 0;
     font-size: 14px;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 16px;
     transition: border 0.3s ease;
 }
 
@@ -210,7 +216,7 @@ body {
     border: none;
     width: 100%;
     margin: 5px 0;
-    border-radius: 10px;
+    border-radius: 16px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
@@ -288,14 +294,14 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 0;
 }
 
 .similar-dish-card {
     background-color: #f0f0f0;
     padding: 10px 16px;
-    border-radius: 10px;
+    border-radius: 16px;
     font-size: 0.9em;
     color: #333;
     display: flex;
@@ -331,5 +337,55 @@ body {
 }
 
 .similar-dish-head {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* Visual Taste Guide - Table Format */
+.taste-header {
+    display: flex;
+    align-items: center;
+}
+
+.taste-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.taste-visual-display {
+    display: flex;
+    align-items: center;
+}
+
+.taste-bars {
+    display: flex;
+    gap: 2px;
+    flex: 1;
+}
+
+.taste-bar {
+    height: 16px;
+    width: 20px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Responsive adjustments for taste table */
+@media (max-width: 768px) {
+    .taste-header {
+        gap: 5px;
+        text-align: center;
+    }
+    
+    .taste-visual-display {
+        align-items: flex-start;
+    }
+    
+    .taste-bars {
+        gap: 1px;
+    }
+    
+    .taste-bar {
+        width: 15px;
+        height: 14px;
+    }
 }

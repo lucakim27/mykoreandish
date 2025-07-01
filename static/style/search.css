@@ -17,16 +17,16 @@ body {
     animation: fadeIn 0.3s ease-in-out;
     text-align: center;
     background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: none;
+    border-radius: 16px;
     padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     max-width: 665px;
     margin: 0 auto;
     /* Center align the box */
     font-size: 1em;
-    margin-top: -17px;
+    margin-top: -12px;
 }
 
 .filter-container label {
@@ -67,9 +67,9 @@ body {
 .filter-box label {
     background-color: #f0f0f0;
     padding: 8px 15px;
-    border-radius: 10px;
+    border-radius: 16px;
     font-size: 0.9em;
-    color: #333;
+    color: #2c3e50;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -109,10 +109,11 @@ body {
 .filter-options select {
     padding: 10px;
     font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    border: none;
+    border-radius: 16px;
+    margin: 10px 0 15px 0;
     width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 /* Recommendation Results Container */
@@ -125,7 +126,7 @@ body {
 .filter-button {
     margin-left: 5px;
     background-color: #d72638;
-    border-radius: 10px;
+    border-radius: 16px;
     width: 60px;
     border: none;
     box-shadow: 0 2px 2px rgb(198 198 198);
@@ -151,8 +152,9 @@ body {
     max-width: 600px;
     padding: 15px;
     font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 #options,
@@ -175,8 +177,8 @@ body {
 /* Food Container */
 .food-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
     padding: 0;
     margin: 0;
 }
@@ -186,36 +188,29 @@ body {
 }
 
 .food-box {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-decoration: none;
+    color: inherit;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 220px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    border: none;
+    position: relative;
     display: flex;
     flex-direction: column;
-    position: relative; /* Make the container relative so the button can be positioned absolutely inside */
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
 }
 
-/* 
 .food-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-} */
-
-.food-box h2 {
-    font-size: 1.5em;
-    color: #d72638;
-    /* Vibrant red for dish names */
-    margin-bottom: 10px;
-}
-
-.food-box p {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 15px;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
 .food-box-button {
@@ -224,7 +219,7 @@ body {
     border: none;
     padding: 10px 15px;
     font-size: 1em;
-    border-radius: 10px;
+    border-radius: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: auto;
@@ -232,9 +227,59 @@ body {
     width: 100%;
 }
 
-.food-box-button:hover {
-    background-color: #a91d2c;
-    /* Slightly darker red for hover */
+.food-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #d72638 0%, #a91d2c 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px auto;
+    color: white;
+    font-size: 2rem;
+}
+
+.food-box h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #2c3e50;
+}
+
+.food-box p {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.click-indicator {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+    width: 100%;
+}
+
+.click-indicator span {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hidden-submit-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 1;
 }
 
 /* No Matches Found */
@@ -244,14 +289,14 @@ body {
     padding: 20px;
     background-color: #ffffff;
     /* Very light orange for contrast */
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .no-matches h2 {
     font-size: 1.5em;
-    color: #d72638;
+    color: #2c3e50;
     margin-bottom: 10px;
 }
 
@@ -266,7 +311,7 @@ body {
     background-color: #ffffff;
     /* Very light orange for contrast */
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 16px;
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
@@ -285,7 +330,7 @@ body {
     padding: 10px 15px;
     font-size: 1em;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -298,17 +343,23 @@ body {
 /* Responsiveness */
 @media (max-width: 768px) {
     #search-input {
-        /* width: 100%; */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        width: 85%;
+        max-width: 500px;
     }
 
     .food-container {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .food-box {
-        height: auto;
+        padding: 30px 20px;
+    }
+
+    .food-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
     }
 }
 
@@ -334,7 +385,7 @@ body {
     max-width: 500px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     animation: modalopen 0.4s;
-    border-radius: 10px;
+    border-radius: 16px;
 }
 
 .modal-content select {
@@ -343,7 +394,7 @@ body {
     margin: 10px 0;
     font-size: 14px;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 16px;
     transition: border 0.3s ease;
 }
 
@@ -354,7 +405,7 @@ body {
     border: none;
     width: 100%;
     margin: 5px 0;
-    border-radius: 10px;
+    border-radius: 16px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
@@ -386,7 +437,7 @@ body {
 
 .criteria-form {
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 16px;
     max-width: 600px;
     margin: 20px auto;
 }
@@ -419,7 +470,7 @@ body {
     border: none;
     padding: 10px 15px;
     font-size: 1em;
-    border-radius: 10px;
+    border-radius: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 8px rgba(198, 198, 198, 0.5);
@@ -439,4 +490,26 @@ body {
     font-size: 24px;
     transition: transform 0.2s ease-in-out;
     color: #d72638;
+}
+
+.food-box-clickable {
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+.similar-dish-card {
+    border-radius: 16px;
+}
+
+.select-button,
+.food-box-button,
+.criteria-form button,
+.modal-content button,
+.favorite-btn,
+.filter-button {
+    border-radius: 16px !important;
 }

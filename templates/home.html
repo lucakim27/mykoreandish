@@ -4,39 +4,55 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 {% endblock %}
 {% block content %}
-<div class="intro-banner">
-  <h1>Welcome to mykoreandish</h1>
-  <p>Discover Korean dishes tailored to your taste. Whether you love it spicy, sweet, sour, or comforting, explore a wide variety of meals with real user reviews and flavor insights. Start your food journey and find the perfect dish for your cravings!</p>
-
-  <div class="banner-stats">
-    <div class="stat-item">
-      <i class="fa-solid fa-users fa-xl" style="color: #d72638;" title="Registered Users"></i>
-      <span class="stat-value">{{ total_users }}</span>
-    </div>
-    <div class="stat-item">
-      <i class="fa-solid fa-pen-to-square fa-xl" style="color: #d72638;" title="Total Reviews"></i>
-      <span class="stat-value">{{ total_reviews + dietary_total + ingredient_total + nutrients_count }}</span>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Discover Korean Cuisine</h1>
+    <p class="hero-subtitle">Find your perfect Korean dish with personalized taste recommendations and authentic user reviews.</p>
+    
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number">{{ total_users }}</span>
+        <span class="stat-label">Users</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">{{ total_reviews + dietary_total + ingredient_total + nutrients_count }}</span>
+        <span class="stat-label">Reviews</span>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="explore-section">
-  <form action="/dishes" method="post" class="introduction-form">
-    <h3>Food & Beverage</h3>
-    <p>Discover a variety of korean food and beverage curated to match your taste.</p>
-    <button type="submit">Explore Now</button>
-  </form>
-
-  <form action="/ingredients" method="post" class="introduction-form">
-    <h3>Ingredient</h3>
-    <p>Find various Korean ingredients with nutrients used in korean food and beverage.</p>
-    <button type="submit">Explore Now</button>
-  </form>
-
-  <form action="/insight" method="post" class="introduction-form">
-    <h3>Insights</h3>
-    <p>See how this dish ranks in taste, texture, and more — based on user reviews.</p>
-    <button type="submit">Explore Now</button>
-  </form>
-</div>
+<!-- Navigation Cards -->
+<section class="navigation">
+  <div class="nav-grid">
+    <form action="/dishes" method="post" class="nav-card">
+      <div class="nav-icon">
+        <i class="fas fa-utensils"></i>
+      </div>
+      <h3>Dishes</h3>
+      <p>Explore Korean food & beverages</p>
+      <button type="submit" class="hidden-button"></button>
+    </form>
+    
+    <form action="/ingredients" method="post" class="nav-card">
+      <div class="nav-icon">
+        <i class="fas fa-carrot"></i>
+      </div>
+      <h3>Ingredients</h3>
+      <p>Discover Korean ingredients & nutrients</p>
+      <button type="submit" class="hidden-button"></button>
+    </form>
+    
+    <form action="/insight" method="post" class="nav-card">
+      <div class="nav-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <h3>Insights</h3>
+      <p>View taste rankings & analytics</p>
+      <button type="submit" class="hidden-button"></button>
+    </form>
+  </div>
+</section>
 {% endblock %}

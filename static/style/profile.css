@@ -13,7 +13,7 @@ body {
     margin: 50px auto;
     padding: 30px;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
@@ -22,7 +22,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fafafa;
-    border-radius: 10px;
+    border-radius: 16px;
     overflow: hidden;
 }
 

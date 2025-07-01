@@ -113,35 +113,38 @@
             {% endif %}
         </tr>
         {% set aspects = {
-            'Rating': aggregates['rating'] if 'rating' in aggregates else None,
-            'Texture': aggregates['texture'] if 'texture' in aggregates else None,
-            'Sourness': aggregates['sourness'] if 'sourness' in aggregates else None,
-            'Spiciness': aggregates['spiciness'] if 'spiciness' in aggregates else None,
-            'Sweetness': aggregates['sweetness'] if 'sweetness' in aggregates else None,
-            'Healthiness': aggregates['healthiness'] if 'healthiness' in aggregates else None,
-            'Temperature': aggregates['temperature'] if 'temperature' in aggregates else None
+            'Rating': {'value': aggregates['rating'] if 'rating' in aggregates else None, 'color': '#FFD700'},
+            'Texture': {'value': aggregates['texture'] if 'texture' in aggregates else None, 'color': '#8B4513'},
+            'Sourness': {'value': aggregates['sourness'] if 'sourness' in aggregates else None, 'color': '#FFD700'},
+            'Spiciness': {'value': aggregates['spiciness'] if 'spiciness' in aggregates else None, 'color': '#FF4500'},
+            'Sweetness': {'value': aggregates['sweetness'] if 'sweetness' in aggregates else None, 'color': '#FF69B4'},
+            'Healthiness': {'value': aggregates['healthiness'] if 'healthiness' in aggregates else None, 'color': '#32CD32'},
+            'Temperature': {'value': aggregates['temperature'] if 'temperature' in aggregates else None, 'color': '#FF6347'}
         } %}
-        {% for aspect, rating in aspects.items() %}
+        {% for aspect, data in aspects.items() %}
         <tr>
-            <th>{{ aspect }}</th>
+            <th>
+                <div class="taste-header">
+                    <span class="taste-label">{{ aspect }}</span>
+                </div>
+            </th>
             <td>
-                {% if rating is not none %}
-                <div class="stars" title="{{ rating }}/5">
-                    {% for i in range(1, 6) %}
-                        <div class="star" style="--fill: 
-                            {% if rating >= i %} 100% 
-                            {% elif rating > i - 1 %} {{ (rating - (i - 1)) * 100 }}% 
-                            {% else %} 0% 
-                            {% endif %}
-                        ;"></div>
-                    {% endfor %}
-                </div>   
+                {% if data.value is not none %}
+                <div class="taste-visual-display">
+                    <div class="taste-bars">
+                        {% for i in range(1, 6) %}
+                            <div class="taste-bar" style="background-color: {{ data.color }}; opacity: {% if data.value >= i %}1{% elif data.value > i - 1 %}{{ (data.value - (i - 1)) }}{% else %}0.2{% endif %};"></div>
+                        {% endfor %}
+                    </div>
+                </div>
                 {% else %}
-                <span class="stars">
-                    {% for i in range(1, 6) %}
-                        <div class="star" style="--fill: 0% ;"></div>
-                    {% endfor %}
-                </span>
+                <div class="taste-visual-display">
+                    <div class="taste-bars">
+                        {% for i in range(1, 6) %}
+                            <div class="taste-bar" style="background-color: {{ data.color }}; opacity: 0.2;"></div>
+                        {% endfor %}
+                    </div>
+                </div>
                 {% endif %}
             </td>
         </tr>

@@ -13,16 +13,16 @@ body {
     margin: 20px auto;
     padding: 30px;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     text-align: center;
-    border: 1px solid #ccc;
+    border: none;
 }
 
 /* Section Title */
 .about-us-container h2 {
     font-size: 2em;
-    color: #d72638;
+    color: #2c3e50;
     margin-bottom: 20px;
 }
 

@@ -164,9 +164,12 @@
                         <i class="fa-regular fa-heart"></i>
                     {% endif %}
                 </button>
-                <h2>{{ dish.korean_name }}</h2>
+                <h3>{{ dish.korean_name }}</h3>
                 <p><b>{{ dish.dish_name }}</b> which is {{ dish.description }}</p>
-                <button type="submit" class="food-box-button">See More</button>
+                <div class="click-indicator">
+                    <span>Click to view details</span>
+                </div>
+                <button type="submit" class="hidden-submit-btn"></button>
             </form>
         </li>
         {% endfor %}
@@ -179,12 +182,12 @@
     </div>
     {% endif %}
 
-    <div class="request-dishes">
+    <!-- <div class="request-dishes">
         <h2>Not enough dishes?</h2>
         <button onclick="document.getElementById('requestModal').style.display='block'">Request a new dish</button>
-    </div>
+    </div> -->
 
-    <div id="requestModal" class="modal" style="display: none;">
+    <!-- <div id="requestModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('requestModal').style.display='none'">&times;</span>
             <form action="/request/submit-request" method="POST" class="criteria-form">
@@ -196,7 +199,7 @@
                 <button type="submit">Request</button>
             </form>
         </div>
-    </div>
+    </div> -->
 
 </div>
 
@@ -206,7 +209,7 @@
         let foodItems = document.querySelectorAll(".food-item");
         
         foodItems.forEach(item => {
-            let dishName = item.querySelector("h2").textContent.toLowerCase();
+            let dishName = item.querySelector("h3").textContent.toLowerCase();
             let description = item.querySelector("p").textContent.toLowerCase();
             
             if (dishName.includes(input) || description.includes(input)) {

@@ -76,7 +76,7 @@ ul#price_history li {
     border: none;
     width: 100%;
     margin: 5px 0;
-    border-radius: 10px;
+    border-radius: 16px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;

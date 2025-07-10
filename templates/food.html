@@ -6,6 +6,11 @@
 {% endblock %}
 {% block content %}
 <div class="confirmation-container">
+    <form action="/dishes/" method="POST" style="display:inline;">
+        <button class="go-back-btn" type="submit">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+    </form>
     {% if dish.dish_name in favorites %}
     <form action="/favorite/delete/dish/{{ dish.dish_name }}" method="POST">
         <button class="favorite-btn" type="submit">

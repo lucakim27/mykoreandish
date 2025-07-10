@@ -59,16 +59,3 @@ body {
 .about-section:last-child {
     border-bottom: none;
 }
-
-/* Optional: Alternate Backgrounds */
-.about-section.alt {
-    background-color: #fdf7f2; /* slightly different from page bg */
-    border-radius: 6px;
-}
-
-.about-section {
-    transition: background-color 0.3s ease;
-}
-.about-section:hover {
-    background-color: #fff6f0;
-}

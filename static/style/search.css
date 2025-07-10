@@ -155,6 +155,7 @@ body {
     border: none;
     border-radius: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    color: #2c3e50;
 }
 
 #options,

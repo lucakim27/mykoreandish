@@ -131,7 +131,8 @@ class IngredientManager:
                     ingredients.append({
                         'ingredient': row['ingredient'],
                         'description': row['description'],
-                        'korean_name': row['korean_name']
+                        'korean_name': row['korean_name'],
+                        'image_url': row['image_url']
                     })
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')

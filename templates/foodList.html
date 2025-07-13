@@ -157,6 +157,11 @@
         {% for dish in recommendation %}
         <li class="food-item">
             <form action="/dishes/{{ dish.dish_name }}" method="POST" class="food-box">
+                <div class="dish-image-wrapper">
+                    {% if dish.image_url %}
+                    <img src="{{ dish.image_url }}" alt="{{ dish.korean_name }}" class="dish-image">
+                    {% endif %}
+                </div>
                 <button type="button" class="favorite-btn">
                     {% if dish.dish_name in favorites %}
                         <i class="fa-solid fa-heart" style="color: #d72638;"></i>

@@ -1,237 +1,236 @@
-dish_name,description,korean_name
-Agujjim,Braised monkfish with soybean sprouts in a spicy sauce.,아구찜
-Andong Jjimdak,"Braised chicken with soy sauce, glass noodles, and vegetables, originating from Andong.",안동찜닭
-Baechu Geotjeori,Fresh kimchi made with lightly salted napa cabbage and a spicy marinade.,배추겉절이
-Baechu Kimchi,"Traditional Napa cabbage kimchi, fermented with chili powder, garlic, and ginger.",배추김치
-Baek Kimchi,"White kimchi made without chili powder, resulting in a milder and sweeter flavor.",백김치
-Baekban,"A simple Korean meal set featuring rice, soup, and several side dishes.",백반
-Baekseolgi,"Steamed rice cake, soft and fluffy, often used in celebrations.",백설기
-Banchan,Assorted small side dishes served with rice and soup.,반찬
-Beoseot Jeongol,"Mushroom hotpot with a variety of mushrooms, tofu, and vegetables in a light broth.",버섯전골
-Bibim Guksu,Spicy cold noodles with red chili paste and sesame oil.,비빔국수
-Bibimbap,Mixed rice with assorted vegetables.,비빔밥
-Bindaetteok,Mung bean pancakes fried to golden perfection with minced meat and vegetables.,빈대떡
-Bingsu,Shaved ice dessert topped with various sweet toppings like fruit or chocolate.,빙수
-Bokbunja-ju,"Korean black raspberry wine, sweet and slightly tart, often enjoyed as a dessert wine.",복분자주
-Bokkeum Udong,Stir-fried udon noodles with vegetables and a savory soy-based sauce.,볶음우동
-Bokkeumbap,A stir-fried rice dish made with assorted vegetables and seasonings.,볶음밥
-Bossam,"Boiled pork slices served with kimchi, garlic, and ssamjang.",보쌈
-Buchimgae,Korean-style savory pancakes made with various ingredients like kimchi or seafood.,부침개
-Bulgogi,"Thinly sliced beef marinated in a sweet and savory sauce, grilled or stir-fried.",불고기
-Bulgogi Dupbap,Rice topped with marinated beef bulgogi.,불고기 덮밥
-Bulgogi Jeongol,Hot pot with thinly sliced marinated beef and assorted vegetables.,불고기 전골
-Bungeo-ppang,Fish-shaped pastry filled with red bean paste.,붕어빵
-Chaltteok,Glutinous rice cake with a chewy texture often filled with sweet bean paste.,찰떡
-Cheonggukjang,Thick soybean paste stew with a strong fermented flavor.,청국장
-Cheongju,"Traditional clear rice wine with a smooth and refined flavor, used in cooking or as a drink.",청주
-Cheongpomuk,Green mung bean jelly salad seasoned with soy sauce and sesame oil.,청포묵
-Chimaek,Korean fried chicken served with beer or on its own.,치맥
-Chodang Sundubu,"Soft tofu made with fresh soy milk, typically served with a simple soy dipping sauce.",초당순두부
-Chogye Bibim Guksu,"Cold noodles topped with shredded chicken, served with a tangy and spicy sauce.",초계 비빔국수
-Chueotang,"Mudfish soup, known for its rich flavor and high nutritional value.",추어탕
-Chwinamul,"Seasoned aster scaber greens, a popular vegetable side dish in Korean cuisine.",취나물
-Dakbal,"Spicy braised chicken feet, popular as a chewy, spicy street food.",닭발
-Dakbokkeumtang,"Spicy braised chicken with potatoes, carrots, and a gochujang-based sauce.",닭볶음탕
-Dakgalbi,"Spicy stir-fried chicken with vegetables, rice cakes, and gochujang sauce.",닭갈비
-Dakgangjeong,Crispy fried chicken glazed in a sweet and spicy sauce.,닭강정
-Dakjuk,"Chicken porridge made with tender chicken, rice, and a light broth.",닭죽
-Dalkgomtang,"Chicken soup with a milky broth, slow-cooked for a rich, comforting flavor.",닭곰탕
-Deodeok Gui,Grilled deodeok root (a type of mountain herb) marinated in gochujang.,더덕구이
-Deulkkae Sujebi,"Perilla seed soup with hand-pulled dough, offering a nutty and comforting flavor.",들깨수제비
-Doenjang Jjigae,"Fermented soybean paste stew with tofu, zucchini, and mushrooms.",된장찌개
-Dongchimi,Lightly fermented radish water kimchi with a refreshing and mild taste.,동치미
-Dotori Muk,Acorn jelly served with soy sauce-based dressing and fresh vegetables.,도토리묵
-Dubu Kimchi,Pan-fried tofu paired with stir-fried kimchi and pork.,두부김치
-Dwaeji Gukbap,"Pork soup with rice, a specialty of Busan.",돼지국밥
-Eomandu,Steamed fish dumplings filled with minced fish and vegetables.,어만두
-Eomuk Tang,"Skewered fish cakes served in a warm, light broth.",어묵탕
-Eunhaeng Jorim,"Braised gingko nuts, slightly sweetened and used as a side dish or snack.",은행조림
-Gaeran Mari,"Rolled omelet with vegetables, a simple yet popular side dish.",계란말이
-Galbijjim,Braised short ribs cooked in a savory soy-based sauce with vegetables.,갈비찜
-Galbitang,Beef short rib soup simmered with radish and glass noodles.,갈비탕
-Galchi Gui,Grilled cutlassfish with soy sauce and sesame oil seasoning.,갈치구이
-Galchi Jorim,Braised hairtail fish with radish in a spicy soy-based sauce.,갈치조림
-Gamja Jeon,"Potato pancakes made with grated potatoes, crispy on the outside and tender inside.",감자전
-Gamjajeon-guk,"Potato and dumpling soup, hearty and savory with a mild broth.",감자전국
-Gamjajungol,Potato stew cooked with beef and vegetables in a savory broth.,감자전골
-Gamjatang,"Spicy pork bone soup with potatoes, perilla seeds, and vegetables.",감자탕
-Gan Jajangmyeon,A dry variation of jjajangmyeon with more concentrated black bean sauce.,간짜장면
-Ganghwasu,Traditional herb tea known for its refreshing and medicinal qualities.,강화수
-Ganjang Gejang,"Raw crabs marinated in soy sauce, often referred to as 'rice thief'.",간장게장
-Gat Kimchi,"Mustard leaf kimchi with a sharp, tangy, and slightly spicy taste.",갓김치
-Gejang,"Soy-marinated raw crab, a delicacy with a savory and umami flavor.",게장
-Geumbokjuk,Sea cucumber and abalone porridge a luxurious and nutritious dish.,금복죽
-Ggakdugi,"Cubed radish kimchi, a crunchy and tangy side dish.",깍두기
-Gobchang Jeongol,"Beef or pork intestine stew with vegetables, tofu, and spicy broth.",곱창전골
-Gochujang,"A fermented red chili paste with a bold, spicy, and slightly sweet flavor.",고추장
-Godeungeo Gui,Grilled mackerel seasoned with salt or a soy-based marinade.,고등어구이
-Godeungeo Hoe,Raw mackerel slices served with dipping sauces.,고등어회
-Godeungeo Jorim,Braised mackerel with radish in a savory soy sauce.,고등어조림
-Godeungeo Kimchi Jjigae,Kimchi stew with mackerel added for a savory depth.,고등어 김치찌개
-Godeungeo Kimchi Jorim,Mackerel braised with kimchi and radish in a spicy broth.,고등어 김치조림
-Golbaengi Muchim,Spicy whelk salad mixed with noodles and vegetables in a sweet and tangy sauce.,골뱅이무침
-Gomguk,"Beef bone soup simmered for a rich, milky consistency.",곰국
-Gomtang,"Rich beef bone soup simmered for hours for a deep, milky flavor.",곰탕
-Gondrebap,Steamed rice mixed with gondre (thistle leaves) and sesame oil for a nutty flavor.,곤드레밥
-Gopchang,"Grilled small intestines of pork or beef, often served with garlic, onions, and spicy sauces.",곱창
-Gopchang Bokkeum,Spicy stir-fried beef or pork intestines with vegetables.,곱창볶음
-Gopchang Jeongol,"Intestine stew with vegetables, tofu, and spicy broth.",곱창전골
-Gosari Namul,Seasoned bracken fern stems served as a side dish.,고사리나물
-Gukbap,"Soup with rice served together in a single bowl, typically made with beef or pork broth.",국밥
-Gul Jeon,Pan-fried oyster pancakes coated with egg batter.,굴전
-Gulbap,Steamed rice topped with fresh oysters served with soy sauce or sesame oil.,굴밥
-Gungjung Tteokbokki,Royal court-style stir-fried rice cakes with soy sauce and vegetables.,궁중떡볶이
-Gunmandu,Pan-fried dumplings with various fillings.,군만두
-Gyeongdan,Glutinous rice balls filled with sweet red bean paste and coated with sesame seeds.,경단
-Gyeran Bbang,"Egg bread, a popular Korean street snack.",계란빵
-Gyeran Jjim,"Steamed egg custard, a light and fluffy side dish.",계란찜
-Haemul Jjajangmyeon,Black bean sauce noodles with assorted seafood.,해물짜장면
-Haemul Jjim,"Steamed seafood dish with spicy sauce, often including crab and shellfish.",해물찜
-Haemul Pajeon,"Seafood pancake made with green onions, squid, and shrimp in a crispy batter.",해물파전
-Haemul Sundubu,"Soft tofu stew with a seafood mix, offering a spicy and creamy combination.",해물순두부
-Haemul Tang,"Spicy seafood soup with clams, shrimp, squid, and vegetables in a bold red broth.",해물탕
-Hangover Soup,"A generic term for soups like haejangguk or kongnamul guk, designed to cure hangovers.",해장국
-Hanwoo,"A premium breed of Korean cattle known for its tender, marbled meat, often used in high-quality dishes like galbi or bulgogi.",한우
-Heukdwaeji Gui,"Grilled Jeju black pork, famous for its tender and rich flavor.",흑돼지구이
-Hobak Juk,Pumpkin porridge made with sweet pumpkin puree and glutinous rice flour.,호박죽
-Hoddeok,"Sweet pancakes filled with brown sugar, nuts, and cinnamon.",호떡
-Hodugwaja,Walnut-shaped pastries filled with sweet red bean paste and walnut pieces.,호두과자
-Hongeo Samhap,Fermented skate paired with pork belly and kimchi for bold flavors.,홍어삼합
-Hongeo Ssam,Fermented skate served with boiled pork belly and kimchi wraps.,홍어쌈
-Hongeohoe,"Fermented skate, known for its pungent aroma and bold flavor, served with side dishes.",홍어회
-Hongeojjim,Steamed fermented skate served with steamed pork belly and kimchi.,홍어찜
-Honghap Tang,Mussel soup in a clear and lightly seasoned broth.,홍합탕
-Hotteok,"Sweet pancakes filled with cinnamon, brown sugar, and nuts.",호떡
-Hwangnamppang,"Soft and sweet red bean-filled bread, a specialty of Gyeongju.",황남빵
-Hwangtae Gui,Grilled dried pollock seasoned with sesame oil and soy sauce.,황태구이
-Hwangtae-guk,"Dried pollock soup, a popular hangover cure.",황태국
-Hwe Dup Bap,Mixed rice bowl topped with fresh raw fish and spicy gochujang sauce.,회덮밥
-Janchi Guksu,Thin wheat noodles with a light broth.,잔치국수
-Janggukbap,"Beef or soy sauce soup served with rice, a hearty and simple meal.",장국밥
-Jangjorim,"Soy-braised beef or pork, typically served as a banchan (side dish).",장조림
-Japchae,Stir-fried glass noodles with mixed vegetables and meat.,잡채
-Japgokbap,"Multigrain rice cooked with a mix of grains like barley, millet, and beans.",잡곡밥
-Jeonbok Gui,Grilled abalone seasoned with butter or soy sauce.,전복구이
-Jeonbokjuk,"Abalone porridge, a delicate and nutritious dish.",전복죽
-Jeyuk Bokkeum,Spicy stir-fried pork with onions and chili paste.,제육볶음
-Jeyuk Dupbap,Rice topped with spicy stir-fried pork and vegetables.,제육덮밥
-Jjajangmyeon,Noodles in black bean sauce served with diced pork and vegetables.,짜장면
-Jjamppong,Spicy seafood noodle soup with a bold broth.,짬뽕
-Jjapaguri,"A fusion of Jjajang ramen and spicy Neoguri ramen, often topped with beef.",짜파구리
-Jjimdak,"Braised chicken with soy-based sauce, glass noodles, and vegetables.",찜닭
-Jjolmyeon,Chewy noodles mixed with vegetables in a spicy and tangy sauce.,쫄면
-Jogaetang,"Clam soup made with clear broth, seasoned with garlic and green onions.",조개탕
-Jokbal,"Braised pig’s trotters seasoned with soy sauce, garlic, and ginger, served with dipping sauces.",족발
-Jong-gak Jeotgal,Fermented radish greens served as a salty and pungent side dish.,종각젓갈
-Juk,Korean porridge made with rice and a variety of ingredients.,죽
-Jukkumi Bokkeum,Spicy stir-fried baby octopus with a gochujang-based sauce.,주꾸미볶음
-Jumeokbap,"Rice balls mixed with sesame oil, seaweed, and other ingredients for a quick meal or snack.",주먹밥
-Kal Guksu,Knife-cut wheat noodles served in a light and flavorful broth.,칼국수
-Kim Mari,"Seaweed rolls stuffed with glass noodles and deep-fried, often served as a street snack.",김말이
-Kimbap,"Rice and various fillings rolled in seaweed, similar to sushi.",김밥
-Kimchi,"Traditional fermented cabbage seasoned with chili, garlic, and ginger.",김치
-Kimchi Bokkeum,Stir-fried kimchi often paired with tofu or pork.,김치볶음
-Kimchi Fried Rice,"Stir-fried rice mixed with kimchi and vegetables, topped with a fried egg.",김치볶음밥
-Kimchi Jjigae,"Kimchi stew with pork, tofu, and a spicy broth.",김치찌개
-Kimchi Mandu,"Dumplings stuffed with kimchi, pork, and tofu.",김치만두
-Kimchijeon,Savory pancake made with kimchi and flour batter.,김치전
-Kkaennip Jangajji,"Pickled perilla leaves marinated in soy sauce, garlic, and chili.",깻잎장아찌
-Kkotgetang,Spicy blue crab soup with radish and vegetables.,꽃게탕
-Kongbiji Jjigae,"Thick stew made from ground soybeans, often served with pork or kimchi.",콩비지찌개
-Kongguksu,Cold soy milk noodle soup with a creamy and nutty flavor.,콩국수
-Maeun Jokbal,Spicy braised pig's trotters seasoned with a fiery sauce.,매운족발
-Maeuntang,"Spicy fish stew with radish, tofu, and vegetables in a red pepper broth.",매운탕
-Makchang Gui,Grilled beef or pork abomasum with spicy dipping sauces.,막창구이
-Makgeolli,"Traditional Korean rice wine, slightly tangy and sweet.",막걸리
-Makguksu,"Cold buckwheat noodles in a spicy, tangy sauce, popular in Gangwon Province.",막국수
-Mandu,"Korean dumplings filled with various ingredients, steamed or fried.",만두
-Mandu Guk,"Dumpling soup, a popular dish during Korean New Year celebrations.",만두국
-Meongge Hoe,Raw sea pineapple (meongge) served fresh with spicy dipping sauce.,멍게회
-Milguksu,"Wheat flour noodles served in a simple broth, often with spicy condiments.",밀국수
-Milmyeon,Cold wheat noodles in a tangy and slightly sweet broth popular in Busan.,밀면
-Modum Jeon,"Assorted Korean pancakes with various fillings like seafood, vegetables, and meat.",모듬전
-Muguk,"Radish soup made with beef or anchovy stock, a comforting, mild dish.",무국
-Mul Kimchi,Water kimchi with a tangy broth.,물김치
-Mul Mandu,Boiled dumplings served in a clear soup.,물만두
-Mul Naengmyeon,Cold buckwheat noodles served in a tangy iced broth.,물냉면
-Mulhoe,Cold spicy soup with raw fish and vegetables a refreshing summer dish.,물회
-Myeolchibokkeum,"Stir-fried anchovies with soy sauce, sugar, and sesame seeds.",멸치볶음
-Myeongnan Jeot,"Salted pollock roe, often eaten as a side dish with rice.",명란젓
-Nabak Kimchi,"Water-based kimchi with radish, napa cabbage, and a light, tangy flavor.",나박김치
-Naengkonguksu,"Cold soy milk noodles served in a creamy, nutty broth.",냉콩국수
-Naengmyeon,"Cold buckwheat noodles in a tangy broth, perfect for summer.",냉면
-Nakji Bokkeum,Spicy stir-fried octopus with vegetables.,낙지볶음
-Nakji Gopchang Bokkeum,Stir-fried octopus and intestines in a spicy sauce.,낙지곱창볶음
-Nakji Sukhoe,Parboiled octopus slices served with spicy vinegar sauce.,낙지숙회
-Nakji Tang,Octopus soup made with spicy broth and vegetables.,낙지탕
-Nokdu Jeon,Mung bean pancakes with various ingredients.,녹두전
-Nureungji,Crunchy scorched rice often served as a snack or boiled into a porridge-like dish.,누릉지
-Ojingeo Bokkeum,Stir-fried squid with vegetables in a spicy gochujang-based sauce.,오징어볶음
-Ojingeo Deopbap,Spicy stir-fried squid served over rice.,오징어덮밥
-Ojingeo Jeotgal,Fermented squid served as a salty and tangy side dish.,오징어젓갈
-Ojingeo Jjolmyeon,Spicy stir-fried squid mixed with chewy noodles and vegetables.,오징어쫄면
-Ojingeo Muchim,"Spicy squid salad with thinly sliced squid, vegetables, and chili sauce.",오징어무침
-Ojingeo Sundae,"Squid stuffed with seasoned glass noodles and vegetables, steamed or grilled.",오징어순대
-Ojingeochae Muchim,Seasoned dried squid strips with a spicy and sweet sauce.,오징어채무침
-Ojingoe Twigim,Deep-fried squid rings served as a popular street snack.,오징어튀김
-Pajeon,"Green onion pancakes, sometimes mixed with seafood for added flavor.",파전
-Patbingsu,"Shaved ice dessert topped with sweet red beans, condensed milk, and fruits.",팥빙수
-Patjuk,Sweet red bean porridge with chewy rice cakes.,팥죽
-Ppyeohaejangguk,"Bone soup made with beef spine and vegetables, often for hangovers.",뼈해장국
-Pyeonyuk,Thinly sliced boiled meat (often pork or beef) served with ssamjang and vegetables.,편육
-Saengseon Hoe,Fresh raw fish slices served with gochujang-based dipping sauce.,생선회
-Saengsun Jeon,Pan-fried fish fillets dipped in egg batter.,생선전
-Saeu Bokkeum,"Stir-fried shrimp with garlic, soy sauce, and sesame oil.",새우볶음
-Sagol Gukbap,Hearty bone broth soup with rice popular in winter.,사골국밥
-Samgyeopsal,Grilled pork belly served with dipping sauces and side dishes.,삼겹살
-Samgyeopsal Jeongol,Pork belly hot pot with vegetables and a spicy broth.,삼겹살전골
-Samgyetang,"Ginseng chicken soup, often eaten in summer to boost energy.",삼계탕
-Samhap,"Fermented skate, boiled pork, and kimchi served together.",삼합
-Samjang Gejang,Fermented crab marinated in soybean paste and chili seasonings.,삼장게장
-Samseon Jajangmyeon,"Black bean noodles with seafood, vegetables, and pork or beef.",삼선짜장면
-Samseon Jjamppong,"Seafood noodle soup made with shrimp, squid, mussels, and spicy broth.",삼선짬뽕
-San-nakji,"Live octopus served raw, often moving on the plate and dipped in sesame oil.",산낙지
-Seokkeo Juk,"Sea cucumber porridge, a delicacy with a soft and luxurious texture.",석꼬죽
-Seolleongtang,"Ox bone soup with a milky broth, served with rice and green onions.",설렁탕
-Seonji Guk,"Soup with blood curd, often served in beef broth.",선지국
-Seonji Haejangguk,"Hangover soup made with coagulated ox blood, cabbage, and bean sprouts.",선지해장국
-Seopjuk,Seaweed porridge with a smooth and nutritious texture.,섭죽
-Shiraegi Guk,"Soup made with dried radish greens and soybean paste for a rustic, earthy flavor.",시래기국
-Sikhye,"Sweet rice punch made from malted barley and rice, served as a dessert drink.",식혜
-Sinseollo,"Royal hot pot with a variety of meats, seafood, and vegetables.",신선로
-Sogogi Bokkeum,"Stir-fried beef with soy sauce and vegetables, offering a sweet and savory flavor.",소고기볶음
-Sogogi Muchim,Beef slices mixed with fresh vegetables and a sesame oil soy dressing.,소고기무침
-Songpyeon,"Half-moon-shaped rice cakes filled with sweet sesame or red bean paste, traditionally made during Chuseok.",송편
-Ssam,"A wrap dish using lettuce leaves filled with rice, protein, and condiments.",쌈
-Ssambap,Rice wrapped in lettuce or perilla leaves with a variety of fillings and condiments.,쌈밥
-Sujeonggwa,"Cinnamon and ginger punch, a sweet and spicy dessert drink.",수정과
-Sundae,Korean blood sausage made with pig's intestines stuffed with noodles and spices.,순대
-Sundubu Jjigae,"Soft tofu stew with seafood, kimchi, or pork in a spicy broth.",순두부찌개
-Sundubu Mandu Guk,Soft tofu and dumplings in a light soup broth.,순두부만두국
-Tangpyeongchae,"Cold jelly noodle salad with vegetables, beef, and a soy-based dressing.",탕평채
-Tangsuyuk,Sweet and sour pork or beef served with a tangy sauce.,탕수육
-Tarakjuk,"Milk porridge made with rice flour, creamy and mildly sweet.",타락죽
-Tongdak,"Whole roasted chicken, often stuffed with glutinous rice, ginseng, and garlic.",통닭
-Tteokbokki,Stir-fried rice cakes in a spicy and sweet gochujang sauce.,떡볶이
-Tteokgalbi,Grilled short rib patties seasoned with sweet soy-based marinade.,떡갈비
-Tteokguk,"Soup made with sliced rice cakes, traditionally eaten during Lunar New Year.",떡국
-Tteokmandu Guk,"Rice cake soup with dumplings, typically eaten on New Year’s Day.",떡만두국
-Twigim,"Assorted Korean tempura, including vegetables, shrimp, and seaweed rolls.",튀김
-Ugeoji Galbitang,Beef short rib soup with outer cabbage leaves and radish.,우거지갈비탕
-Ugeoji Tang,Dried cabbage leaf soup with soybean paste and beef stock.,우거지탕
-Yaksik,"Sweetened glutinous rice with jujubes chestnuts and pine nuts often served as a dessert.",약식
-Yangjangpi,"Cold jellyfish salad with a tangy mustard sauce, often served at special occasions.",양장피
-Yangnyeom Gejang,"Spicy marinated raw crab with chili, garlic, and soy-based sauce.",양념게장
+dish_name,description,korean_name,image_url
+Agujjim,Braised monkfish with soybean sprouts in a spicy sauce.,아구찜,https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Agujjim.jpg/640px-Agujjim.jpg
+Andong Jjimdak,"Braised chicken with soy sauce, glass noodles, and vegetables, originating from Andong.",안동찜닭,https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/13-hadirector1_hoya00571_hoya0057.jpg/640px-13-hadirector1_hoya00571_hoya0057.jpg
+Baechu Kimchi,"Traditional Napa cabbage kimchi, fermented with chili powder, garlic, and ginger.",배추김치,https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Kimchi_-_Massachusetts.jpg/640px-Kimchi_-_Massachusetts.jpg
+Baek Kimchi,"White kimchi made without chili powder, resulting in a milder and sweeter flavor.",백김치,
+Baekban,"A simple Korean meal set featuring rice, soup, and several side dishes.",백반,https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Korean_Food%2C_Jeotgal_and_basic_dishes%28various_vegetables%29.jpg/640px-Korean_Food%2C_Jeotgal_and_basic_dishes%28various_vegetables%29.jpg
+Baekseolgi,"Steamed rice cake, soft and fluffy, often used in celebrations.",백설기,https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Baekseolgi.jpg/640px-Baekseolgi.jpg
+Banchan,Assorted small side dishes served with rice and soup.,반찬,https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Banchans.jpg/640px-Banchans.jpg
+Beoseot Jeongol,"Mushroom hotpot with a variety of mushrooms, tofu, and vegetables in a light broth.",버섯전골,https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/CCTV_Channel7_Visiting_Korea_05_%2827573671524%29.jpg/640px-CCTV_Channel7_Visiting_Korea_05_%2827573671524%29.jpg
+Bibim Guksu,Spicy cold noodles with red chili paste and sesame oil.,비빔국수,https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Korean_noodles-Bibim_guksu-01.jpg/640px-Korean_noodles-Bibim_guksu-01.jpg
+Bibimbap,Mixed rice with assorted vegetables.,비빔밥,https://upload.wikimedia.org/wikipedia/commons/2/21/Vegan_hot_stone_pot_bibimbap_%28Dolsot-bibimbap%29_-_Kogi_2023-10-16.jpg
+Bindaetteok,Mung bean pancakes fried to golden perfection with minced meat and vegetables.,빈대떡,
+Bingsu,Shaved ice dessert topped with various sweet toppings like fruit or chocolate.,빙수,
+Bokbunja-ju,"Korean black raspberry wine, sweet and slightly tart, often enjoyed as a dessert wine.",복분자주,
+Bokkeum Udong,Stir-fried udon noodles with vegetables and a savory soy-based sauce.,볶음우동,
+Bokkeumbap,A stir-fried rice dish made with assorted vegetables and seasonings.,볶음밥,
+Bossam,"Boiled pork slices served with kimchi, garlic, and ssamjang.",보쌈,
+Buchimgae,Korean-style savory pancakes made with various ingredients like kimchi or seafood.,부침개,
+Bulgogi,"Thinly sliced beef marinated in a sweet and savory sauce, grilled or stir-fried.",불고기,
+Bulgogi Dupbap,Rice topped with marinated beef bulgogi.,불고기 덮밥,
+Bulgogi Jeongol,Hot pot with thinly sliced marinated beef and assorted vegetables.,불고기 전골,
+Bungeo-ppang,Fish-shaped pastry filled with red bean paste.,붕어빵,
+Chaltteok,Glutinous rice cake with a chewy texture often filled with sweet bean paste.,찰떡,
+Cheonggukjang,Thick soybean paste stew with a strong fermented flavor.,청국장,
+Cheongju,"Traditional clear rice wine with a smooth and refined flavor, used in cooking or as a drink.",청주,
+Cheongpomuk,Green mung bean jelly salad seasoned with soy sauce and sesame oil.,청포묵,
+Chimaek,Korean fried chicken served with beer or on its own.,치맥,
+Chodang Sundubu,"Soft tofu made with fresh soy milk, typically served with a simple soy dipping sauce.",초당순두부,
+Chogye Bibim Guksu,"Cold noodles topped with shredded chicken, served with a tangy and spicy sauce.",초계 비빔국수,
+Chueotang,"Mudfish soup, known for its rich flavor and high nutritional value.",추어탕,
+Chwinamul,"Seasoned aster scaber greens, a popular vegetable side dish in Korean cuisine.",취나물,
+Dakbal,"Spicy braised chicken feet, popular as a chewy, spicy street food.",닭발,
+Dakbokkeumtang,"Spicy braised chicken with potatoes, carrots, and a gochujang-based sauce.",닭볶음탕,
+Dakgalbi,"Spicy stir-fried chicken with vegetables, rice cakes, and gochujang sauce.",닭갈비,
+Dakgangjeong,Crispy fried chicken glazed in a sweet and spicy sauce.,닭강정,
+Dakjuk,"Chicken porridge made with tender chicken, rice, and a light broth.",닭죽,
+Dalkgomtang,"Chicken soup with a milky broth, slow-cooked for a rich, comforting flavor.",닭곰탕,
+Deodeok Gui,Grilled deodeok root (a type of mountain herb) marinated in gochujang.,더덕구이,
+Deulkkae Sujebi,"Perilla seed soup with hand-pulled dough, offering a nutty and comforting flavor.",들깨수제비,
+Doenjang Jjigae,"Fermented soybean paste stew with tofu, zucchini, and mushrooms.",된장찌개,
+Dongchimi,Lightly fermented radish water kimchi with a refreshing and mild taste.,동치미,
+Dotori Muk,Acorn jelly served with soy sauce-based dressing and fresh vegetables.,도토리묵,
+Dubu Kimchi,Pan-fried tofu paired with stir-fried kimchi and pork.,두부김치,
+Dwaeji Gukbap,"Pork soup with rice, a specialty of Busan.",돼지국밥,
+Eomandu,Steamed fish dumplings filled with minced fish and vegetables.,어만두,
+Eomuk Tang,"Skewered fish cakes served in a warm, light broth.",어묵탕,
+Eunhaeng Jorim,"Braised gingko nuts, slightly sweetened and used as a side dish or snack.",은행조림,
+Gaeran Mari,"Rolled omelet with vegetables, a simple yet popular side dish.",계란말이,
+Galbijjim,Braised short ribs cooked in a savory soy-based sauce with vegetables.,갈비찜,
+Galbitang,Beef short rib soup simmered with radish and glass noodles.,갈비탕,
+Galchi Gui,Grilled cutlassfish with soy sauce and sesame oil seasoning.,갈치구이,
+Galchi Jorim,Braised hairtail fish with radish in a spicy soy-based sauce.,갈치조림,
+Gamja Jeon,"Potato pancakes made with grated potatoes, crispy on the outside and tender inside.",감자전,
+Gamjajeon-guk,"Potato and dumpling soup, hearty and savory with a mild broth.",감자전국,
+Gamjajungol,Potato stew cooked with beef and vegetables in a savory broth.,감자전골,
+Gamjatang,"Spicy pork bone soup with potatoes, perilla seeds, and vegetables.",감자탕,
+Gan Jajangmyeon,A dry variation of jjajangmyeon with more concentrated black bean sauce.,간짜장면,
+Ganghwasu,Traditional herb tea known for its refreshing and medicinal qualities.,강화수,
+Ganjang Gejang,"Raw crabs marinated in soy sauce, often referred to as 'rice thief'.",간장게장,
+Gat Kimchi,"Mustard leaf kimchi with a sharp, tangy, and slightly spicy taste.",갓김치,
+Gejang,"Soy-marinated raw crab, a delicacy with a savory and umami flavor.",게장,
+Geumbokjuk,Sea cucumber and abalone porridge a luxurious and nutritious dish.,금복죽,
+Ggakdugi,"Cubed radish kimchi, a crunchy and tangy side dish.",깍두기,
+Gobchang Jeongol,"Beef or pork intestine stew with vegetables, tofu, and spicy broth.",곱창전골,
+Gochujang,"A fermented red chili paste with a bold, spicy, and slightly sweet flavor.",고추장,
+Godeungeo Gui,Grilled mackerel seasoned with salt or a soy-based marinade.,고등어구이,
+Godeungeo Hoe,Raw mackerel slices served with dipping sauces.,고등어회,
+Godeungeo Jorim,Braised mackerel with radish in a savory soy sauce.,고등어조림,
+Godeungeo Kimchi Jjigae,Kimchi stew with mackerel added for a savory depth.,고등어 김치찌개,
+Godeungeo Kimchi Jorim,Mackerel braised with kimchi and radish in a spicy broth.,고등어 김치조림,
+Golbaengi Muchim,Spicy whelk salad mixed with noodles and vegetables in a sweet and tangy sauce.,골뱅이무침,
+Gomguk,"Beef bone soup simmered for a rich, milky consistency.",곰국,
+Gomtang,"Rich beef bone soup simmered for hours for a deep, milky flavor.",곰탕,
+Gondrebap,Steamed rice mixed with gondre (thistle leaves) and sesame oil for a nutty flavor.,곤드레밥,
+Gopchang,"Grilled small intestines of pork or beef, often served with garlic, onions, and spicy sauces.",곱창,
+Gopchang Bokkeum,Spicy stir-fried beef or pork intestines with vegetables.,곱창볶음,
+Gopchang Jeongol,"Intestine stew with vegetables, tofu, and spicy broth.",곱창전골,
+Gosari Namul,Seasoned bracken fern stems served as a side dish.,고사리나물,
+Gukbap,"Soup with rice served together in a single bowl, typically made with beef or pork broth.",국밥,
+Gul Jeon,Pan-fried oyster pancakes coated with egg batter.,굴전,
+Gulbap,Steamed rice topped with fresh oysters served with soy sauce or sesame oil.,굴밥,
+Gungjung Tteokbokki,Royal court-style stir-fried rice cakes with soy sauce and vegetables.,궁중떡볶이,
+Gunmandu,Pan-fried dumplings with various fillings.,군만두,
+Gyeongdan,Glutinous rice balls filled with sweet red bean paste and coated with sesame seeds.,경단,
+Gyeran Bbang,"Egg bread, a popular Korean street snack.",계란빵,
+Gyeran Jjim,"Steamed egg custard, a light and fluffy side dish.",계란찜,
+Haemul Jjajangmyeon,Black bean sauce noodles with assorted seafood.,해물짜장면,
+Haemul Jjim,"Steamed seafood dish with spicy sauce, often including crab and shellfish.",해물찜,
+Haemul Pajeon,"Seafood pancake made with green onions, squid, and shrimp in a crispy batter.",해물파전,
+Haemul Sundubu,"Soft tofu stew with a seafood mix, offering a spicy and creamy combination.",해물순두부,
+Haemul Tang,"Spicy seafood soup with clams, shrimp, squid, and vegetables in a bold red broth.",해물탕,
+Hangover Soup,"A generic term for soups like haejangguk or kongnamul guk, designed to cure hangovers.",해장국,
+Hanwoo,"A premium breed of Korean cattle known for its tender, marbled meat, often used in high-quality dishes like galbi or bulgogi.",한우,
+Heukdwaeji Gui,"Grilled Jeju black pork, famous for its tender and rich flavor.",흑돼지구이,
+Hobak Juk,Pumpkin porridge made with sweet pumpkin puree and glutinous rice flour.,호박죽,
+Hoddeok,"Sweet pancakes filled with brown sugar, nuts, and cinnamon.",호떡,
+Hodugwaja,Walnut-shaped pastries filled with sweet red bean paste and walnut pieces.,호두과자,
+Hongeo Samhap,Fermented skate paired with pork belly and kimchi for bold flavors.,홍어삼합,
+Hongeo Ssam,Fermented skate served with boiled pork belly and kimchi wraps.,홍어쌈,
+Hongeohoe,"Fermented skate, known for its pungent aroma and bold flavor, served with side dishes.",홍어회,
+Hongeojjim,Steamed fermented skate served with steamed pork belly and kimchi.,홍어찜,
+Honghap Tang,Mussel soup in a clear and lightly seasoned broth.,홍합탕,
+Hotteok,"Sweet pancakes filled with cinnamon, brown sugar, and nuts.",호떡,
+Hwangnamppang,"Soft and sweet red bean-filled bread, a specialty of Gyeongju.",황남빵,
+Hwangtae Gui,Grilled dried pollock seasoned with sesame oil and soy sauce.,황태구이,
+Hwangtae-guk,"Dried pollock soup, a popular hangover cure.",황태국,
+Hwe Dup Bap,Mixed rice bowl topped with fresh raw fish and spicy gochujang sauce.,회덮밥,
+Janchi Guksu,Thin wheat noodles with a light broth.,잔치국수,
+Janggukbap,"Beef or soy sauce soup served with rice, a hearty and simple meal.",장국밥,
+Jangjorim,"Soy-braised beef or pork, typically served as a banchan (side dish).",장조림,
+Japchae,Stir-fried glass noodles with mixed vegetables and meat.,잡채,
+Japgokbap,"Multigrain rice cooked with a mix of grains like barley, millet, and beans.",잡곡밥,
+Jeonbok Gui,Grilled abalone seasoned with butter or soy sauce.,전복구이,
+Jeonbokjuk,"Abalone porridge, a delicate and nutritious dish.",전복죽,
+Jeyuk Bokkeum,Spicy stir-fried pork with onions and chili paste.,제육볶음,
+Jeyuk Dupbap,Rice topped with spicy stir-fried pork and vegetables.,제육덮밥,
+Jjajangmyeon,Noodles in black bean sauce served with diced pork and vegetables.,짜장면,
+Jjamppong,Spicy seafood noodle soup with a bold broth.,짬뽕,
+Jjapaguri,"A fusion of Jjajang ramen and spicy Neoguri ramen, often topped with beef.",짜파구리,
+Jjimdak,"Braised chicken with soy-based sauce, glass noodles, and vegetables.",찜닭,
+Jjolmyeon,Chewy noodles mixed with vegetables in a spicy and tangy sauce.,쫄면,
+Jogaetang,"Clam soup made with clear broth, seasoned with garlic and green onions.",조개탕,
+Jokbal,"Braised pig’s trotters seasoned with soy sauce, garlic, and ginger, served with dipping sauces.",족발,
+Jong-gak Jeotgal,Fermented radish greens served as a salty and pungent side dish.,종각젓갈,
+Juk,Korean porridge made with rice and a variety of ingredients.,죽,
+Jukkumi Bokkeum,Spicy stir-fried baby octopus with a gochujang-based sauce.,주꾸미볶음,
+Jumeokbap,"Rice balls mixed with sesame oil, seaweed, and other ingredients for a quick meal or snack.",주먹밥,
+Kal Guksu,Knife-cut wheat noodles served in a light and flavorful broth.,칼국수,
+Kim Mari,"Seaweed rolls stuffed with glass noodles and deep-fried, often served as a street snack.",김말이,
+Kimbap,"Rice and various fillings rolled in seaweed, similar to sushi.",김밥,
+Kimchi,"Traditional fermented cabbage seasoned with chili, garlic, and ginger.",김치,
+Kimchi Bokkeum,Stir-fried kimchi often paired with tofu or pork.,김치볶음,
+Kimchi Fried Rice,"Stir-fried rice mixed with kimchi and vegetables, topped with a fried egg.",김치볶음밥,
+Kimchi Jjigae,"Kimchi stew with pork, tofu, and a spicy broth.",김치찌개,
+Kimchi Mandu,"Dumplings stuffed with kimchi, pork, and tofu.",김치만두,
+Kimchijeon,Savory pancake made with kimchi and flour batter.,김치전,
+Kkaennip Jangajji,"Pickled perilla leaves marinated in soy sauce, garlic, and chili.",깻잎장아찌,
+Kkotgetang,Spicy blue crab soup with radish and vegetables.,꽃게탕,
+Kongbiji Jjigae,"Thick stew made from ground soybeans, often served with pork or kimchi.",콩비지찌개,
+Kongguksu,Cold soy milk noodle soup with a creamy and nutty flavor.,콩국수,
+Maeun Jokbal,Spicy braised pig's trotters seasoned with a fiery sauce.,매운족발,
+Maeuntang,"Spicy fish stew with radish, tofu, and vegetables in a red pepper broth.",매운탕,
+Makchang Gui,Grilled beef or pork abomasum with spicy dipping sauces.,막창구이,
+Makgeolli,"Traditional Korean rice wine, slightly tangy and sweet.",막걸리,
+Makguksu,"Cold buckwheat noodles in a spicy, tangy sauce, popular in Gangwon Province.",막국수,
+Mandu,"Korean dumplings filled with various ingredients, steamed or fried.",만두,
+Mandu Guk,"Dumpling soup, a popular dish during Korean New Year celebrations.",만두국,
+Meongge Hoe,Raw sea pineapple (meongge) served fresh with spicy dipping sauce.,멍게회,
+Milguksu,"Wheat flour noodles served in a simple broth, often with spicy condiments.",밀국수,
+Milmyeon,Cold wheat noodles in a tangy and slightly sweet broth popular in Busan.,밀면,
+Modum Jeon,"Assorted Korean pancakes with various fillings like seafood, vegetables, and meat.",모듬전,
+Muguk,"Radish soup made with beef or anchovy stock, a comforting, mild dish.",무국,
+Mul Kimchi,Water kimchi with a tangy broth.,물김치,
+Mul Mandu,Boiled dumplings served in a clear soup.,물만두,
+Mul Naengmyeon,Cold buckwheat noodles served in a tangy iced broth.,물냉면,
+Mulhoe,Cold spicy soup with raw fish and vegetables a refreshing summer dish.,물회,
+Myeolchibokkeum,"Stir-fried anchovies with soy sauce, sugar, and sesame seeds.",멸치볶음,
+Myeongnan Jeot,"Salted pollock roe, often eaten as a side dish with rice.",명란젓,
+Nabak Kimchi,"Water-based kimchi with radish, napa cabbage, and a light, tangy flavor.",나박김치,
+Naengkonguksu,"Cold soy milk noodles served in a creamy, nutty broth.",냉콩국수,
+Naengmyeon,"Cold buckwheat noodles in a tangy broth, perfect for summer.",냉면,
+Nakji Bokkeum,Spicy stir-fried octopus with vegetables.,낙지볶음,
+Nakji Gopchang Bokkeum,Stir-fried octopus and intestines in a spicy sauce.,낙지곱창볶음,
+Nakji Sukhoe,Parboiled octopus slices served with spicy vinegar sauce.,낙지숙회,
+Nakji Tang,Octopus soup made with spicy broth and vegetables.,낙지탕,
+Nokdu Jeon,Mung bean pancakes with various ingredients.,녹두전,
+Nureungji,Crunchy scorched rice often served as a snack or boiled into a porridge-like dish.,누릉지,
+Ojingeo Bokkeum,Stir-fried squid with vegetables in a spicy gochujang-based sauce.,오징어볶음,
+Ojingeo Deopbap,Spicy stir-fried squid served over rice.,오징어덮밥,
+Ojingeo Jeotgal,Fermented squid served as a salty and tangy side dish.,오징어젓갈,
+Ojingeo Jjolmyeon,Spicy stir-fried squid mixed with chewy noodles and vegetables.,오징어쫄면,
+Ojingeo Muchim,"Spicy squid salad with thinly sliced squid, vegetables, and chili sauce.",오징어무침,
+Ojingeo Sundae,"Squid stuffed with seasoned glass noodles and vegetables, steamed or grilled.",오징어순대,
+Ojingeochae Muchim,Seasoned dried squid strips with a spicy and sweet sauce.,오징어채무침,
+Ojingoe Twigim,Deep-fried squid rings served as a popular street snack.,오징어튀김,
+Pajeon,"Green onion pancakes, sometimes mixed with seafood for added flavor.",파전,
+Patbingsu,"Shaved ice dessert topped with sweet red beans, condensed milk, and fruits.",팥빙수,
+Patjuk,Sweet red bean porridge with chewy rice cakes.,팥죽,
+Ppyeohaejangguk,"Bone soup made with beef spine and vegetables, often for hangovers.",뼈해장국,
+Pyeonyuk,Thinly sliced boiled meat (often pork or beef) served with ssamjang and vegetables.,편육,
+Saengseon Hoe,Fresh raw fish slices served with gochujang-based dipping sauce.,생선회,
+Saengsun Jeon,Pan-fried fish fillets dipped in egg batter.,생선전,
+Saeu Bokkeum,"Stir-fried shrimp with garlic, soy sauce, and sesame oil.",새우볶음,
+Sagol Gukbap,Hearty bone broth soup with rice popular in winter.,사골국밥,
+Samgyeopsal,Grilled pork belly served with dipping sauces and side dishes.,삼겹살,
+Samgyeopsal Jeongol,Pork belly hot pot with vegetables and a spicy broth.,삼겹살전골,
+Samgyetang,"Ginseng chicken soup, often eaten in summer to boost energy.",삼계탕,
+Samhap,"Fermented skate, boiled pork, and kimchi served together.",삼합,
+Samjang Gejang,Fermented crab marinated in soybean paste and chili seasonings.,삼장게장,
+Samseon Jajangmyeon,"Black bean noodles with seafood, vegetables, and pork or beef.",삼선짜장면,
+Samseon Jjamppong,"Seafood noodle soup made with shrimp, squid, mussels, and spicy broth.",삼선짬뽕,
+San-nakji,"Live octopus served raw, often moving on the plate and dipped in sesame oil.",산낙지,
+Seokkeo Juk,"Sea cucumber porridge, a delicacy with a soft and luxurious texture.",석꼬죽,
+Seolleongtang,"Ox bone soup with a milky broth, served with rice and green onions.",설렁탕,
+Seonji Guk,"Soup with blood curd, often served in beef broth.",선지국,
+Seonji Haejangguk,"Hangover soup made with coagulated ox blood, cabbage, and bean sprouts.",선지해장국,
+Seopjuk,Seaweed porridge with a smooth and nutritious texture.,섭죽,
+Shiraegi Guk,"Soup made with dried radish greens and soybean paste for a rustic, earthy flavor.",시래기국,
+Sikhye,"Sweet rice punch made from malted barley and rice, served as a dessert drink.",식혜,
+Sinseollo,"Royal hot pot with a variety of meats, seafood, and vegetables.",신선로,
+Sogogi Bokkeum,"Stir-fried beef with soy sauce and vegetables, offering a sweet and savory flavor.",소고기볶음,
+Sogogi Muchim,Beef slices mixed with fresh vegetables and a sesame oil soy dressing.,소고기무침,
+Songpyeon,"Half-moon-shaped rice cakes filled with sweet sesame or red bean paste, traditionally made during Chuseok.",송편,
+Ssam,"A wrap dish using lettuce leaves filled with rice, protein, and condiments.",쌈,
+Ssambap,Rice wrapped in lettuce or perilla leaves with a variety of fillings and condiments.,쌈밥,
+Sujeonggwa,"Cinnamon and ginger punch, a sweet and spicy dessert drink.",수정과,
+Sundae,Korean blood sausage made with pig's intestines stuffed with noodles and spices.,순대,
+Sundubu Jjigae,"Soft tofu stew with seafood, kimchi, or pork in a spicy broth.",순두부찌개,
+Sundubu Mandu Guk,Soft tofu and dumplings in a light soup broth.,순두부만두국,
+Tangpyeongchae,"Cold jelly noodle salad with vegetables, beef, and a soy-based dressing.",탕평채,
+Tangsuyuk,Sweet and sour pork or beef served with a tangy sauce.,탕수육,
+Tarakjuk,"Milk porridge made with rice flour, creamy and mildly sweet.",타락죽,
+Tongdak,"Whole roasted chicken, often stuffed with glutinous rice, ginseng, and garlic.",통닭,
+Tteokbokki,Stir-fried rice cakes in a spicy and sweet gochujang sauce.,떡볶이,
+Tteokgalbi,Grilled short rib patties seasoned with sweet soy-based marinade.,떡갈비,
+Tteokguk,"Soup made with sliced rice cakes, traditionally eaten during Lunar New Year.",떡국,
+Tteokmandu Guk,"Rice cake soup with dumplings, typically eaten on New Year’s Day.",떡만두국,
+Twigim,"Assorted Korean tempura, including vegetables, shrimp, and seaweed rolls.",튀김,
+Ugeoji Galbitang,Beef short rib soup with outer cabbage leaves and radish.,우거지갈비탕,
+Ugeoji Tang,Dried cabbage leaf soup with soybean paste and beef stock.,우거지탕,
+Yaksik,"Sweetened glutinous rice with jujubes chestnuts and pine nuts often served as a dessert.",약식,
+Yangjangpi,"Cold jellyfish salad with a tangy mustard sauce, often served at special occasions.",양장피,
+Yangnyeom Gejang,"Spicy marinated raw crab with chili, garlic, and soy-based sauce.",양념게장,
 Yangnyeom Tongdak,Spicy and sweet Korean fried chicken.,양념통닭
-Yeolmu Kimchi,Young radish kimchi with a fresh and crisp texture.,열무김치
-Yeongeun Jorim,Braised lotus roots glazed with soy sauce and honey for a sweet and savory side.,연근조림
-Yeonggye Baeksuk,"Whole chicken stew with jujube, garlic and rice served with a light broth.",영계백숙
-Yeongyang Dolsotbap,Nutritious rice cooked in a hot stone pot with chestnuts and jujubes.,영양돌솥밥
-Yeongyang Tteokbokki,Nutritious stir-fried rice cakes made with vegetables and a less spicy sauce.,영양떡볶이
-Yeonipbap,"Rice wrapped in lotus leaves, steamed with nuts, dates, and other toppings.",연잎밥
-Yubu Chobap,"Fried tofu pockets stuffed with seasoned rice, a sweet and tangy bite.",유부초밥
-Yukgaejang,"Spicy beef soup with shredded meat, scallions, and vegetables.",육개장
-Yukhoe,"Korean-style beef tartare seasoned with sesame oil, soy sauce, and garlic.",육회
-Yukhoe Bibimbap,Rice mixed with Korean-style beef tartare and vegetables.,육회비빔밥
-Yukjeon,"Thinly sliced beef dipped in egg wash and pan-fried, often served as a special side dish.",육전
+Yeolmu Kimchi,Young radish kimchi with a fresh and crisp texture.,열무김치,
+Yeongeun Jorim,Braised lotus roots glazed with soy sauce and honey for a sweet and savory side.,연근조림,
+Yeonggye Baeksuk,"Whole chicken stew with jujube, garlic and rice served with a light broth.",영계백숙,
+Yeongyang Dolsotbap,Nutritious rice cooked in a hot stone pot with chestnuts and jujubes.,영양돌솥밥,
+Yeongyang Tteokbokki,Nutritious stir-fried rice cakes made with vegetables and a less spicy sauce.,영양떡볶이,
+Yeonipbap,"Rice wrapped in lotus leaves, steamed with nuts, dates, and other toppings.",연잎밥,
+Yubu Chobap,"Fried tofu pockets stuffed with seasoned rice, a sweet and tangy bite.",유부초밥,
+Yukgaejang,"Spicy beef soup with shredded meat, scallions, and vegetables.",육개장,
+Yukhoe,"Korean-style beef tartare seasoned with sesame oil, soy sauce, and garlic.",육회,
+Yukhoe Bibimbap,Rice mixed with Korean-style beef tartare and vegetables.,육회비빔밥,
+Yukjeon,"Thinly sliced beef dipped in egg wash and pan-fried, often served as a special side dish.",육전,
 Zucchini Hobakjeon,Thinly sliced zucchini coated in a light batter and pan-fried.,호박전

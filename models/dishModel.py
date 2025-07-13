@@ -2,10 +2,11 @@ import csv
 from flask import logging
 
 class Dish:
-    def __init__(self, dish_name, description, korean_name):
+    def __init__(self, dish_name, description, korean_name, image_url):
         self.dish_name = dish_name
         self.description = description
         self.korean_name = korean_name
+        self.image_url = image_url
 
 class DishManager:
     def __init__(self, csv_file):
@@ -26,7 +27,8 @@ class DishManager:
         return Dish(
             dish_name=row.get('dish_name', ''),
             description=row.get('description', ''),
-            korean_name=row.get('korean_name', '')
+            korean_name=row.get('korean_name', ''),
+            image_url=row.get('image_url', '')
         )
 
     def get_dish_instance(self, name):

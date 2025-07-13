@@ -53,6 +53,11 @@
         {% for ingredient in recommendation %}
         <li class="food-item">
             <form action="/ingredients/{{ ingredient.ingredient }}" method="POST" class="food-box">
+                <div class="dish-image-wrapper">
+                    {% if ingredient.image_url %}
+                    <img src="{{ ingredient.image_url }}" alt="{{ ingredient.korean_name }}" class="dish-image">
+                    {% endif %}
+                </div>
                 <button type="button" class="favorite-btn" onclick="toggleFavorite(this)" tabindex="-1" style="z-index:2; position:absolute; right:10px; top:10px;">
                     {% if ingredient.ingredient  in favorites %}
                         <i class="fa-solid fa-heart" style="color: #d72638;"></i>

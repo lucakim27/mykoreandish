@@ -59,7 +59,7 @@ footer {
 }
 
 #topBar h1 a {
-    font-family: 'Indie Flower', cursive;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 40px;
     word-wrap: break-word;
     display: inline-block;
@@ -230,7 +230,7 @@ main {
         /* Smaller font for mobile view */
         word-wrap: break-word;
         /* Ensures long text wraps within the container */
-        padding: 0 10px;
+        /* padding: 0 10px; */
         /* Prevents text from overflowing */
     }
 

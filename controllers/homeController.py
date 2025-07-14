@@ -21,7 +21,7 @@ nutrient_manager = NutrientManager(db, firestore)
 @home_bp.route('/')
 def home():
     user = user_manager.get_user_by_session(session)
-    dishes = dish_manager.get_all_dishes()
+    dishes = dish_manager.get_all_dishes_in_dictionary()
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
     dietary_total, ingredient_total, total_reviews = aggregate_manager.get_all_stats()

@@ -12,6 +12,18 @@ class DishManager:
     def __init__(self, csv_file):
         self.csv_file = csv_file
 
+    def get_all_dishes_in_dictionary(self):
+        dishes = self.get_all_dishes()
+        return [
+            {
+                'dish_name': dish.dish_name,
+                'korean_name': dish.korean_name,
+                'description': dish.description,
+                'image_url': dish.image_url
+            }
+            for dish in dishes
+        ]
+
     def get_all_dishes(self):
         dishes = []
         try:

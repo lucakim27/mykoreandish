@@ -9,6 +9,7 @@ body, h1, h2, p, a {
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f9f4ee; /* Light beige tone */
+    line-height: 1.6;
 }
 
 h2 {

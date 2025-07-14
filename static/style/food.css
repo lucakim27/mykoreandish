@@ -5,6 +5,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
 /* Confirmation Container */
@@ -401,7 +402,7 @@ body {
     color: #2c3e50;
     transition: transform 0.2s ease-in-out, background 0.2s;
     padding: 4px 8px;
-    z-index: 2;
+    /* z-index: 2; */
 }
 .go-back-btn:active {
     transform: scale(1.2);

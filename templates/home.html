@@ -4,13 +4,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 {% endblock %}
 {% block content %}
-<!-- Hero Section -->
 <section class="hero">
   <div class="hero-content">
     <h1 class="hero-title">Discover Korean Cuisine</h1>
     <p class="hero-subtitle">Find your perfect Korean dish with personalized taste recommendations and authentic user reviews.</p>
-    
-    <!-- Stats -->
+
+    <div class="search-section">
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for dishes or ingredients..." autocomplete="off">
+      </div>
+      <div id="search-results" class="search-results" style="display: none;"></div>
+      <script type="application/json" id="search-data">
+        {
+          "dishes": {{ dishes | tojson | safe }},
+          "ingredients": {{ ingredients | tojson | safe }}
+        }
+      </script>
+    </div>
+
     <div class="stats">
       <div class="stat">
         <span class="stat-number">{{ total_users }}</span>
@@ -24,7 +35,6 @@
   </div>
 </section>
 
-<!-- Navigation Cards -->
 <section class="navigation">
   <div class="nav-grid">
     <form action="/dishes" method="post" class="nav-card">
@@ -55,4 +65,100 @@
     </form>
   </div>
 </section>
+
+<script>
+var searchData = JSON.parse(document.getElementById('search-data').textContent);
+var dishes = searchData.dishes;
+var ingredients = searchData.ingredients;
+
+var searchItems = [];
+for (var i = 0; i < dishes.length; i++) {
+  var dish = dishes[i];
+  searchItems.push({
+    name: dish.dish_name,
+    koreanName: dish.korean_name,
+    type: 'dish',
+    url: '/dishes/' + dish.dish_name
+  });
+}
+for (var j = 0; j < ingredients.length; j++) {
+  var ingredient = ingredients[j];
+  searchItems.push({
+    name: ingredient.ingredient,
+    koreanName: ingredient.korean_name,
+    type: 'ingredient',
+    url: '/ingredients/' + ingredient.ingredient
+  });
+}
+
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+searchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  
+  if (query.length < 1) {
+    searchResults.style.display = 'none';
+    return;
+  }
+
+  const filteredItems = searchItems.filter(item => 
+    item.name.toLowerCase().includes(query) || 
+    item.koreanName.toLowerCase().includes(query)
+  ).slice(0, 8); // Limit to 8 results
+  
+  if (filteredItems.length > 0) {
+    displaySearchResults(filteredItems);
+  } else {
+    searchResults.style.display = 'none';
+  }
+});
+
+function displaySearchResults(items) {
+  searchResults.innerHTML = '';
+  
+  items.forEach(item => {
+    const resultItem = document.createElement('div');
+    resultItem.className = 'search-result-item';
+    resultItem.innerHTML = `
+      <div class="result-icon">
+        <i class="fas fa-${item.type === 'dish' ? 'utensils' : 'carrot'}"></i>
+      </div>
+      <div class="result-content">
+        <div class="result-name">${item.koreanName}</div>
+        <div class="result-subtitle">${item.name}</div>
+      </div>
+    `;
+
+    resultItem.addEventListener('click', () => {
+      window.location.href = item.url;
+    });
+    
+    searchResults.appendChild(resultItem);
+  });
+  
+  searchResults.style.display = 'block';
+}
+
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+    searchResults.style.display = 'none';
+  }
+});
+
+searchInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    const query = this.value.toLowerCase().trim();
+    if (query.length >= 1) {
+      const firstMatch = searchItems.find(item => 
+        item.name.toLowerCase().includes(query) || 
+        item.koreanName.toLowerCase().includes(query)
+      );
+      if (firstMatch) {
+        window.location.href = firstMatch.url;
+      }
+    }
+  }
+});
+</script>
 {% endblock %}

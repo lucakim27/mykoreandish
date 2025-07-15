@@ -1,149 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Insight{% endblock %}
-
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='style/aboutus.css') }}">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
-
 {% block content %}
-
 <section class="about-section">
   <div class="about-us-container">
-    <h2>Dietary Distribution</h2>
-    <canvas id="dietaryPieChart" width="200" height="200"></canvas>
+    <h2>Top 5 Popular Dishes</h2>
+    <ol class="popular-dishes-list">
+      {% for dish in top_dishes %}
+        <li>
+          <a href="{{ url_for('dishes.food', name=dish.name) }}">
+            {{ loop.index }}. {{ dish.name }} ({{ dish.korean_name }})
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
   </div>
 </section>
-
-<section class="about-section alt">
-  <div class="about-us-container">
-    <h2>Average Taste Profile</h2>
-    <canvas id="tasteBarChart" width="300" height="200"></canvas>
-  </div>
-</section>
-
 <section class="about-section">
   <div class="about-us-container">
-    <h2>Popular Ingredients</h2>
-    <div style="overflow-x: auto;">
-      <canvas id="ingredientChart" width="100%" height="400"></canvas>
-    </div>
+    <h2>Top 5 Popular Ingredients</h2>
+    <ol class="popular-ingredients-list">
+      {% for ingredient in top_ingredients %}
+        <li>
+          <a href="{{ url_for('ingredients.ingredientsListController', name=ingredient.name) }}">
+            {{ loop.index }}. {{ ingredient.name }} ({{ ingredient.korean_name }})
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
   </div>
 </section>
-
-<script>
-  const ctx = document.getElementById('dietaryPieChart').getContext('2d');
-  const dietaryData = {
-    labels: ['Vegan', 'Contain Meat', 'Halal', 'Seafood', 'Vegetarian'],
-    datasets: [{
-      label: 'Dietary Distribution',
-      data: [
-        {{ aggregates.dietary_distribution["Vegan"] }},
-        {{ aggregates.dietary_distribution["Contain Meat"] }},
-        {{ aggregates.dietary_distribution["Halal"] }},
-        {{ aggregates.dietary_distribution["Seafood"] }},
-        {{ aggregates.dietary_distribution["Vegetarian"] }}
-      ],
-      backgroundColor: [
-        '#4caf50', '#f44336', '#2196f3', '#ff9800', '#9c27b0'
-      ],
-      borderWidth: 1
-    }]
-  };
-
-  new Chart(ctx, {
-    type: 'pie',
-    data: dietaryData,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }
-  });
-
-  const tasteCtx = document.getElementById('tasteBarChart').getContext('2d');
-
-  const tasteData = {
-    labels: ['Spiciness', 'Sweetness', 'Sourness', 'Temperature', 'Texture', 'Healthiness'],
-    datasets: [{
-      label: 'Average Score (out of 5)',
-      data: [
-        {{ aggregates.spiciness }},
-        {{ aggregates.sweetness }},
-        {{ aggregates.sourness }},
-        {{ aggregates.temperature }},
-        {{ aggregates.texture }},
-        {{ aggregates.healthiness }}
-      ],
-      backgroundColor: [
-        '#ef5350',
-        '#ffca28',
-        '#26c6da',
-        '#ab47bc',
-        '#8bc34a',
-        '#ffa726'
-      ],
-      borderRadius: 4,
-      barThickness: 30
-    }]
-  };
-
-  new Chart(tasteCtx, {
-    type: 'bar',
-    data: tasteData,
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 5,
-          title: {
-            display: true,
-            text: 'Rating (0–5)'
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: false
-        }
-      },
-      responsive: true
-    }
-  });
-
-  const ingCtx = document.getElementById('ingredientChart').getContext('2d');
-
-  new Chart(ingCtx, {
-    type: 'bar',
-    data: {
-      labels: {{ aggregates.ingredient_labels | tojson }},
-      datasets: [{
-        label: 'Number of Dishes',
-        data: {{ aggregates.ingredient_counts | tojson }},
-        backgroundColor: '#42a5f5',
-        borderRadius: 4,
-        barThickness: 20
-      }]
-    },
-    options: {
-      indexAxis: 'y',  // makes it horizontal
-      scales: {
-        x: {
-          beginAtZero: true
-        }
-      },
-      plugins: {
-        legend: {
-          display: false
-        }
-      },
-      responsive: true,
-      maintainAspectRatio: false
-    }
-  });
-</script>
-
 {% endblock %}

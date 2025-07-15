@@ -535,8 +535,7 @@ body {
     width: 60px;
     height: 60px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #fff;
+    border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.10);
     background: #f8f8f8;
     transition: transform 0.2s;

@@ -1,5 +1,6 @@
 from firebase_admin import firestore
 from flask import flash
+import csv
 
 class AggregateManager:
     def __init__(self, db: firestore.Client):
@@ -297,63 +298,86 @@ class AggregateManager:
 
         return dietary_reviews, ingredient_reviews, taste_reviews
 
-    def get_overall_aggregates(self):
-        """Returns a combined summary from all dishes in the Aggregates collection."""
+    def get_top_five(self):
         aggregates_ref = self.db.collection("Aggregates")
-        docs = aggregates_ref.stream()
+        docs = list(aggregates_ref.stream())
 
-        total_reviews = 0
-        taste_totals = {taste: 0.0 for taste in self.TASTE_CATEGORIES}
-        dietary_distribution = {}
         ingredient_distribution = {}
-        rating_total = 0.0
+        dish_scores = {}  # dish_name -> combined count
 
+        # traverse aggregates documents and calculate the most reviewed ones
         for doc in docs:
             data = doc.to_dict()
-            doc_reviews = data.get("total_reviews", 0)
+            dish_name = doc.id
+            total_reviews = data.get("total_reviews", 0)
+            dietary_dist = data.get("dietary_distribution", {})
+            ingredient_dist = data.get("ingredient_distribution", {})
 
-            # Sum taste values weighted by review count
-            for taste in self.TASTE_CATEGORIES:
-                taste_totals[taste] += data.get(taste, 0) * doc_reviews
-
-            total_reviews += doc_reviews
-            rating_total += data.get("rating", 0) * doc_reviews
-
-            # Merge dietary distribution
-            for key, count in data.get("dietary_distribution", {}).items():
-                dietary_distribution[key] = dietary_distribution.get(key, 0) + count
-
-            # Merge ingredient distribution
-            for key, count in data.get("ingredient_distribution", {}).items():
+            # For ingredients: accumulate global counts
+            for key, count in ingredient_dist.items():
                 ingredient_distribution[key] = ingredient_distribution.get(key, 0) + count
 
+            # For dishes: sum total_reviews + all dietary_distribution + all ingredient_distribution
+            dish_score = total_reviews
+            if isinstance(dietary_dist, dict):
+                dish_score += sum(dietary_dist.values())
+            if isinstance(ingredient_dist, dict):
+                dish_score += sum(ingredient_dist.values())
+            dish_scores[dish_name] = dish_score
+
+        # Top 5 ingredients
         ingredient_items = sorted(
             ingredient_distribution.items(),
             key=lambda x: x[1],
             reverse=True
-        )[:10]
-
-        ingredient_labels = [item[0] for item in ingredient_items]
+        )[:5]
+        ingredient_names = [item[0] for item in ingredient_items]
         ingredient_counts = [item[1] for item in ingredient_items]
 
-        # Compute final averages
-        if total_reviews > 0:
-            taste_averages = {taste: round(total / total_reviews, 2) for taste, total in taste_totals.items()}
-            rating_avg = round(rating_total / total_reviews, 2)
-        else:
-            taste_averages = {taste: 0.0 for taste in self.TASTE_CATEGORIES}
-            rating_avg = 0.0
+        # Top 5 dishes by combined score
+        top_dish_items = sorted(dish_scores.items(), key=lambda x: x[1], reverse=True)[:5]
+        dish_names = [item[0] for item in top_dish_items]
+        dish_counts = [item[1] for item in top_dish_items]
 
-        # Combine everything into one dictionary
-        summary = {
-            "dietary_distribution": dietary_distribution,
-            "ingredient_distribution": ingredient_distribution,
-            "total_reviews": total_reviews,
-            "rating": rating_avg,
-            **taste_averages,
-            "ingredient_labels": ingredient_labels,
-            "ingredient_counts": ingredient_counts
+        # Get display info from CSVs
+        ingredient_info = {}
+        try:
+            with open('csv/ingredients.csv', mode='r') as file:
+                csv_reader = csv.DictReader(file)
+                for row in csv_reader:
+                    ingredient_info[row['ingredient']] = row.get('korean_name', row['ingredient'])
+        except Exception:
+            pass
+
+        dish_info = {}
+        try:
+            with open('csv/dishes.csv', mode='r', encoding='utf-8') as file:
+                csv_reader = csv.DictReader(file)
+                for row in csv_reader:
+                    dish_info[row['dish_name']] = row.get('korean_name', row['dish_name'])
+        except Exception:
+            pass
+
+        # Compose top 5 lists as dicts
+        top_ingredients = [
+            {
+                'name': name,
+                'korean_name': ingredient_info.get(name, name),
+                'count': count
+            }
+            for name, count in zip(ingredient_names, ingredient_counts)
+        ]
+        top_dishes = [
+            {
+                'name': name,
+                'korean_name': dish_info.get(name, name),
+                'count': count
+            }
+            for name, count in zip(dish_names, dish_counts)
+        ]
+
+        return {
+            'top_ingredients': top_ingredients,
+            'top_dishes': top_dishes
         }
-
-        return summary
 

@@ -42,29 +42,6 @@
             <p>No dietary information available.</p>
         {% endif %}
     </div>
-    
-    <div class="button-box">
-        <div style="display:inline;">
-            <button type="button" class="button select-button"
-                onclick="document.getElementById('dietaryModal').style.display='block'">Review Dietary</button>
-        </div>
-    </div><br>
-
-    <div id="dietaryModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('dietaryModal').style.display='none'">&times;</span>
-            <h2 style="margin-left: 16px;">{{ dish.korean_name }}</h2>
-            <form method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}" onsubmit="disableDietaryButton()">
-                <label for="dietary"><b>Dietary:</b></label>
-                <select id="dietary" name="dietary" required>
-                    {% for dietary in dietaries %}
-                    <option value="{{ dietary.dietary }}">{{ dietary.dietary }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit" id="submitDietaryButton" class="button submit-button">Review</button>
-            </form>
-        </div>
-    </div>
 
     <h3>Ingredient</h3>
     <div class="ingredients-list">
@@ -80,29 +57,6 @@
         {% else %}
             <p>No ingredients available.</p>
         {% endif %}
-    </div>
-    
-    <div class="button-box">
-        <form action="/reviews/ingredient/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="button" class="button select-button"
-                onclick="document.getElementById('ingredientModal').style.display='block'">Review Ingredient</button>
-        </form>
-    </div><br>
-
-    <div id="ingredientModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('ingredientModal').style.display='none'">&times;</span>
-            <h2 style="margin-left: 16px;">{{ dish.korean_name }}</h2>
-            <form method="POST" action="/dishes/ingredient_review/{{ dish.dish_name }}" onsubmit="disableIngredientButton()">
-                <label for="ingredient"><b>Ingredient:</b></label>
-                <select id="ingredient" name="ingredient" required>
-                    {% for ingredient in ingredients %}
-                    <option value="{{ ingredient.ingredient }}">{{ ingredient.ingredient }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit" id="submitIngredientButton" class="button submit-button">Review</button>
-            </form>
-        </div>
     </div>
 
     <h3>Taste</h3>
@@ -156,18 +110,37 @@
         {% endfor %}
     </table>
 
-    <div class="button-box">
-        <form action="/reviews/{{ dish.dish_name }}" method="post" style="display:inline;">
-            <button type="button" class="button select-button"
-                onclick="document.getElementById('tasteModal').style.display='block'">Review Taste</button>
-        </form>
-    </div><br>
-
-    <div id="tasteModal" class="modal" style="display: none;">
+    <div id="reviewModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <span class="close" onclick="document.getElementById('tasteModal').style.display='none'">&times;</span>
+            <span class="close" onclick="closeReviewModal()">&times;</span>
             <h2 style="margin-left: 16px;">{{ dish.korean_name }}</h2>
-            <form method="POST" action="/dishes/select/{{ dish.dish_name }}" onsubmit="disableTasteButton()">
+            <div class="review-type-segmented">
+                <button type="button" id="seg-dietary" class="segment-btn active" onclick="selectReviewType('dietary')">Dietary</button>
+                <button type="button" id="seg-ingredient" class="segment-btn" onclick="selectReviewType('ingredient')">Ingredient</button>
+                <button type="button" id="seg-taste" class="segment-btn" onclick="selectReviewType('taste')">Taste</button>
+            </div>
+
+            <form id="dietaryForm" method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}" onsubmit="disableDietaryButton()">
+                <label for="dietary" style="color: #2c3e50"><b>Dietary:</b></label>
+                <select id="dietary" name="dietary" required>
+                    {% for dietary in dietaries %}
+                    <option value="{{ dietary.dietary }}">{{ dietary.dietary }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" id="submitDietaryButton" class="button submit-button">Review Dietary</button>
+            </form>
+
+            <form id="ingredientForm" method="POST" action="/dishes/ingredient_review/{{ dish.dish_name }}" style="display:none;" onsubmit="disableIngredientButton()">
+                <label for="ingredient"><b>Ingredient:</b></label>
+                <select id="ingredient" name="ingredient" required>
+                    {% for ingredient in ingredients %}
+                    <option value="{{ ingredient.ingredient }}">{{ ingredient.ingredient }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" id="submitIngredientButton" class="button submit-button">Review Ingredient</button>
+            </form>
+            
+            <form id="tasteForm" method="POST" action="/dishes/select/{{ dish.dish_name }}" style="display:none;" onsubmit="disableTasteButton()">
                 <div class="input-group">
                     <label for="spiciness"><b>Spiciness:</b></label>
                     <select id="spiciness" name="spiciness" required>
@@ -234,7 +207,7 @@
                     </select>
                 </div>
                 <div class="button-box" style="display: flex;">
-                    <button type="submit" id="submitTasteButton" class="button select-button">Review</button>
+                    <button type="submit" id="submitTasteButton" class="button select-button">Review Taste</button>
                 </div>
             </form>
         </div>
@@ -255,16 +228,33 @@
     {% else %}
     <p>No similar dishes found.</p>
     {% endif %}
+    
+    <div class="button-box">
+        <button type="button" class="button select-button" onclick="openReviewModal()">Review</button>
+    </div>
 </div>
 <script>
+function openReviewModal() {
+    document.getElementById('reviewModal').style.display = 'block';
+    selectReviewType('dietary');
+}
+function closeReviewModal() {
+    document.getElementById('reviewModal').style.display = 'none';
+}
+function selectReviewType(type) {
+    document.getElementById('dietaryForm').style.display = (type === 'dietary') ? 'block' : 'none';
+    document.getElementById('ingredientForm').style.display = (type === 'ingredient') ? 'block' : 'none';
+    document.getElementById('tasteForm').style.display = (type === 'taste') ? 'block' : 'none';
+    document.getElementById('seg-dietary').classList.toggle('active', type === 'dietary');
+    document.getElementById('seg-ingredient').classList.toggle('active', type === 'ingredient');
+    document.getElementById('seg-taste').classList.toggle('active', type === 'taste');
+}
 function disableTasteButton() {
     document.getElementById("submitTasteButton").disabled = true;
 }
-
 function disableDietaryButton() {
     document.getElementById("submitDietaryButton").disabled = true;
 }
-
 function disableIngredientButton() {
     document.getElementById("submitIngredientButton").disabled = true;
 }

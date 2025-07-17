@@ -1,4 +1,3 @@
-/* General Page Styling */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f9f4ee;
@@ -8,7 +7,6 @@ body {
     line-height: 1.6;
 }
 
-/* Confirmation Container */
 .confirmation-container {
     max-width: 900px;
     margin: 20px auto;
@@ -21,9 +19,9 @@ body {
 
 .confirmation-container h3 {
     color: #2c3e50;
+    margin-top: 30px;
 }
 
-/* Header Styling */
 .confirmation-container h2 {
     color: #2c3e50;
     font-size: 1.5em;
@@ -32,7 +30,6 @@ body {
 }
 
 .confirmation-container p {
-    /* font-size: 1.1em; */
     color: #2c3e50;
     text-align: center;
     margin-bottom: 30px;
@@ -43,7 +40,6 @@ body {
     width: 100%;
 }
 
-/* Dish Details Table */
 .dish-details {
     width: 100%;
     border-collapse: collapse;
@@ -68,7 +64,6 @@ body {
     background-color: #fff;
 }
 
-/* Tags and Icons */
 .dietary-tags, .ingredients-list {
     display: flex;
     flex-wrap: wrap;
@@ -102,10 +97,9 @@ body {
     transform: scale(1.1);
 }
 
-/* Button Box */
 .button-box {
     text-align: center;
-    margin: 20px 0;
+    margin-top: 30px;
 }
 
 .select-button {
@@ -125,7 +119,6 @@ body {
     background-color: #a91d2c;
 }
 
-/* Price Timeline */
 .price-timeline {
     margin: 20px 0;
 }
@@ -158,7 +151,6 @@ body {
     color: #555;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .confirmation-container {
         padding: 15px;
@@ -174,7 +166,7 @@ body {
         font-size: 0.8em;
     }
 }
-/* Modal Styling */
+
 .modal {
     display: none;
     position: fixed;
@@ -211,10 +203,10 @@ body {
 }
 
 .modal-content button {
-    background-color: #d72638;
-    color: white;
+    /* background-color: #d72638; */
+    /* color: white; */
     padding: 10px 15px;
-    border: none;
+    /* border: 1px solid black; */
     width: 100%;
     margin: 5px 0;
     border-radius: 16px;
@@ -224,15 +216,12 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.modal-content button:hover {
-    background-color: #a91d2c;
-}
-
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 40px;
+    /* font-weight: bold; */
+    margin-top: -20px;
 }
 
 .close:hover,
@@ -278,14 +267,14 @@ body {
 .star::before {
     content: "★";
     font-size: 24px;
-    color: lightgray; /* Empty part */
+    color: lightgray;
     position: absolute;
 }
 
 .star::after {
     content: "★";
     font-size: 24px;
-    color: gold; /* Filled part */
+    color: gold;
     position: absolute;
     width: var(--fill, 0%);
     overflow: hidden;
@@ -341,7 +330,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* Visual Taste Guide - Table Format */
 .taste-header {
     display: flex;
     align-items: center;
@@ -369,7 +357,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Responsive adjustments for taste table */
 @media (max-width: 768px) {
     .taste-header {
         gap: 5px;
@@ -402,9 +389,54 @@ body {
     color: #2c3e50;
     transition: transform 0.2s ease-in-out, background 0.2s;
     padding: 4px 8px;
-    /* z-index: 2; */
 }
+
 .go-back-btn:active {
     transform: scale(1.2);
     background: #f0f0f0;
+}
+
+.submit-button {
+    background-color: #d72638;
+    color: white;
+    border: none;
+}
+
+.review-type-segmented {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 8px;
+}
+.segment-btn {
+    flex: 1;
+    padding: 12px 0;
+    border: none;
+    background: #f0f0f0;
+    color: #333;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    outline: none;
+    box-shadow: none;
+    user-select: none;
+}
+.segment-btn.active {
+    background: #d72638;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.segment-btn:not(.active):hover {
+    background: #ececec;
+}
+@media (max-width: 600px) {
+    .review-type-segmented {
+        gap: 4px;
+    }
+    .segment-btn {
+        font-size: 1em;
+        padding: 10px 0;
+    }
 }

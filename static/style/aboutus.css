@@ -71,13 +71,13 @@ body {
 }
 
 .popular-ingredients-list li, .popular-dishes-list li {
-  background: #fff;
   border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(60, 60, 60, 0.08);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.1em 1.5em;
   transition: box-shadow 0.2s, transform 0.2s;
   display: flex;
   align-items: center;
+  background-color: #f0f0f0;
 }
 
 .popular-ingredients-list li:hover, .popular-dishes-list li:hover {
@@ -87,12 +87,12 @@ body {
 
 .popular-ingredients-list a, .popular-dishes-list a {
   color: #2c3e50;
-  /* font-weight: 500; */
-  font-size: 1em;
+  font-size: 0.9em;
   text-decoration: none;
   width: 100%;
   display: flex;
   align-items: center;
+  font-weight: normal;
 }
 
 .popular-ingredients-list a:hover, .popular-dishes-list a:hover {

@@ -30,11 +30,10 @@
     <h3>Dietary</h3>
     <div class="dietary-tags">
         {% if aggregates['dietary_distribution'] %}
-            {% set total_count = aggregates['dietary_distribution'].values() | sum %}
             {% for diet, count in aggregates['dietary_distribution'].items() | sort(attribute='1', reverse=True) %}
                 {% if count > 0 %}
                     <span class="dietary-tag">
-                        <i class="icon-{{ diet | lower }}"></i> {{ diet }} ({{ (count / total_count * 100) | round(1) }}%)
+                        <i class="icon-{{ diet | lower }}"></i> {{ diet }} {{ count }} 👤
                     </span>
                 {% endif %}
             {% endfor %}
@@ -46,11 +45,10 @@
     <h3>Ingredient</h3>
     <div class="ingredients-list">
         {% if aggregates['ingredient_distribution'] %}
-            {% set total_count = aggregates['ingredient_distribution'].values() | sum %}
             {% for ingredient, count in aggregates['ingredient_distribution'].items() | sort(attribute='1', reverse=True) %}
                 {% if count > 0 %}
                     <a href="/ingredients/{{ ingredient }}" class="ingredient-tag">
-                        <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b> ({{ (count / total_count * 100) | round(1) }}%)
+                        <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b> {{ count }} 👤
                     </a>
                 {% endif %}
             {% endfor %}
@@ -58,6 +56,38 @@
             <p>No ingredients available.</p>
         {% endif %}
     </div>
+
+    <h3>Price</h3>
+    <form method="GET" action="">
+        <div class="location-selectors">
+            <label for="mainCountry">Country:</label>
+            <select name="country" id="mainCountry" onchange="this.form.submit()">
+                <option value="">Select a country</option>
+                {% for country in available_countries %}
+                    <option value="{{ country }}" {% if country == selected_country %}selected{% endif %}>
+                        {{ country }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+
+    {% if price_info %}
+    <div class="price-bar-container">
+        <div class="price-details">
+            <ul>
+            {% for entry in price_info %}
+                <li style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>{{ entry.state }}: {{ entry.price }}</span>
+                    <span style="color:gray; font-size: 0.95em;">{{ entry.timestamp|time_ago }}</span>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% else %}
+    <p style="margin-top: 15px;">No price available for this location.</p>
+    {% endif %}
 
     <h3>Taste</h3>
     <table class="dish-details">
@@ -118,6 +148,7 @@
                 <button type="button" id="seg-dietary" class="segment-btn active" onclick="selectReviewType('dietary')">Dietary</button>
                 <button type="button" id="seg-ingredient" class="segment-btn" onclick="selectReviewType('ingredient')">Ingredient</button>
                 <button type="button" id="seg-taste" class="segment-btn" onclick="selectReviewType('taste')">Taste</button>
+                <button type="button" id="seg-price" class="segment-btn" onclick="selectReviewType('price')">Price</button>
             </div>
 
             <form id="dietaryForm" method="POST" action="/dishes/dietary_review/{{ dish.dish_name }}" onsubmit="disableDietaryButton()">
@@ -210,6 +241,26 @@
                     <button type="submit" id="submitTasteButton" class="button select-button">Review Taste</button>
                 </div>
             </form>
+
+            <form id="priceForm" method="POST" action="/dishes/price_review/{{ dish.dish_name }}" style="display:none;" onsubmit="disablePriceButton()">
+                <div class="input-group">
+                    <label for="country"><b>Country:</b></label>
+                    <select id="priceFormCountry" name="country" required onchange="updatePriceFormCities()">
+                        {% for country in locations.countries|sort %}
+                        <option value="{{ country }}">{{ country }}</option>
+                        {% endfor %}
+                    </select><br>
+                    <label for="city"><b>City:</b></label>
+                    <select id="priceFormCity" name="city" required>
+                        {% for city in locations.cities|sort %}
+                        <option value="{{ city }}">{{ city }}</option>
+                        {% endfor %}
+                    </select><br>
+                    <label for="price"><b>Price:</b></label><br>
+                    <input type="number" step="0.01" min="0" placeholder="34.50" name="price" required>
+                </div>
+                <button type="submit" id="submitPriceButton" class="button submit-button">Review Price</button>
+            </form>
         </div>
     </div>
     <h3 class="similar-dish-head">Similar Dishes</h3>
@@ -245,9 +296,11 @@ function selectReviewType(type) {
     document.getElementById('dietaryForm').style.display = (type === 'dietary') ? 'block' : 'none';
     document.getElementById('ingredientForm').style.display = (type === 'ingredient') ? 'block' : 'none';
     document.getElementById('tasteForm').style.display = (type === 'taste') ? 'block' : 'none';
+    document.getElementById('priceForm').style.display = (type === 'price') ? 'block' : 'none';
     document.getElementById('seg-dietary').classList.toggle('active', type === 'dietary');
     document.getElementById('seg-ingredient').classList.toggle('active', type === 'ingredient');
     document.getElementById('seg-taste').classList.toggle('active', type === 'taste');
+    document.getElementById('seg-price').classList.toggle('active', type === 'price');
 }
 function disableTasteButton() {
     document.getElementById("submitTasteButton").disabled = true;
@@ -258,5 +311,31 @@ function disableDietaryButton() {
 function disableIngredientButton() {
     document.getElementById("submitIngredientButton").disabled = true;
 }
+function submitPriceButton() {
+    document.getElementById("submitPriceButton").disabled = true;
+}
+
+const countryToCities = {{ locations.country_to_cities|tojson }};
+const priceFormCountry = document.getElementById('priceFormCountry');
+const priceFormCity = document.getElementById('priceFormCity');
+
+function updatePriceFormCities() {
+    const selectedCountry = priceFormCountry.value;
+    priceFormCity.innerHTML = '';
+    if (countryToCities[selectedCountry]) {
+        countryToCities[selectedCountry].forEach(function(city) {
+            const option = document.createElement('option');
+            option.value = city;
+            option.text = city;
+            priceFormCity.appendChild(option);
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (priceFormCountry && priceFormCountry.value) {
+        updatePriceFormCities();
+    }
+});
 </script>
 {% endblock %}

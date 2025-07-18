@@ -295,8 +295,10 @@ class AggregateManager:
         dietary_reviews = self.db.collection("Dietaries").count().get()[0][0].value
         ingredient_reviews = self.db.collection("Ingredients").count().get()[0][0].value
         taste_reviews = self.db.collection("UserSelections").count().get()[0][0].value
+        price_reviews = self.db.collection("Prices").count().get()[0][0].value
+        nutrients_reviews = self.db.collection("Nutrients").count().get()[0][0].value
 
-        return dietary_reviews, ingredient_reviews, taste_reviews
+        return dietary_reviews, ingredient_reviews, taste_reviews, price_reviews, nutrients_reviews
 
     def get_top_five(self):
         aggregates_ref = self.db.collection("Aggregates")

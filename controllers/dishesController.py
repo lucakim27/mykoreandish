@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
 from models.aggregateModel import AggregateManager
 from models.favoriteModel import FavoriteManager
+from models.priceModel import PriceManager
 from utils.login import login_required
 from models.dietaryModel import DietaryManager
 from models.dishModel import DishManager
@@ -19,6 +20,7 @@ dietary_manager = DietaryManager(db, firestore)
 ingredient_manager = IngredientManager(db, firestore)
 favorite_manager = FavoriteManager(db, firestore)
 aggregate_manager = AggregateManager(db)
+price_manager = PriceManager('csv/locations.csv', db, firestore)
 
 @dishes_bp.route('/', methods=['POST'])
 def explore():
@@ -193,6 +195,11 @@ def food(name=None):
     ingredients = ingredient_manager.get_all_ingredients()
     favorites = favorite_manager.get_all_favorites(user)
     similar_dishes = ingredient_manager.get_similar_dishes(name)
+    locations = price_manager.get_all_locations()
+    selected_country = request.args.get('country', '')
+    selected_city = request.args.get('city', '')
+    price_info = price_manager.get_price_info(name, selected_country)
+    available_countries = price_manager.get_available_countries(name)
     return render_template(
         'food.html',
         user=user, 
@@ -201,7 +208,12 @@ def food(name=None):
         dietaries=dietaries,
         ingredients=ingredients,
         favorites=favorites,
-        similar_dishes=similar_dishes
+        similar_dishes=similar_dishes,
+        locations=locations,
+        selected_city=selected_city,
+        selected_country=selected_country,
+        price_info=price_info,
+        available_countries=available_countries
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])
@@ -250,6 +262,17 @@ def ingredientReviewRoute(name=None):
     ingredient = request.form.get('ingredient')
     ingredient_manager.add_ingredient(name, session.get('google_id'), ingredient)
     aggregate_manager.add_ingredient_aggregate(name, ingredient)
+    return redirect(url_for('dishes.food', name=name))
+
+
+@dishes_bp.route('/price_review/<name>', methods=['POST'])
+@login_required
+def priceReviewRoute(name=None):
+    price = request.form.get('price')
+    country = request.form.get('country')
+    city = request.form.get('city')
+    price_manager.add_price(name, session.get('google_id'), price, country, city)
+    # aggregate_manager.add_price_aggregate(name, price, country, city)
     return redirect(url_for('dishes.food', name=name))
 
 @dishes_bp.route('/rate_dish', methods=['POST'])

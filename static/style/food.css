@@ -192,7 +192,7 @@ body {
     border-radius: 16px;
 }
 
-.modal-content select {
+.modal-content select, .modal-content input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -200,6 +200,10 @@ body {
     border: 1px solid #ccc;
     border-radius: 16px;
     transition: border 0.3s ease;
+}
+
+.modal-content input {
+    width: auto;
 }
 
 .modal-content button {
@@ -439,4 +443,67 @@ body {
         font-size: 1em;
         padding: 10px 0;
     }
+}
+
+.price-bar-container {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.price-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.price-bar {
+    position: relative;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+
+.price-indicator {
+    position: absolute;
+    top: -4px;
+    width: 12px;
+    height: 16px;
+    background: #4caf50;
+    border-radius: 4px;
+    transform: translateX(-50%);
+}
+
+.price-details ul li {
+    background-color: #f0f0f0;
+    padding: 8px 15px;
+    border-radius: 16px;
+    font-size: 0.9em;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+}
+
+.location-selectors {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 8px;
+}
+
+.location-selectors p {
+    margin-top: 35px;
+}
+
+.location-selectors select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    transition: border 0.3s ease;
+    margin-left: 10px;
 }

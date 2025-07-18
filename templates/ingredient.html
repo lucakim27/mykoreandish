@@ -27,7 +27,7 @@
     <h2>{{ ingredient.korean_name }}</h2>
     <p><b>{{ ingredient.ingredient }}</b> which is {{ ingredient.description }}</p>
     
-    <h3>Dishes</h3>
+    <h3>Found in</h3>
     <div class="ingredients-list">
         {% if dishes %}
         {% for dish in dishes %}
@@ -40,13 +40,13 @@
         {% endif %}
     </div>
 
-    <h3>Nutrients</h3>
+    <h3>Nutrient</h3>
     <div class="dietary-tags">
         {% if nutrient %}
         {% for nutrient, count in nutrient.items() | sort(attribute='1', reverse=True) %}
         {% if count > 0 %}
         <span class="dietary-tag">
-            <i class="icon-{{ nutrient }}"></i> {{ nutrient }} ({{ count }}%)
+            <i class="icon-{{ nutrient }}"></i> {{ nutrient }} {{ count }} 👤
         </span>
         {% endif %}
         {% endfor %}

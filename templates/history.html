@@ -32,6 +32,12 @@
                     <input type="hidden" name="history_id" value="{{ item.id }}">
                     <button type="submit" class="close">&times;</button>
                 </form>
+
+                {% elif item.price is defined %}
+                <form method="POST" action="{{ url_for('users.deletePriceRoute') }}" style="display:inline;">
+                    <input type="hidden" name="history_id" value="{{ item.id }}">
+                    <button type="submit" class="close">&times;</button>
+                </form>
                 {% endif %}
 
                 {% if item.nutrient is defined %}
@@ -159,6 +165,26 @@
                 <button type="submit" class="button update-button">Update</button>
             </form>
             {% endif %}
+            {% if item.price is defined %}
+            <form method="POST" action="{{ url_for('dishes.update_price') }}" style="display:inline;">
+                <label for="country"><b>Country:</b></label>
+                <input type="hidden" name="history_id" value="{{ item.id }}">
+                <select class="form-select" id="historyCountry-{{ item.id }}" name="country">
+                    {% for country in locations.countries|sort %}
+                    <option value="{{ country }}" {% if item.country==country %}selected{% endif %}>{{ country }}</option>
+                    {% endfor %}
+                </select>
+                <label for="state"><b>State:</b></label>
+                <select class="form-select" id="historyState-{{ item.id }}" name="state" data-selected="{{ item.state }}">
+                    {% for state in locations.cities|sort %}
+                    <option value="{{ state }}" {% if item.state==state %}selected{% endif %}>{{ state }}</option>
+                    {% endfor %}
+                </select><br>
+                <label for="price"><b>Price:</b></label><br>
+                <input type="number" step="0.01" min="0" placeholder="34.50" name="price" value="{{ item.price }}" required>
+                <button type="submit" class="button update-button">Update</button>
+            </form>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
@@ -166,4 +192,39 @@
     <p id="price_history">No history available.</p>
     {% endif %}
 </div>
+<script>
+const countryToCities = {{ locations.country_to_cities|tojson }};
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[id^="historyCountry-"]').forEach(function(countrySelect) {
+        const id = countrySelect.id.replace('historyCountry-', '');
+        const stateSelect = document.getElementById('historyState-' + id);
+        if (!stateSelect) {
+            return;
+        }
+        function updateStates() {
+            const selectedCountry = countrySelect.value;
+            const currentState = stateSelect.value || stateSelect.getAttribute('data-selected');
+            stateSelect.innerHTML = '';
+            if (countryToCities[selectedCountry]) {
+                let found = false;
+                countryToCities[selectedCountry].forEach(function(city) {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.text = city;
+                    if (city === currentState) {
+                        option.selected = true;
+                        found = true;
+                    }
+                    stateSelect.appendChild(option);
+                });
+                if (!found && stateSelect.options.length > 0) {
+                    stateSelect.options[0].selected = true;
+                }
+            }
+        }
+        countrySelect.addEventListener('change', updateStates);
+        updateStates();
+    });
+});
+</script>
 {% endblock %}

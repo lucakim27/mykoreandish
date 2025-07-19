@@ -115,7 +115,13 @@ class DietaryManager:
     def get_dishes_by_ingredient(self, ingredient: str) -> List[str]:
         dietary_ref = self.dietaries_ref.where('dietary', '==', ingredient)
         dietaries = dietary_ref.stream()
-        dish_names = [dietary.to_dict().get('dish_name') for dietary in dietaries]
+        dish_names = []
+        for dietary in dietaries:
+            d = dietary.to_dict()
+            if d is not None and 'dish_name' in d:
+                dish_names.append(d['dish_name'])
+
+        dish_names = list(set(dish_names))
 
         if not dish_names:
             return []

@@ -32,9 +32,12 @@
         {% if aggregates['dietary_distribution'] %}
             {% for diet, count in aggregates['dietary_distribution'].items() | sort(attribute='1', reverse=True) %}
                 {% if count > 0 %}
-                    <span class="dietary-tag">
-                        <i class="icon-{{ diet | lower }}"></i> {{ diet }} {{ count }} 👤
-                    </span>
+                    <form action="/dishes/dietary" method="POST" style="display:inline;" class="dietary-tag">
+                        <input type="hidden" name="dietary" value="{{ diet }}">
+                        <button type="submit" class="ingredient-tag" style="all:unset; cursor:pointer; display:inline;">
+                            <i class="icon-{{ diet | lower }}"></i> <b>{{ diet }}</b> {{ count }} 👤
+                        </button>
+                    </form>
                 {% endif %}
             {% endfor %}
         {% else %}

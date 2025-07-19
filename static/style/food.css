@@ -83,7 +83,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.ingredient-tag {
+.ingredient-tag, .dietary-tag {
     transition: transform 0.2s ease;
 }
 
@@ -93,7 +93,7 @@ body {
     color: #d72638;
 }
 
-.ingredient-tag:hover {
+.ingredient-tag:hover, .dietary-tag:hover {
     transform: scale(1.1);
 }
 
@@ -192,7 +192,8 @@ body {
     border-radius: 16px;
 }
 
-.modal-content select, .modal-content input {
+input[type="text"],
+select, input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -203,7 +204,7 @@ body {
 }
 
 .modal-content input {
-    width: auto;
+    width: calc(100% - 20px);
 }
 
 .modal-content button {

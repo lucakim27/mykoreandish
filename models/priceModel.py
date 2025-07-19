@@ -105,3 +105,49 @@ class PriceManager:
             if country:
                 countries.add(country)
         return sorted(countries)
+    
+    def get_price_history(self, google_id):
+        prices_ref = self.prices_ref.where('google_id', '==', google_id)
+        prices = prices_ref.stream()
+        
+        prices_list = [{
+                'id': price.id,
+                'dish_name': price.to_dict().get('dish_name'),
+                'price': price.to_dict().get('price'),
+                'country': price.to_dict().get('country'),
+                'state': price.to_dict().get('state'),
+                'timestamp': price.to_dict().get('timestamp')
+            } for price in prices]
+    
+        if not prices_list:
+            return []
+
+        prices_list.sort(key=lambda x: x['timestamp'], reverse=True)
+        return prices_list
+    
+    def update_price(self, history_id, new_price, new_country, new_state):
+        if not history_id or not new_price:
+            flash('Invalid input for price.', 'error')
+            return False
+
+        try:
+            price_ref = self.prices_ref.document(history_id)
+            price_ref.update({
+                'price': new_price,
+                'country': new_country,
+                'state': new_state
+            })
+            flash('Price saved successfully!', 'success')
+            return True
+        except Exception as e:
+            flash(f'Error saving price: {e}', 'error')
+            return False
+    
+    def delete_price(self, history_id):
+        if history_id:
+            try:
+                price_ref = self.prices_ref.document(history_id)
+                price_ref.delete()
+                flash('Price review deleted successfully.', 'success')
+            except Exception as e:
+                flash(f'An error occurred while deleting the price review: {e}', 'error')

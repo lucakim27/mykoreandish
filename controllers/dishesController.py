@@ -341,6 +341,21 @@ def update_ingredient():
     ingredient_manager.update_ingredient(history_id, new_ingredient)
     return redirect(url_for('users.history'))
 
+@dishes_bp.route('/update_price', methods=['POST'])
+def update_price():
+    history_id = request.form.get('history_id')
+    new_price = request.form.get('price')
+    new_country = request.form.get('country')
+    new_state = request.form.get('state')
+    # ingredient_review = ingredient_manager.get_ingredient_review_by_id(history_id)
+    # aggregate_manager.update_ingredient_aggregate(
+    #     ingredient_review.get('dish_name', 0), 
+    #     ingredient_review.get('ingredient', 0), 
+    #     new_ingredient
+    # )
+    price_manager.update_price(history_id, new_price, new_country, new_state)
+    return redirect(url_for('users.history'))
+
 @dishes_bp.app_template_filter('time_ago')
 def time_ago_filter(timestamp):
     return format_time_ago(timestamp)

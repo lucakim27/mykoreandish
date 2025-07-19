@@ -30,7 +30,7 @@ ul#price_history {
 ul#price_history li {
     margin-bottom: 20px;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 16px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
@@ -60,7 +60,7 @@ ul#price_history li {
 
 .price-point .price {
     font-weight: bold;
-    color: #d72638;
+    color: #2c3e50;
     font-size: 1.5em;
 }
 
@@ -90,13 +90,13 @@ ul#price_history li {
 
 /* Input Fields and Select Styling */
 input[type="text"],
-select {
+select, input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     font-size: 14px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 16px;
     transition: border 0.3s ease;
 }
 

@@ -83,7 +83,7 @@ footer {
     top: 40px;
     right: 5px;
     background-color: white;
-    border-radius: 16px;
+    border-radius: 4px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     display: none;
     z-index: 10;
@@ -111,7 +111,7 @@ footer {
     background-color: #d72638;
     /* Matches the top bar's red tone */
     color: white;
-    border-radius: 16px;
+    /* border-radius: 4px; */
     /* Adds a pill effect when hovering */
 }
 

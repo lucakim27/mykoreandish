@@ -1,7 +1,6 @@
 import logging
-
 from flask.sessions import SessionMixin
-
+from google.cloud import firestore
 
 class User:
     def __init__(self, google_id: str, name: str, email: str):
@@ -18,25 +17,28 @@ class UserManager:
         google_id = google_user_data.get('id')
         name = google_user_data.get('name')
         email = google_user_data.get('email')
+        user = User(google_id, name, email)
 
         try:
             user_ref = self.users_ref.document(google_id)
             user_doc = user_ref.get()
 
-            user = User(google_id, name, email)
-
             if user_doc.exists:
                 user_ref.update({
                     'email': user.email,
-                    'google_id': user.google_id,
-                    'name': user.name
+                    'name': user.name,
+                    'last_login': firestore.SERVER_TIMESTAMP
                 })
             else:
                 user_ref.set({
                     'admin': False,
                     'email': user.email,
                     'google_id': user.google_id,
-                    'name': user.name
+                    'name': user.name,
+                    'dietary_preferences': [],
+                    'friends': [],
+                    'last_login': firestore.SERVER_TIMESTAMP,
+                    'created_at': firestore.SERVER_TIMESTAMP
                 })
             
             logging.info(f"User {user.name} stored successfully!")
@@ -67,3 +69,27 @@ class UserManager:
     
     def get_total_users(self):
         return self.users_ref.count().get()[0][0].value
+    
+    def get_all_users(self) -> list[dict]:
+        try:
+            user_docs = self.users_ref.stream()
+            users = [doc.to_dict() for doc in user_docs]
+            return users
+        except Exception as e:
+            logging.error(f"Error retrieving all users: {e}")
+            return []
+    
+    def get_user_by_id(self, user_id: str) -> dict | None:
+        try:
+            user_ref = self.users_ref.where('google_id', '==', user_id)
+            user_docs = user_ref.get()
+
+            if user_docs:
+                user_data = user_docs[0].to_dict()
+                return user_data
+            else:
+                logging.info(f"No user found with google_id {user_id}")
+                return None
+        except Exception as e:
+            logging.error(f"Error retrieving user by id: {e}")
+            return None

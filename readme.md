@@ -1,51 +1,30 @@
 # MyKoreanDish 🍽️  
 
-A web application that enables users to explore, review, and discover **Korean dishes and ingredients**. Built with Python Flask and Jinja2 templates, it offers personalized recommendations, taste-based filtering, and ingredient-aware suggestions.
-
 ## 🌟 Features
 
-- Google Sign-In authentication  
-- Dish and ingredient search  
-- Personalized dish suggestions  
-- Taste & ingredient-based filtering  
-- Dietary and nutritional tagging  
-- Favorites management  
-- Ingredient-specific review history  
-- Similar dish recommendation system  
-- Admin dashboard and user insights  
+- Google authentication
+- Dish and ingredient search and review
+- Taste and ingredient based filtering
+- Dietary and nutritional tagging
+- Favorites management
+- Similar dish recommendation
+- Admin dashboard
+- Review insights
+- Users information
 
 ## 🛠️ Tech Stack
 
-- **Backend**: Python Flask  
-- **Frontend**: Jinja2 Templates  
-- **Database**: Firebase Firestore  
-- **Authentication**: Google Sign-In  
-- **Deployment**: Render  
+- **Backend**: Flask
+- **Frontend**: Jinja2
+- **Database**: Firebase
+- **Authentication**: Google Auth
+- **Deployment**: Render
 
-## 🔧 Tools & Services
-
-- **Link Tracking**: Bit.ly  
-- **Uptime Monitoring**: Uptime Robot  
-- **Version Control**: Git + GitHub  
-
-## 📐 Software Engineering Practices
-
-- MVC architecture  
-- OOP design  
-- Aggregate pattern  
-- Separation of concerns  
-- DRY principle  
-- Open/Closed principle  
-- Loose coupling  
-- Secure environment configuration  
-
-## 🚀 Live Demo  
+## 🚀 Live Demo
 
 🔗 [MyKoreanDish](https://food-suggestion.onrender.com/)  
 
 ## 📦 Setup & Installation  
-
-For developers interested in running the project locally:  
 
 1. **Clone the repository**:  
    ```sh
@@ -65,8 +44,7 @@ For developers interested in running the project locally:
     ```
 
 4. **Configure environment variables**:
-    - Create a .env file in the root directory.
-    - Add your Firebase and Google Sign-In credentials to the .env file.
+    - Add your Firebase and Google Auth credentials to the .env file in the root directory.
 
 5. **Start the Flask server**:
     ```sh

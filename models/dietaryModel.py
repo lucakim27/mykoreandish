@@ -127,3 +127,13 @@ class DietaryManager:
             return []
 
         return dish_names
+    
+    def get_dietary_preference(self, google_id: str) -> str | None:
+        try:
+            user = self._get_user(google_id)
+            user_data = user[0].to_dict()
+            return user_data.get('dietary_preference', None)
+        except UserNotFoundError:
+            return None
+        except Exception:
+            return None

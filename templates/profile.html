@@ -11,7 +11,11 @@
         </tr>
         <tr>
             <th>Email</th>
-            <td>{{ user.email }}</td>
+            {% if user.email is defined and user.email %}
+                <td>{{ user.email }}</td>
+            {% else %}
+                <td>No email provided</td>
+            {% endif %}
         </tr>
         <tr>
             <th>Admin</th>
@@ -29,22 +33,19 @@
             <th>Last Login</th>
             <td>{{ user.last_login|time_ago }}</td>
         </tr>
-        <!-- <tr>
+        <tr>
             <th>Dietary Preference</th>
             <td>
-                <form method="POST" action="{{ url_for('users.updateDietaryPrefernece') }}">
-                    <select name="dietary_preference">
-                        <option value="None" {% if user.dietary_preference == 'None' %}selected{% endif %}>None</option>
-                        <option value="Vegetarian" {% if user.dietary_preference == 'Vegetarian' %}selected{% endif %}>Vegetarian</option>
-                        <option value="Vegan" {% if user.dietary_preference == 'Vegan' %}selected{% endif %}>Vegan</option>
-                        <option value="Gluten-Free" {% if user.dietary_preference == 'Gluten-Free' %}selected{% endif %}>Gluten-Free</option>
-                        <option value="Halal" {% if user.dietary_preference == 'Halal' %}selected{% endif %}>Halal</option>
-                        <option value="Kosher" {% if user.dietary_preference == 'Kosher' %}selected{% endif %}>Kosher</option>
+                <form method="POST" action="{{ url_for('users.updateDietaryPreference') }}">
+                    <select name="dietary_preference" onchange="this.form.submit()">
+                        <option value="">None</option>
+                        {% for dietary in dietaries %}
+                            <option value="{{ dietary.dietary }}" {% if user.dietary_preference == dietary.dietary %}selected{% endif %}>{{ dietary.dietary }}</option>
+                        {% endfor %}
                     </select>
-                    <button type="submit">Save</button>
                 </form>
             </td>
-        </tr> -->
+        </tr>
     </table>
 </div>
 {% endblock %}

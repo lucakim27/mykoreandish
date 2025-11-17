@@ -63,3 +63,28 @@ footer {
         font-size: 1em;
     }
 }
+
+input[type="text"],
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    transition: border 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #ff4c4c;
+    outline: none;
+}
+
+select {
+    background-color: #f9f9f9;
+}
+
+select:focus {
+    background-color: #ffffff;
+}

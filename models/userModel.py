@@ -3,10 +3,9 @@ from flask.sessions import SessionMixin
 from google.cloud import firestore
 
 class User:
-    def __init__(self, google_id: str, name: str, email: str):
+    def __init__(self, google_id: str, name: str):
         self.google_id = google_id
         self.name = name
-        self.email = email
 
 class UserManager:
     def __init__(self, db):
@@ -16,8 +15,7 @@ class UserManager:
     def store_google_user(self, google_user_data: dict) -> None:
         google_id = google_user_data.get('id')
         name = google_user_data.get('name')
-        email = google_user_data.get('email')
-        user = User(google_id, name, email)
+        user = User(google_id, name)
 
         try:
             user_ref = self.users_ref.document(google_id)
@@ -25,17 +23,16 @@ class UserManager:
 
             if user_doc.exists:
                 user_ref.update({
-                    'email': user.email,
                     'name': user.name,
                     'last_login': firestore.SERVER_TIMESTAMP
                 })
             else:
                 user_ref.set({
                     'admin': False,
-                    'email': user.email,
+                    'email': "",
                     'google_id': user.google_id,
                     'name': user.name,
-                    'dietary_preferences': [],
+                    'dietary_preference': "",
                     'friends': [],
                     'last_login': firestore.SERVER_TIMESTAMP,
                     'created_at': firestore.SERVER_TIMESTAMP
@@ -93,3 +90,21 @@ class UserManager:
         except Exception as e:
             logging.error(f"Error retrieving user by id: {e}")
             return None
+    
+    def update_dietary(self, user: dict, dietary_preference: str) -> bool:
+        try:
+            user_ref = self.users_ref.document(user['google_id'])
+            user_doc = user_ref.get()
+
+            if user_doc.exists:
+                user_ref.update({
+                    'dietary_preference': dietary_preference
+                })
+                logging.info(f"Updated dietary preferences for user {user['google_id']}")
+                return True
+            else:
+                logging.info(f"No user found with google_id {user['google_id']}")
+                return False
+        except Exception as e:
+            logging.error(f"Error updating dietary preferences: {e}")
+            return False

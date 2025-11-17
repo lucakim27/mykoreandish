@@ -86,7 +86,8 @@ def deletePriceRoute():
 @users_bp.route('/profile')
 def profile():
     user = user_manager.get_user_by_session(session)
-    return render_template('profile.html', user=user)
+    dietaries = dietary_manager.get_all_dietaries()
+    return render_template('profile.html', user=user, dietaries=dietaries)
 
 @users_bp.route('/update-dietary', methods=['POST'])
 def updateDietaryPrefernece():
@@ -108,3 +109,10 @@ def userProfileController(user_id):
     if profile_user is None:
         return redirect(url_for('users.userList'))
     return render_template('userProfile.html', user=user, profile_user=profile_user)
+
+@users_bp.route('/updateDietaryPreference', methods=['POST'])
+def updateDietaryPreference():
+    user = user_manager.get_user_by_session(session)
+    dietary_preference = request.form.get('dietary_preference')
+    user_manager.update_dietary(user, dietary_preference)
+    return redirect(url_for('users.profile'))

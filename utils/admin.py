@@ -8,7 +8,7 @@ user_manager = UserManager(db)
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        user = user_manager.get_user_by_session(session)
+        user = user_manager.get_user_by_id(session.get('google_id'))
         if not user or not user.get("admin", False):
             return "Access Denied", 403
         return f(*args, **kwargs)

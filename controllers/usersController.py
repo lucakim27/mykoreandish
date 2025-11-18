@@ -1,5 +1,5 @@
 from itertools import chain
-from flask import Blueprint, redirect, render_template, request, session, url_for
+from flask import Blueprint, g, redirect, render_template, request, session, url_for
 from models.aggregateModel import AggregateManager
 from models.nutrientModel import NutrientManager
 from models.priceModel import PriceManager
@@ -22,24 +22,28 @@ nutrient_manager = NutrientManager(db, firestore)
 aggregate_manager = AggregateManager(db)
 price_manager = PriceManager('csv/locations.csv', db, firestore)
 
+@users_bp.before_request
+def load_user():
+    user_id = session.get('google_id')
+    g.user = user_manager.get_user_by_id(user_id) if user_id else None
+
 @users_bp.route('/')
 @login_required
 def history():
-    user = user_manager.get_user_by_session(session)
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
     nutrients = nutrient_manager.get_all_nutrients()
     locations = price_manager.get_all_locations()
     combined_history = list(chain(
-        selection_manager.get_user_history(session['google_id']), 
-        dietary_manager.get_dietary_history(session['google_id']), 
-        ingredient_manager.get_ingredient_history(session['google_id']),
-        nutrient_manager.get_nutrient_history(session['google_id']),
-        price_manager.get_price_history(session['google_id'])
+        selection_manager.get_user_history(g.user["google_id"]), 
+        dietary_manager.get_dietary_history(g.user["google_id"]), 
+        ingredient_manager.get_ingredient_history(g.user["google_id"]),
+        nutrient_manager.get_nutrient_history(g.user["google_id"]),
+        price_manager.get_price_history(g.user["google_id"])
     ))
     return render_template(
         'history.html', 
-        user=user,
+        user=g.user,
         combined_history=combined_history,
         ingredients=ingredients,
         dietaries=dietaries,
@@ -48,6 +52,7 @@ def history():
     )
 
 @users_bp.route('/delete-history', methods=['POST'])
+@login_required
 def deleteHistoryRoute():
     history_id = request.form.get('history_id')
     dish_review = selection_manager.get_dish_review_by_id(history_id)
@@ -56,6 +61,7 @@ def deleteHistoryRoute():
     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-dietary', methods=['POST'])
+@login_required
 def deleteDietaryRoute():
     history_id = request.form.get('history_id')
     dietary = dietary_manager.get_dietary_review_by_id(history_id)
@@ -64,6 +70,7 @@ def deleteDietaryRoute():
     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-ingredient', methods=['POST'])
+@login_required
 def deleteIngredientRoute():
     history_id = request.form.get('history_id')
     ingredient = ingredient_manager.get_ingredient_review_by_id(history_id)
@@ -72,12 +79,14 @@ def deleteIngredientRoute():
     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-nutrient', methods=['POST'])
+@login_required
 def deleteNutrientRoute():
     history_id = request.form.get('history_id')
     nutrient_manager.delete_nutrient(history_id)
     return redirect(url_for('users.history'))
 
 @users_bp.route('/delete-price', methods=['POST'])
+@login_required
 def deletePriceRoute():
     history_id = request.form.get('history_id')
     price_manager.delete_price(history_id)
@@ -85,34 +94,24 @@ def deletePriceRoute():
 
 @users_bp.route('/profile')
 def profile():
-    user = user_manager.get_user_by_session(session)
     dietaries = dietary_manager.get_all_dietaries()
-    return render_template('profile.html', user=user, dietaries=dietaries)
-
-@users_bp.route('/update-dietary', methods=['POST'])
-def updateDietaryPrefernece():
-    user = user_manager.get_user_by_session(session)
-    dietary_preference = request.form.get('dietary_preference')
-    user_manager.update_dietary_preference(user, dietary_preference)
-    return redirect(url_for('users.profile'))
+    return render_template('profile.html', user=g.user, dietaries=dietaries)
 
 @users_bp.route('/list', methods=['POST'])
 def userList():
-    user = user_manager.get_user_by_session(session)
     users = user_manager.get_all_users()
-    return render_template('userList.html', user=user, users=users)
+    return render_template('userList.html', user=g.user, users=users)
 
 @users_bp.route('/user/<user_id>', methods=['GET'])
 def userProfileController(user_id):
-    user = user_manager.get_user_by_session(session)
     profile_user = user_manager.get_user_by_id(user_id)
     if profile_user is None:
         return redirect(url_for('users.userList'))
-    return render_template('userProfile.html', user=user, profile_user=profile_user)
+    return render_template('userProfile.html', user=g.user, profile_user=profile_user)
 
 @users_bp.route('/updateDietaryPreference', methods=['POST'])
+@login_required
 def updateDietaryPreference():
-    user = user_manager.get_user_by_session(session)
     dietary_preference = request.form.get('dietary_preference')
-    user_manager.update_dietary(user, dietary_preference)
+    user_manager.update_dietary(g.user, dietary_preference)
     return redirect(url_for('users.profile'))

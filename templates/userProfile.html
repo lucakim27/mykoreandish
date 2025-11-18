@@ -1,25 +1,30 @@
-{% extends "base.html" %}
-{% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style/aboutus.css') }}">
-{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/aboutus.css') }}"
+/>
+{% endblock %} {% block content %}
 <section class="about-section">
-    <div class="about-us-container">
-        <h2>{{ profile_user.name }}</h2>
-        <ul class="popular-dishes-list">
-            <li>
-                <a>Email: {{ profile_user.email }}</a>
-            </li>
-            <li>
-                <a>Admin: {{ profile_user.admin }}</a>
-            </li>
-            <li>
-                <a>Last login: {{ profile_user.last_login|time_ago }}</a>
-            </li>
-            <li>
-                <a>Registered at: {{ profile_user.created_at|time_ago }}</a>
-            </li>
-        </ul>
-    </div>
+  <div class="about-us-container">
+    <h2>{{ profile_user.name }}</h2>
+    <ul class="popular-dishes-list">
+      <li>
+        {% if profile_user.email %}
+            <a>Email: {{ profile_user.email }}</a>
+        {% else %}
+            <a>Email: No Information</a>
+        {% endif %}
+      </li>
+      <li>
+        <a>Admin: {{ profile_user.admin }}</a>
+      </li>
+      <li>
+        <a>Last login: {{ profile_user.last_login|time_ago }}</a>
+      </li>
+      <li>
+        <a>Registered at: {{ profile_user.created_at|time_ago }}</a>
+      </li>
+    </ul>
+  </div>
 </section>
 {% endblock %}

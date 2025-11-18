@@ -5,9 +5,7 @@ def format_time_ago(timestamp):
     utc = pytz.UTC
     now = datetime.now(utc)
     timestamp_aware = timestamp.astimezone(utc)
-
     delta = now - timestamp_aware
-
     if delta.days > 0:
         return f"{delta.days} day{'s' if delta.days > 1 else ''} ago"
     elif delta.seconds // 3600 > 0:

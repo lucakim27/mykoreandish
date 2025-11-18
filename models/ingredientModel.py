@@ -4,16 +4,6 @@ from google.cloud import firestore
 import csv
 from collections import defaultdict
 
-class Ingredient:
-    def __init__(self, dish_name: str, ingredient: str, google_id: str, timestamp: Any):
-        self.dish_name = dish_name
-        self.ingredient = ingredient
-        self.google_id = google_id
-        self.timestamp = timestamp
-
-class UserNotFoundError(Exception):
-    pass
-
 class IngredientManager:
     def __init__(self, db: firestore.Client, firestore_module: Any):
         self.users_ref = db.collection('Users')
@@ -24,7 +14,7 @@ class IngredientManager:
         user_ref = self.users_ref.where('google_id', '==', google_id)
         user = user_ref.get()
         if not user:
-            raise UserNotFoundError("User does not exist.")
+            raise ValueError("User does not exist.")
         return user
     
     def get_ingredient_instance(self, name):
@@ -32,7 +22,6 @@ class IngredientManager:
         for ingredient in ingredients:
             if ingredient['ingredient'].lower() == name.lower():
                 return ingredient
-            
         return None
     
     def get_ingredients_instance(self, names: List[str]) -> List[Dict[str, str]]:
@@ -49,45 +38,36 @@ class IngredientManager:
     def add_ingredient(self, dish_name: str, google_id: str, ingredient: str) -> None:
         try:
             self._get_user(google_id)
-            ingredient_instance = Ingredient(dish_name, ingredient, google_id, self.firestore.SERVER_TIMESTAMP)
             self.ingredients_ref.add({
-                'google_id': ingredient_instance.google_id,
-                'dish_name': ingredient_instance.dish_name,
-                'ingredient': ingredient_instance.ingredient,
-                'timestamp': ingredient_instance.timestamp
+                'google_id': google_id,
+                'dish_name': dish_name,
+                'ingredient': ingredient,
+                'timestamp': self.firestore.SERVER_TIMESTAMP
             })
             flash('Ingredient added successfully!', 'success')
-        except UserNotFoundError as e:
-            flash(str(e), 'error')
         except Exception as e:
             flash(f'Error adding ingredient: {e}', 'error')
     
     def get_ingredient_history(self, google_id: str) -> List[Dict[str, Any]]:
         ingredient_ref = self.ingredients_ref.where('google_id', '==', google_id)
         ingredients = ingredient_ref.stream()
-        
         ingredients_list = [{
                 'id': ingredient.id,
                 'dish_name': ingredient.to_dict().get('dish_name'),
                 'timestamp': ingredient.to_dict().get('timestamp'),
                 'ingredient': ingredient.to_dict().get('ingredient')
             } for ingredient in ingredients]
-    
         if not ingredients_list:
             return []
-
         ingredients_list.sort(key=lambda x: x['timestamp'], reverse=True)
         return ingredients_list
     
     def get_ingredient_review_by_id(self, history_id):
         review_doc = self.ingredients_ref.document(history_id).get()
-
         if review_doc.exists:
             review_data = review_doc.to_dict()
-
             dish_name = review_data.get("dish_name")
             ingredient = review_data.get("ingredient")
-
             return {
                 "dish_name": dish_name,
                 "ingredient": ingredient
@@ -99,7 +79,6 @@ class IngredientManager:
         if not history_id or not ingredient:
             flash('Invalid input for ingredient.', 'error')
             return False
-
         try:
             ingredient_ref = self.ingredients_ref.document(history_id)
             ingredient_ref.update({
@@ -136,7 +115,6 @@ class IngredientManager:
                     })
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')
-        
         return ingredients
     
     def get_dishes_by_ingredient(self, ingredient: str) -> List[str]:
@@ -149,7 +127,6 @@ class IngredientManager:
                     dishes.append(ingredient.to_dict().get('dish_name'))
         except Exception as e:
             flash(f'Error retrieving dishes from Firestore: {e}', 'error')
-        
         return dishes
     
     def get_ingredients_by_dish(self, dish_name: str) -> List[str]:
@@ -160,7 +137,6 @@ class IngredientManager:
             ingredients = [ingredient.to_dict().get('ingredient') for ingredient in ingredients]
         except Exception as e:
             flash(f'Error retrieving ingredients from Firestore: {e}', 'error')
-        
         return ingredients
 
     def get_similar_dishes(self, current_dish_name: str, top_n: int = 5) -> List[Dict[str, Any]]:
@@ -177,33 +153,25 @@ class IngredientManager:
             except Exception as e:
                 flash(f"Error reading dishes from CSV: {e}", "error")
                 return []
-
             current_ingredient_docs = self.ingredients_ref.where("dish_name", "==", current_dish_name).stream()
             current_ingredients = set(
                 doc.to_dict()["ingredient"].strip().lower()
                 for doc in current_ingredient_docs
             )
-
             if not current_ingredients:
                 return []
-
-            from collections import defaultdict
             dish_ingredient_map = defaultdict(set)
-
             all_ingredient_docs = self.ingredients_ref.stream()
             for doc in all_ingredient_docs:
                 data = doc.to_dict()
                 dish = data["dish_name"]
                 ingredient = data["ingredient"].strip().lower()
-
                 if dish != current_dish_name:
                     dish_ingredient_map[dish].add(ingredient)
-
             scored_similars = []
             for dish, ingredients in dish_ingredient_map.items():
                 shared = current_ingredients & ingredients
                 score = len(shared)
-
                 if score > 0 and dish in dish_metadata:
                     dish_data = dish_metadata[dish]
                     scored_similars.append({
@@ -213,10 +181,8 @@ class IngredientManager:
                         "shared_ingredients": list(shared),
                         "score": score
                     })
-
             scored_similars.sort(key=lambda x: x["score"], reverse=True)
             return scored_similars[:top_n]
-
         except Exception as e:
             flash(f"Error finding similar dishes: {e}", "error")
             return []

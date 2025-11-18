@@ -1,52 +1,68 @@
-{% extends "base.html" %}
-{% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style/aboutus.css') }}">
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/aboutus.css') }}"
+/>
+{% endblock %} {% block content %}
 
 <section class="about-section">
-    <div class="about-us-container">
-        <h2>Privacy Policy</h2>
-        <p>Welcome to Your mykoreandish. This Privacy Policy outlines how we handle your information.</p>
-    </div>
+  <div class="about-us-container">
+    <h2>Privacy Policy</h2>
+    <p>
+      Welcome to Your mykoreandish. This Privacy Policy outlines how we handle
+      your information.
+    </p>
+  </div>
 </section>
 
 <section class="about-section alt">
-    <div class="about-us-container">
-        <h2>Information We Collect</h2>
-        <p>We collect information such as your preferences, interactions, and any data provided during account creation.</p>
-    </div>
+  <div class="about-us-container">
+    <h2>Information We Collect</h2>
+    <p>
+      We collect information such as your preferences, interactions, and any
+      data provided during account creation.
+    </p>
+  </div>
 </section>
 
 <section class="about-section">
-    <div class="about-us-container">
-        <h2>How We Use Your Information</h2>
-        <p>Your information helps us improve our food suggestions and enhance your user experience.</p>
-    </div>
+  <div class="about-us-container">
+    <h2>How We Use Your Information</h2>
+    <p>
+      Your information helps us improve our food suggestions and enhance your
+      user experience.
+    </p>
+  </div>
 </section>
 
 <section class="about-section alt">
-    <div class="about-us-container">
-        <h2>Sharing Your Data</h2>
-        <p>We do not share your data with third parties except for necessary service integrations.</p>
-    </div>
+  <div class="about-us-container">
+    <h2>Sharing Your Data</h2>
+    <p>
+      We do not share your data with third parties except for necessary service
+      integrations.
+    </p>
+  </div>
 </section>
 
 <section class="about-section">
-    <div class="about-us-container">
-        <h2>Your Rights</h2>
-        <p>You can access, update, or delete your information at any time by contacting us.</p>
-    </div>
+  <div class="about-us-container">
+    <h2>Your Rights</h2>
+    <p>
+      You can access, update, or delete your information at any time by
+      contacting us.
+    </p>
+  </div>
 </section>
 
 <section class="about-section alt">
-    <div class="about-us-container">
-        <h2>Contact Us</h2>
-        <p>If you have any questions about these terms, feel free to
-            <a href="mailto:nikolaikim27@gmail.com">contact us via email</a>.
-        </p>
-    </div>
+  <div class="about-us-container">
+    <h2>Contact Us</h2>
+    <p>
+      If you have any questions about these terms, feel free to
+      <a href="mailto:nikolaikim27@gmail.com">contact us via email</a>.
+    </p>
+  </div>
 </section>
 
 {% endblock %}

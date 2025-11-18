@@ -1,20 +1,23 @@
-{% extends "base.html" %}
-{% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style/aboutus.css') }}">
-{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/aboutus.css') }}"
+/>
+{% endblock %} {% block content %}
 <section class="about-section">
-    <div class="about-us-container">
-        <h2>Registered Users</h2>
-        <ul class="popular-dishes-list">
-            {% for user in users|sort(attribute='created_at')|reverse %}
-                <li>
-                    <a href="{{ url_for('users.userProfileController', user_id=user.google_id) }}">
-                        {{ user.name }} ({{ user.created_at|time_ago }})
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+  <div class="about-us-container">
+    <h2>Registered Users</h2>
+    <ul class="popular-dishes-list">
+      {% for user in users|sort(attribute='created_at')|reverse %}
+      <li>
+        <a
+          href="{{ url_for('users.userProfileController', user_id=user.google_id) }}"
+        >
+          {{ user.name }} ({{ user.created_at|time_ago }})
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </section>
 {% endblock %}

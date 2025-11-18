@@ -1,18 +1,19 @@
-{% extends "base.html" %}
-{% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style/aboutus.css') }}">
-{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/aboutus.css') }}"
+/>
+{% endblock %} {% block content %}
 <section class="about-section">
   <div class="about-us-container">
     <h2>Top 5 Popular Dishes</h2>
     <ol class="popular-dishes-list">
       {% for dish in top_dishes %}
-        <li>
-          <a href="{{ url_for('dishes.food', name=dish.name) }}">
-            {{ loop.index }}. {{ dish.name }} ({{ dish.korean_name }})
-          </a>
-        </li>
+      <li>
+        <a href="{{ url_for('dishes.food', name=dish.name) }}">
+          {{ loop.index }}. {{ dish.name }} ({{ dish.korean_name }})
+        </a>
+      </li>
       {% endfor %}
     </ol>
   </div>
@@ -22,11 +23,13 @@
     <h2>Top 5 Popular Ingredients</h2>
     <ol class="popular-ingredients-list">
       {% for ingredient in top_ingredients %}
-        <li>
-          <a href="{{ url_for('ingredients.ingredientsListController', name=ingredient.name) }}">
-            {{ loop.index }}. {{ ingredient.name }} ({{ ingredient.korean_name }})
-          </a>
-        </li>
+      <li>
+        <a
+          href="{{ url_for('ingredients.ingredientsListController', name=ingredient.name) }}"
+        >
+          {{ loop.index }}. {{ ingredient.name }} ({{ ingredient.korean_name }})
+        </a>
+      </li>
       {% endfor %}
     </ol>
   </div>

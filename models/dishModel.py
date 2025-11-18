@@ -1,13 +1,6 @@
 import csv
 from flask import logging
 
-class Dish:
-    def __init__(self, dish_name, description, korean_name, image_url):
-        self.dish_name = dish_name
-        self.description = description
-        self.korean_name = korean_name
-        self.image_url = image_url
-
 class DishManager:
     def __init__(self, csv_file):
         self.csv_file = csv_file
@@ -16,10 +9,10 @@ class DishManager:
         dishes = self.get_all_dishes()
         return [
             {
-                'dish_name': dish.dish_name,
-                'korean_name': dish.korean_name,
-                'description': dish.description,
-                'image_url': dish.image_url
+                'dish_name': dish['dish_name'],
+                'korean_name': dish['korean_name'],
+                'description': dish['description'],
+                'image_url': dish['image_url']
             }
             for dish in dishes
         ]
@@ -36,17 +29,17 @@ class DishManager:
         return dishes
 
     def row_to_dish(self, row):
-        return Dish(
-            dish_name=row.get('dish_name', ''),
-            description=row.get('description', ''),
-            korean_name=row.get('korean_name', ''),
-            image_url=row.get('image_url', '')
-        )
+        return {
+            'dish_name': row.get('dish_name', ''),
+            'description': row.get('description', ''),
+            'korean_name': row.get('korean_name', ''),
+            'image_url': row.get('image_url', '')
+        }
 
     def get_dish_instance(self, name):
         dishes = self.get_all_dishes()
         for dish in dishes:
-            if dish.dish_name.lower() == name.lower():
+            if dish['dish_name'].lower() == name.lower():
                 return dish
         return None
     
@@ -55,10 +48,9 @@ class DishManager:
         matched_dishes = []
         for name in names:
             for dish in dishes:
-                if dish.dish_name.lower() == name.lower():
+                if dish['dish_name'].lower() == name.lower():
                     matched_dishes.append(dish)
                     break
-
         return matched_dishes
 
     def all_search(self):

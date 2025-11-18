@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, g, render_template, session
 from config.db import db
 from models.aggregateModel import AggregateManager
 from models.dietaryModel import DietaryManager
@@ -18,9 +18,13 @@ dietary_manager = DietaryManager(db, firestore)
 aggregate_manager = AggregateManager(db)
 nutrient_manager = NutrientManager(db, firestore)
 
+@home_bp.before_request
+def load_user():
+    user_id = session.get('google_id')
+    g.user = user_manager.get_user_by_id(user_id) if user_id else None
+
 @home_bp.route('/')
 def home():
-    user = user_manager.get_user_by_session(session)
     dishes = dish_manager.get_all_dishes_in_dictionary()
     ingredients = ingredient_manager.get_all_ingredients()
     dietaries = dietary_manager.get_all_dietaries()
@@ -29,7 +33,7 @@ def home():
     total_users = user_manager.get_total_users()
     return render_template(
         'home.html',
-        user=user,
+        user=g.user,
         dishes=dishes,
         ingredients=ingredients,
         dietaries=dietaries,

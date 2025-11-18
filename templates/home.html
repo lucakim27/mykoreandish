@@ -1,19 +1,35 @@
-{% extends "base.html" %}
-{% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style/home.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/home.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+{% endblock %} {% block content %}
 <section class="hero">
   <div class="hero-content">
     <h1 class="hero-title">Discover Korean Cuisine</h1>
-    <p class="hero-subtitle">Find your perfect Korean dish with personalized taste recommendations and authentic user reviews.</p>
+    <p class="hero-subtitle">
+      Find your perfect Korean dish with personalized taste recommendations and
+      authentic user reviews.
+    </p>
 
     <div class="search-section">
       <div class="search-container">
-        <input type="text" id="search-input" placeholder="Search for dishes or ingredients..." autocomplete="off">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search for dishes or ingredients..."
+          autocomplete="off"
+        />
       </div>
-      <div id="search-results" class="search-results" style="display: none;"></div>
+      <div
+        id="search-results"
+        class="search-results"
+        style="display: none"
+      ></div>
       <script type="application/json" id="search-data">
         {
           "dishes": {{ dishes | tojson | safe }},
@@ -28,7 +44,10 @@
         <span class="stat-label">Users</span>
       </div>
       <div class="stat">
-        <span class="stat-number">{{ total_reviews + dietary_total + ingredient_total + nutrients_count + price_reviews + nutrients_reviews }}</span>
+        <span class="stat-number"
+          >{{ total_reviews + dietary_total + ingredient_total + nutrients_count
+          + price_reviews + nutrients_reviews }}</span
+        >
         <span class="stat-label">Reviews</span>
       </div>
     </div>
@@ -45,7 +64,7 @@
       <p>Explore Korean food & beverages</p>
       <button type="submit" class="hidden-button"></button>
     </form>
-    
+
     <form action="/ingredients" method="post" class="nav-card">
       <div class="nav-icon">
         <i class="fas fa-carrot"></i>
@@ -54,7 +73,7 @@
       <p>Discover Korean ingredients & nutrients</p>
       <button type="submit" class="hidden-button"></button>
     </form>
-    
+
     <form action="/insight" method="post" class="nav-card">
       <div class="nav-icon">
         <i class="fas fa-chart-line"></i>
@@ -76,62 +95,67 @@
 </section>
 
 <script>
-var searchData = JSON.parse(document.getElementById('search-data').textContent);
-var dishes = searchData.dishes;
-var ingredients = searchData.ingredients;
+  var searchData = JSON.parse(
+    document.getElementById("search-data").textContent
+  );
+  var dishes = searchData.dishes;
+  var ingredients = searchData.ingredients;
 
-var searchItems = [];
-for (var i = 0; i < dishes.length; i++) {
-  var dish = dishes[i];
-  searchItems.push({
-    name: dish.dish_name,
-    koreanName: dish.korean_name,
-    type: 'dish',
-    url: '/dishes/' + dish.dish_name
-  });
-}
-for (var j = 0; j < ingredients.length; j++) {
-  var ingredient = ingredients[j];
-  searchItems.push({
-    name: ingredient.ingredient,
-    koreanName: ingredient.korean_name,
-    type: 'ingredient',
-    url: '/ingredients/' + ingredient.ingredient
-  });
-}
-
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
-
-searchInput.addEventListener('input', function() {
-  const query = this.value.toLowerCase().trim();
-  
-  if (query.length < 1) {
-    searchResults.style.display = 'none';
-    return;
+  var searchItems = [];
+  for (var i = 0; i < dishes.length; i++) {
+    var dish = dishes[i];
+    searchItems.push({
+      name: dish.dish_name,
+      koreanName: dish.korean_name,
+      type: "dish",
+      url: "/dishes/" + dish.dish_name,
+    });
+  }
+  for (var j = 0; j < ingredients.length; j++) {
+    var ingredient = ingredients[j];
+    searchItems.push({
+      name: ingredient.ingredient,
+      koreanName: ingredient.korean_name,
+      type: "ingredient",
+      url: "/ingredients/" + ingredient.ingredient,
+    });
   }
 
-  const filteredItems = searchItems.filter(item => 
-    item.name.toLowerCase().includes(query) || 
-    item.koreanName.toLowerCase().includes(query)
-  ).slice(0, 8); // Limit to 8 results
-  
-  if (filteredItems.length > 0) {
-    displaySearchResults(filteredItems);
-  } else {
-    searchResults.style.display = 'none';
-  }
-});
+  const searchInput = document.getElementById("search-input");
+  const searchResults = document.getElementById("search-results");
 
-function displaySearchResults(items) {
-  searchResults.innerHTML = '';
-  
-  items.forEach(item => {
-    const resultItem = document.createElement('div');
-    resultItem.className = 'search-result-item';
-    resultItem.innerHTML = `
+  searchInput.addEventListener("input", function () {
+    const query = this.value.toLowerCase().trim();
+
+    if (query.length < 1) {
+      searchResults.style.display = "none";
+      return;
+    }
+
+    const filteredItems = searchItems
+      .filter(
+        (item) =>
+          item.name.toLowerCase().includes(query) ||
+          item.koreanName.toLowerCase().includes(query)
+      )
+      .slice(0, 8); // Limit to 8 results
+
+    if (filteredItems.length > 0) {
+      displaySearchResults(filteredItems);
+    } else {
+      searchResults.style.display = "none";
+    }
+  });
+
+  function displaySearchResults(items) {
+    searchResults.innerHTML = "";
+
+    items.forEach((item) => {
+      const resultItem = document.createElement("div");
+      resultItem.className = "search-result-item";
+      resultItem.innerHTML = `
       <div class="result-icon">
-        <i class="fas fa-${item.type === 'dish' ? 'utensils' : 'carrot'}"></i>
+        <i class="fas fa-${item.type === "dish" ? "utensils" : "carrot"}"></i>
       </div>
       <div class="result-content">
         <div class="result-name">${item.koreanName}</div>
@@ -139,35 +163,36 @@ function displaySearchResults(items) {
       </div>
     `;
 
-    resultItem.addEventListener('click', () => {
-      window.location.href = item.url;
+      resultItem.addEventListener("click", () => {
+        window.location.href = item.url;
+      });
+
+      searchResults.appendChild(resultItem);
     });
-    
-    searchResults.appendChild(resultItem);
-  });
-  
-  searchResults.style.display = 'block';
-}
 
-document.addEventListener('click', function(e) {
-  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-    searchResults.style.display = 'none';
+    searchResults.style.display = "block";
   }
-});
 
-searchInput.addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    const query = this.value.toLowerCase().trim();
-    if (query.length >= 1) {
-      const firstMatch = searchItems.find(item => 
-        item.name.toLowerCase().includes(query) || 
-        item.koreanName.toLowerCase().includes(query)
-      );
-      if (firstMatch) {
-        window.location.href = firstMatch.url;
+  document.addEventListener("click", function (e) {
+    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+      searchResults.style.display = "none";
+    }
+  });
+
+  searchInput.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      const query = this.value.toLowerCase().trim();
+      if (query.length >= 1) {
+        const firstMatch = searchItems.find(
+          (item) =>
+            item.name.toLowerCase().includes(query) ||
+            item.koreanName.toLowerCase().includes(query)
+        );
+        if (firstMatch) {
+          window.location.href = firstMatch.url;
+        }
       }
     }
-  }
-});
+  });
 </script>
 {% endblock %}

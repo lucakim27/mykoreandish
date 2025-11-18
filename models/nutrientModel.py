@@ -3,16 +3,6 @@ from flask import flash
 from google.cloud import firestore
 import csv
 
-class Nutrient:
-    def __init__(self, ingredient: str, nutrient: str, google_id: str, timestamp: Any):
-        self.ingredient = ingredient
-        self.nutrient = nutrient
-        self.google_id = google_id
-        self.timestamp = timestamp
-
-class UserNotFoundError(Exception):
-    pass
-
 class NutrientManager:
     def __init__(self, db: firestore.Client, firestore_module: Any):
         self.users_ref = db.collection('Users')
@@ -23,7 +13,7 @@ class NutrientManager:
         user_ref = self.users_ref.where('google_id', '==', google_id)
         user = user_ref.get()
         if not user:
-            raise UserNotFoundError("User does not exist.")
+            raise ValueError("User does not exist.")
         return user
 
     def get_all_nutrients(self) -> List[Dict[str, str]]:
@@ -43,15 +33,14 @@ class NutrientManager:
     def add_nutrient(self, ingredient: str, google_id: str, nutrient: str) -> None:
         try:
             self._get_user(google_id)
-            nutrient_instance = Nutrient(ingredient, nutrient, google_id, self.firestore.SERVER_TIMESTAMP)
             self.nutrients_ref.add({
-                'google_id': nutrient_instance.google_id,
-                'ingredient': nutrient_instance.ingredient,
-                'nutrient': nutrient_instance.nutrient,
-                'timestamp': nutrient_instance.timestamp
+                'google_id': google_id,
+                'ingredient': ingredient,
+                'nutrient': nutrient,
+                'timestamp': self.firestore.SERVER_TIMESTAMP
             })
             flash('Nutrient added successfully!', 'success')
-        except UserNotFoundError as e:
+        except ValueError as e:
             flash(str(e), 'error')
         except Exception as e:
             flash(f'Error adding nutrient: {e}', 'error')

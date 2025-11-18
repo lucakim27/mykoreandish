@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session, url_for
+from flask import Blueprint, g, render_template, request, redirect, session, url_for
 from models.aggregateModel import AggregateManager
 from models.favoriteModel import FavoriteManager
 from models.priceModel import PriceManager
@@ -22,16 +22,20 @@ favorite_manager = FavoriteManager(db, firestore)
 aggregate_manager = AggregateManager(db)
 price_manager = PriceManager('csv/locations.csv', db, firestore)
 
+@dishes_bp.before_request
+def load_user():
+    user_id = session.get('google_id')
+    g.user = user_manager.get_user_by_id(user_id) if user_id else None
+
 @dishes_bp.route('/', methods=['POST'])
 def explore():
-    user = user_manager.get_user_by_session(session)
     dishes = manager.all_search()
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
-    favorites = favorite_manager.get_all_favorites(user)
+    favorites = favorite_manager.get_all_favorites(g.user)
     return render_template(
         'foodList.html', 
-        user=user,
+        user=g.user,
         ingredients=ingredients,
         recommendation=dishes,
         dietaries=dietaries,
@@ -40,16 +44,15 @@ def explore():
 
 @dishes_bp.route('/dietary', methods=['POST'])
 def dietaryFilter():
-    user = user_manager.get_user_by_session(session)
     dietary = request.form.get('dietary')
     dish_names = dietary_manager.get_dishes_by_ingredient(dietary)
     dishes = manager.get_dish_instances(dish_names)
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
-    favorites = favorite_manager.get_all_favorites(user)
+    favorites = favorite_manager.get_all_favorites(g.user)
     return render_template(
         'foodList.html', 
-        user=user, 
+        user=g.user, 
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients,
@@ -58,16 +61,15 @@ def dietaryFilter():
 
 @dishes_bp.route('/ingredient', methods=['POST'])
 def ingredientFilter():
-    user = user_manager.get_user_by_session(session)
     ingredient = request.form.get('ingredient')
     dish_names = ingredient_manager.get_dishes_by_ingredient(ingredient)
     dishes = manager.get_dish_instances(dish_names)
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
-    favorites = favorite_manager.get_all_favorites(user)
+    favorites = favorite_manager.get_all_favorites(g.user)
     return render_template(
         'foodList.html', 
-        user=user, 
+        user=g.user, 
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients,
@@ -76,7 +78,6 @@ def ingredientFilter():
 
 @dishes_bp.route('/spiciness', methods=['POST'])
 def spicinessFilter():
-    user = user_manager.get_user_by_session(session)
     spiciness = request.form.get('spiciness')
     dish_names = aggregate_manager.get_dishes_by_aspect_range('spiciness', int(spiciness))
     dishes = manager.get_dish_instances(dish_names)
@@ -84,7 +85,7 @@ def spicinessFilter():
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
         'foodList.html', 
-        user=user,
+        user=g.user,
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients
@@ -92,7 +93,6 @@ def spicinessFilter():
 
 @dishes_bp.route('/sweetness', methods=['POST'])
 def sweetnessFilter():
-    user = user_manager.get_user_by_session(session)
     sweetness = request.form.get('sweetness')
     dish_names = aggregate_manager.get_dishes_by_aspect_range('sweetness', int(sweetness))
     dishes = manager.get_dish_instances(dish_names)
@@ -100,7 +100,7 @@ def sweetnessFilter():
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
         'foodList.html', 
-        user=user,
+        user=g.user,
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients
@@ -108,7 +108,6 @@ def sweetnessFilter():
 
 @dishes_bp.route('/sourness', methods=['POST'])
 def sournessFilter():
-    user = user_manager.get_user_by_session(session)
     sourness = request.form.get('sourness')
     dish_names = aggregate_manager.get_dishes_by_aspect_range('sourness', int(sourness))
     dishes = manager.get_dish_instances(dish_names)
@@ -116,7 +115,7 @@ def sournessFilter():
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
         'foodList.html', 
-        user=user,
+        user=g.user,
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients
@@ -124,7 +123,6 @@ def sournessFilter():
 
 @dishes_bp.route('/texture', methods=['POST'])
 def textureFilter():
-    user = user_manager.get_user_by_session(session)
     texture = request.form.get('texture')
     dish_names = aggregate_manager.get_dishes_by_aspect_range('texture', int(texture))
     dishes = manager.get_dish_instances(dish_names)
@@ -132,7 +130,7 @@ def textureFilter():
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
         'foodList.html', 
-        user=user,
+        user=g.user,
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients
@@ -140,7 +138,6 @@ def textureFilter():
 
 @dishes_bp.route('/temperature', methods=['POST'])
 def temperatureFilter():
-    user = user_manager.get_user_by_session(session)
     temperature = request.form.get('temperature')
     dish_names = aggregate_manager.get_dishes_by_aspect_range('temperature', int(temperature))
     dishes = manager.get_dish_instances(dish_names)
@@ -148,7 +145,7 @@ def temperatureFilter():
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
         'foodList.html', 
-        user=user,
+        user=g.user,
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients
@@ -156,7 +153,7 @@ def temperatureFilter():
 
 @dishes_bp.route('/healthiness', methods=['POST'])
 def healthinessFilter():
-    user = user_manager.get_user_by_session(session)
+    user = user_manager.get_user_by_id(session.get('google_id'))
     healthiness = request.form.get('healthiness')
     dish_names = aggregate_manager.get_dishes_by_aspect_range('healthiness', int(healthiness))
     dishes = manager.get_dish_instances(dish_names)
@@ -172,7 +169,6 @@ def healthinessFilter():
 
 @dishes_bp.route('/rating', methods=['POST'])
 def ratingFilter():
-    user = user_manager.get_user_by_session(session)
     rating = request.form.get('rating')
     dish_names = aggregate_manager.get_dishes_by_aspect_range('rating', int(rating))
     dishes = manager.get_dish_instances(dish_names)
@@ -180,7 +176,7 @@ def ratingFilter():
     ingredients = ingredient_manager.get_all_ingredients()
     return render_template(
         'foodList.html', 
-        user=user,
+        user=g.user,
         recommendation=dishes,
         dietaries=dietaries,
         ingredients=ingredients
@@ -188,12 +184,11 @@ def ratingFilter():
 
 @dishes_bp.route('/<name>', methods=['GET', 'POST'])
 def food(name=None):
-    user = user_manager.get_user_by_session(session)
     dish = manager.get_dish_instance(name)
     aggregates = aggregate_manager.get_dish_aggregate(name)
     dietaries = dietary_manager.get_all_dietaries()
     ingredients = ingredient_manager.get_all_ingredients()
-    favorites = favorite_manager.get_all_favorites(user)
+    favorites = favorite_manager.get_all_favorites(g.user)
     similar_dishes = ingredient_manager.get_similar_dishes(name)
     locations = price_manager.get_all_locations()
     selected_country = request.args.get('country', '')
@@ -202,7 +197,7 @@ def food(name=None):
     available_countries = price_manager.get_available_countries(name)
     return render_template(
         'food.html',
-        user=user, 
+        user=g.user, 
         dish=dish,
         aggregates=aggregates,
         dietaries=dietaries,

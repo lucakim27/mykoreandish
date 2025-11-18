@@ -1,10 +1,4 @@
-from flask import flash
-
-class Taste:
-    def __init__(self, history_id, dish_name, rating=None):
-        self.history_id = history_id
-        self.dish_name = dish_name
-        self.rating = rating
+from flask import flash, logging
 
 class TasteManager:
     def __init__(self, db, firestore):
@@ -18,7 +12,6 @@ class TasteManager:
 
     def delete_history(self, history_id):
         if history_id:
-            """Delete a history item from the 'UserSelections' collection."""
             try:
                 history_ref = self.user_selections_ref.document(history_id)
                 history_ref.delete()
@@ -29,37 +22,38 @@ class TasteManager:
             flash('Invalid history ID.', 'error')
     
     def get_dish_review_by_id(self, history_id):
-        reviews_ref = self.db.collection("UserSelections")
+        try:
+            reviews_ref = self.db.collection("UserSelections")
+            review_doc = reviews_ref.document(history_id).get()
 
-        review_doc = reviews_ref.document(history_id).get()
+            if review_doc.exists:
+                review_data = review_doc.to_dict()
+                dish_name = review_data.get("dish_name")
+                spiciness = review_data.get("spiciness")
+                sweetness = review_data.get("sweetness")
+                sourness = review_data.get("sourness")
+                temperature = review_data.get("temperature")
+                texture = review_data.get("texture")
+                rating = review_data.get("rating")
+                healthiness = review_data.get("healthiness")
 
-        if review_doc.exists:
-            review_data = review_doc.to_dict()
-
-            dish_name = review_data.get("dish_name")
-            spiciness = review_data.get("spiciness")
-            sweetness = review_data.get("sweetness")
-            sourness = review_data.get("sourness")
-            temperature = review_data.get("temperature")
-            texture = review_data.get("texture")
-            rating = review_data.get("rating")
-            healthiness = review_data.get("healthiness")
-
-            return {
-                "dish_name": dish_name,
-                "spiciness": spiciness,
-                "sweetness": sweetness,
-                "sourness": sourness,
-                "temperature": temperature,
-                "texture": texture,
-                "rating": rating,
-                "healthiness": healthiness
-            }
-        else:
+                return {
+                    "dish_name": dish_name,
+                    "spiciness": spiciness,
+                    "sweetness": sweetness,
+                    "sourness": sourness,
+                    "temperature": temperature,
+                    "texture": texture,
+                    "rating": rating,
+                    "healthiness": healthiness
+                }
+            else:
+                return None
+        except Exception as e:
+            logging.error(f"Error retrieving dish review by id: {e}")
             return None
 
     def update_review(self, history_id, spiciness, sweetness, sourness, texture, temperature, healthiness, rating):
-        """Rate a dish by updating its rating in the 'UserSelections' collection."""
         if not history_id or not rating:
             flash('Invalid input for rating.', 'error')
             return False
@@ -82,31 +76,33 @@ class TasteManager:
             return False
 
     def add_selection(self, google_id, dish_name, spiciness, sweetness, sourness, texture, temperature, healthiness, rating):
-        """Add a food selection without a rating initially."""
-        user_ref = self.users_ref.where('google_id', '==', google_id)
-        user = user_ref.get()
+        try:
+            user_ref = self.users_ref.where('google_id', '==', google_id)
+            user = user_ref.get()
 
-        if not user:
-            raise ValueError("User does not exist.")
-        
-        dish_ref = self.dishes_ref.document(dish_name)
-        dish = dish_ref.get()
-        
-        if not dish:
-            raise ValueError("User does not exist.")
-        
-        self.user_selections_ref.add({
-            'google_id': google_id,
-            'dish_name': dish_name,
-            'spiciness': int(spiciness),
-            'sweetness': int(sweetness),
-            'sourness': int(sourness),
-            'texture': int(texture),
-            'temperature': int(temperature),
-            'healthiness': int(healthiness),
-            'rating': int(rating),
-            'timestamp': self.firestore.SERVER_TIMESTAMP
-        })
+            if not user:
+                raise ValueError("User does not exist.")
+            
+            dish_ref = self.dishes_ref.document(dish_name)
+            dish = dish_ref.get()
+            
+            if not dish:
+                raise ValueError("Dish does not exist.")
+            
+            self.user_selections_ref.add({
+                'google_id': google_id,
+                'dish_name': dish_name,
+                'spiciness': int(spiciness),
+                'sweetness': int(sweetness),
+                'sourness': int(sourness),
+                'texture': int(texture),
+                'temperature': int(temperature),
+                'healthiness': int(healthiness),
+                'rating': int(rating),
+                'timestamp': self.firestore.SERVER_TIMESTAMP
+            })
+        except Exception as e:
+            logging.error(f"Error adding selection: {e}")
 
     def get_user_history(self, google_id):
         try:

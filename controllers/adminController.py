@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session
+from flask import Blueprint, g, render_template, request, redirect, session
 from config.db import db
 from models.aggregateModel import AggregateManager
 from models.dishModel import DishManager
@@ -13,12 +13,16 @@ user_manager = UserManager(db)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
 aggregate_manager = AggregateManager(db)
 
+@admin_bp.before_request
+def load_user():
+    user_id = session.get('google_id')
+    g.user = user_manager.get_user_by_id(user_id) if user_id else None
+
 @admin_bp.route('/')
 @admin_required
 def admin_panel():
-    user = user_manager.get_user_by_session(session)
     requests = request_manager.get_food_request()
-    return render_template('admin.html', user=user, requests=requests)
+    return render_template('admin.html', user=g.user, requests=requests)
 
 @admin_bp.route('/delete-request', methods=['POST'])
 @admin_required

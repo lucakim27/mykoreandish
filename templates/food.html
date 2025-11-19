@@ -61,27 +61,14 @@
     </div>
 
     <h3>Price</h3>
-    <form method="GET" action="">
-        <div class="location-selectors">
-            <label for="mainCountry">Country:</label>
-            <select name="country" id="mainCountry" onchange="this.form.submit()">
-                <option value="">Select a country</option>
-                {% for country in available_countries %}
-                    <option value="{{ country }}" {% if country == selected_country %}selected{% endif %}>
-                        {{ country }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-    </form>
-
+    <div class="location-selectors"></div>
     {% if price_info %}
     <div class="price-bar-container">
         <div class="price-details">
             <ul>
-            {% for entry in price_info %}
+            {% for entry in price_info|sort(attribute='timestamp', reverse=True) %}
                 <li style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>{{ entry.state }}: {{ entry.price }}</span>
+                    <span>{{ entry.state }}, <b>{{ entry.country }}</b>: ${{ entry.price }}</span>
                     <span style="color:gray; font-size: 0.95em;">{{ entry.timestamp|time_ago }}</span>
                 </li>
             {% endfor %}

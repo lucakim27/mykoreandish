@@ -56,9 +56,8 @@ class PriceManager:
         except Exception as e:
             flash(f'Error adding ingredient: {e}', 'error')
     
-    def get_price_info(self, name, selected_country):
+    def get_price_info(self, name):
         prices_ref = self.prices_ref \
-            .where('country', '==', selected_country) \
             .where('dish_name', '==', name)
         prices = prices_ref.stream()
 
@@ -66,6 +65,7 @@ class PriceManager:
         for price_doc in prices:
             data = price_doc.to_dict()
             price = data.get('price')
+            country = data.get('country')
             state = data.get('state')
             timestamp = data.get('timestamp')
             if hasattr(timestamp, 'to_datetime'):
@@ -73,6 +73,7 @@ class PriceManager:
             if price is not None and state is not None and timestamp is not None:
                 price_state_list.append({
                     'price': price,
+                    'country': country,
                     'state': state,
                     'timestamp': timestamp
                 })

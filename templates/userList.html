@@ -9,12 +9,14 @@
     <h2>Registered Users</h2>
     <ul class="popular-dishes-list">
       {% for user in users|sort(attribute='created_at')|reverse %}
-      <li>
-        <a
-          href="{{ url_for('users.userProfileController', user_id=user.google_id) }}"
-        >
-          {{ user.name }} ({{ user.created_at|time_ago }})
+      <li style="display:flex; align-items:center; border-bottom:1px solid #eee;">
+        <a href="{{ url_for('users.userProfileController', user_id=user.google_id) }}"
+           style="text-decoration:none; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+          <b>{{ user.name }}</b>
         </a>
+        <span style="margin-left:auto; font-size: 0.85em; color: grey; white-space:nowrap; padding-left:12px;">
+          {{ user.created_at|time_ago }}
+        </span>
       </li>
       {% endfor %}
     </ul>

@@ -191,10 +191,7 @@ def food(name=None):
     favorites = favorite_manager.get_all_favorites(g.user)
     similar_dishes = ingredient_manager.get_similar_dishes(name)
     locations = price_manager.get_all_locations()
-    selected_country = request.args.get('country', '')
-    selected_city = request.args.get('city', '')
-    price_info = price_manager.get_price_info(name, selected_country)
-    available_countries = price_manager.get_available_countries(name)
+    price_info = price_manager.get_price_info(dish["dish_name"])
     return render_template(
         'food.html',
         user=g.user, 
@@ -205,10 +202,7 @@ def food(name=None):
         favorites=favorites,
         similar_dishes=similar_dishes,
         locations=locations,
-        selected_city=selected_city,
-        selected_country=selected_country,
-        price_info=price_info,
-        available_countries=available_countries
+        price_info=price_info
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])

@@ -62,6 +62,12 @@
     {% endif %}
   </div>
 
+  <h3 class="similar-dish-head">Personal Note</h3>
+    <form action="/note/add/{{ ingredient.ingredient }}" method="POST">
+        <textarea name="note_content" placeholder="I had this at the shop across the street last Tuesday." class="memo-input">{{ note.content if note else '' }}</textarea>
+        <button type="submit" class="button save-button select-button">Save Note</button>
+    </form>
+
   <div class="button-box" style="margin-bottom: -25px">
     <form
       action="/reviews/nutrient/{{ ingredient.ingredient }}"
@@ -73,7 +79,7 @@
         class="button select-button"
         onclick="document.getElementById('nutrientModal').style.display='block'"
       >
-        Review
+        Review Ingredient
       </button>
     </form>
   </div>

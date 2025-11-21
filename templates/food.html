@@ -269,9 +269,15 @@
     {% else %}
     <p>No similar dishes found.</p>
     {% endif %}
-    
+
+    <h3 class="similar-dish-head">Personal Note</h3>
+    <form action="/note/add/{{ dish.dish_name }}" method="POST">
+        <textarea name="note_content" placeholder="I had this at the shop across the street last Tuesday." class="memo-input">{{ note.content if note else '' }}</textarea>
+        <button type="submit" class="button save-button select-button">Save Note</button>
+    </form>
+
     <div class="button-box">
-        <button type="button" class="button select-button" onclick="openReviewModal()">Review</button>
+        <button type="button" class="button select-button" onclick="openReviewModal()">Review Dish</button>
     </div>
 </div>
 <script>

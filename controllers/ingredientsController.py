@@ -4,6 +4,7 @@ from models.favoriteModel import FavoriteManager
 from models.ingredientModel import IngredientManager
 from config.db import db
 from firebase_admin import firestore
+from models.noteModel import NoteManager
 from models.nutrientModel import NutrientManager
 from models.userModel import UserManager
 from utils.login import login_required
@@ -14,6 +15,7 @@ user_manager = UserManager(db)
 nutrient_manager = NutrientManager(db, firestore)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
 favorite_manager = FavoriteManager(db, firestore)
+note_manager = NoteManager(db, firestore)
 
 @ingredients_bp.before_request
 def load_user():
@@ -76,6 +78,7 @@ def ingredientsListController(name=None):
     dishes = ingredient_manager.get_dishes_by_ingredient(name)
     nutrients = nutrient_manager.get_all_nutrients()
     favorites = favorite_manager.get_all_favorites(g.user)
+    note = note_manager.get_note_by_dish_and_user(name, g.user["google_id"]) if g.user else None
     return render_template(
         'ingredient.html',
         user=g.user,
@@ -83,7 +86,8 @@ def ingredientsListController(name=None):
         ingredient=ingredient,
         nutrient=nutrient,
         nutrients=nutrients,
-        favorites=favorites
+        favorites=favorites,
+        note=note
     )
 
 @ingredients_bp.route('/nutrient_review/<name>', methods=['POST'])

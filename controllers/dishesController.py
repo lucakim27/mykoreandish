@@ -1,6 +1,7 @@
 from flask import Blueprint, g, render_template, request, redirect, session, url_for
 from models.aggregateModel import AggregateManager
 from models.favoriteModel import FavoriteManager
+from models.noteModel import NoteManager
 from models.priceModel import PriceManager
 from utils.login import login_required
 from models.dietaryModel import DietaryManager
@@ -21,6 +22,7 @@ ingredient_manager = IngredientManager(db, firestore)
 favorite_manager = FavoriteManager(db, firestore)
 aggregate_manager = AggregateManager(db)
 price_manager = PriceManager('csv/locations.csv', db, firestore)
+note_manager = NoteManager(db, firestore)
 
 @dishes_bp.before_request
 def load_user():
@@ -192,6 +194,7 @@ def food(name=None):
     similar_dishes = ingredient_manager.get_similar_dishes(name)
     locations = price_manager.get_all_locations()
     price_info = price_manager.get_price_info(dish["dish_name"])
+    note = note_manager.get_note_by_dish_and_user(dish["dish_name"], g.user['google_id']) if g.user else None
     return render_template(
         'food.html',
         user=g.user, 
@@ -202,7 +205,8 @@ def food(name=None):
         favorites=favorites,
         similar_dishes=similar_dishes,
         locations=locations,
-        price_info=price_info
+        price_info=price_info,
+        note=note
     )
 
 @dishes_bp.route('/select/<name>', methods=['POST'])

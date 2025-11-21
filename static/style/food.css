@@ -508,3 +508,29 @@ select, input {
     transition: border 0.3s ease;
     margin-left: 10px;
 }
+
+.memo-input {
+    width: calc(100% - 22px) !important;
+    height: 80px;
+    margin: 0 !important;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    padding: 10px 10px;
+}
+
+.save-button {
+    background-color: #f0f0f0;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #2c3e50;
+}
+
+.save-button:hover {
+    background-color: #d3d3d3;
+}

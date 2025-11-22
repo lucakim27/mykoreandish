@@ -2,7 +2,7 @@ from typing import List, Dict, Any
 from flask import flash
 import csv
 from collections import defaultdict
-from config.db import get_db
+from project.config.db import get_db
 
 class IngredientManager:
     def __init__(self, firestore_module: Any):

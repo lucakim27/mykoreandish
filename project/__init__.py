@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask_dance.contrib.google import make_google_blueprint
-from config.config import Config
+from project.config.config import Config
 
 def create_app(config_object=Config):
     app = Flask(__name__, static_folder="../static", template_folder="../templates")

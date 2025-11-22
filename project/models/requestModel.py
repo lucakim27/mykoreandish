@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 from flask import flash
 from google.cloud import firestore
-from config.db import get_db
+from project.config.db import get_db
 
 class RequestManager:
     def __init__(self, firestore_module: Any):

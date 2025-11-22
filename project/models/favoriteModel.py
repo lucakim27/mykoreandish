@@ -1,6 +1,6 @@
 from typing import Any
 from flask import flash
-from config.db import get_db
+from project.config.db import get_db
 
 class FavoriteManager:
     def __init__(self, firestore_module: Any):

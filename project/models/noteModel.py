@@ -1,6 +1,6 @@
 from typing import Dict, Any
 from flask import flash
-from config.db import get_db
+from project.config.db import get_db
 
 class NoteManager:
     def __init__(self, firestore_module: Any):

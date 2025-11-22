@@ -1,7 +1,7 @@
 import csv
 from flask import flash
 from typing import List, Dict, Any
-from config.db import get_db
+from project.config.db import get_db
 
 class DietaryManager:
     def __init__(self, firestore_module: Any):

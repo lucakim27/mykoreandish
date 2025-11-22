@@ -1,6 +1,6 @@
 import logging
 from google.cloud import firestore
-from config.db import get_db
+from project.config.db import get_db
 
 class UserManager:
     def __init__(self):

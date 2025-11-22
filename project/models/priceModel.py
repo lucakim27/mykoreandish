@@ -2,7 +2,7 @@ import csv
 import logging
 from typing import Any
 from flask import flash
-from config.db import get_db
+from project.config.db import get_db
 
 class PriceManager:
     def __init__(self, csv_file, firestore_module: Any):

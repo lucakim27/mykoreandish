@@ -1,7 +1,7 @@
 from firebase_admin import firestore
 from flask import flash
 import csv
-from config.db import get_db
+from project.config.db import get_db
 
 class AggregateManager:
     def __init__(self):

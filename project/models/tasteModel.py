@@ -1,5 +1,5 @@
 from flask import flash, logging
-from config.db import get_db
+from project.config.db import get_db
 
 class TasteManager:
     def __init__(self, firestore):

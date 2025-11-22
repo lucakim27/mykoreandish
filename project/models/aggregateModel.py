@@ -1,10 +1,11 @@
 from firebase_admin import firestore
 from flask import flash
 import csv
+from config.db import get_db
 
 class AggregateManager:
-    def __init__(self, db: firestore.Client):
-        self.db = db
+    def __init__(self):
+        self.db = get_db()
         self.TASTE_CATEGORIES = ["spiciness", "sweetness", "sourness", "temperature", "texture", "rating", "healthiness"]
     
     def add_dietary_aggregate(self, dish_name, review_data):

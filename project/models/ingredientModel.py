@@ -1,13 +1,14 @@
 from typing import List, Dict, Any
 from flask import flash
-from google.cloud import firestore
 import csv
 from collections import defaultdict
+from config.db import get_db
 
 class IngredientManager:
-    def __init__(self, db: firestore.Client, firestore_module: Any):
-        self.users_ref = db.collection('Users')
-        self.ingredients_ref = db.collection('Ingredients')
+    def __init__(self, firestore_module: Any):
+        self.db = get_db()
+        self.users_ref = self.db.collection('Users')
+        self.ingredients_ref = self.db.collection('Ingredients')
         self.firestore = firestore_module
     
     def _get_user(self, google_id: str) -> Any:

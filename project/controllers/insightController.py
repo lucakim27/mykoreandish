@@ -1,15 +1,14 @@
 from flask import Blueprint, g, render_template, session
-from config.db import db
-from models.aggregateModel import AggregateManager
-from models.userModel import UserManager
-from models.ingredientModel import IngredientManager
+from ..models.aggregateModel import AggregateManager
+from ..models.userModel import UserManager
+from ..models.ingredientModel import IngredientManager
 from firebase_admin import firestore as firestore_module
-from models.dishModel import DishManager
+from ..models.dishModel import DishManager
 
 insight_bp = Blueprint('insight', __name__)
-user_manager = UserManager(db)
-aggregate_manager = AggregateManager(db)
-ingredient_manager = IngredientManager(db, firestore_module)
+user_manager = UserManager()
+aggregate_manager = AggregateManager()
+ingredient_manager = IngredientManager(firestore_module)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
 
 @insight_bp.before_request

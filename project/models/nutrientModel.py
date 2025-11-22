@@ -1,12 +1,13 @@
 from typing import List, Dict, Any
 from flask import flash
-from google.cloud import firestore
 import csv
+from config.db import get_db
 
 class NutrientManager:
-    def __init__(self, db: firestore.Client, firestore_module: Any):
-        self.users_ref = db.collection('Users')
-        self.nutrients_ref = db.collection('Nutrients')
+    def __init__(self, firestore_module: Any):
+        self.db = get_db()
+        self.users_ref = self.db.collection('Users')
+        self.nutrients_ref = self.db.collection('Nutrients')
         self.firestore = firestore_module
     
     def _get_user(self, google_id: str) -> Any:

@@ -1,14 +1,15 @@
 from flask import flash, logging
+from config.db import get_db
 
 class TasteManager:
-    def __init__(self, db, firestore):
-        self.db = db
+    def __init__(self, firestore):
+        self.db = get_db()
         self.firestore = firestore
-        self.dishes_ref = db.collection('Dishes')
-        self.users_ref = db.collection('Users')
-        self.user_selections_ref = db.collection('UserSelections')
-        self.ingredients_ref = db.collection('Ingredients')
-        self.dietaries_ref = db.collection('Dietaries')
+        self.dishes_ref = self.db.collection('Dishes')
+        self.users_ref = self.db.collection('Users')
+        self.user_selections_ref = self.db.collection('UserSelections')
+        self.ingredients_ref = self.db.collection('Ingredients')
+        self.dietaries_ref = self.db.collection('Dietaries')
 
     def delete_history(self, history_id):
         if history_id:

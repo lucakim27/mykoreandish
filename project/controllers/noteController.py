@@ -1,15 +1,14 @@
 from flask import Blueprint, g, redirect, request, session, url_for
-from config.db import db
-from models.ingredientModel import IngredientManager
-from models.noteModel import NoteManager
-from models.userModel import UserManager
+from ..models.ingredientModel import IngredientManager
+from ..models.noteModel import NoteManager
+from ..models.userModel import UserManager
 from firebase_admin import firestore as firestore_module
-from utils.login import login_required
+from ..utils.login import login_required
 
 note_bp = Blueprint('note', __name__)
-user_manager = UserManager(db)
-note_manager = NoteManager(db, firestore_module)
-ingredient_manager = IngredientManager(db, firestore_module)
+user_manager = UserManager()
+note_manager = NoteManager(firestore_module)
+ingredient_manager = IngredientManager(firestore_module)
 
 @note_bp.before_request
 def load_user():

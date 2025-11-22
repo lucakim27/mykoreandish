@@ -1,10 +1,12 @@
 from typing import List, Dict, Any
 from flask import flash
 from google.cloud import firestore
+from config.db import get_db
 
 class RequestManager:
-    def __init__(self, db: firestore.Client, firestore_module: Any):
-        self.requests_ref = db.collection('Requests')
+    def __init__(self, firestore_module: Any):
+        self.db = get_db()
+        self.requests_ref = self.db.collection('Requests')
         self.firestore = firestore_module
     
     def add_food_request(self, name, description) -> Dict[str, Any]:

@@ -1,12 +1,13 @@
 import csv
 from flask import flash
-from google.cloud import firestore
 from typing import List, Dict, Any
+from config.db import get_db
 
 class DietaryManager:
-    def __init__(self, db: firestore.Client, firestore_module: Any):
-        self.users_ref = db.collection('Users')
-        self.dietaries_ref = db.collection('Dietaries')
+    def __init__(self, firestore_module: Any):
+        self.db = get_db()
+        self.users_ref = self.db.collection('Users')
+        self.dietaries_ref = self.db.collection('Dietaries')
         self.firestore = firestore_module
 
     def _get_user(self, google_id: str) -> Any:

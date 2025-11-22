@@ -1,17 +1,16 @@
 from flask import Blueprint, g, redirect, session, url_for
-from config.db import db
-from models.dishModel import DishManager
-from models.favoriteModel import FavoriteManager
-from models.ingredientModel import IngredientManager
-from models.userModel import UserManager
-from utils.login import login_required
+from ..models.dishModel import DishManager
+from ..models.favoriteModel import FavoriteManager
+from ..models.ingredientModel import IngredientManager
+from ..models.userModel import UserManager
+from ..utils.login import login_required
 from firebase_admin import firestore
 
 favorite_bp = Blueprint('favorite', __name__)
-user_manager = UserManager(db)
+user_manager = UserManager()
 dish_manager = DishManager(csv_file='csv/dishes.csv')
-favorite_manager = FavoriteManager(db, firestore)
-ingredient_manager = IngredientManager(db, firestore)
+favorite_manager = FavoriteManager(firestore)
+ingredient_manager = IngredientManager(firestore)
 
 @favorite_bp.before_request
 def load_user():

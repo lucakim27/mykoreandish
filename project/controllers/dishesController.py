@@ -1,28 +1,27 @@
 from flask import Blueprint, g, render_template, request, redirect, session, url_for
-from models.aggregateModel import AggregateManager
-from models.favoriteModel import FavoriteManager
-from models.noteModel import NoteManager
-from models.priceModel import PriceManager
-from utils.login import login_required
-from models.dietaryModel import DietaryManager
-from models.dishModel import DishManager
-from models.ingredientModel import IngredientManager
-from models.userModel import UserManager
-from models.tasteModel import TasteManager
-from config.db import db
-from utils.time import format_time_ago
+from ..models.aggregateModel import AggregateManager
+from ..models.favoriteModel import FavoriteManager
+from ..models.noteModel import NoteManager
+from ..models.priceModel import PriceManager
+from ..utils.login import login_required
+from ..models.dietaryModel import DietaryManager
+from ..models.dishModel import DishManager
+from ..models.ingredientModel import IngredientManager
+from ..models.userModel import UserManager
+from ..models.tasteModel import TasteManager
+from ..utils.time import format_time_ago
 from firebase_admin import firestore
 
 dishes_bp = Blueprint('dishes', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
-user_manager = UserManager(db)
-selection_manager = TasteManager(db, firestore)
-dietary_manager = DietaryManager(db, firestore)
-ingredient_manager = IngredientManager(db, firestore)
-favorite_manager = FavoriteManager(db, firestore)
-aggregate_manager = AggregateManager(db)
-price_manager = PriceManager('csv/locations.csv', db, firestore)
-note_manager = NoteManager(db, firestore)
+user_manager = UserManager()
+selection_manager = TasteManager(firestore)
+dietary_manager = DietaryManager(firestore)
+ingredient_manager = IngredientManager(firestore)
+favorite_manager = FavoriteManager(firestore)
+aggregate_manager = AggregateManager()
+price_manager = PriceManager('csv/locations.csv',firestore)
+note_manager = NoteManager(firestore)
 
 @dishes_bp.before_request
 def load_user():

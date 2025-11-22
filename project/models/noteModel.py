@@ -1,10 +1,11 @@
 from typing import Dict, Any
 from flask import flash
-from google.cloud import firestore
+from config.db import get_db
 
 class NoteManager:
-    def __init__(self, db: firestore.Client, firestore_module: Any):
-        self.notes_ref = db.collection('Notes')
+    def __init__(self, firestore_module: Any):
+        self.db = get_db()
+        self.notes_ref = self.db.collection('Notes')
         self.firestore = firestore_module
     
     def add_note(self, name, user_id, note_content) -> Dict[str, Any]:

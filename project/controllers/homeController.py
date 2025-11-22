@@ -1,22 +1,21 @@
 from flask import Blueprint, g, render_template, session
-from config.db import db
-from models.aggregateModel import AggregateManager
-from models.dietaryModel import DietaryManager
-from models.dishModel import DishManager
-from models.ingredientModel import IngredientManager
-from models.nutrientModel import NutrientManager
-from models.userModel import UserManager
-from models.tasteModel import TasteManager
+from ..models.aggregateModel import AggregateManager
+from ..models.dietaryModel import DietaryManager
+from ..models.dishModel import DishManager
+from ..models.ingredientModel import IngredientManager
+from ..models.nutrientModel import NutrientManager
+from ..models.userModel import UserManager
+from ..models.tasteModel import TasteManager
 from firebase_admin import firestore
 
 home_bp = Blueprint('home', __name__)
-user_manager = UserManager(db)
-selection_manager = TasteManager(db, firestore)
+user_manager = UserManager()
+selection_manager = TasteManager(firestore)
 dish_manager = DishManager(csv_file='csv/dishes.csv')
-ingredient_manager = IngredientManager(db, firestore)
-dietary_manager = DietaryManager(db, firestore)
-aggregate_manager = AggregateManager(db)
-nutrient_manager = NutrientManager(db, firestore)
+ingredient_manager = IngredientManager(firestore)
+dietary_manager = DietaryManager(firestore)
+aggregate_manager = AggregateManager()
+nutrient_manager = NutrientManager(firestore)
 
 @home_bp.before_request
 def load_user():

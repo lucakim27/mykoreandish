@@ -1,10 +1,9 @@
 from flask import Blueprint, redirect, url_for, session
-from models.userModel import UserManager
-from config.db import db
+from ..models.userModel import UserManager
 from flask_dance.contrib.google import google
 
 auth_bp = Blueprint('auth_bp', __name__)
-user_manager = UserManager(db)
+user_manager = UserManager()
 
 @auth_bp.route('/google_login')
 def google_login():

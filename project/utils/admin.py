@@ -1,9 +1,8 @@
 from functools import wraps
 from flask import session
-from models.userModel import UserManager
-from config.db import db
+from ..models.userModel import UserManager
 
-user_manager = UserManager(db)
+user_manager = UserManager()
 
 def admin_required(f):
     @wraps(f)

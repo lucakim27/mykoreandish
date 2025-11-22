@@ -1,11 +1,12 @@
 from typing import Any
 from flask import flash
-from google.cloud import firestore
+from config.db import get_db
 
 class FavoriteManager:
-    def __init__(self, db: firestore.Client, firestore_module: Any):
-        self.users_ref = db.collection('Users')
-        self.favorites_ref = db.collection('Favorites')
+    def __init__(self, firestore_module: Any):
+        self.db = get_db()
+        self.users_ref = self.db.collection('Users')
+        self.favorites_ref = self.db.collection('Favorites')
         self.firestore = firestore_module
     
     def _get_user(self, google_id: str) -> Any:

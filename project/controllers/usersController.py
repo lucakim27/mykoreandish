@@ -1,26 +1,25 @@
 from itertools import chain
 from flask import Blueprint, g, redirect, render_template, request, session, url_for
-from models.aggregateModel import AggregateManager
-from models.nutrientModel import NutrientManager
-from models.priceModel import PriceManager
-from utils.login import login_required
-from models.dietaryModel import DietaryManager
-from models.dishModel import DishManager
-from models.ingredientModel import IngredientManager
-from models.userModel import UserManager
-from models.tasteModel import TasteManager
-from config.db import db
+from ..models.aggregateModel import AggregateManager
+from ..models.nutrientModel import NutrientManager
+from ..models.priceModel import PriceManager
+from ..utils.login import login_required
+from ..models.dietaryModel import DietaryManager
+from ..models.dishModel import DishManager
+from ..models.ingredientModel import IngredientManager
+from ..models.userModel import UserManager
+from ..models.tasteModel import TasteManager
 from firebase_admin import firestore
 
 users_bp = Blueprint('users', __name__)
 manager = DishManager(csv_file='csv/dishes.csv')
-user_manager = UserManager(db)
-selection_manager = TasteManager(db, firestore)
-dietary_manager = DietaryManager(db, firestore)
-ingredient_manager = IngredientManager(db, firestore)
-nutrient_manager = NutrientManager(db, firestore)
-aggregate_manager = AggregateManager(db)
-price_manager = PriceManager('csv/locations.csv', db, firestore)
+user_manager = UserManager()
+selection_manager = TasteManager(firestore)
+dietary_manager = DietaryManager(firestore)
+ingredient_manager = IngredientManager(firestore)
+nutrient_manager = NutrientManager(firestore)
+aggregate_manager = AggregateManager()
+price_manager = PriceManager('csv/locations.csv', firestore)
 
 @users_bp.before_request
 def load_user():

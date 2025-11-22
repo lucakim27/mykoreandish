@@ -2,14 +2,15 @@ import csv
 import logging
 from typing import Any
 from flask import flash
-from google.cloud import firestore
+from config.db import get_db
 
 class PriceManager:
-    def __init__(self, csv_file, db: firestore.Client, firestore_module: Any):
+    def __init__(self, csv_file, firestore_module: Any):
         self.csv_file = csv_file
-        self.users_ref = db.collection('Users')
+        self.db = get_db()
+        self.users_ref = self.db.collection('Users')
         self.firestore = firestore_module
-        self.prices_ref = db.collection('Prices')
+        self.prices_ref = self.db.collection('Prices')
     
     def _get_user(self, google_id: str) -> Any:
         user_ref = self.users_ref.where('google_id', '==', google_id)

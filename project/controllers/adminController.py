@@ -1,17 +1,16 @@
 from flask import Blueprint, g, render_template, request, redirect, session
-from config.db import db
-from models.aggregateModel import AggregateManager
-from models.dishModel import DishManager
-from models.requestModel import RequestManager
-from models.userModel import UserManager
+from ..models.aggregateModel import AggregateManager
+from ..models.dishModel import DishManager
+from ..models.requestModel import RequestManager
+from ..models.userModel import UserManager
 from firebase_admin import firestore
-from utils.admin import admin_required
+from ..utils.admin import admin_required
 
 admin_bp = Blueprint('admin', __name__)
-request_manager = RequestManager(db, firestore)
-user_manager = UserManager(db)
+request_manager = RequestManager(firestore)
+user_manager = UserManager()
 dish_manager = DishManager(csv_file='csv/dishes.csv')
-aggregate_manager = AggregateManager(db)
+aggregate_manager = AggregateManager()
 
 @admin_bp.before_request
 def load_user():

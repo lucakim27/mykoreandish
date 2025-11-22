@@ -1,10 +1,11 @@
 import logging
 from google.cloud import firestore
+from config.db import get_db
 
 class UserManager:
-    def __init__(self, db):
-        self.db = db
-        self.users_ref = db.collection('Users')
+    def __init__(self):
+        self.db = get_db()
+        self.users_ref = self.db.collection('Users')
 
     def store_google_user(self, google_user_data: dict) -> None:
         google_id = google_user_data.get('id')

@@ -6,13 +6,11 @@ This is a korean dish & ingredient review web application that lets users to rev
 ## Features
 
 - Google authentication
-- Dish and ingredient search and filtering options
-- Dish and Ingredient review
+- Dish and ingredient search, filter and review
 - Favorite dish and ingredient management
 - Similar dish recommendation
-- User review history
-- Admin dashboard
-- All Reviews insights
+- User activity history
+- Review insights
 - Users profile information
 - Personal Note on each dish and ingredient
 
@@ -27,16 +25,6 @@ This is a korean dish & ingredient review web application that lets users to rev
 ## Live Demo
 
 [MyKoreanDish](https://food-suggestion.onrender.com/)
-
-## Upcoming Features
-- Korean dish suggestion based on some questions
-- Best Combination dish suggestion
-- Similar ingredient recommendation
-- Darkmode
-- Friend request and accept on profile page
-- Admin control page that handles all reviews
-- Implement single page web app with react
-- Migrate from render to aws
 
 ## Contributing
 

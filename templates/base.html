@@ -69,13 +69,9 @@
             </button>
             {% endif %}
             <div id="dropdown-menu" class="dropdown-menu">
-              {% if session.get('google_id') %} {% if user.get('admin') %}
-              <a href="/admin">Admin</a>
-              {% endif %}
               <a href="/users/profile">Profile</a>
               <a href="/users">History</a>
               <a href="/auth/logout">Logout</a>
-              {% endif %}
             </div>
           </div>
         </div>

@@ -20,8 +20,6 @@ def create_app(config_object=Config):
     from .controllers.dishesController import dishes_bp
     from .controllers.ingredientsController import ingredients_bp
     from .controllers.usersController import users_bp
-    from .controllers.adminController import admin_bp
-    from .controllers.requestController import request_bp
     from .controllers.homeController import home_bp
     from .controllers.errorHandlersController import error_bp
     from .controllers.insightController import insight_bp
@@ -33,8 +31,6 @@ def create_app(config_object=Config):
     app.register_blueprint(dishes_bp, url_prefix='/dishes')
     app.register_blueprint(ingredients_bp, url_prefix='/ingredients')
     app.register_blueprint(users_bp, url_prefix='/users')
-    app.register_blueprint(admin_bp, url_prefix='/admin')
-    app.register_blueprint(request_bp, url_prefix='/request')
     app.register_blueprint(footer_bp, url_prefix='/footer')
     app.register_blueprint(favorite_bp, url_prefix='/favorite')
     app.register_blueprint(insight_bp, url_prefix='/insight')

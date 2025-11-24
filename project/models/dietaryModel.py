@@ -114,3 +114,15 @@ class DietaryManager:
             return user_data.get('dietary_preference', None)
         except Exception:
             return None
+
+    def get_all_reviews(self) -> List[Dict[str, Any]]:
+        reviews = []
+        try:
+            dietary_docs = self.dietaries_ref.stream()
+            for doc in dietary_docs:
+                review_data = doc.to_dict()
+                review_data['id'] = doc.id
+                reviews.append(review_data)
+        except Exception as e:
+            flash(f'Error retrieving dietary reviews: {e}', 'error')
+        return reviews

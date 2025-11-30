@@ -35,7 +35,7 @@
                     <form action="/dishes/dietary" method="POST" style="display:inline;" class="dietary-tag">
                         <input type="hidden" name="dietary" value="{{ diet }}">
                         <button type="submit" class="ingredient-tag" style="all:unset; cursor:pointer; display:inline;">
-                            <i class="icon-{{ diet | lower }}"></i> <b>{{ diet }}</b> {{ count }} 👤
+                            <i class="icon-{{ diet | lower }}"></i> <b>{{ diet }}</b> ({{ count }} reviews)
                         </button>
                     </form>
                 {% endif %}
@@ -51,7 +51,7 @@
             {% for ingredient, count in aggregates['ingredient_distribution'].items() | sort(attribute='1', reverse=True) %}
                 {% if count > 0 %}
                     <a href="/ingredients/{{ ingredient }}" class="ingredient-tag">
-                        <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b> {{ count }} 👤
+                        <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b> ({{ count }} reviews)
                     </a>
                 {% endif %}
             {% endfor %}
@@ -68,7 +68,7 @@
             <ul>
             {% for entry in price_info|sort(attribute='timestamp', reverse=True) %}
                 <li style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>{{ entry.state }}, <b>{{ entry.country }}</b>: ${{ entry.price }}</span>
+                    <span>{{ entry.state }}, {{ entry.country }}: ${{ entry.price }}</span>
                     <span style="color:gray; font-size: 0.95em;">{{ entry.timestamp|time_ago }}</span>
                 </li>
             {% endfor %}

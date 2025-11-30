@@ -289,6 +289,27 @@
     </div>
   </div>
 
+  <!-- <div class="filter-container">
+    <div class="filter-box" style="height: auto; margin-bottom: 10px; overflow-x: scroll;">
+      <div style="display: inline-block; margin-left: 16px;">
+        <div style="display: flex; width: auto; margin: -20px">
+          {% for dietary in dietaries %}
+          <form action="/dishes/dietary" method="POST">
+            <input
+              type="radio"
+              id="filter-{{ dietary.dietary }}"
+              name="filter"
+              value="{{ dietary.dietary }}"
+              onclick="onchange()"
+            />
+            <label for="filter-{{ dietary.dietary }}">{{ dietary.dietary }}</label>
+          </form>
+          {% endfor %}
+        <div>
+      </div>
+    </div>
+  </div> -->
+
   {% if recommendation and recommendation[0].dish_name != "No match found" %}
   <ul class="food-container" id="food-list">
     {% for dish in recommendation %}
@@ -331,25 +352,6 @@
     <p>Try relaxing the filters or selecting different criteria.</p>
   </div>
   {% endif %}
-
-  <!-- <div class="request-dishes">
-        <h2>Not enough dishes?</h2>
-        <button onclick="document.getElementById('requestModal').style.display='block'">Request a new dish</button>
-    </div> -->
-
-  <!-- <div id="requestModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('requestModal').style.display='none'">&times;</span>
-            <form action="/request/submit-request" method="POST" class="criteria-form">
-                <label><b>Name</b></label><br>
-                <input autocomplete="text" id="name" name="name" placeholder="Example: Sundae" required><br>
-                <label><b>Description</b></label><br>
-                <textarea id="description" name="description" rows="4"
-                    placeholder="Example: Korean blood sausage stuffed with glass noodles" required></textarea>
-                <button type="submit">Request</button>
-            </form>
-        </div>
-    </div> -->
 </div>
 
 <script>

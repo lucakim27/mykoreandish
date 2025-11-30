@@ -6,7 +6,7 @@ This is a korean dish & ingredient review web application that lets users to rev
 ## Features
 
 - Google authentication
-- Dish and ingredient search, filter and review
+- Dish search, filter and review
 - Favorite dish and ingredient management
 - Similar dish recommendation
 - User activity history

@@ -21,55 +21,6 @@ def load_user():
     user_id = session.get('google_id')
     g.user = user_manager.get_user_by_id(user_id) if user_id else None
 
-@ingredients_bp.route('/', methods=['POST'])
-def ingredientsController():
-    ingredients = ingredient_manager.get_all_ingredients()
-    nutrients = nutrient_manager.get_all_nutrients()
-    dishes = dish_manager.get_all_dishes()
-    favorites = favorite_manager.get_all_favorites(g.user)
-    return render_template(
-        'ingredientList.html', 
-        user=g.user,
-        nutrients=nutrients,
-        dishes=dishes,
-        recommendation=ingredients,
-        favorites=favorites
-    )
-
-@ingredients_bp.route('/nutrient', methods=['POST'])
-def nutrientFilterController():
-    nutrient = request.form.get('nutrient')
-    ingredients_name = nutrient_manager.get_ingredients_by_nutrient(nutrient)
-    ingredients = ingredient_manager.get_ingredients_instance(ingredients_name)
-    nutrients = nutrient_manager.get_all_nutrients()
-    dishes = dish_manager.get_all_dishes()
-    favorites = favorite_manager.get_all_favorites(g.user)
-    return render_template(
-        'ingredientList.html', 
-        user=g.user, 
-        dishes=dishes,
-        nutrients=nutrients,
-        recommendation=ingredients,
-        favorites=favorites
-    )
-
-@ingredients_bp.route('/dish', methods=['POST'])
-def ingredientFilterController():
-    dish = request.form.get('dish')
-    ingredients_name = ingredient_manager.get_ingredients_by_dish(dish)
-    ingredients = ingredient_manager.get_ingredients_instance(ingredients_name)
-    nutrients = nutrient_manager.get_all_nutrients()
-    dishes = dish_manager.get_all_dishes()
-    favorites = favorite_manager.get_all_favorites(g.user)
-    return render_template(
-        'ingredientList.html', 
-        user=g.user, 
-        dishes=dishes,
-        nutrients=nutrients,
-        recommendation=ingredients,
-        favorites=favorites
-    )
-
 @ingredients_bp.route('/<name>', methods=['GET', 'POST'])
 def ingredientsListController(name=None):
     ingredient = ingredient_manager.get_ingredient_instance(name)

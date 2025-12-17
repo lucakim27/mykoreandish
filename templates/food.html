@@ -25,7 +25,7 @@
     </form>
     {% endif %}
     <h2>{{ dish.korean_name }}</h2>
-    <p><b>{{ dish.dish_name }}</b> which is {{ dish.description }}</p>
+    <p><b>{{ dish.dish_name }}</b>, {{ dish.description }}</p>
 
     <h3>Dietary</h3>
     <div class="dietary-tags">
@@ -35,7 +35,13 @@
                     <form action="/dishes/dietary" method="POST" style="display:inline;" class="dietary-tag">
                         <input type="hidden" name="dietary" value="{{ diet }}">
                         <button type="submit" class="ingredient-tag" style="all:unset; cursor:pointer; display:inline;">
-                            <i class="icon-{{ diet | lower }}"></i> <b>{{ diet }}</b> ({{ count }} reviews)
+                            <i class="icon-{{ diet | lower }}"></i> 
+                            <b>{{ diet }}</b> 
+                            {% if count == 1 %}
+                                ({{ count }} review)
+                            {% else %}
+                                ({{ count }} reviews)
+                            {% endif %}
                         </button>
                     </form>
                 {% endif %}
@@ -51,7 +57,12 @@
             {% for ingredient, count in aggregates['ingredient_distribution'].items() | sort(attribute='1', reverse=True) %}
                 {% if count > 0 %}
                     <a href="/ingredients/{{ ingredient }}" class="ingredient-tag">
-                        <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b> ({{ count }} reviews)
+                        <i class="icon-{{ ingredient | lower }}"></i> <b>{{ ingredient }}</b>
+                        {% if count == 1 %}
+                            ({{ count }} review)
+                        {% else %}
+                            ({{ count }} reviews)
+                        {% endif %}
                     </a>
                 {% endif %}
             {% endfor %}
@@ -76,7 +87,7 @@
         </div>
     </div>
     {% else %}
-    <p style="margin-top: 15px;">No price available for this location.</p>
+    <p style="margin-top: 15px;">No price available for this dish.</p>
     {% endif %}
 
     <h3>Taste</h3>

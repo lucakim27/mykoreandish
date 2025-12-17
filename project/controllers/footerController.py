@@ -1,13 +1,6 @@
-from flask import Blueprint, g, render_template, session
-from ..models.userModel import UserManager
+from flask import Blueprint, g, render_template
 
 footer_bp = Blueprint('footer', __name__)
-user_manager = UserManager()
-
-@footer_bp.before_request
-def load_user():
-    user_id = session.get('google_id')
-    g.user = user_manager.get_user_by_id(user_id) if user_id else None
 
 @footer_bp.route('/aboutus')
 def aboutusController():

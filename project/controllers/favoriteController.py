@@ -1,21 +1,12 @@
-from flask import Blueprint, g, redirect, session, url_for
-from ..models.dishModel import DishManager
-from ..models.favoriteModel import FavoriteManager
-from ..models.ingredientModel import IngredientManager
-from ..models.userModel import UserManager
+from flask import Blueprint, g, redirect, url_for
 from ..utils.login import login_required
-from firebase_admin import firestore
+from ..services.managers import (
+    dish_manager,
+    favorite_manager,
+    ingredient_manager
+)
 
 favorite_bp = Blueprint('favorite', __name__)
-user_manager = UserManager()
-dish_manager = DishManager(csv_file='csv/dishes.csv')
-favorite_manager = FavoriteManager(firestore)
-ingredient_manager = IngredientManager(firestore)
-
-@favorite_bp.before_request
-def load_user():
-    user_id = session.get('google_id')
-    g.user = user_manager.get_user_by_id(user_id) if user_id else None
 
 @favorite_bp.route('/add/dish/<name>', methods=['POST'])
 @login_required

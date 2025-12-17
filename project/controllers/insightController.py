@@ -1,22 +1,17 @@
-from flask import Blueprint, g, render_template, session
-from ..models.aggregateModel import AggregateManager
-from ..models.userModel import UserManager
-from ..models.ingredientModel import IngredientManager
-from firebase_admin import firestore as firestore_module
-from ..models.dishModel import DishManager
+from flask import Blueprint, g, render_template
+from ..services.managers import aggregate_manager
 
 insight_bp = Blueprint('insight', __name__)
-user_manager = UserManager()
-aggregate_manager = AggregateManager()
-ingredient_manager = IngredientManager(firestore_module)
-dish_manager = DishManager(csv_file='csv/dishes.csv')
-
-@insight_bp.before_request
-def load_user():
-    user_id = session.get('google_id')
-    g.user = user_manager.get_user_by_id(user_id) if user_id else None
 
 @insight_bp.route('/', methods=['POST'])
 def insight_page():
+    return render_template('insight.html')
+
+@insight_bp.route('/api/getStats', methods=['POST'])
+def insight_api():
     top_five = aggregate_manager.get_top_five()
-    return render_template('insight.html', user=g.user, top_ingredients=top_five['top_ingredients'], top_dishes=top_five['top_dishes'])
+    return {
+        "user": g.user,
+        "top_ingredients": top_five['top_ingredients'],
+        "top_dishes": top_five['top_dishes']
+    }

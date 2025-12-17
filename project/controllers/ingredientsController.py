@@ -1,25 +1,13 @@
-from flask import Blueprint, g, redirect, render_template, request, session, url_for
-from ..models.dishModel import DishManager
-from ..models.favoriteModel import FavoriteManager
-from ..models.ingredientModel import IngredientManager
-from firebase_admin import firestore
-from ..models.noteModel import NoteManager
-from ..models.nutrientModel import NutrientManager
-from ..models.userModel import UserManager
+from flask import Blueprint, g, redirect, render_template, request, url_for
 from ..utils.login import login_required
+from ..services.managers import (
+    note_manager,
+    ingredient_manager,
+    nutrient_manager,
+    favorite_manager
+)
 
 ingredients_bp = Blueprint('ingredients', __name__)
-ingredient_manager = IngredientManager(firestore)
-user_manager = UserManager()
-nutrient_manager = NutrientManager(firestore)
-dish_manager = DishManager(csv_file='csv/dishes.csv')
-favorite_manager = FavoriteManager(firestore)
-note_manager = NoteManager(firestore)
-
-@ingredients_bp.before_request
-def load_user():
-    user_id = session.get('google_id')
-    g.user = user_manager.get_user_by_id(user_id) if user_id else None
 
 @ingredients_bp.route('/<name>', methods=['GET', 'POST'])
 def ingredientsListController(name=None):

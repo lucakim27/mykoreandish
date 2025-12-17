@@ -1,30 +1,18 @@
 from itertools import chain
-from flask import Blueprint, g, redirect, render_template, request, session, url_for
-from ..models.aggregateModel import AggregateManager
-from ..models.nutrientModel import NutrientManager
-from ..models.priceModel import PriceManager
 from ..utils.login import login_required
-from ..models.dietaryModel import DietaryManager
-from ..models.dishModel import DishManager
-from ..models.ingredientModel import IngredientManager
-from ..models.userModel import UserManager
-from ..models.tasteModel import TasteManager
-from firebase_admin import firestore
+from flask import Blueprint, g, redirect, render_template, request, url_for
+from ..services.managers import (
+    selection_manager,
+    dietary_manager,
+    ingredient_manager,
+    aggregate_manager,
+    price_manager,
+    nutrient_manager,
+    user_manager
+)
+
 
 users_bp = Blueprint('users', __name__)
-manager = DishManager(csv_file='csv/dishes.csv')
-user_manager = UserManager()
-selection_manager = TasteManager(firestore)
-dietary_manager = DietaryManager(firestore)
-ingredient_manager = IngredientManager(firestore)
-nutrient_manager = NutrientManager(firestore)
-aggregate_manager = AggregateManager()
-price_manager = PriceManager('csv/locations.csv', firestore)
-
-@users_bp.before_request
-def load_user():
-    user_id = session.get('google_id')
-    g.user = user_manager.get_user_by_id(user_id) if user_id else None
 
 @users_bp.route('/')
 @login_required

@@ -1,19 +1,13 @@
 ingredient,description,korean_name,image_url
-Acorn Jelly,A traditional Korean dish made from acorn starch with a mild nutty flavor and a soft jelly-like texture.,도토리묵
-Acorn Jelly Powder,Powdered starch derived from acorns used to make acorn jelly.,도토리묵 가루
-Barley Malt Powder,A natural sweetener made from sprouted barley often used in Korean cooking to add mild sweetness.,엿기름 가루
 Bean Sprouts,Young sprouted beans commonly used in Korean side dishes and soups for their crunchy texture.,콩나물
 Beef,A versatile meat used in various Korean dishes including soups stir-fries and barbecue.,소고기,https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/%E8%BF%91%E6%B1%9F%E7%89%9B.jpg/640px-%E8%BF%91%E6%B1%9F%E7%89%9B.jpg
 Bell Peppers,Colorful sweet peppers used in stir-fries stews and fresh salads.,피망
-Bread Crumbs,Crushed dry bread used for coating fried foods or as a binding ingredient.,빵가루
 Cabbage,A leafy vegetable used in kimchi soups and stir-fries.,양배추
 Carrot,A root vegetable used in many Korean dishes for sweetness and color.,당근
 Chicken,A common protein in Korean cuisine used in stews stir-fries and grilled dishes.,닭고기
 Chilies,Spicy peppers used to add heat to Korean dishes.,고추
 Clams,Shellfish used in soups stews and seafood dishes for a briny flavor.,조개
-Corn Syrup,A sweet syrup used in Korean cooking to add shine and mild sweetness.,물엿
 Dried Anchovies,Small dried fish used to make broth or eaten as a snack.,멸치
-Dried Persimmons,Sweet dried fruit often used in desserts and teas.,곶감
 Dried Pollock,Dried and shredded fish used in soups and stews for a rich umami taste.,북어
 Dried Seaweed Sheets,Thin crispy seaweed sheets used for wrapping rice or making snacks.,김
 Dried Shrimp,Small dried shrimp used to enhance the flavor of soups and stir-fries.,건새우
@@ -22,26 +16,18 @@ Doenjang,Fermented soybean paste a key ingredient in Korean soups and stews.,된
 Eggs,A staple ingredient used in stews side dishes and as a coating for battered foods.,계란
 Enoki Mushrooms,Thin delicate mushrooms used in soups hot pots and stir-fries.,팽이버섯
 Fermented Shrimp,Small shrimp fermented for a salty umami-rich condiment.,새우젓
-Fermented Soybean Flour,A powdered form of fermented soybeans used for seasoning.,메주가루
+Fermented Soybean,A fermented soybeans used for seasoning.,메주
 Fish,A general term for seafood used in various Korean dishes.,생선
 Garlic,A fundamental ingredient in Korean cooking used for its strong aromatic flavor.,마늘
 Ginger,A pungent spicy root used to enhance the flavor of dishes and teas.,생강
-Glutinous Rice Powder,Finely ground sticky rice flour used in making rice cakes and desserts.,찹쌀가루
 Gochugaru,Korean red pepper flakes used to add spice and color to dishes.,고춧가루
 Gochujang,Spicy fermented red pepper paste essential in many Korean dishes.,고추장
 Green Onions,Aromatic onions used for garnishing and flavoring dishes.,파
 Jujube,Small sweet red dates often used in teas and traditional medicine.,대추
 Kimchi,Fermented and seasoned vegetables typically napa cabbage or radish.,김치
 Kombu,Dried kelp used in broth-making for its umami-rich flavor.,다시마
-Korean Chili Flakes,Coarsely ground red pepper flakes used to add spice to dishes.,고춧가루
-Korean Pepper Paste Powder,Dehydrated gochujang powder used as a seasoning.,고추장 가루
-Korean Plum Extract,A sweet and tangy syrup made from fermented plums used in cooking and teas.,매실액
-Korean Radish,A large crunchy radish commonly used in soups and kimchi.,무
-Korean Soybean Paste,Another term for doenjang a fermented soybean paste.,된장
-Korean Perilla Seeds,Small nutty seeds used for seasoning and in soups.,들깨
 Lotus Root,A crunchy root vegetable used in braised dishes and soups.,연근
 Mackerel,A popular oily fish used in grilled dishes and stews.,고등어
-Miyuk,Edible seaweed used in soups especially in Korean birthday soup.,미역
 Mushrooms,A general term for various mushrooms used in Korean cuisine.,버섯
 Napa Cabbage,A leafy vegetable the main ingredient in traditional kimchi.,배추
 Noodles,Various types of noodles used in soups stir-fries and cold noodle dishes.,면
@@ -49,20 +35,21 @@ Octopus,A seafood ingredient used in stir-fries soups and grilled dishes.,문어
 Onion,A key aromatic vegetable used in various Korean dishes.,양파
 Perilla Leaves,Fragrant leaves used in wraps stir-fries and pickles.,깻잎
 Perilla Oil,A nutty-flavored oil extracted from perilla seeds used in seasoning.,들기름
+Perilla Seeds,Small nutty seeds used for seasoning and in soups.,들깨
+Plum,A sweet and tangy syrup made from fermented plums used in cooking and teas.,매실
 Pork,A common meat in Korean cuisine used in stews barbecue and stir-fries.,돼지고기
 Pumpkin,A sweet squash used in porridges soups and steamed dishes.,호박
 Quail Eggs,Small eggs often used in stews and braised dishes.,메추리알
 Radish,A root vegetable used in kimchi soups and stews.,무
 Rice,A staple food in Korean cuisine served as a side or in rice dishes.,쌀
-Rice Cakes,Chewy rice-based cakes used in tteokbokki and soups.,떡
 Salted Anchovy Sauce,A fermented fish sauce used as a seasoning.,멸치액젓
 Salted Pollock Roe,Brined fish eggs used as a savory topping.,명란젓
+Seaweed,Edible seaweed used in soups especially in Korean birthday soup.,미역
 Sesame Oil,A fragrant oil made from sesame seeds used for seasoning.,참기름
 Sesame Seeds,Tiny nutty seeds used for garnish and seasoning.,참깨
 Shrimp,A seafood ingredient used in stir-fries soups and fried dishes.,새우
-Short-grain White Rice,The preferred type of rice in Korean cuisine known for its sticky texture.,백미
 Shiitake Mushrooms,A meaty umami-rich mushroom used in soups and stir-fries.,표고버섯
-Soft Tofu,A delicate smooth tofu used in stews and soups.,순두부
+Soybean Paste,Another term for doenjang a fermented soybean paste.,된장
 Soy Sauce,A salty fermented soybean condiment used in marinades and stir-fries.,간장
 Spinach,A leafy green used in side dishes and soups.,시금치
 Ssamjang,A thick savory dipping sauce made from doenjang and gochujang.,쌈장

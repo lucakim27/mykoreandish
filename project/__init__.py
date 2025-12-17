@@ -1,13 +1,20 @@
 import os
-from flask import Flask
+from flask import Flask, g, session
+from .models.userModel import UserManager
 from flask_dance.contrib.google import make_google_blueprint
 from project.config.config import Config
+from .services.managers import user_manager
 
 def create_app(config_object=Config):
     app = Flask(__name__, static_folder="../static", template_folder="../templates")
     app.config.from_object(config_object)
 
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = app.config.get("OAUTHLIB_INSECURE_TRANSPORT", "1")
+
+    @app.before_request
+    def load_user():
+        user_id = session.get("google_id")
+        g.user = user_manager.get_user_by_id(user_id) if user_id else None
 
     google_bp = make_google_blueprint(
         client_id=app.config.get("GOOGLE_CLIENT_ID"),

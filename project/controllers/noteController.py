@@ -1,19 +1,11 @@
-from flask import Blueprint, g, redirect, request, session, url_for
-from ..models.ingredientModel import IngredientManager
-from ..models.noteModel import NoteManager
-from ..models.userModel import UserManager
-from firebase_admin import firestore as firestore_module
+from flask import Blueprint, g, redirect, request, url_for
 from ..utils.login import login_required
+from ..services.managers import (
+    note_manager,
+    ingredient_manager
+)
 
 note_bp = Blueprint('note', __name__)
-user_manager = UserManager()
-note_manager = NoteManager(firestore_module)
-ingredient_manager = IngredientManager(firestore_module)
-
-@note_bp.before_request
-def load_user():
-    user_id = session.get('google_id')
-    g.user = user_manager.get_user_by_id(user_id) if user_id else None
 
 @note_bp.route('/add/<name>', methods=['POST'])
 @login_required

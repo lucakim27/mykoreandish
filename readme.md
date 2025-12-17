@@ -16,10 +16,8 @@ This is a korean dish & ingredient review web application that lets users to rev
 
 ## Tech Stack
 
-- **Backend**: Flask
-- **Frontend**: Jinja2
-- **Database**: Firebase
-- **Authentication**: Google Auth
+- **Backend**: Python Flask
+- **Database**: Firebase Firestore
 - **Deployment**: Render
 
 ## Live Demo

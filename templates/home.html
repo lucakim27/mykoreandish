@@ -30,24 +30,15 @@
         class="search-results"
         style="display: none"
       ></div>
-      <script type="application/json" id="search-data">
-        {
-          "dishes": {{ dishes | tojson | safe }},
-          "ingredients": {{ ingredients | tojson | safe }}
-        }
-      </script>
     </div>
 
     <div class="stats">
       <div class="stat">
-        <span class="stat-number">{{ total_users }}</span>
+        <span class="stat-number" id="total_users">-</span>
         <span class="stat-label">Users</span>
       </div>
       <div class="stat">
-        <span class="stat-number"
-          >{{ total_reviews + dietary_total + ingredient_total + nutrients_count
-          + price_reviews + nutrients_reviews }}</span
-        >
+        <span class="stat-number" id="total_reviews">-</span>
         <span class="stat-label">Reviews</span>
       </div>
     </div>
@@ -84,105 +75,110 @@
     </form>
   </div>
 </section>
-
 <script>
-  var searchData = JSON.parse(
-    document.getElementById("search-data").textContent
-  );
-  var dishes = searchData.dishes;
-  var ingredients = searchData.ingredients;
-
-  var searchItems = [];
-  for (var i = 0; i < dishes.length; i++) {
-    var dish = dishes[i];
-    searchItems.push({
-      name: dish.dish_name,
-      koreanName: dish.korean_name,
-      type: "dish",
-      url: "/dishes/" + dish.dish_name,
-    });
-  }
-  for (var j = 0; j < ingredients.length; j++) {
-    var ingredient = ingredients[j];
-    searchItems.push({
-      name: ingredient.ingredient,
-      koreanName: ingredient.korean_name,
-      type: "ingredient",
-      url: "/ingredients/" + ingredient.ingredient,
-    });
-  }
-
   const searchInput = document.getElementById("search-input");
   const searchResults = document.getElementById("search-results");
+
+  let searchItems = [];
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const res = await fetch("{{ url_for('home.home_api') }}");
+      if (!res.ok) throw new Error("Failed to load home data");
+
+      const data = await res.json();
+
+      document.getElementById("total_users").textContent = data.total_users;
+      document.getElementById("total_reviews").textContent =
+        data.total_reviews +
+        data.dietary_total +
+        data.ingredient_total +
+        data.nutrients_count +
+        data.price_reviews +
+        data.nutrients_reviews;
+
+      data.dishes.forEach(dish => {
+        searchItems.push({
+          name: dish.dish_name,
+          koreanName: dish.korean_name,
+          type: "dish",
+          url: "/dishes/" + dish.dish_name
+        });
+      });
+
+      data.ingredients.forEach(ingredient => {
+        searchItems.push({
+          name: ingredient.ingredient,
+          koreanName: ingredient.korean_name,
+          type: "ingredient",
+          url: "/ingredients/" + ingredient.ingredient
+        });
+      });
+
+    } catch (err) {
+      console.error(err);
+    }
+  });
 
   searchInput.addEventListener("input", function () {
     const query = this.value.toLowerCase().trim();
 
-    if (query.length < 1) {
+    if (!query) {
       searchResults.style.display = "none";
       return;
     }
 
-    const filteredItems = searchItems
-      .filter(
-        (item) =>
-          item.name.toLowerCase().includes(query) ||
-          item.koreanName.toLowerCase().includes(query)
-      )
-      .slice(0, 8); // Limit to 8 results
+    const matches = searchItems
+      .filter(item =>
+        item.name.toLowerCase().includes(query) ||
+        item.koreanName.toLowerCase().includes(query)
+      );
 
-    if (filteredItems.length > 0) {
-      displaySearchResults(filteredItems);
-    } else {
+    if (matches.length === 0) {
       searchResults.style.display = "none";
+      return;
     }
+
+    renderResults(matches);
   });
 
-  function displaySearchResults(items) {
+  function renderResults(items) {
     searchResults.innerHTML = "";
 
-    items.forEach((item) => {
-      const resultItem = document.createElement("div");
-      resultItem.className = "search-result-item";
-      resultItem.innerHTML = `
-      <div class="result-icon">
-        <i class="fas fa-${item.type === "dish" ? "utensils" : "carrot"}"></i>
-      </div>
-      <div class="result-content">
-        <div class="result-name">${item.koreanName}</div>
-        <div class="result-subtitle">${item.name}</div>
-      </div>
-    `;
+    items.forEach(item => {
+      const el = document.createElement("div");
+      el.className = "search-result-item";
+      el.innerHTML = `
+        <div class="result-icon">
+          <i class="fas fa-${item.type === "dish" ? "utensils" : "carrot"}"></i>
+        </div>
+        <div class="result-content">
+          <div class="result-name">${item.koreanName}</div>
+          <div class="result-subtitle">${item.name}</div>
+        </div>
+      `;
 
-      resultItem.addEventListener("click", () => {
-        window.location.href = item.url;
-      });
-
-      searchResults.appendChild(resultItem);
+      el.onclick = () => window.location.href = item.url;
+      searchResults.appendChild(el);
     });
 
     searchResults.style.display = "block";
   }
 
-  document.addEventListener("click", function (e) {
+  document.addEventListener("click", e => {
     if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
       searchResults.style.display = "none";
     }
   });
 
-  searchInput.addEventListener("keypress", function (e) {
+  searchInput.addEventListener("keypress", e => {
     if (e.key === "Enter") {
-      const query = this.value.toLowerCase().trim();
-      if (query.length >= 1) {
-        const firstMatch = searchItems.find(
-          (item) =>
-            item.name.toLowerCase().includes(query) ||
-            item.koreanName.toLowerCase().includes(query)
-        );
-        if (firstMatch) {
-          window.location.href = firstMatch.url;
-        }
-      }
+      const query = searchInput.value.toLowerCase().trim();
+      const match = searchItems.find(item =>
+        item.name.toLowerCase().includes(query) ||
+        item.koreanName.toLowerCase().includes(query)
+      );
+      if (match) window.location.href = match.url;
     }
   });
 </script>

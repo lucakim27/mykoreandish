@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/food.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+/>
+{% endblock %} {% block content %}
+<div class="confirmation-container">
+  <form action="/dishes/" method="GET" style="display: inline">
+    <button class="go-back-btn" type="submit">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </form>
+  <div id="favorite-btn"></div>
+  <h2 id="ingredient_korean_name">-</h2>
+  <p id="ingredient_detail">-</p>
+
+  <h3>Found in</h3>
+  <div class="dishes-list" id="dishes-element"></div>
+
+  <h3>Nutrient</h3>
+  <div class="dietary-tags" id="nutrient-container"></div>
+
+  <h3 class="similar-dish-head">Personal Note</h3>
+  <div id="note-element"></div>
+
+  <div class="button-box" style="margin-bottom: -25px" id="review-ingredient-btn">
+    <button
+      type="button"
+      class="button select-button"
+      onclick="openIngredientFormContainer()"
+      id="openFormBtn"
+    >
+      Open review form
+    </button>
+  </div>
+  <br/>
+
+  <div id="ingredient-form-container" class="modal" style="display: none"></div>
+</div>
+
+<script>
+  function openIngredientFormContainer() {
+    if (document.getElementById('ingredient-form-container').style.display === 'block') {
+      document.getElementById('ingredient-form-container').style.display = 'none'
+      document.getElementById('openFormBtn').innerText = "Open review form"
+    } else {
+      document.getElementById('ingredient-form-container').style.display = 'block'
+      document.getElementById('openFormBtn').innerText = "Close review form"
+    }
+  }
+  function disableButton() {
+    document.getElementById("submitButton").disabled = true;
+  }
+</script>
+<script type="module" src="/static/js/pages/ingredient.js"></script>
+{% endblock %}

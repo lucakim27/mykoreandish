@@ -1,0 +1,148 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    /* background-color: #f4f4f9; */
+    color: #333;
+    background-color: #f9f4ee; /* Light beige tone */
+    line-height: 1.6;
+}
+
+/* Container Styling */
+.history-container {
+    width: 80%;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Price History Styling */
+ul#price_history {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul#price_history li {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.price-point {
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close {
+    background: none;
+    border: none;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.price-point .price {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 1.5em;
+}
+
+.price-point .timestamp {
+    font-size: 0.7em;
+    color: #555;
+}
+
+/* Button Styles */
+.button {
+    background-color: #d72638;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+    background-color: #a91d2c;
+}
+
+/* Input Fields and Select Styling */
+input[type="text"],
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    transition: border 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #ff4c4c;
+    outline: none;
+}
+
+select {
+    background-color: #f9f9f9;
+}
+
+select:focus {
+    background-color: #ffffff;
+}
+
+/* Form Elements */
+form {
+    margin-bottom: 15px;
+}
+
+form input[type="hidden"] {
+    display: none;
+}
+
+form .form-select {
+    margin-right: 2%;
+}
+
+form .form-select:last-child {
+    margin-right: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .history-container {
+        width: 100%;
+    }
+
+    form .form-select {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    ul#price_history li {
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/aboutus.css') }}"
+/>
+{% endblock %}
+
+{% block content %}
+<section class="about-section">
+  <div class="about-us-container">
+    <h2>Top 5 Popular Dishes</h2>
+    <ol class="popular-dishes-list" id="top-dishes"></ol>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="about-us-container">
+    <h2>Top 5 Popular Ingredients</h2>
+    <ol class="popular-ingredients-list" id="top-ingredients"></ol>
+  </div>
+</section>
+
+<script type="module" src="/static/js/pages/insight.js"></script>
+{% endblock %}

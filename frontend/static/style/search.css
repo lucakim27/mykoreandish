@@ -1,0 +1,542 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f4ee;
+    /* Light beige tone */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.filter-container {
+    text-align: center;
+}
+
+.filter-box {
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: center;
+    background-color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 665px;
+    margin: 0 auto;
+    /* Center align the box */
+    font-size: 1em;
+    margin-top: -12px;
+}
+
+.filter-container label {
+    font-size: 1em;
+    color: #333;
+    margin-right: 10px;
+}
+
+.filter-container select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.filter-options {
+    margin-top: 10px;
+    /* text-align: left; */
+}
+
+.filter-options div {
+    margin-bottom: 10px;
+}
+
+.filter-options label {
+    font-size: 1em;
+    color: #333;
+    margin-left: 5px;
+}
+
+.filter-box input[type="radio"],
+#filter-reset {
+    display: none;
+    /* Hide the original radio button */
+}
+
+.filter-box label {
+    background-color: #f0f0f0;
+    padding: 8px 15px;
+    border-radius: 16px;
+    font-size: 0.9em;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    line-height: 1;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.filter-box input[type="radio"]:checked+label {
+    background-color: #d72638;
+    /* Change background color when selected */
+    color: white;
+    /* Change text color when selected */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-box label:hover {
+    transform: scale(1.1);
+}
+
+.filter-box input[type="radio"]:hover {
+    transform: scale(1.4);
+    /* Slightly enlarge on hover */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    /* Add a subtle shadow on hover */
+}
+
+@media (max-width: 768px) {
+    .filter-options input[type="radio"] {
+        transform: scale(1.2);
+        /* Slightly smaller on smaller screens */
+    }
+}
+
+.filter-options select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    margin: 10px 0 15px 0;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Recommendation Results Container */
+#recommendation-results {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.filter-button {
+    margin-left: 5px;
+    background-color: #d72638;
+    border-radius: 16px;
+    width: 60px;
+    border: none;
+    box-shadow: 0 2px 2px rgb(198 198 198);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-button:hover {
+    background-color: #a91d2c;
+}
+
+/* Search Bar */
+.search-container {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    /* Center align the search bar */
+}
+
+#search-input {
+    width: 90%;
+    max-width: 600px;
+    padding: 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    color: #2c3e50;
+}
+
+#options,
+#spiciness,
+#ingredient,
+#dietary {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+#spiciness,
+#ingredient,
+#dietary {
+    display: none;
+}
+
+/* Food Container */
+.food-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+.food-item {
+    list-style: none;
+}
+
+.food-box {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    border: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.food-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.food-box-button {
+    background-color: #d72638;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: auto;
+    box-shadow: 0 4px 8px rgb(198 198 198);
+    width: 100%;
+}
+
+.food-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #d72638 0%, #a91d2c 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px auto;
+    color: white;
+    font-size: 2rem;
+}
+
+.food-box h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #2c3e50;
+}
+
+.food-box p {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.click-indicator {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+    width: 100%;
+}
+
+.click-indicator span {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hidden-submit-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 1;
+}
+
+/* No Matches Found */
+.no-matches {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    /* Very light orange for contrast */
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.no-matches h2 {
+    font-size: 1.5em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.no-matches p {
+    font-size: 1em;
+    color: #555;
+}
+
+/* Request Dishes Form */
+.request-dishes {
+    text-align: center;
+    background-color: #ffffff;
+    /* Very light orange for contrast */
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.request-dishes h2 {
+    font-size: 1.5em;
+    color: #d72638;
+    margin-bottom: 10px;
+}
+
+.request-dishes button {
+    background-color: #d72638;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    width: 100%;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.request-dishes button:hover {
+    background-color: #a91d2c;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    #search-input {
+        width: 85%;
+        max-width: 500px;
+    }
+
+    .food-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .food-box {
+        padding: 30px 20px;
+    }
+
+    .food-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: auto;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: modalopen 0.4s;
+    border-radius: 16px;
+}
+
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    transition: border 0.3s ease;
+}
+
+.modal-content button {
+    background-color: #d72638;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content button:hover {
+    background-color: #a91d2c;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes modalopen {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+.criteria-form {
+    background-color: #ffffff;
+    border-radius: 16px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.criteria-form label {
+    font-size: 1em;
+    color: #333;
+    display: block;
+}
+
+.criteria-form input, .criteria-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.criteria-form input:focus, .criteria-form textarea:focus {
+    border-color: #d72638;
+    outline: none;
+    box-shadow: 0 0 5px rgba(215, 38, 56, 0.5);
+}
+
+.criteria-form button {
+    background-color: #d72638;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(198, 198, 198, 0.5);
+    width: 100%;
+}
+
+.criteria-form button:hover {
+    background-color: #a91d2c;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 10px;   /* Distance from the top of the .food-box */
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    transition: transform 0.2s ease-in-out;
+    color: #d72638;
+}
+
+.food-box-clickable {
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+.similar-dish-card {
+    border-radius: 16px;
+}
+
+.select-button,
+.food-box-button,
+.criteria-form button,
+.modal-content button,
+.favorite-btn,
+.filter-button {
+    border-radius: 16px !important;
+}
+
+.dish-image-wrapper {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.food-box {
+    position: relative;
+}
+
+.dish-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    background: #f8f8f8;
+    transition: transform 0.2s;
+}

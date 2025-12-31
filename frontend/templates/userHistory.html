@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/history.css') }}">
+{% endblock %}
+{% block content %}
+<div class="history-container">
+    <ul id="price_history"></ul>
+</div>
+<script type="module" src="/static/js/pages/userHistory.js"></script>
+{% endblock %}

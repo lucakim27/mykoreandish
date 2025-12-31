@@ -1,5 +1,9 @@
 .venv
-__pycache__
-utils/__pycache__
+/backend/__pycache__
+/backend/utils/__pycache__
+/backend/config/__pycache__
+/backend/controllers/__pycache__
+/backend/models/__pycache__
+/backend/services/__pycache__
 .env
 credentials.json

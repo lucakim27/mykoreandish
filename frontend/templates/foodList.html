@@ -1,0 +1,214 @@
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/search.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+/>
+{% endblock %} {% block content %}
+<div id="recommendation-results">
+  <div class="search-container">
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search"
+    />
+    <button type="button" class="filter-button" id="filter-toggle-btn">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-filter"
+      >
+        <polygon points="22 3 2 3 10 12.5 10 19 14 21 14 12.5 22 3"></polygon>
+      </svg>
+    </button>
+  </div>
+
+  <div class="filter-container" style="display: none">
+    <div class="filter-box" style="margin-bottom: 20px; height: auto">
+      <div style="display: flex; flex-wrap: wrap; width: auto; margin: -5px">
+        <div>
+          <input
+            type="radio"
+            id="filter-dietary"
+            name="filter"
+            value="dietary"
+          />
+          <label for="filter-dietary">Dietary</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="filter-ingredient"
+            name="filter"
+            value="ingredient"
+          />
+          <label for="filter-ingredient">Ingredient</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="filter-spiciness"
+            name="filter"
+            value="spiciness"
+          />
+          <label for="filter-spiciness">Spiciness</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="filter-rating"
+            name="filter"
+            value="rating"
+          />
+          <label for="filter-rating">Rating</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="filter-texture"
+            name="filter"
+            value="texture"
+          />
+          <label for="filter-texture">Texture</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="filter-sourness"
+            name="filter"
+            value="sourness"
+          />
+          <label for="filter-sourness">Sourness</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="filter-sweetness"
+            name="filter"
+            value="sweetness"
+          />
+          <label for="filter-sweetness">Sweetness</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="filter-temperature"
+            name="filter"
+            value="temperature"
+          />
+          <label for="filter-temperature">Temperature</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="filter-healthiness"
+            name="filter"
+            value="healthiness"
+          />
+          <label for="filter-healthiness">Healthiness</label>
+        </div>
+      </div>
+      <div id="ingredient-options" class="filter-options" style="display: none">
+        <select id="ingredient-select" name="ingredient">
+          <option value="">Select an ingredient</option>
+        </select>
+      </div>
+      <div id="dietary-options" class="filter-options" style="display: none">
+        <select id="dietary-select" name="dietary">
+          <option value="">Select a dietary</option>
+        </select>
+      </div>
+      <div id="spiciness-options" class="filter-options" style="display: none">
+        <select id="spiciness-select" name="spiciness" required>
+          <option value="" selected>Select a spiciness level</option>
+          <option value="0">Not spicy at all</option>
+          <option value="1">A little spicy</option>
+          <option value="2">Mildly spicy</option>
+          <option value="3">Moderately spicy</option>
+          <option value="4">Very spicy</option>
+          <option value="5">Extremely spicy</option>
+        </select>
+      </div>
+      <div id="sweetness-options" class="filter-options" style="display: none">
+        <select id="sweetness" name="sweetness" required>
+          <option value="" selected>Select a sweetness level</option>
+          <option value="0">Not sweet at all</option>
+          <option value="1">Barely sweet</option>
+          <option value="2">Mildly sweet</option>
+          <option value="3">Moderately sweet</option>
+          <option value="4">Very sweet</option>
+          <option value="5">Extremely sweet</option>
+        </select>
+      </div>
+      <div id="sourness-options" class="filter-options" style="display: none">
+        <select id="sourness" name="sourness" required>
+          <option value="" selected>Select a sourness level</option>
+          <option value="0">Not sour at all</option>
+          <option value="1">Slightly sour</option>
+          <option value="2">Moderately sour</option>
+          <option value="3">Quite sour</option>
+          <option value="4">Very sour</option>
+          <option value="5">Extremely sour</option>
+        </select>
+      </div>
+      <div id="texture-options" class="filter-options" style="display: none">
+        <select id="texture" name="texture" required>
+          <option value="" selected>Select a texture level</option>
+          <option value="0">Very Soft</option>
+          <option value="1">Soft</option>
+          <option value="2">Slightly Soft</option>
+          <option value="3">Moderate</option>
+          <option value="4">Slightly Hard</option>
+          <option value="5">Hard</option>
+        </select>
+      </div>
+      <div id="temperature-options" class="filter-options" style="display: none">
+        <select id="temperature" name="temperature" required>
+          <option value="" selected>Select a temperature level</option>
+          <option value="0">Cold</option>
+          <option value="1">Cool</option>
+          <option value="2">Slightly Cool</option>
+          <option value="3">Warm</option>
+          <option value="4">Hot</option>
+          <option value="5">Very Hot</option>
+        </select>
+      </div>
+      <div id="healthiness-options" class="filter-options" style="display: none">
+        <select id="healthiness" name="healthiness" required>
+          <option value="" selected>Select a healthiness level</option>
+          <option value="0">Not healthy at all</option>
+          <option value="1">Unhealthy</option>
+          <option value="2">Below average</option>
+          <option value="3">Moderately healthy</option>
+          <option value="4">Healthy</option>
+          <option value="5">Very healthy</option>
+        </select>
+      </div>
+      <div id="rating-options" class="filter-options" style="display: none">
+        <select id="rating" name="rating" required>
+          <option value="" selected>Select a rating</option>
+          <option value="0">Terrible</option>
+          <option value="1">Bad</option>
+          <option value="2">Below Average</option>
+          <option value="3">Average</option>
+          <option value="4">Good</option>
+          <option value="5">Excellent</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <ul class="food-container" id="food-list"></ul>
+</div>
+<script type="module" src="/static/js/pages/foodList.js"></script>
+{% endblock %}

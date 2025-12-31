@@ -1,0 +1,78 @@
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/home.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+{% endblock %} {% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Discover Korean Cuisine</h1>
+    <p class="hero-subtitle">
+      Find your perfect Korean dish with personalized taste recommendations and
+      authentic user reviews.
+    </p>
+
+    <div class="search-section">
+      <div class="search-container">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search for dishes or ingredients..."
+          autocomplete="off"
+        />
+      </div>
+      <div
+        id="search-results"
+        class="search-results"
+        style="display: none"
+      ></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number" id="total_users">-</span>
+        <span class="stat-label">Users</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="total_reviews">-</span>
+        <span class="stat-label">Reviews</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="navigation">
+  <div class="nav-grid">
+    <a href="/dishes" class="nav-card">
+      <div class="nav-icon">
+        <i class="fas fa-utensils"></i>
+      </div>
+      <h3>Dishes</h3>
+      <p>Explore Korean dishes & ingredients</p>
+      <button type="submit" class="hidden-button"></button>
+    </a>
+
+    <a href="/insight" class="nav-card">
+      <div class="nav-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <h3>Insights</h3>
+      <p>View popular dishes & ingredients</p>
+    </a>
+
+    <a href="/users/list" class="nav-card">
+      <div class="nav-icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <h3>Users</h3>
+      <p>Connect with users on this platform</p>
+      <button type="submit" class="hidden-button"></button>
+    </a>
+  </div>
+</section>
+<script type="module" src="/static/js/pages/home.js"></script>
+{% endblock %}

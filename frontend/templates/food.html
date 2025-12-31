@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/food.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+{% endblock %}
+{% block content %}
+<div class="confirmation-container">
+    <form action="/dishes/" method="GET" style="display:inline;">
+        <button class="go-back-btn" type="submit">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+    </form>
+    
+    <div id="favorite-btn"></div>
+    <h2 id="dish_korean_name">-</h2>
+    <p id="dish_detail">-</p>
+    
+    <h3>Dietary</h3>
+    <div class="dietary-tags" id="dietary-element"></div>
+    
+    <h3>Ingredient</h3>
+    <div class="ingredients-list" id="ingredient-element"></div>
+    
+    <h3>Price</h3>
+    <div class="price-bar-container" id="price-element">
+        <div class='price-details' id="price-details"></div>
+    </div>
+    
+    <h3>Taste</h3>
+    <table class="dish-details" id="taste-element"></table>
+    
+    <h3 class="similar-dish-head">Similar Dishes</h3>
+    <div class="similar-dishes" id="similar-dishes-element"></div>
+    
+    <h3 class="similar-dish-head">Personal Note</h3>
+    <div id="note-element"></div>
+
+    <div class="button-box">
+        <button type="button" class="button select-button" id="review-form-btn" onclick="openCloseReviewContainer()">Open review form</button>
+    </div>
+
+    <div id="review-form-container" class="modal" style="display: none;"></div>
+
+</div>
+<script>
+function openCloseReviewContainer() {
+    if (document.getElementById('review-form-container').style.display == 'block') {
+        document.getElementById('review-form-container').style.display = 'none';
+        document.getElementById('review-form-btn').innerText = "Open review form"
+    } else {
+        document.getElementById('review-form-container').style.display = 'block';
+        document.getElementById('review-form-btn').innerText = "Close review form"
+    }
+    selectReviewType('dietary');
+}
+
+function selectReviewType(type) {
+    document.getElementById('dietaryForm').style.display = (type === 'dietary') ? 'block' : 'none';
+    document.getElementById('ingredientForm').style.display = (type === 'ingredient') ? 'block' : 'none';
+    document.getElementById('tasteForm').style.display = (type === 'taste') ? 'block' : 'none';
+    document.getElementById('priceForm').style.display = (type === 'price') ? 'block' : 'none';
+    document.getElementById('seg-dietary').classList.toggle('active', type === 'dietary');
+    document.getElementById('seg-ingredient').classList.toggle('active', type === 'ingredient');
+    document.getElementById('seg-taste').classList.toggle('active', type === 'taste');
+    document.getElementById('seg-price').classList.toggle('active', type === 'price');
+}
+function disableTasteButton() {
+    document.getElementById("submitTasteButton").disabled = true;
+}
+function disableDietaryButton() {
+    document.getElementById("submitDietaryButton").disabled = true;
+}
+function disableIngredientButton() {
+    document.getElementById("submitIngredientButton").disabled = true;
+}
+function submitPriceButton() {
+    document.getElementById("submitPriceButton").disabled = true;
+}
+</script>
+<script type="module" src="/static/js/pages/food.js"></script>
+{% endblock %}

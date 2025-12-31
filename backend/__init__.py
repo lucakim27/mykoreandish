@@ -3,6 +3,8 @@ from flask import Flask, g, session
 from flask_dance.contrib.google import make_google_blueprint
 from backend.config.config import Config
 from .services.managers import user_manager
+from .controllers.web import register_web_blueprints
+from .controllers.api import register_api_blueprints
 
 def create_app(config_object=Config):
     app = Flask(__name__, static_folder="../frontend/static", template_folder="../frontend/templates")
@@ -22,16 +24,7 @@ def create_app(config_object=Config):
     )
     app.register_blueprint(google_bp, url_prefix='/login')
 
-    from .controllers.authController import auth_bp
-    from .controllers.errorHandlersController import error_bp
-
-    from .controllers.web import register_web_blueprints
-    from .controllers.api import register_api_blueprints
-
     register_web_blueprints(app)
     register_api_blueprints(app)
-
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(error_bp)
 
     return app

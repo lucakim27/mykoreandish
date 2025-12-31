@@ -4,6 +4,8 @@ from .footerController import footer_bp
 from .usersController import users_web_bp
 from .dishesWebController import dishes_web_bp
 from .ingredientsWebController import ingredients_web_bp
+from .errorHandlersController import error_bp
+from .authController import auth_bp
 
 def register_web_blueprints(app):
     app.register_blueprint(home_bp)
@@ -12,3 +14,5 @@ def register_web_blueprints(app):
     app.register_blueprint(users_web_bp)
     app.register_blueprint(dishes_web_bp)
     app.register_blueprint(ingredients_web_bp)
+    app.register_blueprint(error_bp)
+    app.register_blueprint(auth_bp, url_prefix='/auth')

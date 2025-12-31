@@ -1,5 +1,5 @@
-from flask import Blueprint
-from ...services.managers import dish_manager, aggregate_manager, ingredient_manager
+from flask import Blueprint, redirect, request
+from ...services.managers import dish_manager, aggregate_manager, ingredient_manager, dietary_manager
 
 dishes_bp = Blueprint('dishes', __name__, url_prefix='/api/dishes')
 
@@ -41,3 +41,16 @@ def get_similar_dishes(dish_name):
 @dishes_bp.route('/get_dish_aggregates/<dish_name>', methods=['GET'])
 def get_dish_aggregates(dish_name):
     return aggregate_manager.get_dish_aggregate(dish_name)
+
+@dishes_bp.route('/update_dietary_review', methods=['POST'])
+def update_dietary_review():
+    history_id = request.form.get('history_id')
+    new_dietary = request.form.get('dietary')
+    dietary_review = dietary_manager.get_dietary_review_by_id(history_id)
+    aggregate_manager.update_dietary_aggregate(
+        dietary_review.get('dish_name', 0), 
+        dietary_review.get('dietary', 0), 
+        new_dietary
+    )
+    dietary_manager.update_dietary(history_id, new_dietary)
+    return redirect('/users')

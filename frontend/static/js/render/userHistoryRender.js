@@ -34,9 +34,9 @@ export function renderHistoryItem(item, meta) {
 export function renderDeleteForm(item) {
   let action = "";
 
-  if (item.spiciness !== undefined) action = "/api/tastes/deleteHistoryRoute";
-  else if (item.dietary !== undefined) action = "/api/dietaries/deleteDietaryRoute";
-  else if (item.ingredient && item.dish_name) action = "/api/ingredients/deleteIngredientRoute";
+  if (item.spiciness !== undefined) action = "/api/histories/delete_taste_review";
+  else if (item.dietary !== undefined) action = "/api/dietaries/delete_dietary_review";
+  else if (item.ingredient && item.dish_name) action = "/api/ingredients/delete_ingredient_review";
   else if (item.nutrient !== undefined) action = "/api/nutrients/delete_nutrient_review";
   else if (item.price !== undefined) action = "/api/prices/delete_price_review";
   return `
@@ -64,7 +64,7 @@ export function renderUpdateSection(item, meta) {
 
 function renderRatingForm(item) {
   return `
-    <form method="POST" action="/dishes/rate_dish" style="display:inline;">
+    <form method="POST" action="/api/histories/update_taste_review" style="display:inline;">
       <input type="hidden" name="history_id" value="${item.id}">
       <label for="spiciness"><b>Spiciness:</b></label>
       <select id="spiciness-${item.id}" name="spiciness">
@@ -139,7 +139,7 @@ function renderDietaryForm(item, meta) {
     <option value="${d.dietary}" ${item.dietary === d.dietary ? "selected" : ""}>${d.dietary}</option>
   `).join("");
   return `
-    <form method="POST" action="/dishes/update_dietary" style="display:inline;">
+    <form method="POST" action="/api/dishes/update_dietary_review" style="display:inline;">
       <input type="hidden" name="history_id" value="${item.id}">
       <label for="dietary"><b>Dietary:</b></label>
       <select class="form-select" id="dietary" name="dietary">${options}</select>

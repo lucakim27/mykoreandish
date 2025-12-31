@@ -5,5 +5,7 @@
 /backend/controllers/__pycache__
 /backend/models/__pycache__
 /backend/services/__pycache__
+/backend/controllers/web/__pycache__
+/backend/controllers/api/__pycache__
 .env
 credentials.json

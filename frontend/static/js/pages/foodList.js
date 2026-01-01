@@ -3,7 +3,7 @@ import { getCurrentUser } from "../api/usersApi.js";
 import { renderAllDishes } from "../render/foodListRender.js";
 import { bindFilterEvents, setupFoodListEvents, filterOptionEvents } from "../events/filterEvents.js";
 import { renderDietaries } from "../render/dietariesRender.js";
-import { renderIngredients } from "../render/ingredientsRender.js";
+import { renderIngredients } from "../render/IngredientsRender.js";
 import { getAllDietaries } from "../api/dietariesApi.js";
 import { getAllIngredients } from "../api/ingredientsApi.js";
 

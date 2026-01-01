@@ -84,7 +84,7 @@ class DietaryManager:
     def get_all_dietaries(self) -> List[Dict[str, str]]:
         dietaries = []
         try:
-            with open('data/dietary.csv', mode='r') as file:
+            with open('backend/data/dietary.csv', mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     dietaries.append({

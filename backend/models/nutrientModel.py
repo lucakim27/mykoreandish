@@ -20,7 +20,7 @@ class NutrientManager:
     def get_all_nutrients(self) -> List[Dict[str, str]]:
         nutrients = []
         try:
-            with open('data/nutrients.csv', mode='r') as file:
+            with open('backend/data/nutrients.csv', mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     nutrients.append({

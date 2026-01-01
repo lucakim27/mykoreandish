@@ -285,7 +285,7 @@ class AggregateManager:
 
         ingredient_info = {}
         try:
-            with open('data/ingredients.csv', mode='r') as file:
+            with open('backend/data/ingredients.csv', mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     ingredient_info[row['ingredient']] = row.get('korean_name', row['ingredient'])
@@ -294,7 +294,7 @@ class AggregateManager:
 
         dish_info = {}
         try:
-            with open('data/dishes.csv', mode='r', encoding='utf-8') as file:
+            with open('backend/data/dishes.csv', mode='r', encoding='utf-8') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     dish_info[row['dish_name']] = row.get('korean_name', row['dish_name'])
@@ -325,7 +325,7 @@ class AggregateManager:
 
         ingredient_info = {}
         try:
-            with open('data/ingredients.csv', mode='r') as file:
+            with open('backend/data/ingredients.csv', mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     ingredient_info[row['ingredient']] = row.get('korean_name', row['ingredient'])

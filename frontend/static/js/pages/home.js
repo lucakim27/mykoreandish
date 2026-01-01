@@ -15,13 +15,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       totalReviews,
       dishes,
       ingredients,
-      user,
       totalUsers
     ] = await Promise.all([
       getTotalReviews(),
       getAllDishes(),
       getAllIngredients(),
-      getCurrentUser(),
       getTotalUsers()
     ]);
 

@@ -105,7 +105,7 @@ class IngredientManager:
     def get_all_ingredients(self) -> List[Dict[str, str]]:
         ingredients = []
         try:
-            with open('data/ingredients.csv', mode='r') as file:
+            with open('backend/data/ingredients.csv', mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     ingredients.append({
@@ -144,7 +144,7 @@ class IngredientManager:
         try:
             dish_metadata = {}
             try:
-                with open('data/dishes.csv', mode='r') as file:
+                with open('backend/data/dishes.csv', mode='r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:
                         dish_metadata[row['dish_name']] = {

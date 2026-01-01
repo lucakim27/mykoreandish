@@ -11,12 +11,12 @@ from backend.models.nutrientModel import NutrientManager
 from backend.models.priceModel import PriceManager
 
 user_manager = UserManager()
-dish_manager = DishManager(csv_file='data/dishes.csv')
+dish_manager = DishManager(csv_file='backend/data/dishes.csv')
 ingredient_manager = IngredientManager(firestore)
 dietary_manager = DietaryManager(firestore)
 taste_manager = TasteManager(firestore)
 aggregate_manager = AggregateManager()
 nutrient_manager = NutrientManager(firestore)
 favorite_manager = FavoriteManager(firestore)
-price_manager = PriceManager('data/locations.csv', firestore)
+price_manager = PriceManager('backend/data/locations.csv', firestore)
 note_manager = NoteManager(firestore)

@@ -29,17 +29,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     ] = await Promise.all([
         getDishesByIngredient(ingredient.ingredient),
         getAllNutrients(),
-        isIngredientFavorite(ingredient.ingredient, user.user.google_id),
-        getNote(ingredient.ingredient, user.user.google_id),
+        user?.user ? isIngredientFavorite(ingredient.ingredient, user.user.google_id) : Promise.resolve([]),
+        user?.user ? getNote(ingredient.ingredient, user.user.google_id) : Promise.resolve([]),
         getIngredientNutrients(ingredient.ingredient)
     ]);
 
-    renderNutrientContainer(ingredient, AllNutrients, user.user.google_id)
-    renderNote(note, user.user.google_id, ingredient.ingredient)
+    renderNutrientContainer(ingredient, AllNutrients, user?.user ? user.user.google_id : null)
+    renderNote(note, user?.user ? user.user.google_id : null, ingredient.ingredient)
     renderNutrients(nutrients)
     renderDishes(dishes)
     renderIngredientDetail(ingredient)
-    renderFavoriteButton(isFavorite.is_ingredient_favorite, ingredient.ingredient, user.user.google_id)
+    renderFavoriteButton(isFavorite.is_ingredient_favorite, ingredient.ingredient, user?.user ? user.user.google_id : null)
     
   } catch (err) {
     console.error(err);

@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, request
+from backend.utils.login import login_required
 from ...services.managers import dish_manager, aggregate_manager, ingredient_manager, dietary_manager
 
 dishes_bp = Blueprint('dishes', __name__, url_prefix='/api/dishes')
@@ -43,6 +44,7 @@ def get_dish_aggregates(dish_name):
     return aggregate_manager.get_dish_aggregate(dish_name)
 
 @dishes_bp.route('/update_dietary_review', methods=['POST'])
+@login_required
 def update_dietary_review():
     history_id = request.form.get('history_id')
     new_dietary = request.form.get('dietary')

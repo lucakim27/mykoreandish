@@ -2,6 +2,7 @@ from firebase_admin import firestore
 from flask import flash
 import csv
 from backend.config.db import get_db
+from backend.config.config import FileConfig
 
 class AggregateManager:
     def __init__(self):
@@ -285,7 +286,7 @@ class AggregateManager:
 
         ingredient_info = {}
         try:
-            with open('backend/data/ingredients.csv', mode='r') as file:
+            with open(FileConfig.INGREDIENTS_FILE, mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     ingredient_info[row['ingredient']] = row.get('korean_name', row['ingredient'])
@@ -294,7 +295,7 @@ class AggregateManager:
 
         dish_info = {}
         try:
-            with open('backend/data/dishes.csv', mode='r', encoding='utf-8') as file:
+            with open(FileConfig.DISHES_FILE, mode='r', encoding='utf-8') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     dish_info[row['dish_name']] = row.get('korean_name', row['dish_name'])
@@ -325,7 +326,7 @@ class AggregateManager:
 
         ingredient_info = {}
         try:
-            with open('backend/data/ingredients.csv', mode='r') as file:
+            with open(FileConfig.INGREDIENTS_FILE, mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     ingredient_info[row['ingredient']] = row.get('korean_name', row['ingredient'])

@@ -20,8 +20,7 @@ def update_price_review():
     price_manager.update_price(history_id, new_price, new_country, new_state)
     return redirect('/users')
 
-@prices_bp.route('/delete_price_review', methods=['POST'])
-def delete_price_review():
-    history_id = request.form.get('history_id')
-    price_manager.delete_price(history_id)
-    return redirect('/users')
+@prices_bp.route('/<id>', methods=['DELETE'])
+def delete_price_review(id):
+    price_manager.delete_price(id)
+    return '', 204

@@ -20,9 +20,8 @@ def update_nutrient_review():
     nutrient_manager.update_nutrient_review(history_id, nutrient)
     return redirect('/users')
 
-@nutrients_bp.route('/delete_nutrient_review', methods=['POST'])
+@nutrients_bp.route('/<id>', methods=['DELETE'])
 @login_required
-def delete_nutrient_review():
-    history_id = request.form.get('history_id')
-    nutrient_manager.delete_nutrient(history_id)
-    return redirect('/users')
+def delete_nutrient_review(id):
+    nutrient_manager.delete_nutrient(id)
+    return '', 204

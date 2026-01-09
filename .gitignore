@@ -1,11 +1,14 @@
-.venv
-/backend/__pycache__
-/backend/utils/__pycache__
-/backend/config/__pycache__
-/backend/controllers/__pycache__
-/backend/models/__pycache__
-/backend/services/__pycache__
-/backend/controllers/web/__pycache__
-/backend/controllers/api/__pycache__
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+.venv/
+
+# Environment / secrets
 .env
 credentials.json
+
+# macOS
+.DS_Store

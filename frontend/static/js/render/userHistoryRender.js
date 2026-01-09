@@ -1,3 +1,5 @@
+import { resolveHistoryType } from "../utils/historyType.js";
+
 export function renderUserHistory(history, meta) {
   const container = document.getElementById("price_history");
   container.innerHTML = "";
@@ -18,10 +20,17 @@ export function renderUserHistory(history, meta) {
 export function renderHistoryItem(item, meta) {
   const li = document.createElement("li");
 
+  const type = resolveHistoryType(item);
+
+  li.classList.add("history-item");
+  li.dataset.historyId = item.id;
+
   li.innerHTML = `
     <div class="price-point">
-      ${renderDeleteForm(item)}
-      <span class="price">${item.nutrient ? item.ingredient : item.dish_name}</span>
+      ${renderDeleteButton(item, type)}
+      <span class="price">
+        ${item.nutrient ? item.ingredient : item.dish_name}
+      </span>
       <span class="timestamp">(${item.timestamp})</span>
     </div>
     <br />
@@ -31,19 +40,16 @@ export function renderHistoryItem(item, meta) {
   return li;
 }
 
-export function renderDeleteForm(item) {
-  let action = "";
-
-  if (item.spiciness !== undefined) action = "/api/histories/delete_taste_review";
-  else if (item.dietary !== undefined) action = "/api/dietaries/delete_dietary_review";
-  else if (item.ingredient && item.dish_name) action = "/api/ingredients/delete_ingredient_review";
-  else if (item.nutrient !== undefined) action = "/api/nutrients/delete_nutrient_review";
-  else if (item.price !== undefined) action = "/api/prices/delete_price_review";
+export function renderDeleteButton(item, type) {
   return `
-    <form method="POST" action="${action}" style="display:inline;">
-      <input type="hidden" name="history_id" value="${item.id}">
-      <button type="submit" class="close">&times;</button>
-    </form>
+    <button
+      class="close delete-btn"
+      data-history-id="${item.id}"
+      data-type="${type}"
+      aria-label="Delete"
+    >
+      &times;
+    </button>
   `;
 }
 

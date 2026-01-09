@@ -27,11 +27,10 @@ def add_nutrient_review(ingredient_name, user_id):
     nutrient_manager.add_nutrient_review(ingredient_name, user_id, nutrient)
     return redirect('/ingredients/' + ingredient_name)
 
-@ingredients_bp.route('/delete_ingredient_review', methods=['POST'])
+@ingredients_bp.route('/<id>', methods=['DELETE'])
 @login_required
-def delete_ingredient_review():
-    history_id = request.form.get('history_id')
-    ingredient = ingredient_manager.get_ingredient_review_by_id(history_id)
-    ingredient_manager.delete_ingredient(history_id)
+def delete_ingredient_review(id):
+    ingredient = ingredient_manager.get_ingredient_review_by_id(id)
+    ingredient_manager.delete_ingredient(id)
     aggregate_manager.delete_ingredient_aggregate(ingredient)
-    return redirect('/users')
+    return '', 204

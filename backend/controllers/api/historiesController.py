@@ -69,12 +69,3 @@ def update_taste_review():
         rating
     )
     return redirect('/users')
-
-@histories_bp.route('/delete_taste_review', methods=['POST'])
-@login_required
-def delete_taste_review():
-    history_id = request.form.get('history_id')
-    dish_review = taste_manager.get_dish_review_by_id(history_id)
-    taste_manager.delete_history(history_id)
-    aggregate_manager.delete_aggregate(dish_review)
-    return redirect('/users')

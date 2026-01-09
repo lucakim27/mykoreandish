@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 from flask import flash
 import csv
 from backend.config.db import get_db
+from backend.config.config import FileConfig
 
 class NutrientManager:
     def __init__(self, firestore_module: Any):
@@ -20,7 +21,7 @@ class NutrientManager:
     def get_all_nutrients(self) -> List[Dict[str, str]]:
         nutrients = []
         try:
-            with open('backend/data/nutrients.csv', mode='r') as file:
+            with open(FileConfig.NUTRIENTS_FILE, mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     nutrients.append({

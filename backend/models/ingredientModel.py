@@ -3,6 +3,7 @@ from flask import flash
 import csv
 from collections import defaultdict
 from backend.config.db import get_db
+from backend.config.config import FileConfig
 
 class IngredientManager:
     def __init__(self, firestore_module: Any):
@@ -105,7 +106,7 @@ class IngredientManager:
     def get_all_ingredients(self) -> List[Dict[str, str]]:
         ingredients = []
         try:
-            with open('backend/data/ingredients.csv', mode='r') as file:
+            with open(FileConfig.INGREDIENTS_FILE, mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     ingredients.append({
@@ -144,7 +145,7 @@ class IngredientManager:
         try:
             dish_metadata = {}
             try:
-                with open('backend/data/dishes.csv', mode='r') as file:
+                with open(FileConfig.DISHES_FILE, mode='r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:
                         dish_metadata[row['dish_name']] = {

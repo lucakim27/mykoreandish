@@ -1,7 +1,9 @@
 import csv
+from os import abort
 from flask import flash
 from typing import List, Dict, Any
 from backend.config.db import get_db
+from backend.config.config import FileConfig
 
 class DietaryManager:
     def __init__(self, firestore_module: Any):
@@ -70,21 +72,23 @@ class DietaryManager:
             flash(f'Error saving dietary: {e}', 'error')
             return False
 
-    def delete_dietary(self, history_id: str) -> bool | None:
-        if history_id:
-            try:
-                dietary_ref = self.dietaries_ref.document(history_id)
-                dietary_ref.delete()
-                flash('Dietary review deleted successfully.', 'success')
-            except Exception:
-                flash('An error occurred while deleting the dietary review.', 'error')
-        else:
-            flash('Invalid history ID.', 'error')
+    def delete_dietary(self, history_id: str) -> bool:
+        if not history_id:
+            return False
+
+        dietary_ref = self.dietaries_ref.document(history_id)
+        doc = dietary_ref.get()
+
+        if not doc.exists:
+            return False
+
+        dietary_ref.delete()
+        return True
 
     def get_all_dietaries(self) -> List[Dict[str, str]]:
         dietaries = []
         try:
-            with open('backend/data/dietary.csv', mode='r') as file:
+            with open(FileConfig.DIETARY_FILE, mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     dietaries.append({

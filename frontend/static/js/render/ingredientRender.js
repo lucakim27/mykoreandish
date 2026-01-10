@@ -36,12 +36,12 @@ export function renderIngredientDetail(ingredient) {
 export function renderDishes(dishes) {
     const dishesContainer = document.getElementById("dishes-element");
     if (!Array.isArray(dishes) || dishes.length === 0) {
-        dishesContainer.innerHTML = "<p>No dishes information available for this dish.</p>";
+        dishesContainer.innerHTML = "<p>No dishes information available for this ingredient.</p>";
         return;
     }
     dishesContainer.innerHTML = dishes.map(dish => `
-        <a href="/dishes/${ dish }" class="ingredient-tag">
-            <b>${ dish }</b>
+        <a href="/dishes/${ dish.dish_name }" class="ingredient-tag">
+            <b>${ dish.dish_name }</b>
         </a>
     `).join("");
 }

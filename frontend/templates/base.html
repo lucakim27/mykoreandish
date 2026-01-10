@@ -39,7 +39,7 @@
       </div>
       <main>{% block content %} {% endblock %}</main>
       <footer>
-        <p>&copy; 2025 mykoreandish. All rights reserved.</p>
+        <p>&copy; <i id="current-year"></i> mykoreandish. All rights reserved.</p>
         <p>
           <a href="/aboutus"><b>About Us</b></a> |
           <a href="/privacy"><b>Privacy</b></a> |
@@ -57,5 +57,8 @@
       var dropdown = event.target.closest(".user-dropdown");
       dropdown.classList.toggle("show-dropdown");
     }
+
+    document.getElementById("current-year").innerText = new Date().getFullYear();
+
   </script>
 </html>

@@ -12,10 +12,6 @@ def get_all_ingredients():
 def get_top_ingredients():
     return aggregate_manager.get_top_ingredients()
 
-@ingredients_bp.route('/get_dishe_by_ingredient/<ingredient_name>', methods=['GET'])
-def get_dishe_by_ingredient(ingredient_name):
-    return ingredient_manager.get_dishes_by_ingredient(ingredient_name)
-
 @ingredients_bp.route('/get_ingredient_instance/<ingredient_name>', methods=['GET'])
 def get_ingredient_instance(ingredient_name):
     return ingredient_manager.get_ingredient_instance(ingredient_name)

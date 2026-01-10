@@ -1,28 +1,28 @@
-from flask import Blueprint, redirect, url_for
+from flask import Blueprint, redirect
 from ...services.managers import favorite_manager, ingredient_manager
 from ...utils.login import login_required
 
 favorites_bp = Blueprint('favorites', __name__, url_prefix='/api/favorites')
 
-@favorites_bp.route('/get_favorite_dishes/<user_id>', methods=['GET'])
+@favorites_bp.route('/<user_id>', methods=['GET'])
 def get_favorite_dishes(user_id):
     return favorite_manager.get_all_favorites(user_id)
 
-@favorites_bp.route('/is_dish_favorite/<dish_name>/<user_id>', methods=['GET'])
+@favorites_bp.route('/<dish_name>/<user_id>', methods=['GET'])
 def is_dish_favorite(dish_name, user_id):
     return favorite_manager.is_dish_favorite(dish_name, user_id)
 
-@favorites_bp.route('/add/dish/<dish_name>/<user_id>', methods=['POST'])
+@favorites_bp.route('/<dish_name>/<user_id>', methods=['POST'])
 @login_required
 def addDishFavoriteController(dish_name, user_id):
     favorite_manager.add_favorite(dish_name, user_id)
-    return redirect('/dishes/' + dish_name)
+    return "", 204
 
-@favorites_bp.route('/delete/dish/<dish_name>/<user_id>', methods=['POST'])
+@favorites_bp.route('/<dish_name>/<user_id>', methods=['DELETE'])
 @login_required
 def deleteDishFavoriteController(dish_name, user_id):
     favorite_manager.delete_favorite(dish_name, user_id)
-    return redirect('/dishes/' + dish_name)
+    return "", 204
 
 @favorites_bp.route('/add/ingredient/<ingredient_name>/<user_id>', methods=['POST'])
 @login_required

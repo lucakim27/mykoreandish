@@ -11,7 +11,15 @@
         </button>
     </form>
     
-    <div id="favorite-btn"></div>
+    <div id="favorite-btn">
+        <button
+            class="favorite-btn"
+            data-favorite="false"
+            aria-label="Toggle favorite"
+        >
+            <i class="fa-regular fa-heart"></i>
+        </button>
+    </div>
     <h2 id="dish_korean_name">-</h2>
     <p id="dish_detail">-</p>
     
@@ -32,7 +40,7 @@
     <h3 class="similar-dish-head">Similar Dishes</h3>
     <div class="similar-dishes" id="similar-dishes-element"></div>
     
-    <h3 class="similar-dish-head">Personal Note</h3>
+    <h3 class="similar-dish-head" id="note-title">Personal Note</h3>
     <div id="note-element"></div>
 
     <div class="button-box">

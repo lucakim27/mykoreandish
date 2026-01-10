@@ -50,7 +50,7 @@ export function renderPriceInfo(priceInfo) {
   );
 
   priceContainer.innerHTML = `
-    <ul>
+    <ul style="margin-bottom: 15px;">
       ${sorted.map(entry => `
         <li style="display: flex; justify-content: space-between; align-items: center;">
           <span>${entry.state}, ${entry.country}: $${entry.price}</span>
@@ -128,15 +128,38 @@ export function renderSimilarDishes(similarDishes) {
     `).join("");
 }
 
-export function renderUserNote(dish_name, user_id, note_content) {
+export function renderUserNote(note_content) {
     const noteContainer = document.getElementById("note-element");
+    const noteTitle = document.getElementById("note-title");
+
+    const existing = document.getElementById("note-status");
+    if (existing) existing.remove();
+
+    const statusIndicator = document.createElement("span");
+    statusIndicator.id = "note-status";
+    statusIndicator.style.cssText = `
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-left: 8px;
+        background-color: #4CAF50;
+    `;
+
+    noteTitle.appendChild(statusIndicator);
+
     noteContainer.innerHTML = `
-        <form action="/api/notes/add/${dish_name}/${user_id}" method="POST">
-            <textarea name="note_content" placeholder="I had this at the shop across the street last Tuesday." class="memo-input">${note_content || ''}</textarea>
-            <button type="submit" class="button save-button select-button">Save note</button>
+        <form>
+            <textarea
+                name="note_content"
+                placeholder="I had this at the shop across the street last Tuesday."
+                class="memo-input"
+                id="note-textarea"
+            >${note_content ?? ''}</textarea>
         </form>
     `;
 }
+
 
 export function renderReviewFormContainer(dish_name, dietaries, ingredients, locations, user_id) {
     const reviewFormContainer = document.getElementById("review-form-container");
@@ -256,22 +279,32 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, loc
 }
 
 export function renderFavoriteButton(isFavorite, dish_name, user_id) {
-    const favoriteButtonContainer = document.getElementById("favorite-btn");
-    if (isFavorite) {
-        favoriteButtonContainer.innerHTML = `
-            <form action="/api/favorites/delete/dish/${dish_name}/${user_id}" method="POST">
-                <button class="favorite-btn" type="submit">
-                    <i class="fa-solid fa-heart" style="color: #d72638;"></i>
-                </button>
-            </form>
-        `;
-    } else {
-        favoriteButtonContainer.innerHTML = `
-            <form action="/api/favorites/add/dish/${dish_name}/${user_id}" method="POST">
-                <button class="favorite-btn" type="submit">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-            </form>
-        `;
-    }
+  const container = document.getElementById("favorite-btn");
+
+  container.innerHTML = `
+    <button
+      class="favorite-btn"
+      data-dish="${dish_name}"
+      data-user="${user_id}"
+      data-favorite="${isFavorite}"
+      aria-label="Toggle favorite"
+    >
+      <i class="${isFavorite ? "fa-solid" : "fa-regular"} fa-heart"
+         style="${isFavorite ? "color:#d72638" : ""}">
+      </i>
+    </button>
+  `;
+}
+
+export function initFavoriteButton(isFavorite) {
+  const btn = document.querySelector(".favorite-btn");
+  const icon = btn.querySelector("i");
+
+  btn.dataset.favorite = isFavorite;
+
+  if (isFavorite) {
+    icon.classList.remove("fa-regular");
+    icon.classList.add("fa-solid");
+    icon.style.color = "#d72638";
+  }
 }

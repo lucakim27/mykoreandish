@@ -7,11 +7,8 @@ import {
     renderFavoriteButton
 } from "../render/ingredientRender.js";
 import { getCurrentUser } from "../api/usersApi.js";
-import { 
-    getIngredientInstance,
-    getDishesByIngredient,
-    isIngredientFavorite
-} from "../api/ingredientsApi.js";
+import { getIngredientInstance, isIngredientFavorite } from "../api/ingredientsApi.js";
+import { getDishesByIngredient } from "../api/dishesApi.js";
 import { getDishOrIngredientName } from "../utils/url.js";
 import { getAllNutrients, getIngredientNutrients } from "../api/nutrientsApi.js";
 import { getNote } from "../api/notesApi.js";

@@ -10,12 +10,6 @@ export async function getAllIngredients() {
   return res.json();
 }
 
-export async function getDishesByIngredient(ingredient_name) {
-  const res = await fetch(`/api/ingredients/get_dishe_by_ingredient/${ingredient_name}`);
-  if (!res.ok) throw new Error("Failed to fetch dishes");
-  return res.json();
-}
-
 export async function getIngredientInstance(ingredient_name) {
   const res = await fetch(`/api/ingredients/get_ingredient_instance/${ingredient_name}`);
   if (!res.ok) throw new Error("Failed to fetch ingredient detail");

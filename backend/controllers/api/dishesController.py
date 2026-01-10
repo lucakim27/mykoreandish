@@ -17,7 +17,7 @@ def get_dishes_by_dietary(dietary):
     dishes_name = aggregate_manager.get_dishes_by_dietary(dietary)
     return dish_manager.get_dishes_instance(dishes_name)
 
-@dishes_bp.route('/get_dishes_by_ingredient/<ingredient>', methods=['GET'])
+@dishes_bp.route('/get_dishes_by_ingredient/<path:ingredient>', methods=['GET'])
 def get_dishes_by_ingredient(ingredient):
     dishes_name = aggregate_manager.get_dishes_by_ingredient(ingredient)
     return dish_manager.get_dishes_instance(dishes_name)

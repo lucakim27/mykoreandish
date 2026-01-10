@@ -1,11 +1,14 @@
 import { getCurrentUser } from "../api/usersApi.js";
-import { getDishInstance, getDishAggregates, isDishFavorite, getSimilarDishes } from "../api/dishesApi.js";
+import { getDishInstance, getDishAggregates, getSimilarDishes } from "../api/dishesApi.js";
+import { isDishFavorite } from "../api/favoritesApi.js";
 import { getAllDietaries } from "../api/dietariesApi.js";
 import { getAllIngredients } from "../api/ingredientsApi.js";
 import { getPriceInfo, getAllLocations } from "../api/pricesApi.js";
 import { getNote } from "../api/notesApi.js";
 import { getDishOrIngredientName } from "../utils/url.js";
-import { renderDishDetails, renderDietaries, renderTastes, renderReviewFormContainer, renderUserNote, renderSimilarDishes, renderFavoriteButton, renderPriceInfo, renderIngredients } from "../render/foodRender.js";
+import { initFavoriteButton, renderDishDetails, renderDietaries, renderTastes, renderReviewFormContainer, renderUserNote, renderSimilarDishes, renderFavoriteButton, renderPriceInfo, renderIngredients } from "../render/foodRender.js";
+import { bindFavoriteButton } from "../events/buttonEvents.js";
+import { textareaEventBinding } from "../events/textareaEvent.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -46,8 +49,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderSimilarDishes(similarDishes);
     renderPriceInfo(priceInfo);
     renderTastes(aggregates);
-    renderUserNote(dish.dish_name, user?.user ? user.user.google_id : null, note.content);
+    renderUserNote(note.content);
     renderReviewFormContainer(dish.dish_name, dietaries, ingredients, locations, user?.user ? user.user.google_id : null);
+    initFavoriteButton(favorite.is_dish_favorite);
+    bindFavoriteButton();
+    textareaEventBinding(dish.dish_name, user?.user ? user.user.google_id : null);
 
   } catch (err) {
     console.error(err);

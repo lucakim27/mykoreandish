@@ -1,4 +1,5 @@
-import { getAllDishes, getFavoriteDishes } from "../api/dishesApi.js";
+import { getAllDishes } from "../api/dishesApi.js";
+import { getFavoriteDishes } from "../api/favoritesApi.js";
 import { getCurrentUser } from "../api/usersApi.js";
 import { renderAllDishes } from "../render/foodListRender.js";
 import { bindFilterEvents, setupFoodListEvents, filterOptionEvents } from "../events/filterEvents.js";

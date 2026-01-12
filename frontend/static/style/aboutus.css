@@ -109,3 +109,39 @@ body {
     margin-right: 0.7em;
   }
 }
+
+.history-card {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 14px;
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-card h3 {
+  margin-left: 8px;
+  text-align: left;
+}
+
+.history-card {
+  margin-top: 20px;
+}
+
+.history-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0 0 8px;
+}
+
+.history-text {
+  max-width: 75%;
+  font-size: 0.9em;
+  text-align: left;
+}
+
+.history-time {
+  font-size: 0.85rem;
+  color: #777;
+  white-space: nowrap;
+}

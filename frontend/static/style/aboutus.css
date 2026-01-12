@@ -145,3 +145,52 @@ body {
   color: #777;
   white-space: nowrap;
 }
+
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-row {
+  border-bottom: 1px solid #eee;
+}
+
+.user-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s ease;
+}
+
+.user-link:hover {
+  background-color: #f6f6f6;
+}
+
+.user-info {
+  min-width: 0;
+}
+
+.user-name {
+  font-weight: 600;
+}
+
+.user-meta {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 2px;
+}
+
+.user-action {
+  font-size: 0.85rem;
+  color: #999;
+  white-space: nowrap;
+}
+
+.user-link:hover .user-action {
+  color: #333;
+}
+

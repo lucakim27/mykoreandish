@@ -6,7 +6,6 @@ from ...utils.login import login_required
 histories_bp = Blueprint('histories', __name__, url_prefix='/api/histories')
 
 @histories_bp.route('/get_user_history/<user_id>', methods=['GET'])
-@login_required
 def get_history(user_id):
     combined_history = list(chain(
         taste_manager.get_user_history(user_id), 

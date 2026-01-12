@@ -1,22 +1,21 @@
 export function renderUserList(users) {
-  const container = document.querySelector(".popular-dishes-list");
+  const container = document.querySelector(".user-list");
   container.innerHTML = "";
 
   users.forEach(user => {
-    const el = document.createElement("li");
-    el.style.display = "flex";
-    el.style.alignItems = "center";
-    el.style.borderBottom = "1px solid #eee";
-    el.innerHTML = `
-      <a href="/users/${user.google_id}"
-         style="text-decoration:none; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-        <b id="user_name">${user.name}</b>
+    const li = document.createElement("li");
+    li.className = "user-row";
+
+    li.innerHTML = `
+      <a href="/users/${user.google_id}" class="user-link">
+        <div class="user-info">
+          <div class="user-name">${user.name}</div>
+          <div class="user-meta">Registered ${user.created_at}</div>
+        </div>
+        <div class="user-action">View →</div>
       </a>
-      <span id="created_at" style="margin-left:auto; font-size: 0.85em; color: grey; white-space:nowrap; padding-left:12px;">
-        ${user.created_at}
-      </span>
     `;
 
-    container.appendChild(el);
+    container.appendChild(li);
   });
 }

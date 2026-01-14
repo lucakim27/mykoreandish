@@ -37,7 +37,7 @@ export function renderIngredients(ingredients) {
     `).join("");
 }
 
-export function renderPriceInfo(priceInfo) {
+export function renderPriceInfo(priceInfo, countries) {
   const priceContainer = document.getElementById("price-details");
 
   if (!Array.isArray(priceInfo) || priceInfo.length === 0) {
@@ -53,7 +53,7 @@ export function renderPriceInfo(priceInfo) {
     <ul style="margin-bottom: 15px;">
       ${sorted.map(entry => `
         <li style="display: flex; justify-content: space-between; align-items: center;">
-          <span>${entry.state}, ${entry.country}: $${entry.price}</span>
+          <span>${entry.price} ${countries[entry.country]} in ${entry.country}</span>
           <span style="color: gray; font-size: 0.95em;">
             ${entry.timestamp}
           </span>
@@ -161,7 +161,7 @@ export function renderUserNote(note_content) {
 }
 
 
-export function renderReviewFormContainer(dish_name, dietaries, ingredients, locations, user_id) {
+export function renderReviewFormContainer(dish_name, dietaries, ingredients, countries, user_id) {
     const reviewFormContainer = document.getElementById("review-form-container");
     reviewFormContainer.innerHTML = `
         <div class="modal-content">
@@ -263,11 +263,7 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, loc
                 <div class="input-group">
                     <label for="country"><b>Country:</b></label>
                     <select id="priceFormCountry" name="country" required onchange="updatePriceFormCities()">
-                        ${locations.countries.sort().map(country => `<option value="${country}">${country}</option>`).join('')}
-                    </select><br>
-                    <label for="city"><b>City:</b></label>
-                    <select id="priceFormCity" name="city" required>
-                        ${locations.cities.sort().map(city => `<option value="${city}">${city}</option>`).join('')}
+                        ${Object.keys(countries).map(country => `<option value="${country}">${country}</option>`).join('')}
                     </select><br>
                     <label for="price"><b>Price:</b></label><br>
                     <input type="number" step="0.01" min="0" placeholder="34.50" name="price" required>

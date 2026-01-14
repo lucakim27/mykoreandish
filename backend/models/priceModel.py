@@ -20,28 +20,20 @@ class PriceManager:
             raise ValueError("User does not exist.")
         return user
 
-    def get_all_locations(self):
-        locations = {'countries': set(), 'cities': set(), 'country_to_cities': {}}
+    def get_all_countries(self):
+        countries = {}
         try:
             with open(self.csv_file, mode='r', newline='', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
-                    country = row['country']
-                    city = row['state']
-                    locations['countries'].add(country)
-                    locations['cities'].add(city)
-                    if country not in locations['country_to_cities']:
-                        locations['country_to_cities'][country] = []
-                    locations['country_to_cities'][country].append(city)
+                    country = row['Country']
+                    currency = row['Currency']
+                    countries[country] = currency
         except Exception as e:
             logging.info(f"Error reading CSV file: {e}")
-        return {
-            'countries': list(locations['countries']),
-            'cities': list(locations['cities']),
-            'country_to_cities': locations['country_to_cities']
-        }
+        return countries
     
-    def add_price_review(self, dish_name: str, google_id: str, price: float, country: str, state: str) -> None:
+    def add_price_review(self, dish_name: str, google_id: str, price: float, country: str) -> None:
         try:
             self._get_user(google_id)
             self.prices_ref.add({
@@ -49,7 +41,6 @@ class PriceManager:
                 'dish_name': dish_name,
                 'price': price,
                 'country': country,
-                'state': state,
                 'timestamp': self.firestore.SERVER_TIMESTAMP
             })
             flash('Price review added successfully!', 'success')
@@ -68,15 +59,13 @@ class PriceManager:
             data = price_doc.to_dict()
             price = data.get('price')
             country = data.get('country')
-            state = data.get('state')
             timestamp = data.get('timestamp')
             if hasattr(timestamp, 'to_datetime'):
                 timestamp = timestamp.to_datetime()
-            if price is not None and state is not None and timestamp is not None:
+            if price is not None and timestamp is not None:
                 price_state_list.append({
                     'price': price,
                     'country': country,
-                    'state': state,
                     'timestamp': format_time_ago(timestamp)
                 })
         return price_state_list

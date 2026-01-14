@@ -56,6 +56,5 @@ def add_taste_review(dish_name, user_id):
 def add_price_review(dish_name, user_id):
     price = request.form.get('price')
     country = request.form.get('country')
-    city = request.form.get('city')
-    price_manager.add_price_review(dish_name, user_id, price, country, city)
+    price_manager.add_price_review(dish_name, user_id, price, country)
     return redirect('/dishes/' + dish_name)

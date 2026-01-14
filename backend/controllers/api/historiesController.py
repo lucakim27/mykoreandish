@@ -26,7 +26,7 @@ def get_history_meta():
         "ingredients": ingredient_manager.get_all_ingredients(),
         "dietaries": dietary_manager.get_all_dietaries(),
         "nutrients": nutrient_manager.get_all_nutrients(),
-        "locations": price_manager.get_all_locations()
+        "countries": price_manager.get_all_countries()
     })
 
 @histories_bp.route('/update_taste_review', methods=['POST'])

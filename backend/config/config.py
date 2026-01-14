@@ -16,5 +16,5 @@ class FileConfig:
     DISHES_FILE = DATA_DIR / "dishes.csv"
     INGREDIENTS_FILE = DATA_DIR / "ingredients.csv"
     DIETARY_FILE = DATA_DIR / "dietary.csv"
-    LOCATIONS_FILE = DATA_DIR / "locations.csv"
+    COUNTRY_FILE = DATA_DIR / "country.csv"
     NUTRIENTS_FILE = DATA_DIR / "nutrients.csv"

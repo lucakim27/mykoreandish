@@ -1,5 +1,5 @@
-export async function getAllLocations() {
-  const res = await fetch("/api/prices/get_all_locations");
+export async function getAllCountries() {
+  const res = await fetch("/api/prices/get_all_countries");
   if (!res.ok) throw new Error("Failed to fetch dish aggregates");
   return res.json();
 }

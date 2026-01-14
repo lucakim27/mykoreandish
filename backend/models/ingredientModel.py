@@ -141,7 +141,7 @@ class IngredientManager:
             flash(f'Error retrieving ingredients from Firestore: {e}', 'error')
         return ingredients
 
-    def get_similar_dishes(self, current_dish_name: str, top_n: int = 5) -> List[Dict[str, Any]]:
+    def get_similar_dishes(self, current_dish_name: str) -> List[Dict[str, Any]]:
         try:
             dish_metadata = {}
             try:
@@ -150,7 +150,6 @@ class IngredientManager:
                     for row in reader:
                         dish_metadata[row['dish_name']] = {
                             "korean_name": row.get('korean_name', row['dish_name']),
-                            "thumbnail_url": row.get('thumbnail_url', '')
                         }
             except Exception as e:
                 flash(f"Error reading dishes from CSV: {e}", "error")
@@ -179,13 +178,11 @@ class IngredientManager:
                     scored_similars.append({
                         "dish_name": dish,
                         "korean_name": dish_data["korean_name"],
-                        "thumbnail_url": dish_data["thumbnail_url"],
                         "shared_ingredients": list(shared),
                         "score": score
                     })
             scored_similars.sort(key=lambda x: x["score"], reverse=True)
-            return scored_similars[:top_n]
+            return scored_similars
         except Exception as e:
             flash(f"Error finding similar dishes: {e}", "error")
             return []
-

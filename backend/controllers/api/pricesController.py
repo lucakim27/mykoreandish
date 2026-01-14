@@ -3,9 +3,9 @@ from ...services.managers import price_manager
 
 prices_bp = Blueprint('prices', __name__, url_prefix='/api/prices')
 
-@prices_bp.route('/get_all_locations', methods=['GET'])
-def get_all_locations():
-    return price_manager.get_all_locations()
+@prices_bp.route('/get_all_countries', methods=['GET'])
+def get_all_countries():
+    return price_manager.get_all_countries()
 
 @prices_bp.route('/get_price_info/<dish_name>', methods=['GET'])
 def get_price_info(dish_name):

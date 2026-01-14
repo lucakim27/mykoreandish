@@ -3,7 +3,7 @@ import { getDishInstance, getDishAggregates, getSimilarDishes } from "../api/dis
 import { isDishFavorite } from "../api/favoritesApi.js";
 import { getAllDietaries } from "../api/dietariesApi.js";
 import { getAllIngredients } from "../api/ingredientsApi.js";
-import { getPriceInfo, getAllLocations } from "../api/pricesApi.js";
+import { getPriceInfo, getAllCountries } from "../api/pricesApi.js";
 import { getNote } from "../api/notesApi.js";
 import { getDishOrIngredientName } from "../utils/url.js";
 import { initFavoriteButton, renderDishDetails, renderDietaries, renderTastes, renderReviewFormContainer, renderUserNote, renderSimilarDishes, renderFavoriteButton, renderPriceInfo, renderIngredients } from "../render/foodRender.js";
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         ingredients,
         favorite,
         similarDishes,
-        locations,
+        countries,
         priceInfo,
         note
     ] = await Promise.all([
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       getAllIngredients(),
       user?.user ? isDishFavorite(dish.dish_name, user.user.google_id) : Promise.resolve([]),
       getSimilarDishes(dish.dish_name),
-      getAllLocations(),
+      getAllCountries(),
       getPriceInfo(dish.dish_name),
       user?.user ? getNote(dish.dish_name, user.user.google_id) : Promise.resolve([])
     ]);
@@ -47,10 +47,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderIngredients(ingredientArray);
     renderFavoriteButton(favorite.is_dish_favorite, dish.dish_name, user?.user ? user.user.google_id : null);
     renderSimilarDishes(similarDishes);
-    renderPriceInfo(priceInfo);
+    renderPriceInfo(priceInfo, countries);
     renderTastes(aggregates);
     renderUserNote(note.content);
-    renderReviewFormContainer(dish.dish_name, dietaries, ingredients, locations, user?.user ? user.user.google_id : null);
+    renderReviewFormContainer(dish.dish_name, dietaries, ingredients, countries, user?.user ? user.user.google_id : null);
     initFavoriteButton(favorite.is_dish_favorite);
     bindFavoriteButton();
     textareaEventBinding(dish.dish_name, user?.user ? user.user.google_id : null);

@@ -183,20 +183,18 @@ function renderNutrientForm(item, meta) {
 }
 
 function renderPriceForm(item, meta) {
-  const countries = meta.locations.countries.sort().map(c => `
+  const countryOptions = Object.keys(meta.countries)
+  .sort()
+  .map(c => `
     <option value="${c}" ${item.country === c ? "selected" : ""}>${c}</option>
-  `).join("");
-  const states = meta.locations.cities.sort().map(s => `
-    <option value="${s}" ${item.state === s ? "selected" : ""}>${s}</option>
-  `).join("");
+  `)
+  .join("");
   return `
     <form method="POST" action="/api/prices/update_price_review" style="display:inline;">
       <input type="hidden" name="history_id" value="${item.id}">
       <label for="country"><b>Country:</b></label>
-      <select class="form-select" id="historyCountry-${item.id}" name="country">${countries}</select>
-      <label for="state"><b>State:</b></label>
-      <select class="form-select" id="historyState-${item.id}" name="state">${states}</select><br>
-      <label for="price"><b>Price:</b></label><br>
+      <select class="form-select" id="historyCountry-${item.id}" name="country">${countryOptions}</select>
+      <label for="price"><b>Price:</b></label>
       <input type="number" step="0.01" min="0" placeholder="34.50" name="price" value="${item.price}" required>
       <button type="submit" class="button update-button">Update</button>
     </form>

@@ -91,25 +91,10 @@ class DietaryManager:
             with open(FileConfig.DIETARY_FILE, mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
-                    dietaries.append({
-                        'dietary': row['Dietary']
-                    })
+                    dietaries.append(row['Dietary'])
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')
         return dietaries
-    
-    def get_dishes_by_ingredient(self, ingredient: str) -> List[str]:
-        dietary_ref = self.dietaries_ref.where('dietary', '==', ingredient)
-        dietaries = dietary_ref.stream()
-        dish_names = []
-        for dietary in dietaries:
-            d = dietary.to_dict()
-            if d is not None and 'dish_name' in d:
-                dish_names.append(d['dish_name'])
-        dish_names = list(set(dish_names))
-        if not dish_names:
-            return []
-        return dish_names
     
     def get_dietary_preference(self, google_id: str) -> str | None:
         try:

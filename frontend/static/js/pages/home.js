@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]);
 
     document.getElementById("total_users").textContent =
-      totalUsers.total_users;
+      totalUsers;
     document.getElementById("total_reviews").textContent =
-      totalReviews.total_reviews;
+      totalReviews;
 
     dishes.forEach(dish => {
       searchItems.push({

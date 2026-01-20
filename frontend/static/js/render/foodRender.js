@@ -16,7 +16,7 @@ export function renderDietaries(dietaries) {
         <div style="display:inline;" class="dietary-tag">
             <input type="hidden" name="dietary" value="${dietary.dietary_name}">
             <button class="ingredient-tag" style="all:unset; display:inline;">
-                ${dietary.dietary_name}
+                ${dietary.dietary_name.replaceAll("_", " ")}
                 (${dietary.count} ${dietary.count === 1 ? 'review' : 'reviews'})
             </button>
         </div>
@@ -31,7 +31,7 @@ export function renderIngredients(ingredients) {
     }
     ingredientContainer.innerHTML = ingredients.map(ingredient => `
         <a href="/ingredients/${ingredient.ingredient_name}" class="ingredient-tag">
-            <b>${ingredient.ingredient_name}</b>
+            <b>${ingredient.ingredient_name.replaceAll("_", " ")}</b>
             (${ingredient.count} ${ingredient.count === 1 ? 'review' : 'reviews'})
         </a>
     `).join("");
@@ -172,23 +172,23 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
                 <button type="button" id="seg-price" class="segment-btn" onclick="selectReviewType('price')">Price</button>
             </div>
             
-            <form id="dietaryForm" method="POST" action="/api/reviews/add_dietary_review/${dish_name}/${user_id}" onsubmit="disableDietaryButton()">
+            <form id="dietaryForm" method="POST" action="/api/dietaries/${dish_name}/${user_id}" onsubmit="disableDietaryButton()">
                 <label for="dietary" style="color: #2c3e50"><b>Dietary:</b></label>
                 <select id="dietary" name="dietary" required>
-                    ${dietaries.map(dietary => `<option value="${dietary.dietary}">${dietary.dietary}</option>`).join('')}
+                    ${dietaries.map(dietary => `<option value="${dietary}">${dietary}</option>`).join('')}
                 </select>
                 <button type="submit" id="submitDietaryButton" class="button submit-button">Submit dietary review</button>
             </form>
             
-            <form id="ingredientForm" method="POST" action="/api/reviews/add_ingredient_review/${dish_name}/${user_id}" style="display:none;" onsubmit="disableIngredientButton()">
+            <form id="ingredientForm" method="POST" action="/api/ingredients/${dish_name}/${user_id}" style="display:none;" onsubmit="disableIngredientButton()">
                 <label for="ingredient"><b>Ingredient:</b></label>
                 <select id="ingredient" name="ingredient" required>
-                    ${ingredients.map(ingredient => `<option value="${ingredient.ingredient}">${ingredient.ingredient}</option>`).join('')}
+                    ${ingredients.map(ingredient => `<option value="${ingredient.ingredient}">${ingredient.ingredient.replaceAll("_", " ")}</option>`).join('')}
                 </select>
                 <button type="submit" id="submitIngredientButton" class="button submit-button">Submit ingredient review</button>
             </form>
             
-            <form id="tasteForm" method="POST" action="/api/reviews/add_taste_review/${dish_name}/${user_id}" style="display:none;" onsubmit="disableTasteButton()">
+            <form id="tasteForm" method="POST" action="/api/tastes/${dish_name}/${user_id}" style="display:none;" onsubmit="disableTasteButton()">
                 <div class="input-group">
                     <label for="spiciness"><b>Spiciness:</b></label>
                     <select id="spiciness" name="spiciness" required>
@@ -259,7 +259,7 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
                 </div>
             </form>
 
-            <form id="priceForm" method="POST" action="/api/reviews/add_price_review/${dish_name}/${user_id}" style="display:none;" onsubmit="disablePriceButton()">
+            <form id="priceForm" method="POST" action="/api/prices/${dish_name}/${user_id}" style="display:none;" onsubmit="disablePriceButton()">
                 <div class="input-group">
                     <label for="country"><b>Country:</b></label>
                     <select id="priceFormCountry" name="country" required onchange="updatePriceFormCities()">

@@ -1,28 +1,19 @@
 export function renderFavoriteButton(isFavorite, ingredient_name, user_id) {
     const favoriteButtonContainer = document.getElementById("favorite-btn");
-    if (isFavorite) {
-        favoriteButtonContainer.innerHTML = `
-            <form
-                action="/api/favorites/delete/ingredient/${ingredient_name}/${user_id}"
-                method="POST"
-            >
-                <button class="favorite-btn" type="submit">
-                <i class="fa-solid fa-heart" style="color: #d72638"></i>
-                </button>
-            </form>
-        `;
-    } else {
-        favoriteButtonContainer.innerHTML = `
-            <form
-                action="/api/favorites/add/ingredient/${ingredient_name}/${user_id}"
-                method="POST"
-            >
-                <button class="favorite-btn" type="submit">
-                <i class="fa-regular fa-heart"></i>
-                </button>
-            </form>
-        `;
-    }
+    
+    favoriteButtonContainer.innerHTML = `
+    <button
+      class="favorite-btn"
+      data-dish="${ingredient_name}"
+      data-user="${user_id}"
+      data-favorite="${isFavorite}"
+      aria-label="Toggle favorite"
+    >
+      <i class="${isFavorite ? "fa-solid" : "fa-regular"} fa-heart"
+         style="${isFavorite ? "color:#d72638" : ""}">
+      </i>
+    </button>
+  `;
 }    
 
 export function renderIngredientDetail(ingredient) {
@@ -30,7 +21,7 @@ export function renderIngredientDetail(ingredient) {
     const ingredientDetailElement = document.getElementById("ingredient_detail");
     
     ingredientKoreanNameElement.innerHTML = ingredient.korean_name;
-    ingredientDetailElement.innerHTML = `<b>${ingredient.ingredient}</b>, ${ingredient.description}`;
+    ingredientDetailElement.innerHTML = `<b>${ingredient.ingredient.replaceAll("_", " ")}</b>, ${ingredient.description}`;
 }
 
 export function renderDishes(dishes) {
@@ -59,23 +50,45 @@ export function renderNutrients(nutrients) {
     }
 }
 
-export function renderNote(note, user_id, ingredient_name) {
-    const notesContainer = document.getElementById("note-element");
-    notesContainer.innerHTML = `
-        <form action="/api/notes/add/${ingredient_name}/${user_id}" method="POST">
-            <textarea name="note_content" placeholder="I had this at the shop across the street last Tuesday." class="memo-input">${ note.content ? note.content : '' }</textarea>
-            <button type="submit" class="button save-button select-button">Save note</button>
+export function renderUserNote(note_content) {
+    const noteContainer = document.getElementById("note-element");
+    const noteTitle = document.getElementById("note-title");
+
+    const existing = document.getElementById("note-status");
+    if (existing) existing.remove();
+
+    const statusIndicator = document.createElement("span");
+    statusIndicator.id = "note-status";
+    statusIndicator.style.cssText = `
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-left: 8px;
+        background-color: #4CAF50;
+    `;
+
+    noteTitle.appendChild(statusIndicator);
+
+    noteContainer.innerHTML = `
+        <form>
+            <textarea
+                name="note_content"
+                placeholder="I had this at the shop across the street last Tuesday."
+                class="memo-input"
+                id="note-textarea"
+            >${note_content ?? ''}</textarea>
         </form>
-    `
+    `;
 }
 
 export function renderNutrientContainer(ingredient, nutrients, user_id) {
-    const ingredientFormContainer = document.getElementById("ingredient-form-container");
+    const ingredientFormContainer = document.getElementById("review-form-container");
     ingredientFormContainer.innerHTML = `
         <div class="modal-content">
             <form
                 method="POST"
-                action="/api/ingredients/add_nutrient_review/${ingredient.ingredient}/${user_id}"
+                action="/api/nutrients/${ingredient.ingredient}/${user_id}"
                 onsubmit="disableButton()"
             >
                 <label for="nutrient"><b>Nutrient:</b></label>

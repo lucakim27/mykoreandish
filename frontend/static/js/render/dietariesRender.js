@@ -3,7 +3,7 @@ export function renderDietaries(dietaries) {
 
     for (const dietary of dietaries) {
         dietariesContainer.innerHTML += `
-        <option value="${dietary.dietary}">${dietary.dietary}</option>
+        <option value="${dietary}">${dietary.replaceAll("_", " ")}</option>
         `;
     }
 }

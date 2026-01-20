@@ -1,17 +1,20 @@
 import { 
     renderNutrientContainer,
-    renderNote,
+    renderUserNote,
     renderNutrients,
     renderDishes,
     renderIngredientDetail,
     renderFavoriteButton
 } from "../render/ingredientRender.js";
 import { getCurrentUser } from "../api/usersApi.js";
-import { getIngredientInstance, isIngredientFavorite } from "../api/ingredientsApi.js";
+import { getIngredientInstance } from "../api/ingredientsApi.js";
 import { getDishesByIngredient } from "../api/dishesApi.js";
 import { getDishOrIngredientName } from "../utils/url.js";
 import { getAllNutrients, getIngredientNutrients } from "../api/nutrientsApi.js";
 import { getNote } from "../api/notesApi.js";
+import { bindFavoriteButton } from "../events/buttonEvents.js";
+import { isFavorite } from "../api/favoritesApi.js";
+import { textareaEventBinding } from "../events/textareaEvent.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -20,24 +23,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     const [
         dishes,
         AllNutrients,
-        isFavorite,
+        favoriteResult,
         note,
         nutrients
     ] = await Promise.all([
         getDishesByIngredient(ingredient.ingredient),
         getAllNutrients(),
-        user?.user ? isIngredientFavorite(ingredient.ingredient, user.user.google_id) : Promise.resolve([]),
-        user?.user ? getNote(ingredient.ingredient, user.user.google_id) : Promise.resolve([]),
+        user ? isFavorite(ingredient.ingredient, user.google_id) : Promise.resolve([]),
+        user ? getNote(ingredient.ingredient, user.google_id) : Promise.resolve([]),
         getIngredientNutrients(ingredient.ingredient)
     ]);
 
-    renderNutrientContainer(ingredient, AllNutrients, user?.user ? user.user.google_id : null)
-    renderNote(note, user?.user ? user.user.google_id : null, ingredient.ingredient)
+    renderNutrientContainer(ingredient, AllNutrients, user ? user.google_id : null)
+    renderUserNote(note.content);
     renderNutrients(nutrients)
     renderDishes(dishes)
     renderIngredientDetail(ingredient)
-    renderFavoriteButton(isFavorite.is_ingredient_favorite, ingredient.ingredient, user?.user ? user.user.google_id : null)
+    renderFavoriteButton(favoriteResult.is_favorite, ingredient.ingredient, user ? user.google_id : null)
+    bindFavoriteButton();
+    textareaEventBinding(ingredient.ingredient, user ? user.google_id : null);
     
+
   } catch (err) {
     console.error(err);
   }

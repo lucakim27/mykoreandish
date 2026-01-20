@@ -1,9 +1,10 @@
 import { getCurrentUser } from "../api/usersApi.js";
 import { getDishInstance, getDishAggregates, getSimilarDishes } from "../api/dishesApi.js";
-import { isDishFavorite } from "../api/favoritesApi.js";
+import { isFavorite } from "../api/favoritesApi.js";
 import { getAllDietaries } from "../api/dietariesApi.js";
 import { getAllIngredients } from "../api/ingredientsApi.js";
-import { getPriceInfo, getAllCountries } from "../api/pricesApi.js";
+import { getPriceInfo } from "../api/pricesApi.js";
+import { getAllCountries } from "../api/countriesApi.js";
 import { getNote } from "../api/notesApi.js";
 import { getDishOrIngredientName } from "../utils/url.js";
 import { initFavoriteButton, renderDishDetails, renderDietaries, renderTastes, renderReviewFormContainer, renderUserNote, renderSimilarDishes, renderFavoriteButton, renderPriceInfo, renderIngredients } from "../render/foodRender.js";
@@ -27,11 +28,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       getDishAggregates(dish.dish_name),
       getAllDietaries(),
       getAllIngredients(),
-      user?.user ? isDishFavorite(dish.dish_name, user.user.google_id) : Promise.resolve([]),
+      user ? isFavorite(dish.dish_name, user.google_id) : Promise.resolve([]),
       getSimilarDishes(dish.dish_name),
       getAllCountries(),
       getPriceInfo(dish.dish_name),
-      user?.user ? getNote(dish.dish_name, user.user.google_id) : Promise.resolve([])
+      user ? getNote(dish.dish_name, user.google_id) : Promise.resolve([])
     ]);
 
     renderDishDetails(dish);
@@ -45,15 +46,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       ([ingredient_name, count]) => ({ ingredient_name, count })
     );
     renderIngredients(ingredientArray);
-    renderFavoriteButton(favorite.is_dish_favorite, dish.dish_name, user?.user ? user.user.google_id : null);
+    renderFavoriteButton(favorite.is_dish_favorite, dish.dish_name, user ? user.google_id : null);
     renderSimilarDishes(similarDishes);
     renderPriceInfo(priceInfo, countries);
     renderTastes(aggregates);
     renderUserNote(note.content);
-    renderReviewFormContainer(dish.dish_name, dietaries, ingredients, countries, user?.user ? user.user.google_id : null);
-    initFavoriteButton(favorite.is_dish_favorite);
+    renderReviewFormContainer(dish.dish_name, dietaries, ingredients, countries, user ? user.google_id : null);
+    initFavoriteButton(favorite.is_favorite);
     bindFavoriteButton();
-    textareaEventBinding(dish.dish_name, user?.user ? user.user.google_id : null);
+    textareaEventBinding(dish.dish_name, user ? user.google_id : null);
 
   } catch (err) {
     console.error(err);

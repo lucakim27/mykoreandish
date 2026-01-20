@@ -13,7 +13,6 @@ export function renderUserProfile(user) {
   const dietary_preferences_element = document.getElementById("dietary_preferences");
   dietary_preferences_element.innerText = `Dietary preference: ${user.dietary_preference ? user.dietary_preference : "Not selected"}`;
 
-
   const user_created_at_element = document.getElementById("created_at");
   user_created_at_element.innerText = `Joined on: ${user.created_at}`;
 

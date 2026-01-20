@@ -11,9 +11,14 @@ import { getAllIngredients } from "../api/ingredientsApi.js";
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const user = await getCurrentUser();
-    const [allDishes, favoriteDishes, allIngredients, allDietaries] = await Promise.all([
+    const [
+      allDishes, 
+      favoriteDishes, 
+      allIngredients, 
+      allDietaries
+    ] = await Promise.all([
       getAllDishes(),
-      user?.user ? getFavoriteDishes(user.user.google_id) : Promise.resolve([]),
+      user ? getFavoriteDishes(user.google_id) : Promise.resolve([]),
       getAllIngredients(),
       getAllDietaries()
     ]);

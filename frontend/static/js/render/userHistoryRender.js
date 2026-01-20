@@ -70,7 +70,7 @@ export function renderUpdateSection(item, meta) {
 
 function renderRatingForm(item) {
   return `
-    <form method="POST" action="/api/histories/update_taste_review" style="display:inline;">
+    <form method="POST" action="/api/tastes/" style="display:inline;">
       <input type="hidden" name="history_id" value="${item.id}">
       <label for="spiciness"><b>Spiciness:</b></label>
       <select id="spiciness-${item.id}" name="spiciness">
@@ -142,10 +142,10 @@ function renderRatingForm(item) {
 
 function renderDietaryForm(item, meta) {
   const options = meta.dietaries.map(d => `
-    <option value="${d.dietary}" ${item.dietary === d.dietary ? "selected" : ""}>${d.dietary}</option>
+    <option value="${d}" ${item.dietary === d ? "selected" : ""}>${d}</option>
   `).join("");
   return `
-    <form method="POST" action="/api/dishes/update_dietary_review" style="display:inline;">
+    <form method="POST" action="/api/dietaries/" style="display:inline;">
       <input type="hidden" name="history_id" value="${item.id}">
       <label for="dietary"><b>Dietary:</b></label>
       <select class="form-select" id="dietary" name="dietary">${options}</select>
@@ -159,7 +159,7 @@ function renderIngredientForm(item, meta) {
     <option value="${i.ingredient}" ${item.ingredient === i.ingredient ? "selected" : ""}>${i.ingredient}</option>
   `).join("");
   return `
-    <form method="POST" action="/dishes/update_ingredient" style="display:inline;">
+    <form method="POST" action="/api/ingredients/${item.id}/${item.ingredient}/${item.dish_name}" style="display:inline;">
       <input type="hidden" name="history_id" value="${item.id}">
       <label for="ingredient"><b>Ingredient:</b></label>
       <select class="form-select" id="ingredient" name="ingredient">${options}</select>

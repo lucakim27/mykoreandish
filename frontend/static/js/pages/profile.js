@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           getAllDietaries()
         ]);
     
-    renderProfile(allDietaries, user.user);
+    renderProfile(allDietaries, user);
 
   } catch (err) {
     console.error(err);

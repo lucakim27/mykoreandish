@@ -9,6 +9,7 @@ from .notesController import notes_bp
 from .favoritesController import favorites_bp
 from .historiesController import histories_bp
 from .tastesController import tastes_bp
+from .countriesController import countries_bp
 
 def register_api_blueprints(app):
     app.register_blueprint(reviews_bp)
@@ -22,3 +23,4 @@ def register_api_blueprints(app):
     app.register_blueprint(favorites_bp)
     app.register_blueprint(histories_bp)
     app.register_blueprint(tastes_bp)
+    app.register_blueprint(countries_bp)

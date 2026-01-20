@@ -242,16 +242,26 @@ class AggregateManager:
             dish_name = doc.id
             matching_dishes.append(dish_name)
         return matching_dishes
-    
+
     def get_dishes_by_ingredient(self, ingredient):
         aggregates_ref = self.db.collection("Aggregates")
-
-        field_path = f"ingredient_distribution.`{ingredient}`"
-
-        query = aggregates_ref.where(field_path, ">", 0)
-
+        query = aggregates_ref.where(f"ingredient_distribution.{ingredient}", ">", 0)
         results = query.stream()
-        return [doc.id for doc in results]
+        matching_dishes = []
+        for doc in results:
+            dish_name = doc.id
+            matching_dishes.append(dish_name)
+        return matching_dishes
+    
+    # def get_dishes_by_ingredient(self, ingredient):
+    #     aggregates_ref = self.db.collection("Aggregates")
+
+    #     field_path = f"ingredient_distribution.`{ingredient}`"
+
+    #     query = aggregates_ref.where(field_path, ">", 0)
+
+    #     results = query.stream()
+    #     return [doc.id for doc in results]
     
     def get_total_reviews(self):
         dietary_reviews = self.db.collection("Dietaries").count().get()[0][0].value

@@ -525,7 +525,3 @@ select, input {
 .save-button:hover {
     background-color: #d3d3d3;
 }
-
-.ingredient-form-container {
-    margin-top: 10px;
-}

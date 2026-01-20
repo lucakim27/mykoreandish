@@ -1,5 +1,5 @@
-export async function isDishFavorite(dish_name, user_id) {
-  const res = await fetch(`/api/favorites/${dish_name}/${user_id}`);
+export async function isFavorite(name, user_id) {
+  const res = await fetch(`/api/favorites/${name}/${user_id}`);
   if (!res.ok) throw new Error("Failed to fetch favorite status");
   return res.json();
 }

@@ -1,27 +1,23 @@
 from flask import Blueprint, request, redirect
 from backend.utils.login import login_required
-from ...services.managers import ingredient_manager, aggregate_manager, nutrient_manager
+from ...services.managers import ingredient_manager, aggregate_manager
 
 ingredients_bp = Blueprint('ingredients', __name__, url_prefix='/api/ingredients')
 
-@ingredients_bp.route('/get_all_ingredients', methods=['GET'])
+@ingredients_bp.route('/', methods=['GET'])
 def get_all_ingredients():
-    return ingredient_manager.get_all_ingredients()
+    all_ingredients = ingredient_manager.get_all_ingredients()
+    return all_ingredients, 200
 
-@ingredients_bp.route('/get_top_ingredients', methods=['GET'])
+@ingredients_bp.route('/top', methods=['GET'])
 def get_top_ingredients():
-    return aggregate_manager.get_top_ingredients()
+    top_ingredients = aggregate_manager.get_top_ingredients()
+    return top_ingredients, 200
 
-@ingredients_bp.route('/get_ingredient_instance/<ingredient_name>', methods=['GET'])
+@ingredients_bp.route('/<ingredient_name>', methods=['GET'])
 def get_ingredient_instance(ingredient_name):
-    return ingredient_manager.get_ingredient_instance(ingredient_name)
-
-@ingredients_bp.route('/add_nutrient_review/<ingredient_name>/<user_id>', methods=['POST'])
-@login_required
-def add_nutrient_review(ingredient_name, user_id):
-    nutrient = request.form.get('nutrient')
-    nutrient_manager.add_nutrient_review(ingredient_name, user_id, nutrient)
-    return redirect('/ingredients/' + ingredient_name)
+    ingredient_instance = ingredient_manager.get_ingredient_instance(ingredient_name)
+    return ingredient_instance, 200
 
 @ingredients_bp.route('/<id>', methods=['DELETE'])
 @login_required
@@ -30,3 +26,19 @@ def delete_ingredient_review(id):
     ingredient_manager.delete_ingredient(id)
     aggregate_manager.delete_ingredient_aggregate(ingredient)
     return '', 204
+
+@ingredients_bp.route('/<history_id>/<old_ingredient>/<dish_name>', methods=['POST'])
+@login_required
+def update_ingredient_review(history_id, old_ingredient, dish_name):
+    new_ingredient = request.form.get('ingredient')
+    ingredient_manager.update_ingredient_review(history_id, new_ingredient)
+    aggregate_manager.update_ingredient_aggregate(dish_name, old_ingredient, new_ingredient)
+    return redirect('/users/')
+
+@ingredients_bp.route('/<dish_name>/<user_id>', methods=['POST'])
+@login_required
+def add_ingredient_review(dish_name, user_id):
+    ingredient_selection = request.form.get('ingredient')
+    ingredient_manager.add_ingredient_review(dish_name, user_id, ingredient_selection)
+    aggregate_manager.add_ingredient_aggregate(dish_name, ingredient_selection)
+    return redirect('/dishes/' + dish_name)

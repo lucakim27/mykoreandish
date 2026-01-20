@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       getAllUsers()
     ]);
 
-    renderUserList(allUsers.users);
+    renderUserList(allUsers);
 
   } catch (err) {
     console.error(err);

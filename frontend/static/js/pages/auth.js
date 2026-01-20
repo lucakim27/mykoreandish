@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const user = await getCurrentUser();
 
-    renderAuth(user.user);
+    renderAuth(user);
 
   } catch (err) {
     console.error(err);

@@ -77,7 +77,7 @@ class IngredientManager:
         else:
             return None
     
-    def update_ingredient(self, history_id: str, ingredient: str) -> bool:
+    def update_ingredient_review(self, history_id: str, ingredient: str) -> bool:
         if not history_id or not ingredient:
             flash('Invalid input for ingredient.', 'error')
             return False
@@ -118,18 +118,6 @@ class IngredientManager:
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')
         return ingredients
-    
-    def get_dishes_by_ingredient(self, ingredient: str) -> List[str]:
-        dishes = []
-        try:
-            ingredient_ref = self.ingredients_ref.where('ingredient', '==', ingredient)
-            ingredients = ingredient_ref.stream()
-            for ingredient in ingredients:
-                if not ingredient.to_dict().get('dish_name') in dishes:
-                    dishes.append(ingredient.to_dict().get('dish_name'))
-        except Exception as e:
-            flash(f'Error retrieving dishes from Firestore: {e}', 'error')
-        return dishes
     
     def get_ingredients_by_dish(self, dish_name: str) -> List[str]:
         ingredients = []

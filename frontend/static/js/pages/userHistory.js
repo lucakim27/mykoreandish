@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const user = await getCurrentUser();
 
     const [historyRes, metaRes] = await Promise.all([
-      getUserHistory(user.user.google_id),
+      getUserHistory(user.google_id),
       getHistoryMeta()
     ]);
 

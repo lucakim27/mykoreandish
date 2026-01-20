@@ -68,22 +68,12 @@ class FavoriteManager:
         except Exception:
             return []
 
-    def is_dish_favorite(self, dish_name, user_id):
+    def is_favorite(self, name, user_id):
         try:
-            if dish_name in self.get_all_favorites(user_id):
-                return {"is_dish_favorite": True}
+            if name in self.get_all_favorites(user_id):
+                return {"is_favorite": True}
             else:
-                return {"is_dish_favorite": False}
-
-        except Exception:
-            return {}
-
-    def is_ingredient_favorite(self, ingredient_name, user_id):
-        try:
-            if ingredient_name in self.get_all_favorites(user_id):
-                return {"is_ingredient_favorite": True}
-            else:
-                return {"is_ingredient_favorite": False}
+                return {"is_favorite": False}
 
         except Exception:
             return {}

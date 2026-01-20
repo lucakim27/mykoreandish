@@ -25,7 +25,7 @@
   <h3>Nutrient</h3>
   <div class="dietary-tags" id="nutrient-container"></div>
 
-  <h3 class="similar-dish-head">Personal Note</h3>
+  <h3 class="similar-dish-head" id="note-title">Personal Note</h3>
   <div id="note-element"></div>
 
   <div class="button-box" style="margin-bottom: -25px" id="review-ingredient-btn">
@@ -33,25 +33,25 @@
       type="button"
       class="button select-button"
       onclick="openIngredientFormContainer()"
-      id="openFormBtn"
+      id="review-form-btn"
     >
       Open review form
     </button>
   </div>
   <br/>
 
-  <div id="ingredient-form-container" class="modal" style="display: none"></div>
+  <div id="review-form-container" class="modal"></div>
 </div>
 
 <script>
   function openIngredientFormContainer() {
-    if (document.getElementById('ingredient-form-container').style.display === 'block') {
-      document.getElementById('ingredient-form-container').style.display = 'none'
-      document.getElementById('openFormBtn').innerText = "Open review form"
-    } else {
-      document.getElementById('ingredient-form-container').style.display = 'block'
-      document.getElementById('openFormBtn').innerText = "Close review form"
-    }
+    const container = document.getElementById('review-form-container');
+    const button = document.getElementById('review-form-btn');
+
+    const isOpen = container.classList.contains('show');
+
+    container.classList.toggle('show');
+    button.innerText = isOpen ? "Open review form" : "Close review form";
   }
   function disableButton() {
     document.getElementById("submitButton").disabled = true;

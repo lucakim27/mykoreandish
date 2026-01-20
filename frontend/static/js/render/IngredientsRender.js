@@ -3,7 +3,7 @@ export function renderIngredients(ingredients) {
 
     for (const ingredient of ingredients) {
         ingredientsContainer.innerHTML += `
-        <option value="${ingredient.ingredient}">${ingredient.ingredient}</option>
+        <option value="${ingredient.ingredient}">${ingredient.ingredient.replaceAll("_", " ")}</option>
         `;
     }
 }

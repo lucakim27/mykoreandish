@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       getUserHistory(user_id)
     ]);
 
-    renderUserProfile(user.user);
+    renderUserProfile(user);
     renderUserHistory(history.history);
 
   } catch (err) {

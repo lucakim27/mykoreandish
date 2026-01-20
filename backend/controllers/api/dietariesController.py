@@ -32,6 +32,7 @@ def update_dietary_review():
     return redirect('/users')
 
 @dietaries_bp.route('/<dish_name>/<user_id>', methods=['POST'])
+@login_required
 def add_dietary_review(dish_name, user_id):
     dietary_selection = request.form.get('dietary')
     dietary_manager.add_dietary_review(dish_name, user_id, dietary_selection)

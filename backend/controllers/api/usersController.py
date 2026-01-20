@@ -5,6 +5,8 @@ users_api_bp = Blueprint('users', __name__, url_prefix='/api/users')
 
 @users_api_bp.route('/me', methods=['GET'])
 def get_current_user():
+    if g.user is None:
+        return {"error": "Unauthorized"}, 401
     return g.user, 200
 
 @users_api_bp.route('/count', methods=['GET'])

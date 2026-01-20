@@ -1,4 +1,5 @@
 import { resolveHistoryType } from "../utils/historyType.js";
+import { timeAgo } from "../utils/timeAgo.js";
 
 export function renderUserHistory(history, meta) {
   const container = document.getElementById("price_history");
@@ -31,7 +32,7 @@ export function renderHistoryItem(item, meta) {
       <span class="price">
         ${item.nutrient ? item.ingredient : item.dish_name}
       </span>
-      <span class="timestamp">(${item.timestamp})</span>
+      <span class="timestamp">(${timeAgo(item.timestamp)})</span>
     </div>
     <br />
     ${renderUpdateSection(item, meta)}

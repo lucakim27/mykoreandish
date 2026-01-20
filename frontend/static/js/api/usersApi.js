@@ -1,5 +1,8 @@
 export async function getCurrentUser() {
   const res = await fetch("/api/users/me");
+  if (res.status === 401) {
+    return null;
+  }
   if (!res.ok) throw new Error("Failed to fetch user");
   return res.json();
 }

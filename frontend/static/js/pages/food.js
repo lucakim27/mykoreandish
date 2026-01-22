@@ -8,7 +8,7 @@ import { getAllCountries } from "../api/countriesApi.js";
 import { getNote } from "../api/notesApi.js";
 import { getDishOrIngredientName } from "../utils/url.js";
 import { initFavoriteButton, renderDishDetails, renderDietaries, renderTastes, renderReviewFormContainer, renderUserNote, renderSimilarDishes, renderFavoriteButton, renderPriceInfo, renderIngredients } from "../render/foodRender.js";
-import { bindFavoriteButton } from "../events/buttonEvents.js";
+import { bindFavoriteButton, bindAddButton } from "../events/buttonEvents.js";
 import { textareaEventBinding } from "../events/textareaEvent.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     initFavoriteButton(favorite.is_favorite);
     bindFavoriteButton();
     textareaEventBinding(dish.dish_name, user ? user.google_id : null);
+    bindAddButton(countries);
 
   } catch (err) {
     console.error(err);

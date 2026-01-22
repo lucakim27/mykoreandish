@@ -29,9 +29,9 @@ class DietaryManager:
                 'timestamp': self.firestore.SERVER_TIMESTAMP
             }
             self.dietaries_ref.add(dietary_instance)
-            flash('Dietary review added successfully!', 'success')
+            print("Dietary review added: ", dietary_instance)
         except Exception as e:
-            flash(f'Error adding dietary review: {e}', 'error')
+            print(f'Error adding dietary review: {e}', 'error')
     
     def get_dietary_review_by_id(self, history_id):
         review_doc = self.dietaries_ref.document(history_id).get()

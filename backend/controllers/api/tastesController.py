@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request
+from flask import Blueprint, g, redirect, request
 from backend.utils.login import login_required
 from ...services.managers import taste_manager, aggregate_manager
 
@@ -12,16 +12,17 @@ def delete_taste_review(id):
     aggregate_manager.delete_aggregate(dish_review)
     return '', 204
 
-@tastes_bp.route('/<dish_name>/<user_id>', methods=['POST'])
+@tastes_bp.route('/<dish_name>', methods=['POST'])
 @login_required
-def add_taste_review(dish_name, user_id):
-    spiciness = request.form.get('spiciness')
-    sweetness = request.form.get('sweetness')
-    sourness = request.form.get('sourness')
-    texture = request.form.get('texture')
-    temperature = request.form.get('temperature')
-    healthiness = request.form.get('healthiness')
-    rating = request.form.get('rating')
+def add_taste_review(dish_name):
+    user_id = g.user['google_id']
+    spiciness = request.get_json()['spiciness']
+    sweetness = request.get_json()['sweetness']
+    sourness = request.get_json()['sourness']
+    texture = request.get_json()['texture']
+    temperature = request.get_json()['temperature']
+    healthiness = request.get_json()['healthiness']
+    rating = request.get_json()['rating']
     taste_manager.add_taste_review(
         user_id,
         dish_name,
@@ -42,7 +43,7 @@ def add_taste_review(dish_name, user_id):
         "rating": int(rating),
         "healthiness": int(healthiness)
     })
-    return redirect('/dishes/' + dish_name)
+    return '', 204
 
 
 @tastes_bp.route('/', methods=['POST'])

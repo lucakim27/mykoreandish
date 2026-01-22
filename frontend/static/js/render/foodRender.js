@@ -172,23 +172,43 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
                 <button type="button" id="seg-price" class="segment-btn" onclick="selectReviewType('price')">Price</button>
             </div>
             
-            <form id="dietaryForm" method="POST" action="/api/dietaries/${dish_name}/${user_id}" onsubmit="disableDietaryButton()">
+            <form id="dietaryForm">
                 <label for="dietary" style="color: #2c3e50"><b>Dietary:</b></label>
                 <select id="dietary" name="dietary" required>
                     ${dietaries.map(dietary => `<option value="${dietary}">${dietary}</option>`).join('')}
                 </select>
-                <button type="submit" id="submitDietaryButton" class="button submit-button">Submit dietary review</button>
+                <button
+                    type="button"
+                    id="submitDietaryButton"
+                    data-user="${user_id}"
+                    data-dish="${dish_name}"
+                    data-type="dietary"
+                    class="button submit-button add-btn"
+                    aria-label="add dietary review"
+                >
+                    Submit dietary review
+                </button>
             </form>
             
-            <form id="ingredientForm" method="POST" action="/api/ingredients/${dish_name}/${user_id}" style="display:none;" onsubmit="disableIngredientButton()">
+            <form id="ingredientForm" style="display:none;">
                 <label for="ingredient"><b>Ingredient:</b></label>
                 <select id="ingredient" name="ingredient" required>
                     ${ingredients.map(ingredient => `<option value="${ingredient.ingredient}">${ingredient.ingredient.replaceAll("_", " ")}</option>`).join('')}
                 </select>
-                <button type="submit" id="submitIngredientButton" class="button submit-button">Submit ingredient review</button>
+                <button
+                    type="button"
+                    id="submitIngredientButton"
+                    data-user="${user_id}"
+                    data-dish="${dish_name}"
+                    data-type="ingredient"
+                    class="button submit-button add-btn"
+                    aria-label="add ingredient review"
+                >
+                    Submit ingredient review
+                </button>
             </form>
             
-            <form id="tasteForm" method="POST" action="/api/tastes/${dish_name}/${user_id}" style="display:none;" onsubmit="disableTasteButton()">
+            <form id="tasteForm"style="display:none;">
                 <div class="input-group">
                     <label for="spiciness"><b>Spiciness:</b></label>
                     <select id="spiciness" name="spiciness" required>
@@ -254,21 +274,38 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
                         <option value="5">Excellent</option>
                     </select>
                 </div>
-                <div class="button-box" style="display: flex;">
-                    <button type="submit" id="submitTasteButton" class="button select-button">Submit taste review</button>
-                </div>
+                <button
+                    type="button"
+                    id="submitTasteButton"
+                    data-user="${user_id}"
+                    data-dish="${dish_name}"
+                    data-type="taste"
+                    class="button submit-button add-btn"
+                    aria-label="add taste review"
+                >
+                    Submit taste review
+                </button>                
             </form>
 
-            <form id="priceForm" method="POST" action="/api/prices/${dish_name}/${user_id}" style="display:none;" onsubmit="disablePriceButton()">
+            <form id="priceForm" style="display:none;">
                 <div class="input-group">
                     <label for="country"><b>Country:</b></label>
-                    <select id="priceFormCountry" name="country" required onchange="updatePriceFormCities()">
+                    <select id="country" name="country" required>
                         ${Object.keys(countries).map(country => `<option value="${country}">${country}</option>`).join('')}
                     </select><br>
                     <label for="price"><b>Price:</b></label><br>
-                    <input type="number" step="0.01" min="0" placeholder="34.50" name="price" required>
+                    <input id="price" type="number" step="0.01" min="0" placeholder="34.50" name="price" required>
                 </div>
-                <button type="submit" id="submitPriceButton" class="button submit-button">Submit price review</button>
+                <button
+                    type="button"
+                    data-user="${user_id}"
+                    data-dish="${dish_name}"
+                    data-type="price"
+                    class="button submit-button add-btn"
+                    aria-label="add price review"
+                >
+                    Submit price review
+                </button>         
             </form>
         </div>
     `;

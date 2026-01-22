@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect
+from flask import Blueprint, g, request, redirect
 from backend.utils.login import login_required
 from ...services.managers import ingredient_manager, aggregate_manager
 
@@ -35,10 +35,11 @@ def update_ingredient_review(history_id, old_ingredient, dish_name):
     aggregate_manager.update_ingredient_aggregate(dish_name, old_ingredient, new_ingredient)
     return redirect('/users/')
 
-@ingredients_bp.route('/<dish_name>/<user_id>', methods=['POST'])
+@ingredients_bp.route('/<dish_name>', methods=['POST'])
 @login_required
-def add_ingredient_review(dish_name, user_id):
-    ingredient_selection = request.form.get('ingredient')
-    ingredient_manager.add_ingredient_review(dish_name, user_id, ingredient_selection)
-    aggregate_manager.add_ingredient_aggregate(dish_name, ingredient_selection)
-    return redirect('/dishes/' + dish_name)
+def add_ingredient_review(dish_name):
+    user_id = g.user['google_id']
+    ingredient = request.get_json()['ingredient']
+    ingredient_manager.add_ingredient_review(dish_name, user_id, ingredient)
+    aggregate_manager.add_ingredient_aggregate(dish_name, ingredient)
+    return '', 204

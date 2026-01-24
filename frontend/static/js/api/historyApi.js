@@ -1,12 +1,6 @@
-export async function getUserHistory(user_id) {
-    const res = await fetch(`/api/histories/${user_id}`);
-    if (!res.ok) throw new Error("Failed to fetch user history");
-    return res.json();
-}
-
-export async function getHistoryMeta() {
+export async function getUserHistory() {
     const res = await fetch(`/api/histories/`);
-    if (!res.ok) throw new Error("Failed to fetch history meta");
+    if (!res.ok) throw new Error("Failed to fetch user history");
     return res.json();
 }
 

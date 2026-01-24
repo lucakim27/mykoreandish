@@ -1,4 +1,4 @@
-from flask import Blueprint, g, redirect, request
+from flask import Blueprint, g, request
 from backend.utils.login import login_required
 from ...services.managers import price_manager
 
@@ -7,18 +7,17 @@ prices_bp = Blueprint('prices', __name__, url_prefix='/api/prices')
 @prices_bp.route('/<dish_name>', methods=['GET'])
 def get_price_info(dish_name):
     price = price_manager.get_price_info(dish_name)
-    print(price)
     return price, 200
 
-@prices_bp.route('/update_price_review', methods=['POST'])
+@prices_bp.route('/', methods=['PUT'])
 @login_required
 def update_price_review():
-    history_id = request.form.get('history_id')
-    new_price = request.form.get('price')
-    new_country = request.form.get('country')
-    new_state = request.form.get('state')
-    price_manager.update_price(history_id, new_price, new_country, new_state)
-    return redirect('/users')
+    data = request.get_json()
+    history_id = data['history_id']
+    new_price = data['price']
+    new_country = data['country']
+    price_manager.update_price(history_id, new_price, new_country)
+    return '', 204
 
 @prices_bp.route('/<id>', methods=['DELETE'])
 @login_required

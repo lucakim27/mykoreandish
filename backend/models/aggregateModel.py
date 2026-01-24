@@ -33,12 +33,10 @@ class AggregateManager:
         else:
             aggregate_ref.set({"ingredient_distribution": {ingredient_selection: 1}})
     
-    def delete_dietary_aggregate(self, dietary):
-        if dietary is None:
-            flash("Dietary not found.", "error")
+    def delete_dietary_aggregate(self, dish_name, dietary):
+        if dish_name is None or dietary is None:
+            print("Dietary not found.", "error")
             return
-        dish_name = dietary['dish_name']
-        dietary = dietary['dietary']
         aggregate_ref = self.db.collection("Aggregates").document(dish_name)
         doc = aggregate_ref.get()
         if doc.exists:
@@ -58,12 +56,10 @@ class AggregateManager:
                 if not updated_data:  
                     aggregate_ref.delete()
 
-    def delete_ingredient_aggregate(self, ingredient):
-        if ingredient is None:
-            flash("Ingredient not found!", "error")
+    def delete_ingredient_aggregate(self, dish_name, ingredient):
+        if dish_name is None or ingredient is None:
+            print("Ingredient not found!", "error")
             return
-        dish_name = ingredient['dish_name']
-        ingredient = ingredient['ingredient']
         aggregate_ref = self.db.collection("Aggregates").document(dish_name)
         doc = aggregate_ref.get()
         if doc.exists:
@@ -84,13 +80,11 @@ class AggregateManager:
                     aggregate_ref.delete()
 
     def update_dietary_aggregate(self, dish_name, old_dietary, new_dietary):
-        dietary = {'dish_name': dish_name, 'dietary': old_dietary}
-        self.delete_dietary_aggregate(dietary)
+        self.delete_dietary_aggregate(dish_name, old_dietary)
         self.add_dietary_aggregate(dish_name, new_dietary)
     
     def update_ingredient_aggregate(self, dish_name, old_ingredient, new_ingredient):
-        ingredient = {'dish_name': dish_name, 'ingredient': old_ingredient}
-        self.delete_ingredient_aggregate(ingredient)
+        self.delete_ingredient_aggregate(dish_name, old_ingredient)
         self.add_ingredient_aggregate(dish_name, new_ingredient)
 
     def add_aggregate(self, dish_name, review_data):
@@ -252,16 +246,6 @@ class AggregateManager:
             dish_name = doc.id
             matching_dishes.append(dish_name)
         return matching_dishes
-    
-    # def get_dishes_by_ingredient(self, ingredient):
-    #     aggregates_ref = self.db.collection("Aggregates")
-
-    #     field_path = f"ingredient_distribution.`{ingredient}`"
-
-    #     query = aggregates_ref.where(field_path, ">", 0)
-
-    #     results = query.stream()
-    #     return [doc.id for doc in results]
     
     def get_total_reviews(self):
         dietary_reviews = self.db.collection("Dietaries").count().get()[0][0].value

@@ -1,4 +1,4 @@
-from flask import Blueprint, g, redirect, request
+from flask import Blueprint, g, request
 from backend.utils.login import login_required
 from ...services.managers import taste_manager, aggregate_manager
 
@@ -46,18 +46,11 @@ def add_taste_review(dish_name):
     return '', 204
 
 
-@tastes_bp.route('/', methods=['POST'])
+@tastes_bp.route('/', methods=['PUT'])
 @login_required
 def update_taste_review():
-    history_id = request.form.get('history_id')
-    spiciness = request.form.get('spiciness')
-    sweetness = request.form.get('sweetness')
-    sourness = request.form.get('sourness')
-    texture = request.form.get('texture')
-    temperature = request.form.get('temperature')
-    healthiness = request.form.get('healthiness')
-    rating = request.form.get('rating')
-    dish_review = taste_manager.get_dish_review_by_id(history_id)
+    data = request.get_json()
+    dish_review = taste_manager.get_dish_review_by_id(data['history_id'])
     aggregate_manager.update_aggregate(dish_review['dish_name'], {
         "spiciness": int(dish_review['spiciness']),
         "sweetness": int(dish_review['sweetness']),
@@ -67,22 +60,22 @@ def update_taste_review():
         "rating": int(dish_review['rating']),
         "healthiness": int(dish_review['healthiness'])
     }, {
-        "spiciness": int(spiciness),
-        "sweetness": int(sweetness),
-        "sourness": int(sourness),
-        "temperature": int(temperature),
-        "texture": int(texture),
-        "rating": int(rating),
-        "healthiness": int(healthiness)
+        "spiciness": int(data['spiciness']),
+        "sweetness": int(data['sweetness']),
+        "sourness": int(data['sourness']),
+        "temperature": int(data['temperature']),
+        "texture": int(data['texture']),
+        "rating": int(data['rating']),
+        "healthiness": int(data['healthiness'])
     })
     taste_manager.update_review(
-        history_id, 
-        spiciness, 
-        sweetness, 
-        sourness, 
-        texture, 
-        temperature, 
-        healthiness, 
-        rating
+        data['history_id'], 
+        data['spiciness'], 
+        data['sweetness'], 
+        data['sourness'], 
+        data['texture'], 
+        data['temperature'], 
+        data['healthiness'], 
+        data['rating']
     )
-    return redirect('/users')
+    return '', 204

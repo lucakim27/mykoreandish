@@ -12,7 +12,7 @@ export function textareaEventBinding(name, user_id) {
 
         saveTimeout = setTimeout(async () => {
             try {
-                const result = await addNote(name, user_id, textarea.value);
+                const result = await addNote(name, textarea.value);
                 document.getElementById("note-status").style.backgroundColor = "#4CAF50";
             } catch (err) {
                 document.getElementById("note-status").style.backgroundColor = "#e53935";

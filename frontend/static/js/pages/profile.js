@@ -1,6 +1,7 @@
 import { getCurrentUser } from "../api/usersApi.js";
 import { renderProfile } from "../render/profileRender.js";
 import { getAllDietaries } from "../api/dietariesApi.js";
+import { bindDietaryPreferenceButton } from "../events/selectEvents.js"
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         ]);
     
     renderProfile(allDietaries, user);
+    bindDietaryPreferenceButton();
 
   } catch (err) {
     console.error(err);

@@ -12,9 +12,10 @@ import { getDishesByIngredient } from "../api/dishesApi.js";
 import { getDishOrIngredientName } from "../utils/url.js";
 import { getAllNutrients, getIngredientNutrients } from "../api/nutrientsApi.js";
 import { getNote } from "../api/notesApi.js";
-import { bindFavoriteButton } from "../events/buttonEvents.js";
+import { bindFavoriteButton, bindAddButton } from "../events/buttonEvents.js";
 import { isFavorite } from "../api/favoritesApi.js";
 import { textareaEventBinding } from "../events/textareaEvent.js";
+import { getAllCountries } from "../api/countriesApi.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -25,13 +26,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         AllNutrients,
         favoriteResult,
         note,
-        nutrients
+        nutrients,
+        countries
     ] = await Promise.all([
         getDishesByIngredient(ingredient.ingredient),
         getAllNutrients(),
         user ? isFavorite(ingredient.ingredient, user.google_id) : Promise.resolve([]),
-        user ? getNote(ingredient.ingredient, user.google_id) : Promise.resolve([]),
-        getIngredientNutrients(ingredient.ingredient)
+        user ? getNote(ingredient.ingredient) : Promise.resolve([]),
+        getIngredientNutrients(ingredient.ingredient),
+        getAllCountries()
     ]);
 
     renderNutrientContainer(ingredient, AllNutrients, user ? user.google_id : null)
@@ -42,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderFavoriteButton(favoriteResult.is_favorite, ingredient.ingredient, user ? user.google_id : null)
     bindFavoriteButton();
     textareaEventBinding(ingredient.ingredient, user ? user.google_id : null);
-    
+    bindAddButton(countries)
 
   } catch (err) {
     console.error(err);

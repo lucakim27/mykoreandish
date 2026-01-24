@@ -1,4 +1,4 @@
-from flask import Blueprint, g, jsonify, redirect, request
+from flask import Blueprint, g, jsonify, request
 from ...services.managers import user_manager
 
 users_api_bp = Blueprint('users', __name__, url_prefix='/api/users')
@@ -24,8 +24,9 @@ def get_user_by_id(user_id):
     user = user_manager.get_user_by_id(user_id)
     return user, 200
 
-@users_api_bp.route('/<user_id>', methods=['POST'])
-def update_dietary_preference(user_id):
+@users_api_bp.route('/dietary', methods=['POST'])
+def update_dietary_preference():
+    user_id = g.user['google_id']
     dietary_preference = request.form.get('dietary_preference')
     user_manager.update_dietary_preference(user_id, dietary_preference)
-    return redirect('/users/profile')
+    return '', 204

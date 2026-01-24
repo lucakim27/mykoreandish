@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       getDishAggregates(dish.dish_name),
       getAllDietaries(),
       getAllIngredients(),
-      user ? isFavorite(dish.dish_name, user.google_id) : Promise.resolve([]),
+      user ? isFavorite(dish.dish_name) : Promise.resolve([]),
       getSimilarDishes(dish.dish_name),
       getAllCountries(),
       getPriceInfo(dish.dish_name),
-      user ? getNote(dish.dish_name, user.google_id) : Promise.resolve([])
+      user ? getNote(dish.dish_name) : Promise.resolve([])
     ]);
 
     renderDishDetails(dish);

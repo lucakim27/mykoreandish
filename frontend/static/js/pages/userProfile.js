@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const [user, history] = await Promise.all([
       getUserProfile(user_id),
-      getUserHistory(user_id)
+      getUserHistory()
     ]);
 
     renderUserProfile(user);

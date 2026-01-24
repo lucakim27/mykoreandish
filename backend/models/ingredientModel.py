@@ -26,17 +26,6 @@ class IngredientManager:
                 return ingredient
         return None
     
-    def get_ingredients_instance(self, names: List[str]) -> List[Dict[str, str]]:
-        ingredients = self.get_all_ingredients()
-        matched_ingredients = []
-        for name in names:
-            for ingredient in ingredients:
-                if ingredient['ingredient'].lower() == name.lower():
-                    matched_ingredients.append(ingredient)
-                    break
-                
-        return matched_ingredients
-    
     def add_ingredient_review(self, dish_name: str, google_id: str, ingredient: str) -> None:
         try:
             self._get_user(google_id)
@@ -70,10 +59,7 @@ class IngredientManager:
             review_data = review_doc.to_dict()
             dish_name = review_data.get("dish_name")
             ingredient = review_data.get("ingredient")
-            return {
-                "dish_name": dish_name,
-                "ingredient": ingredient
-            }
+            return dish_name, ingredient
         else:
             return None
     
@@ -118,16 +104,6 @@ class IngredientManager:
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')
         return ingredients
-    
-    def get_ingredients_by_dish(self, dish_name: str) -> List[str]:
-        ingredients = []
-        try:
-            ingredient_ref = self.ingredients_ref.where('dish_name', '==', dish_name)
-            ingredients = ingredient_ref.stream()
-            ingredients = [ingredient.to_dict().get('ingredient') for ingredient in ingredients]
-        except Exception as e:
-            flash(f'Error retrieving ingredients from Firestore: {e}', 'error')
-        return ingredients
 
     def get_similar_dishes(self, current_dish_name: str) -> List[Dict[str, Any]]:
         try:
@@ -140,7 +116,7 @@ class IngredientManager:
                             "korean_name": row.get('korean_name', row['dish_name']),
                         }
             except Exception as e:
-                flash(f"Error reading dishes from CSV: {e}", "error")
+                print(f"Error reading dishes from CSV: {e}", "error")
                 return []
             current_ingredient_docs = self.ingredients_ref.where("dish_name", "==", current_dish_name).stream()
             current_ingredients = set(
@@ -172,5 +148,5 @@ class IngredientManager:
             scored_similars.sort(key=lambda x: x["score"], reverse=True)
             return scored_similars
         except Exception as e:
-            flash(f"Error finding similar dishes: {e}", "error")
+            print(f"Error finding similar dishes: {e}", "error")
             return []

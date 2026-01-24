@@ -318,7 +318,6 @@ export function renderFavoriteButton(isFavorite, dish_name, user_id) {
     <button
       class="favorite-btn"
       data-dish="${dish_name}"
-      data-user="${user_id}"
       data-favorite="${isFavorite}"
       aria-label="Toggle favorite"
     >

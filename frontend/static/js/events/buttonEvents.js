@@ -6,6 +6,8 @@ import { renderIngredients } from "../render/foodRender.js";
 import { getPriceInfo } from "../api/pricesApi.js";
 import { renderPriceInfo } from "../render/foodRender.js";
 import { renderTastes } from "../render/foodRender.js";
+import { getIngredientNutrients } from "../api/nutrientsApi.js";
+import { renderNutrients } from "../render/ingredientRender.js";
 
 export function bindDeleteButton() {
   document.addEventListener("click", async (event) => {
@@ -32,10 +34,10 @@ export function bindFavoriteButton() {
     const btn = e.target.closest(".favorite-btn");
     if (!btn) return;
 
-    const { dish, user, favorite } = btn.dataset;
+    const { dish, favorite } = btn.dataset;
     const isFavorite = favorite === "true";
 
-    const url = `/api/favorites/${dish}/${user}`;
+    const url = `/api/favorites/${dish}`;
     const method = isFavorite ? "DELETE" : "POST";
 
     btn.disabled = true;
@@ -65,11 +67,15 @@ export function bindAddButton(countries) {
     if (!btn) return;
 
     const dish_name = btn.dataset.dish;
+    const ingredient_name = btn.dataset.ingredient;
     const type = btn.dataset.type;
 
     let api = null;
     let content = null;
-    if (type == "dietary") {
+    if (type === "nutrient") {
+      api = `/api/nutrients/${ingredient_name}`;
+      content = { nutrient: document.getElementById("nutrient").value };
+    } else if (type == "dietary") {
       api = `/api/dietaries/${dish_name}`;
       content = { dietary: document.getElementById("dietary").value };
     } else if (type == "ingredient") {
@@ -120,7 +126,10 @@ export function bindAddButton(countries) {
         throw new Error(`Request failed: ${res.status}`);
       }
 
-      if (type === "dietary") {
+      if (type == "nutrient") {
+        const nutrients = await getIngredientNutrients(ingredient_name)
+        renderNutrients(nutrients)
+      } else if (type === "dietary") {
         const aggregates = await getDishAggregates(dish_name);
         const dietaryMap = aggregates?.dietary_distribution ?? {};
         const dietaryArray = Object.entries(dietaryMap).map(
@@ -147,6 +156,85 @@ export function bindAddButton(countries) {
       console.error(err);
       btn.disabled = false;
       showToast("Failed to add review", "error");
+    }
+  });
+}
+
+export function bindUpdateButton() {
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".update-btn");
+    if (!btn) return;
+
+    const history_id = btn.dataset.id;
+    const type = btn.dataset.type;
+
+    let api = null;
+    let content = null;
+
+    if (type == "nutrient") {
+      api = `/api/nutrients`;
+      content = { 
+        history_id: history_id,
+        nutrient: document.getElementById(`nutrient_${history_id}`).value
+      };
+    } else if (type == "dietary") {
+      api = `/api/dietaries`;
+      content = {
+        history_id: history_id,
+        dietary: document.getElementById(`dietary_${history_id}`).value
+      };
+    } else if (type == "ingredient") {
+      api = `/api/ingredients`;
+      content = {
+        history_id: history_id,
+        ingredient: document.getElementById(`ingredient_${history_id}`).value
+      };
+    } else if (type == "price") {
+      api = `/api/prices`;
+      content = { 
+        history_id: history_id,
+        price: document.getElementById(`price_${history_id}`).value,
+        country: document.getElementById(`country_${history_id}`).value
+      };
+    } else if (type == "taste") {
+      api = `/api/tastes`;
+      content = {
+        spiciness: document.getElementById(`spiciness_${history_id}`).value,
+        sweetness: document.getElementById(`sweetness_${history_id}`).value,
+        temperature: document.getElementById(`temperature_${history_id}`).value,
+        healthiness: document.getElementById(`healthiness_${history_id}`).value,
+        sourness: document.getElementById(`sourness_${history_id}`).value,
+        texture: document.getElementById(`texture_${history_id}`).value,
+        rating: document.getElementById(`rating_${history_id}`).value,
+        history_id: history_id
+      };
+    }
+
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(
+        api,
+        {
+          method: "PUT",
+          body: JSON.stringify(content),
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`Request failed: ${res.status}`);
+      }
+
+      btn.textContent = "Updated";
+      showToast("Review updated successfully", "success");
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false;
+      showToast("Failed to update review", "error");
     }
   });
 }

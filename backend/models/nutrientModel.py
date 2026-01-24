@@ -102,21 +102,3 @@ class NutrientManager:
                 flash('Nutrient review deleted successfully.', 'success')
             except Exception as e:
                 flash(f'An error occurred while deleting the nutrient review: {e}', 'error')
-    
-    def get_ingredients_by_nutrient(self, nutrient: str) -> List[str]:
-        try:
-            nutrient_ref = self.nutrients_ref.where('nutrient', '==', nutrient)
-            nutrients = nutrient_ref.stream()
-            
-            ingredients = [nutrient.to_dict().get('ingredient') for nutrient in nutrients]
-            
-            if not ingredients:
-                return []
-            
-            return ingredients
-        except Exception as e:
-            flash(f'Error retrieving ingredients: {e}', 'error')
-            return []
-    
-    def get_nutrients_count(self):
-        return self.nutrients_ref.count().get()[0][0].value

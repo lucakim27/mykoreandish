@@ -87,15 +87,18 @@ export function renderNutrientContainer(ingredient, nutrients, user_id) {
     ingredientFormContainer.innerHTML = `
         <div class="modal-content">
             <form
-                method="POST"
-                action="/api/nutrients/${ingredient.ingredient}/${user_id}"
-                onsubmit="disableButton()"
             >
                 <label for="nutrient"><b>Nutrient:</b></label>
                 <select id="nutrient" name="nutrient" required>
                     ${nutrients.sort().map(nutrient => `<option value="${nutrient.nutrient}">${nutrient.nutrient}</option>`).join('')}
                 </select>
-                <button type="submit" id="submitButton" class="button submit-button">
+                <button
+                    type="button"
+                    data-ingredient="${ingredient.ingredient}"
+                    data-type="nutrient"
+                    class="button submit-button add-btn"
+                    aria-label="add nutrient review"
+                >
                     Submit nutrient review
                 </button>
             </form>

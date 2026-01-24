@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       allDietaries
     ] = await Promise.all([
       getAllDishes(),
-      user ? getFavoriteDishes(user.google_id) : Promise.resolve([]),
+      user ? getFavoriteDishes() : Promise.resolve([]),
       getAllIngredients(),
       getAllDietaries()
     ]);

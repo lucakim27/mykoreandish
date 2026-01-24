@@ -70,17 +70,6 @@ class PriceManager:
                 })
         return price_state_list
     
-    def get_available_countries(self, name):
-        prices_ref = self.prices_ref.where('dish_name', '==', name)
-        prices = prices_ref.stream()
-        countries = set()
-        for price_doc in prices:
-            data = price_doc.to_dict()
-            country = data.get('country')
-            if country:
-                countries.add(country)
-        return sorted(countries)
-    
     def get_price_history(self, google_id):
         prices_ref = self.prices_ref.where('google_id', '==', google_id)
         prices = prices_ref.stream()
@@ -97,7 +86,7 @@ class PriceManager:
         prices_list.sort(key=lambda x: x['timestamp'], reverse=True)
         return prices_list
     
-    def update_price(self, history_id, new_price, new_country, new_state):
+    def update_price(self, history_id, new_price, new_country):
         if not history_id or not new_price:
             flash('Invalid input for price.', 'error')
             return False
@@ -105,13 +94,12 @@ class PriceManager:
             price_ref = self.prices_ref.document(history_id)
             price_ref.update({
                 'price': new_price,
-                'country': new_country,
-                'state': new_state
+                'country': new_country
             })
-            flash('Price saved successfully!', 'success')
+            print('Price saved successfully!', 'success')
             return True
         except Exception as e:
-            flash(f'Error saving price: {e}', 'error')
+            print(f'Error saving price: {e}', 'error')
             return False
     
     def delete_price(self, history_id):

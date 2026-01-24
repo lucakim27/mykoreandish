@@ -29,12 +29,10 @@ export function renderProfile(dietaries, user) {
         <tr>
             <th>Dietary Preference</th>
             <td>
-                <form method="POST" action="/api/users/${user.google_id}">
-                    <select name="dietary_preference" onchange="this.form.submit()">
-                        <option value="">None</option>
-                        ${dietaries.map(dietary => `<option value="${dietary}" ${user.dietary_preference === dietary ? 'selected' : ''}>${dietary}</option>`).join('')}
-                    </select>
-                </form>
+                <select name="dietary_preference" class="dietary_preference">
+                    <option value="">None</option>
+                    ${dietaries.map(dietary => `<option value="${dietary}" ${user.dietary_preference === dietary ? 'selected' : ''}>${dietary}</option>`).join('')}
+                </select>
             </td>
         </tr>
     </table>

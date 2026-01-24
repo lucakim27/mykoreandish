@@ -1,5 +1,4 @@
 import csv
-from os import abort
 from flask import flash
 from typing import List, Dict, Any
 from backend.config.db import get_db
@@ -39,10 +38,7 @@ class DietaryManager:
             review_data = review_doc.to_dict()
             dish_name = review_data.get("dish_name")
             dietary = review_data.get("dietary")
-            return {
-                "dish_name": dish_name,
-                "dietary": dietary
-            }
+            return dish_name, dietary
         else:
             return None
 
@@ -95,23 +91,3 @@ class DietaryManager:
         except Exception as e:
             flash(f'Error reading ingredients from CSV: {e}', 'error')
         return dietaries
-    
-    def get_dietary_preference(self, google_id: str) -> str | None:
-        try:
-            user = self._get_user(google_id)
-            user_data = user[0].to_dict()
-            return user_data.get('dietary_preference', None)
-        except Exception:
-            return None
-
-    def get_all_reviews(self) -> List[Dict[str, Any]]:
-        reviews = []
-        try:
-            dietary_docs = self.dietaries_ref.stream()
-            for doc in dietary_docs:
-                review_data = doc.to_dict()
-                review_data['id'] = doc.id
-                reviews.append(review_data)
-        except Exception as e:
-            flash(f'Error retrieving dietary reviews: {e}', 'error')
-        return reviews

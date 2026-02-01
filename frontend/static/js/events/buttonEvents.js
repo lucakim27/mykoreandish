@@ -42,22 +42,24 @@ export function bindFavoriteButton() {
 
     btn.disabled = true;
 
-    const res = await fetch(url, { method });
-
-    if (!res.ok) {
-      showToast("Failed to update favorite status", "error");
-      btn.disabled = false;
-      return;
-    } else {
-      showToast(`Dish ${isFavorite ? "removed from" : "added to"} favorites`, "success");
-      btn.dataset.favorite = (!isFavorite).toString();
-      const icon = btn.querySelector("i");
-      icon.classList.toggle("fa-solid", !isFavorite);
-      icon.classList.toggle("fa-regular", isFavorite);
-      icon.style.color = !isFavorite ? "#d72638" : "";
-      btn.disabled = false;
+    try {
+      const res = await fetch(url, { method });
+      if (!res.ok) {
+        showToast("Failed to update favorite status", "error");
+        btn.disabled = false;
+        return;
+      } else {
+        showToast(`Dish ${isFavorite ? "removed from" : "added to"} favorites`, "success");
+        btn.dataset.favorite = (!isFavorite).toString();
+        const icon = btn.querySelector("i");
+        icon.classList.toggle("fa-solid", !isFavorite);
+        icon.classList.toggle("fa-regular", isFavorite);
+        icon.style.color = !isFavorite ? "#d72638" : "";
+        btn.disabled = false;
+      }
+    } catch(err) {
+      showToast(`Login to add ${dish} to your favorites`, "warning");
     }
-
   });
 }
 
@@ -155,7 +157,7 @@ export function bindAddButton(countries) {
     } catch (err) {
       console.error(err);
       btn.disabled = false;
-      showToast("Failed to add review", "error");
+      showToast(`Login to add ${type} review`, "warning");
     }
   });
 }

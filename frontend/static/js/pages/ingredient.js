@@ -31,8 +31,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     ] = await Promise.all([
         getDishesByIngredient(ingredient.ingredient),
         getAllNutrients(),
-        user ? isFavorite(ingredient.ingredient, user.google_id) : Promise.resolve([]),
-        user ? getNote(ingredient.ingredient) : Promise.resolve([]),
+        user 
+          ? isFavorite(ingredient.ingredient, user.google_id)
+          : Promise.resolve({ is_favorite: false }),
+        user
+          ? getNote(ingredient.ingredient)
+          : Promise.resolve({ content: "" }),
         getIngredientNutrients(ingredient.ingredient),
         getAllCountries()
     ]);

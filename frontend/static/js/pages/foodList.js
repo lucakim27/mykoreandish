@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderAllDishes(allDishes, favoriteDishes);
     renderDietaries(allDietaries);
     renderIngredients(allIngredients);
-
     setupFoodListEvents();
     bindFilterEvents();
     filterOptionEvents(favoriteDishes);

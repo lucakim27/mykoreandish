@@ -8,7 +8,7 @@ export function renderProfile(dietaries, user) {
         </tr>
         <tr>
             <th>Email</th>
-            <td>${user.email.length === 0 ? "N/A" : user.email}</td>
+            <td>${user.email === "" ? "N/A" : user.email}</td>
         </tr>
         <tr>
             <th>Admin</th>

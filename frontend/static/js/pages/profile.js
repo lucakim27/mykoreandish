@@ -5,12 +5,15 @@ import { bindDietaryPreferenceButton } from "../events/selectEvents.js"
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const user = await getCurrentUser();
-    const [allDietaries] = await Promise.all([
-          getAllDietaries()
-        ]);
+    const [
+      user,
+      dietaries
+    ] = await Promise.all([
+      getCurrentUser(),
+      getAllDietaries()
+    ]);
     
-    renderProfile(allDietaries, user);
+    renderProfile(dietaries, user);
     bindDietaryPreferenceButton();
 
   } catch (err) {

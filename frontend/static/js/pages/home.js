@@ -1,13 +1,12 @@
 import { getTotalReviews } from "../api/reviewsApi.js";
 import { getAllDishes } from "../api/dishesApi.js";
 import { getAllIngredients } from "../api/ingredientsApi.js";
-import { getCurrentUser, getTotalUsers } from "../api/usersApi.js";
+import { getTotalUsers } from "../api/usersApi.js";
 import { bindSearchEvents } from "../events/searchEvents.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const searchInput = document.getElementById("search-input");
   const searchResults = document.getElementById("search-results");
-
   const searchItems = [];
 
   try {

@@ -11,6 +11,7 @@ def get_favorite_dishes():
     return favorite_dishes, 200
 
 @favorites_bp.route('/<name>', methods=['GET'])
+@login_required
 def is_favorite(name):
     user_id = g.user['google_id']
     is_favorite = favorite_manager.is_favorite(name, user_id)

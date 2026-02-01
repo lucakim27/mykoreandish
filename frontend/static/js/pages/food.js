@@ -1,5 +1,6 @@
 import { getCurrentUser } from "../api/usersApi.js";
 import { getDishInstance, getDishAggregates, getSimilarDishes } from "../api/dishesApi.js";
+import { getSimilarTasteDishes } from "../api/tastesApi.js";
 import { isFavorite } from "../api/favoritesApi.js";
 import { getAllDietaries } from "../api/dietariesApi.js";
 import { getAllIngredients } from "../api/ingredientsApi.js";
@@ -7,7 +8,7 @@ import { getPriceInfo } from "../api/pricesApi.js";
 import { getAllCountries } from "../api/countriesApi.js";
 import { getNote } from "../api/notesApi.js";
 import { getDishOrIngredientName } from "../utils/url.js";
-import { initFavoriteButton, renderDishDetails, renderDietaries, renderTastes, renderReviewFormContainer, renderUserNote, renderSimilarDishes, renderFavoriteButton, renderPriceInfo, renderIngredients } from "../render/foodRender.js";
+import { initFavoriteButton, renderDishDetails, renderDietaries, renderTastes, renderReviewFormContainer, renderUserNote, renderSimilarDishes, renderFavoriteButton, renderPriceInfo, renderIngredients, renderSimilarTasteDishes } from "../render/foodRender.js";
 import { bindFavoriteButton, bindAddButton } from "../events/buttonEvents.js";
 import { textareaEventBinding } from "../events/textareaEvent.js";
 
@@ -23,7 +24,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         similarDishes,
         countries,
         priceInfo,
-        note
+        note,
+        similarTasteDishes
     ] = await Promise.all([
       getDishAggregates(dish.dish_name),
       getAllDietaries(),
@@ -32,7 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       getSimilarDishes(dish.dish_name),
       getAllCountries(),
       getPriceInfo(dish.dish_name),
-      user ? getNote(dish.dish_name) : Promise.resolve([])
+      user ? getNote(dish.dish_name) : Promise.resolve([]),
+      getSimilarTasteDishes(dish.dish_name)
     ]);
 
     renderDishDetails(dish);
@@ -48,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderIngredients(ingredientArray);
     renderFavoriteButton(favorite.is_dish_favorite, dish.dish_name, user ? user.google_id : null);
     renderSimilarDishes(similarDishes);
+    renderSimilarTasteDishes(similarTasteDishes);
     renderPriceInfo(priceInfo, countries);
     renderTastes(aggregates);
     renderUserNote(note.content);

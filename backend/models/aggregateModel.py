@@ -333,3 +333,20 @@ class AggregateManager:
         ]
 
         return top_ingredients
+
+    def get_aggregate_by_dish_name(self, dish_name):
+        doc_ref = self.db.collection("Aggregates").document(dish_name)
+        doc = doc_ref.get()
+        if doc.exists:
+            return doc.to_dict()
+        return None
+    
+    def get_all_aggregates(self):
+        aggregates_ref = self.db.collection("Aggregates")
+        docs = aggregates_ref.stream()
+        aggregate_list = []
+        for doc in docs:
+            data = doc.to_dict()
+            data['dish_name'] = doc.id
+            aggregate_list.append(data)
+        return aggregate_list

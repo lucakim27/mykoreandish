@@ -114,7 +114,7 @@ export function renderTastes(aggregates) {
 }
 
 export function renderSimilarDishes(similarDishes) {
-    const similarDishesContainer = document.getElementById("similar-dishes-element");
+    const similarDishesContainer = document.getElementById("shares-ingredients-element");
     if (!Array.isArray(similarDishes) || similarDishes.length === 0) {
         similarDishesContainer.innerHTML = "<p>No similar dishes found for this dish.</p>";
         return;
@@ -124,6 +124,20 @@ export function renderSimilarDishes(similarDishes) {
             <strong>${dish.korean_name}</strong>
             <small>${dish.dish_name}</small>
             ${dish.shared_ingredients ? `<div class="shared">Shares: ${dish.shared_ingredients.join(', ')}</div>` : ''}
+        </a>
+    `).join("");
+}
+
+export function renderSimilarTasteDishes(similarDishes) {
+    const similarDishesContainer = document.getElementById("similar-taste-element");
+    if (!Array.isArray(similarDishes) || similarDishes.length === 0) {
+        similarDishesContainer.innerHTML = "<p>No similar dishes found for this dish.</p>";
+        return;
+    }
+    similarDishesContainer.innerHTML = similarDishes.map(dish => `
+        <a href="/dishes/${dish.dish_name}" class="similar-dish-card">
+            <strong>${dish.dish_name}</strong>
+            <div class="shared">Similarity: ${dish.similarity_percentage}%</div>
         </a>
     `).join("");
 }
@@ -161,7 +175,7 @@ export function renderUserNote(note_content) {
 }
 
 
-export function renderReviewFormContainer(dish_name, dietaries, ingredients, countries, user_id) {
+export function renderReviewFormContainer(dish_name, dietaries, ingredients, countries) {
     const reviewFormContainer = document.getElementById("review-form-container");
     reviewFormContainer.innerHTML = `
         <div class="modal-content">
@@ -180,7 +194,6 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
                 <button
                     type="button"
                     id="submitDietaryButton"
-                    data-user="${user_id}"
                     data-dish="${dish_name}"
                     data-type="dietary"
                     class="button submit-button add-btn"
@@ -198,7 +211,6 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
                 <button
                     type="button"
                     id="submitIngredientButton"
-                    data-user="${user_id}"
                     data-dish="${dish_name}"
                     data-type="ingredient"
                     class="button submit-button add-btn"
@@ -277,7 +289,6 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
                 <button
                     type="button"
                     id="submitTasteButton"
-                    data-user="${user_id}"
                     data-dish="${dish_name}"
                     data-type="taste"
                     class="button submit-button add-btn"
@@ -298,7 +309,6 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
                 </div>
                 <button
                     type="button"
-                    data-user="${user_id}"
                     data-dish="${dish_name}"
                     data-type="price"
                     class="button submit-button add-btn"
@@ -311,7 +321,7 @@ export function renderReviewFormContainer(dish_name, dietaries, ingredients, cou
     `;
 }
 
-export function renderFavoriteButton(isFavorite, dish_name, user_id) {
+export function renderFavoriteButton(isFavorite, dish_name) {
   const container = document.getElementById("favorite-btn");
 
   container.innerHTML = `

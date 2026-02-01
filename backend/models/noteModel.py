@@ -1,5 +1,4 @@
 from typing import Dict, Any
-from flask import flash
 from backend.config.db import get_db
 
 class NoteManager:
@@ -9,6 +8,13 @@ class NoteManager:
         self.firestore = firestore_module
     
     def add_note(self, name, user_id, note_content):
+        self.notes_ref.add({
+            'name': name,
+            'user_id': user_id,
+            'content': note_content
+        })
+    
+    def update_note(self, name, user_id, note_content):
         existing_note = self.get_note(name, user_id)
 
         if existing_note:
@@ -22,13 +28,6 @@ class NoteManager:
             for doc in query.stream():
                 doc.reference.update({'content': note_content})
                 return
-
-        self.notes_ref.add({
-            'name': name,
-            'user_id': user_id,
-            'content': note_content
-        })
-
 
     def get_note(self, name, user_id) -> Dict[str, Any]:
         query = self.notes_ref.where('name', '==', name).where('user_id', '==', user_id).limit(1)

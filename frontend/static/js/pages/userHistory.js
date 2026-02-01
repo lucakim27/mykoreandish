@@ -1,11 +1,10 @@
-import { getUserHistory } from "../api/historyApi.js";
+import { getMyHistory } from "../api/historyApi.js";
 import { renderUserHistory } from "../render/userHistoryRender.js";
 import { bindDeleteButton, bindUpdateButton } from "../events/buttonEvents.js";
 import { getAllNutrients } from "../api/nutrientsApi.js";
 import { getAllDietaries } from "../api/dietariesApi.js";
 import { getAllCountries } from "../api/countriesApi.js";
 import { getAllIngredients } from "../api/ingredientsApi.js";
-
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -16,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       allNutrients,
       allCountries
     ] = await Promise.all([
-      getUserHistory(),
+      getMyHistory(),
       getAllDietaries(),
       getAllIngredients(),
       getAllNutrients(),  

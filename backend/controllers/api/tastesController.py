@@ -1,8 +1,13 @@
 from flask import Blueprint, g, request
 from backend.utils.login import login_required
-from ...services.managers import taste_manager, aggregate_manager
+from ...services.managers import taste_manager, aggregate_manager, taste_similarity_service
 
 tastes_bp = Blueprint('tastes', __name__, url_prefix='/api/tastes')
+
+@tastes_bp.route('/similar/<dish_name>', methods=['GET'])
+def get_similar_taste_dishes(dish_name):
+    similar_dishes = taste_similarity_service.find_similar_dishes(dish_name, 5)
+    return similar_dishes, 200
 
 @tastes_bp.route('/<id>', methods=['DELETE'])
 @login_required
@@ -45,7 +50,6 @@ def add_taste_review(dish_name):
     })
     return '', 204
 
-
 @tastes_bp.route('/', methods=['PUT'])
 @login_required
 def update_taste_review():
@@ -68,6 +72,7 @@ def update_taste_review():
         "rating": int(data['rating']),
         "healthiness": int(data['healthiness'])
     })
+
     taste_manager.update_review(
         data['history_id'], 
         data['spiciness'], 
@@ -78,4 +83,5 @@ def update_taste_review():
         data['healthiness'], 
         data['rating']
     )
+
     return '', 204

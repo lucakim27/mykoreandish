@@ -1,11 +1,10 @@
-export function renderFavoriteButton(isFavorite, ingredient_name, user_id) {
+export function renderFavoriteButton(isFavorite, ingredient_name) {
     const favoriteButtonContainer = document.getElementById("favorite-btn");
     
     favoriteButtonContainer.innerHTML = `
     <button
       class="favorite-btn"
       data-dish="${ingredient_name}"
-      data-user="${user_id}"
       data-favorite="${isFavorite}"
       aria-label="Toggle favorite"
     >
@@ -82,7 +81,7 @@ export function renderUserNote(note_content) {
     `;
 }
 
-export function renderNutrientContainer(ingredient, nutrients, user_id) {
+export function renderNutrientContainer(ingredient, nutrients) {
     const ingredientFormContainer = document.getElementById("review-form-container");
     ingredientFormContainer.innerHTML = `
         <div class="modal-content">

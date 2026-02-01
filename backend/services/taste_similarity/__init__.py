@@ -1,0 +1,1 @@
+from backend.services.taste_similarity.service import TasteSimilarityService

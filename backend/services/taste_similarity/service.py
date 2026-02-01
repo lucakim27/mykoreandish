@@ -10,6 +10,10 @@ class TasteSimilarityService:
 
     def find_similar_dishes(self, dish_name: str, k: int = 5) -> list[dict]:
         target_agg = self.aggregate_manager.get_aggregate_by_dish_name(dish_name)
+        
+        if target_agg is None:
+            return []
+        
         target_taste_vector = build_taste_vector(target_agg)
         target_vector = normalize_taste_vector(target_taste_vector)
 
